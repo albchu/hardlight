@@ -42,7 +42,7 @@ bool HardLight::BuildScene()
 	PxBoxGeometry cubeGeometry(cubeDims);
 	for (int i=0; i<nbObjects; i++)// Loop for number of objects
 	{
-		cubeTransform.p  = PxVec3(0.0f,4.0f+5*i,0.0f);
+		cubeTransform.p  = PxVec3(0.0f,4.0f+3*i,0.0f);
 
 		PxRigidDynamic *cubeActor = PxCreateDynamic(*gPhysics, cubeTransform, cubeGeometry, *cubeMaterial, cubeDensity);
 		if (!cubeActor) return false;

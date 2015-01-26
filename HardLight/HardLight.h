@@ -54,12 +54,16 @@ private:
 	float globalGravity;
 	Uint32 msGraphics;
 	Uint32 msPhysics;
+	Uint32 msMax;
 
 	int grid_size;
 	int nbObjects;
 
 	PxVec3 gCameraPos;
 	PxVec3 gCameraForward;
+	GLfloat lightAmbientColour[4];
+	GLfloat lightDiffuseColour[4];
+	GLfloat lightSpecularColour[4];
 
 	void DrawRigidActor(PxRigidActor* actor);
 

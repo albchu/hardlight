@@ -6,10 +6,9 @@ void HardLight::OnLoop()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
-
-	float elapsed = (float) (msCurrent - msPhysics);
-	elapsed /= 1000.0;
-	gScene->simulate(elapsed);
+	Uint32 elapsed = msCurrent - msPhysics;
+	if (elapsed > msMax) elapsed = msMax;
+	gScene->simulate(elapsed / 1000.0f);
 	msPhysics = msCurrent;
 
 	while(!gScene->fetchResults() )
