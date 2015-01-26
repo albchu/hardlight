@@ -21,7 +21,7 @@ HardLight::HardLight()
 	msGraphics = msPhysics;
 
 	grid_size = 10;
-	nbObjects = 200;
+	nbObjects = 2;
 
 	gCameraPos = PxVec3(5.0f, 7.0f, 20.0f);
 	gCameraForward = PxVec3(-0.3f, 0.0f, -1.0f);

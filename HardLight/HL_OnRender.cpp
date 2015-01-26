@@ -11,27 +11,36 @@ void HardLight::DrawRigidActor(PxRigidActor* actor)
 	PxU32 nShapes = actor->getNbShapes();
 	PxShape** shapes = new PxShape*[nShapes];
 	actor->getShapes(shapes, nShapes);
-	for (int i = 0; i < nShapes; i++)
+	for (unsigned int i = 0; i < nShapes; i++)
 	{
 		glPushMatrix();
 
 		PxTransform lPose = shapes[i]->getLocalPose();
 		glTranslatef(lPose.p.x, lPose.p.y, lPose.p.z);
 
+		GLUquadricObj * quad = gluNewQuadric();
+		gluQuadricDrawStyle(quad, GLU_FILL);
+		gluQuadricNormals(quad, GLU_SMOOTH); 
+		gluQuadricOrientation(quad, GLU_OUTSIDE);
+
 		PxGeometryType::Enum type = shapes[i]->getGeometryType();
+		PxSphereGeometry sphere;
+		PxBoxGeometry box;
 		switch(type)
 		{
 		case PxGeometryType::eSPHERE:
-			PxSphereGeometry sphere;
+			
 			if (!shapes[i]->getSphereGeometry(sphere)) return;
-			GLUquadricObj * quad = gluNewQuadric();
-			gluQuadricDrawStyle (quad, GLU_FILL);
-			gluQuadricNormals (quad, GLU_SMOOTH); 
-			gluQuadricOrientation(quad, GLU_OUTSIDE);
 			gluSphere(quad, sphere.radius, 9, 7);
-			gluDeleteQuadric(quad);
+			break;
+		case PxGeometryType::eBOX:
+			
+			if (!shapes[i]->getBoxGeometry(box)) return;
+			gluSphere(quad, box.halfExtents.x, 9, 7);
 			break;
 		}
+
+		gluDeleteQuadric(quad);
 		glPopMatrix();
 	}
 	delete shapes;

@@ -57,8 +57,6 @@ private:
 
 	int grid_size;
 	int nbObjects;
-	std::vector <PxRigidActor*> boxes;
-	std::vector <PxRigidActor*> spheres;
 
 	PxVec3 gCameraPos;
 	PxVec3 gCameraForward;
