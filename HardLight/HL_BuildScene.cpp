@@ -51,7 +51,6 @@ bool HardLight::BuildScene()
 		cubeActor->setLinearDamping((PxReal)0.01);
 		cubeActor->setMass((PxReal)(1.0+(i/8.0)));
 		gScene->addActor(*cubeActor);
-		boxes.push_back(cubeActor);
 	}
 
 	// Initialize Sphere Actor
@@ -69,7 +68,6 @@ bool HardLight::BuildScene()
 		sphereActor->setLinearDamping((PxReal)0.01);
 		sphereActor->setMass((PxReal)(1.0+(i/4.0)));
 		gScene->addActor(*sphereActor);
-		spheres.push_back(sphereActor);
 	}
 	return true;
 }
