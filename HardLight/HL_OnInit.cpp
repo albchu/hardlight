@@ -37,7 +37,6 @@ bool HardLight::OnInit()
 	}
 
 	glClearColor(0, 0, 0, 0);
-	//glViewport(0, 0, window_width, window_height);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
@@ -47,7 +46,7 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, physx::PxTolerancesScale());
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale());
 	if(gPhysics == NULL)
 	{
 		return false;
@@ -64,7 +63,7 @@ bool HardLight::OnInit()
 
 	if(!sceneDesc.cpuDispatcher)
 	{
-		physx::PxDefaultCpuDispatcher* mCpuDispatcher = physx::PxDefaultCpuDispatcherCreate(1);
+		physx::PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 		if(!mCpuDispatcher)
 		{
 			return false;

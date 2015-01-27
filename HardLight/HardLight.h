@@ -9,15 +9,6 @@
 #include <gl\GLU.h>
 
 #include <PxPhysicsAPI.h>
-#include <extensions\PxExtensionsAPI.h>
-#include <extensions\PxDefaultErrorCallback.h>
-#include <extensions\PxDefaultAllocator.h>
-#include <extensions\PxDefaultSimulationFilterShader.h>
-#include <extensions\PxDefaultCpuDispatcher.h>
-#include <extensions\PxShapeExt.h>
-#include <extensions\PxSimpleFactory.h>
-#include <foundation\PxFoundation.h>
-#include <foundation\PxMat33.h>
 
 using namespace physx;
 
@@ -30,8 +21,6 @@ using namespace physx;
 #pragma comment(lib, "PhysX3CommonDEBUG_x86.lib")
 #pragma comment(lib, "PhysX3ExtensionsDEBUG.lib")
 #pragma comment(lib, "PxTaskDEBUG.lib")
-
-#pragma warning(disable : 4099)
 
 //==============================================================================
 class HardLight
