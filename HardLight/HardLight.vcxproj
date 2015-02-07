@@ -90,6 +90,7 @@
     <ClCompile Include="HL_OnLoop.cpp" />
     <ClCompile Include="HL_OnRender.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Control.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />

@@ -32,6 +32,7 @@ private:
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
+	SDL_GameController* controller;
 
 	PxScene* gScene;
 	PxFoundation* gFoundation;
