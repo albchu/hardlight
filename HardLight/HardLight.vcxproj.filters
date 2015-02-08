@@ -45,6 +45,7 @@
     <ClCompile Include="HL_OnExecute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="inih\ini.c">
       <Filter>iniReader</Filter>
     </ClCompile>
@@ -52,6 +53,9 @@
       <Filter>iniReader</Filter>
     </ClCompile>
     <ClCompile Include="HL_CreateVehicle.cpp">
+=======
+    <ClCompile Include="Control.cpp">
+>>>>>>> 00ac14d3669a7689e009be3782b0a2cd8866f27f
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

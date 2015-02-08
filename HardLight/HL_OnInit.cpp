@@ -40,7 +40,16 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
-
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+			if (SDL_IsGameController(i)) {
+				controller = SDL_GameControllerOpen(i);
+				if (controller) {
+					break;
+				} else {
+				return false;
+		}
+	}
+	}
 	glClearColor(0, 0, 0, 0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
