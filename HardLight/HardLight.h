@@ -3,16 +3,32 @@
 
 #include <stdio.h>
 #include <vector>
-#include "inih\cpp\INIReader.h"
+#include "inih/cpp\INIReader.h"
+
+#include <GL/glew.h>
 
 #include <SDL_opengl.h>
 #include <SDL.h>
-#include <gl\GLU.h>
+#include <GL/GL.h>
+
+//#include <gl/GLU.h>
+//#include<gl\glut.h>
+
+
+
+#include<iostream>
 
 #include <PxPhysicsAPI.h>
 
-using namespace physx;
+#include <glm/gtx/string_cast.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
+using namespace physx;
+using namespace glm;
+
+#pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
 #pragma comment(lib, "opengl32.lib")
@@ -64,6 +80,11 @@ private:
 	GLfloat lightSpecularColour[4];
 
 	void DrawRigidActor(PxRigidActor* actor);
+
+	mat4 projection_matrix;
+	mat4 view_matrix;
+
+	GLint render_projection_matrix_loc;
 
 public:
 	HardLight();

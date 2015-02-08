@@ -106,6 +106,39 @@ bool HardLight::OnInit()
 		return false;
 	}
 
+	// GLEW Library Initialization
+	glewExperimental=true; // Needed in Core Profile
+	if( glewInit() != GLEW_OK )
+	{
+		std::cerr << "Failed to initialize GLEW" << std::endl;
+		return -1;
+	}
+
+
+	//ALBERTS MESS, DONT TOUCH PLEASE
+	// Camera Initialization
+	//projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+	//render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
+	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
+	//	1,
+	//	GL_FALSE,
+	//	glm::value_ptr(projection_matrix)	// pointer to data in Mat4f
+	//	);
+
+	//old way. dont forget to comment out some of camera code in ONRENDER
+	//gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
+	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
+	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
+	//	0.0f, 1.0f, 0.0f);
+
+	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
+	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
+	std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
 	return true;
 }
 

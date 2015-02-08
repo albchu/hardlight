@@ -131,7 +131,7 @@ void HardLight::OnRender()
 	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// camera
+	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
 	gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

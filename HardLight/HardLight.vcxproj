@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Libraries\SDL2-2.0.3\include;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Libraries\SDL2-2.0.3\lib\x86;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Lib\vc11win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Libraries\SDL2-2.0.3\include;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Include;..\Libraries\glm;..\Libraries\glew-1.12.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Libraries\SDL2-2.0.3\lib\x86;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Lib\vc11win32;..\Libraries\glew-1.12.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -61,6 +61,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
