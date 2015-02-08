@@ -35,11 +35,14 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
+<<<<<<< HEAD
 
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 	{
 		return false;
 	}
+=======
+>>>>>>> 00ac14d3669a7689e009be3782b0a2cd8866f27f
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 			if (SDL_IsGameController(i)) {
 				controller = SDL_GameControllerOpen(i);
