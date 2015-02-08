@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="iniReader">
+      <UniqueIdentifier>{59cc9ff8-a007-48f1-83c7-0b65c6546163}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,10 +45,30 @@
     <ClCompile Include="HL_OnExecute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="inih\ini.c">
+      <Filter>iniReader</Filter>
+    </ClCompile>
+    <ClCompile Include="inih\cpp\INIReader.cpp">
+      <Filter>iniReader</Filter>
+    </ClCompile>
+    <ClCompile Include="HL_CreateVehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inih\ini.h">
+      <Filter>iniReader</Filter>
+    </ClInclude>
+    <ClInclude Include="inih\cpp\INIReader.h">
+      <Filter>iniReader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.ini">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

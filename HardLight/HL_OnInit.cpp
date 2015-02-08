@@ -31,6 +31,11 @@ bool HardLight::OnInit()
 		return false;
 	}
 
+	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+	{
+		return false;
+	}
+
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 	{
 		return false;
@@ -52,14 +57,24 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	PxInitExtensions(*gPhysics);
 	if(!PxInitExtensions(*gPhysics))
 	{
 		return false;
 	}
 
-	physx::PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
-	sceneDesc.gravity = physx::PxVec3(0.0f, globalGravity, 0.0f);
+	if(!PxInitVehicleSDK(*gPhysics))
+	{
+		return false;
+	}
+	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eACCELERATION);
+
+	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
+	sceneDesc.gravity = PxVec3(
+		(float)config->GetReal("gravity", "x", 0.0),
+		(float)config->GetReal("gravity", "y", 0.0),
+		(float)config->GetReal("gravity", "z", 0.0)
+		);
 
 	if(!sceneDesc.cpuDispatcher)
 	{
