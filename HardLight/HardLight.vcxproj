@@ -93,7 +93,6 @@
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Control.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
