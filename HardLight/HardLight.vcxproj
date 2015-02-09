@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="HardLight.cpp" />
     <ClCompile Include="HL_BuildScene.cpp" />
     <ClCompile Include="HL_CreateVehicle.cpp" />
@@ -94,11 +95,14 @@
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />

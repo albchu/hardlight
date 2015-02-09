@@ -2,7 +2,7 @@
 #include "HardLight.h"
 
 //==============================================================================
-void HardLight::DrawRigidActor(PxRigidActor* actor)
+bool HardLight::DrawRigidActor(PxRigidActor* actor)
 {
 	// Actor Shading
 	GLfloat ambient_cube[]={0.0f, 0.0f, 0.60f, 1.0f};
@@ -27,6 +27,7 @@ void HardLight::DrawRigidActor(PxRigidActor* actor)
 	PxU32 nShapes = actor->getNbShapes();
 	PxShape** shapes = new PxShape*[nShapes];
 	actor->getShapes(shapes, nShapes);
+	cout << "nshapes" << nShapes << endl;
 	for (unsigned int i = 0; i < nShapes; i++)
 	{
 		glPushMatrix();
@@ -49,63 +50,66 @@ void HardLight::DrawRigidActor(PxRigidActor* actor)
 		case PxGeometryType::eSPHERE:
 			glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_sphere);
 			glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_sphere);
-			if (!shapes[i]->getSphereGeometry(sphere)) return;
+			if (!shapes[i]->getSphereGeometry(sphere)) return false;
+			cout << lPose.p.x << " " << lPose.p.y << " " << lPose.p.z << endl;
+			cout << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
 			gluSphere(quad, sphere.radius, 9, 7);
+			
 			break;
 
-		case PxGeometryType::eBOX:
-			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_cube);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_cube);
-			if (!shapes[i]->getBoxGeometry(box)) return;
-			glBegin(GL_POLYGON); // front
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glEnd();
-			glBegin(GL_POLYGON); // back
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glEnd();
-			glBegin(GL_POLYGON); // right
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glEnd();
-			glBegin(GL_POLYGON); // left
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glEnd();
-			glBegin(GL_POLYGON); // top
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
-			glEnd();
-			glBegin(GL_POLYGON); // bottom
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
-			glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
-			glEnd();
-			break;
+		//case PxGeometryType::eBOX:
+		//	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_cube);
+		//	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_cube);
+		//	if (!shapes[i]->getBoxGeometry(box)) return false;
+		//	glBegin(GL_POLYGON); // front
+		//	glNormal3f(0.0f, 0.0f, 1.0f);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glEnd();
+		//	glBegin(GL_POLYGON); // back
+		//	glNormal3f(0.0f, 0.0f, -1.0f);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glEnd();
+		//	glBegin(GL_POLYGON); // right
+		//	glNormal3f(1.0f, 0.0f, 0.0f);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glEnd();
+		//	glBegin(GL_POLYGON); // left
+		//	glNormal3f(-1.0f, 0.0f, 0.0f);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glEnd();
+		//	glBegin(GL_POLYGON); // top
+		//	glNormal3f(0.0f, 1.0f, 0.0f);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, box.halfExtents.y, box.halfExtents.z);
+		//	glEnd();
+		//	glBegin(GL_POLYGON); // bottom
+		//	glNormal3f(0.0f, -1.0f, 0.0f);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glVertex3f(-box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, -box.halfExtents.z);
+		//	glVertex3f(box.halfExtents.x, -box.halfExtents.y, box.halfExtents.z);
+		//	glEnd();
+		//	break;
 
 		case PxGeometryType::ePLANE:
 			glGetFloatv(GL_MODELVIEW_MATRIX, model);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_plane);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_plane);
-			if (!shapes[i]->getPlaneGeometry(plane)) return;
+			if (!shapes[i]->getPlaneGeometry(plane)) return false;
 			glBegin(GL_POLYGON); // top
 			glNormal3f(1.0f, 0.0f, 0.0f);
 			glVertex3f(0, -size, -size);
@@ -119,6 +123,7 @@ void HardLight::DrawRigidActor(PxRigidActor* actor)
 		glPopMatrix();
 	}
 	delete shapes;
+	return false;
 }
 
 //------------------------------------------------------------------------------

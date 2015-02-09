@@ -117,8 +117,10 @@ bool HardLight::OnInit()
 
 	//ALBERTS MESS, DONT TOUCH PLEASE
 	// Camera Initialization
-	//projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
-	//render_projection_matrix_loc = glGetUniformLocation(render_prog, "projection_matrix");
+	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
+	//glUseProgram(render_prog);
+	projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
 	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
 	//	1,
 	//	GL_FALSE,
@@ -133,7 +135,8 @@ bool HardLight::OnInit()
 	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
 	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
 	//	0.0f, 1.0f, 0.0f);
-
+	
+	// Print OpenGL information
 	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 	std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;

@@ -12,9 +12,6 @@
 #include <GL/GL.h>
 
 //#include <gl/GLU.h>
-//#include<gl\glut.h>
-
-
 
 #include<iostream>
 
@@ -24,6 +21,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "World.h"
 
 using namespace physx;
 using namespace glm;
@@ -79,12 +77,14 @@ private:
 	GLfloat lightDiffuseColour[4];
 	GLfloat lightSpecularColour[4];
 
-	void DrawRigidActor(PxRigidActor* actor);
+	bool DrawRigidActor(PxRigidActor* actor);
 
 	mat4 projection_matrix;
 	mat4 view_matrix;
 
 	GLint render_projection_matrix_loc;
+
+	World world;
 
 public:
 	HardLight();
