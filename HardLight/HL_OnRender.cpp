@@ -80,7 +80,7 @@ void HardLight::OnRender()
 	glEnd();
 
 	PxActorTypeFlags desiredTypes = PxActorTypeFlag::eRIGID_STATIC
-		| PxActorTypeFlag::eRIGID_DYNAMIC;
+								    | PxActorTypeFlag::eRIGID_DYNAMIC;
 	PxU32 count = gScene->getNbActors(desiredTypes);
 	PxActor** buffer = new PxActor*[count];
 	gScene->getActors(desiredTypes, buffer, count);
