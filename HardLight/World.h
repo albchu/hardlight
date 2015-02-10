@@ -9,6 +9,7 @@ private:
 
 public:
 	//void add_new_actor
-	void add_entity(PxActor&);
+	Entity add_entity(PxActor&);
+	Entity add_entity(PxActor&, vector<vec3>);
 	vector<Entity> getEntities();
 };
