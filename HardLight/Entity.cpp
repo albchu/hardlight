@@ -132,6 +132,10 @@ void Entity::createShaderProgram(string vertex_shader_path, string fragment_shad
 // Renders an object to opengl
 void Entity::render()
 {
+	glUseProgram(program_id);
+
+	glBindVertexArray(vao);
+	glDrawArrays(GL_TRIANGLES, 0, mesh.size()*3);
 
 }
 
