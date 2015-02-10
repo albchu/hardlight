@@ -13,6 +13,7 @@ Entity World::add_entity(PxActor& actor, vector<vec3> mesh)
 {
 	Entity entity = add_entity(actor);
 	entity.set_mesh(mesh);
+	return entity;
 }
 
 vector<Entity> World::getEntities()

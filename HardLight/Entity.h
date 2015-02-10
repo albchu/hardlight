@@ -35,6 +35,7 @@ public:
 	Entity(vec3, vector<vec3>);
 	Entity();
 
+	// Buffer object initialization
 	void initVAO();
 	void initVBO();
 	void initCBO();
@@ -43,6 +44,7 @@ public:
 	void setupVBO();
 	void setupCBO();
 
+	// sets program_id
 	void createShaderProgram(string, string);
 
 	void render();
