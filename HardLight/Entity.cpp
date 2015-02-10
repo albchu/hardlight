@@ -198,7 +198,7 @@ GLuint Entity::get_cbo()
 
 void Entity::set_actor(PxActor& new_actor)
 {
-	actor = new_actor;
+	actor = &new_actor;
 }
 
 PxActor* Entity::get_actor()

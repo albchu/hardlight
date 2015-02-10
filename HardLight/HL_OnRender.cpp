@@ -162,19 +162,27 @@ void HardLight::OnRender()
 	glLightfv(GL_LIGHT0,GL_SPECULAR,lightSpecularColour);
 	glLightfv(GL_LIGHT0,GL_POSITION, lightPosition);
 
-	PxActorTypeFlags desiredTypes = PxActorTypeFlag::eRIGID_STATIC
-								    | PxActorTypeFlag::eRIGID_DYNAMIC;
-	PxU32 count = gScene->getNbActors(desiredTypes);
-	PxActor** buffer = new PxActor*[count];
-	gScene->getActors(desiredTypes, buffer, count);
-	for(PxU32 i = 0; i < count; i++)
+	//PxActorTypeFlags desiredTypes = PxActorTypeFlag::eRIGID_STATIC | PxActorTypeFlag::eRIGID_DYNAMIC;
+	//PxU32 count = gScene->getNbActors(desiredTypes);
+	//PxActor** buffer = new PxActor*[count];
+	//gScene->getActors(desiredTypes, buffer, count);
+	//for(PxU32 i = 0; i < count; i++)
+	//{
+	//	if (buffer[i]->getOwnerClient() == PX_DEFAULT_CLIENT)   //skip actors owned by foreign clients
+	//	{
+	//		DrawRigidActor(buffer[i]->isRigidActor());
+	//	}
+	//}
+
+	for(int i = 0; i < world.getEntities().size(); i++)
 	{
-		if (buffer[i]->getOwnerClient() == PX_DEFAULT_CLIENT)   //skip actors owned by foreign clients
+		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)   //skip actors owned by foreign clients
 		{
-			DrawRigidActor(buffer[i]->isRigidActor());
+			DrawRigidActor(world.getEntities()[i].get_actor()->isRigidActor());
 		}
 	}
-	delete buffer;
+
+	//delete buffer;
 
 	glDisable(GL_LIGHTING);
 	SDL_GL_SwapWindow(window);

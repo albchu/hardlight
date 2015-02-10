@@ -7,3 +7,8 @@ void World::add_entity(PxActor& actor)
 	entity.set_actor(actor);
 	entities.push_back(entity);
 }
+
+vector<Entity> World::getEntities()
+{
+	return entities;
+}
