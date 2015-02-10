@@ -43,7 +43,7 @@ public:
 	void setupVBO();
 	void setupCBO();
 
-	string createShaderProgram(string, string);
+	void createShaderProgram(string, string);
 
 	void render();
 	

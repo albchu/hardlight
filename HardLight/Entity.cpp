@@ -56,8 +56,7 @@ void Entity::setupCBO() {
 //  This code is from the openGL tutorial:
 //  http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/
 //#############################################################################
-	
-int createShaderProgram(string vertex_shader_path, string fragment_shader_path) {
+void Entity::createShaderProgram(string vertex_shader_path, string fragment_shader_path) {
 
 	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -127,7 +126,7 @@ int createShaderProgram(string vertex_shader_path, string fragment_shader_path) 
 	glDeleteShader(vertexShaderID);
 	glDeleteShader(fragmentShaderID);
 	
-	return ProgramID;
+	program_id = ProgramID;
 }
 
 // Renders an object to opengl
