@@ -22,14 +22,22 @@ private:
 	vector<vec3> mesh;		// The manifestation of this entity
 	mat4 model;
 	GLuint program_id;
-	GLuint vao;
-	GLuint vbo;
-	GLuint cbo;
+	GLuint vao; // vertex array object
+	GLuint vbo; // vertex buffer object
+	GLuint cbo; // color buffer object
 	PxActor* actor;
 
 public:
 	Entity(vec3, vector<vec3>);
 	Entity();
+
+	void initVAO();
+	void initVBO();
+	void initCBO();
+
+	void setupVAO();
+	void setupVBO();
+	void setupCBO();
 
 	void render();
 	
