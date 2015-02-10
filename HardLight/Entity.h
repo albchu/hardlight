@@ -1,4 +1,5 @@
 // The class holds information for each entity in our opengl scene
+#include <algorithm>
 #include <stdio.h>
 #include <string>
 #include <fstream>
@@ -42,7 +43,7 @@ public:
 	void setupVBO();
 	void setupCBO();
 
-	string loadShader(string filePath);
+	string createShaderProgram(string, string);
 
 	void render();
 	
