@@ -65,6 +65,6 @@ public:
 	void			set_mesh(vector<vec3>);
 	vector<vec3>	get_mesh();
 
-	void			set_actor(PxActor*);
+	void			set_actor(PxActor&);
 	PxActor*		get_actor();
 };
