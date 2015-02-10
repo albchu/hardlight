@@ -1,5 +1,8 @@
 // The class holds information for each entity in our opengl scene
 #include <stdio.h>
+#include <string>
+#include <fstream>
+#include <iostream>
 #include <glm/glm.hpp>		// Used for vec3
 #include <vector>
 #include <GL/glew.h>
@@ -38,6 +41,8 @@ public:
 	void setupVAO();
 	void setupVBO();
 	void setupCBO();
+
+	string loadShader(string filePath);
 
 	void render();
 	

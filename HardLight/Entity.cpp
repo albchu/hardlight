@@ -4,10 +4,17 @@ Entity::Entity(vec3 init_position, vector<vec3> init_mesh)
 {
 	position = init_position;
 	mesh = init_mesh;
+	Entity();
 }
 
 Entity::Entity()
 {
+	initVAO();
+	initVBO();
+	initCBO();
+	setupVAO();
+	setupVBO();
+	setupCBO();
 }
 
 void Entity::initVAO() {
@@ -40,6 +47,26 @@ void Entity::setupCBO() {
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glBindVertexArray(0);
+}
+
+string loadShader(string filePath) {
+	string shaderCode;
+	ifstream fileStream( filePath.c_str(), std::ios::in );
+	if( fileStream.is_open() )
+	{
+		std::string line;
+		while( getline( fileStream, line ) )
+		{
+			shaderCode += "\n" + line;
+		}
+		fileStream.close();
+	
+	}
+	else
+	{
+		cerr << "Could Not Open File " << filePath << std::endl;
+	}
+	return shaderCode;	
 }
 
 // Renders an object to opengl
