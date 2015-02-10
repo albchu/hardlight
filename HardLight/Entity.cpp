@@ -135,7 +135,7 @@ GLuint Entity::get_cbo()
 	return cbo;
 }
 
-void Entity::set_actor(PxActor* new_actor)
+void Entity::set_actor(PxActor& new_actor)
 {
 	actor = new_actor;
 }
