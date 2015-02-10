@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <glm/glm.hpp>		// Used for vec3
 #include <vector>
 #include <GL/glew.h>
