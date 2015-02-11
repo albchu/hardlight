@@ -199,6 +199,16 @@ GLuint Entity::get_cbo()
 	return cbo;
 }
 
+void Entity::set_program_id(GLuint new_program_id)
+{
+	program_id = new_program_id;
+}
+
+GLuint Entity::get_program_id()
+{
+	return program_id;
+}
+
 void Entity::set_actor(PxActor& new_actor)
 {
 	actor = &new_actor;

@@ -1,10 +1,17 @@
 //==============================================================================
 #include "HardLight.h"
 
+float getRandFloat(float low, float high)
+{
+	return (low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low))));
+}
+
 //==============================================================================
 bool HardLight::DrawEntity(Entity entity)
 {
 	PxRigidActor* actor = entity.get_actor()->isRigidActor();
+	mat4 model = entity.get_model();
+
 	// Actor Shading
 	GLfloat ambient_cube[]={0.0f, 0.0f, 0.60f, 1.0f};
 	GLfloat ambient_sphere[]={0.60f, 0.60f, 0.0f, 1.0f};
@@ -14,17 +21,18 @@ bool HardLight::DrawEntity(Entity entity)
 	GLfloat mat_diffuse_sphere[]={0.85f, 0.85f, 0.0f, 1.0f};
 	GLfloat mat_diffuse_plane[]={0.5f, 0.5f, 0.5f, 1.0f};
 
-	glLoadIdentity();
+	//glLoadIdentity();
 
-	GLfloat model[16]; 
+	//GLfloat model[16]; 
 
+	// Update the model matrix of the entity with physx changes
 	PxTransform gPose = actor->getGlobalPose();
-	glTranslatef(gPose.p.x, gPose.p.y, gPose.p.z);
+	model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	glRotatef((GLfloat) (rads*180.0/PxPi), axis.x, axis.y, axis.z);
-	glGetFloatv(GL_MODELVIEW_MATRIX, model);
+	model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
+	//glGetFloatv(GL_MODELVIEW_MATRIX, model);
 	PxU32 nShapes = actor->getNbShapes();
 	PxShape** shapes = new PxShape*[nShapes];
 	actor->getShapes(shapes, nShapes);
@@ -33,16 +41,16 @@ bool HardLight::DrawEntity(Entity entity)
 		glPushMatrix();
 
 		PxTransform lPose = shapes[i]->getLocalPose();
-		glTranslatef(lPose.p.x, lPose.p.y, lPose.p.z);
+		model = translate(model, vec3(lPose.p.x, lPose.p.y, lPose.p.z));
 		lPose.q.toRadiansAndUnitAxis(rads, axis);
-		glRotatef((GLfloat) (rads*180.0/PxPi), axis.x, axis.y, axis.z);
+		model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
 
 		PxGeometryType::Enum type = shapes[i]->getGeometryType();
 		PxSphereGeometry sphere;
-		GLUquadricObj * quad = gluNewQuadric();
-		gluQuadricDrawStyle(quad, GLU_FILL);
-		gluQuadricNormals(quad, GLU_SMOOTH); 
-		gluQuadricOrientation(quad, GLU_OUTSIDE);
+		//GLUquadricObj * quad = gluNewQuadric();
+		//gluQuadricDrawStyle(quad, GLU_FILL);
+		//gluQuadricNormals(quad, GLU_SMOOTH); 
+		//gluQuadricOrientation(quad, GLU_OUTSIDE);
 		PxBoxGeometry box;
 		PxPlaneGeometry plane;
 		switch(type)
@@ -106,21 +114,61 @@ bool HardLight::DrawEntity(Entity entity)
 		//	break;
 
 		case PxGeometryType::ePLANE:
-			glGetFloatv(GL_MODELVIEW_MATRIX, model);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_plane);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_plane);
+			cout<<"Im a plane" << endl;
+			//glGetFloatv(GL_MODELVIEW_MATRIX, model);
+			//glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_plane);
+			//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_plane);
 			if (!shapes[i]->getPlaneGeometry(plane)) return false;
-			glBegin(GL_POLYGON); // top
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glVertex3f(0, -size, -size);
-			glVertex3f(0, size, -size);
-			glVertex3f(0, size, size);
-			glVertex3f(0, -size, size);
-			glEnd();
+			//glBegin(GL_POLYGON); // top
+			//glNormal3f(1.0f, 0.0f, 0.0f);
+			//glVertex3f(0, -size, -size);
+			//glVertex3f(0, size, -size);
+			//glVertex3f(0, size, size);
+			//glVertex3f(0, -size, size);
+			//glEnd();
+
+			// Load vertex buffer
+			glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
+			glBufferData(GL_ARRAY_BUFFER,
+				sizeof(glm::vec3) * entity.get_mesh().size(),	// byte size of Vec3f, 4 of them
+				entity.get_mesh().data(),		// pointer (Vec3f*) to contents of verts
+				GL_STATIC_DRAW);	// Usage pattern of GPU buffer
+
+			// RGB values for the vertices
+			std::vector<glm::vec3> colors;
+			for (int i = 0; i < entity.get_mesh().size(); i++)
+			{
+				float r = getRandFloat(0.30, 1.0);
+				float g = getRandFloat(0.60, 1.0);
+				float b = getRandFloat(0.70, 1.0);
+				colors.push_back(glm::vec3(r, g, b));
+				//colors.push_back(glm::vec3(218, 0, 0));
+			}
+
+			glBindBuffer(GL_ARRAY_BUFFER, entity.get_cbo());
+			glBufferData(GL_ARRAY_BUFFER,
+				sizeof(glm::vec3)*colors.size(),
+				colors.data(),
+				GL_STATIC_DRAW);
+
+			// Load entity MVP 
+			GLint mvpID = glGetUniformLocation(entity.get_program_id(), "MVP");
+			mat4 mvp = projection_matrix * view_matrix * model;
+			glUseProgram(entity.get_program_id());
+			glUniformMatrix4fv(mvpID,		// ID
+				1,		// only 1 matrix
+				GL_FALSE,	// transpose matrix, Mat4f is row major
+				glm::value_ptr(mvp)	// pointer to data in Mat4f
+				);
+
+			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+			glUseProgram(entity.get_program_id());
+			glBindVertexArray(entity.get_vao());
+			glDrawArrays(GL_QUADS, 0, entity.get_mesh().size());
 			break;
 		}
-		gluDeleteQuadric(quad);
-		glPopMatrix();
+		//gluDeleteQuadric(quad);
+		//glPopMatrix();
 	}
 	delete shapes;
 	return false;
@@ -137,22 +185,22 @@ void HardLight::OnRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
-	gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
-	gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
-		gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
-		0.0f, 1.0f, 0.0f);
+	//gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
+	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
+	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
+	//	0.0f, 1.0f, 0.0f);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
 
 	// Set actor shading & stage lighting
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glShadeModel(GL_SMOOTH);
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHT0);
+	//glShadeModel(GL_SMOOTH);
 
 	// Stage Lighting
 	GLfloat lightPosition[4] = {0.0f, 10.0f, 10.0f, 1.0f};
