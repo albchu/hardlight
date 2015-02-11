@@ -31,20 +31,25 @@ bool HardLight::OnInit()
 		return false;
 	}
 
+	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+	{
+		return false;
+	}
+
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 	{
 		return false;
 	}
+
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
-			if (SDL_IsGameController(i)) {
-				controller = SDL_GameControllerOpen(i);
-				if (controller) {
-					printf("%s",SDL_GameControllerName(controller));
-					break;
-				} else {
+		if (SDL_IsGameController(i)) {
+			controller = SDL_GameControllerOpen(i);
+			if (controller) {
+				break;
+			} else {
 				return false;
+			}
 		}
-	}
 	}
 	glClearColor(0, 0, 0, 0);
 	glEnable(GL_DEPTH_TEST);
@@ -62,14 +67,24 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	PxInitExtensions(*gPhysics);
 	if(!PxInitExtensions(*gPhysics))
 	{
 		return false;
 	}
 
-	physx::PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
-	sceneDesc.gravity = physx::PxVec3(0.0f, globalGravity, 0.0f);
+	if(!PxInitVehicleSDK(*gPhysics))
+	{
+		return false;
+	}
+	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eACCELERATION);
+
+	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
+	sceneDesc.gravity = PxVec3(
+		(float)config->GetReal("gravity", "x", 0.0),
+		(float)config->GetReal("gravity", "y", 0.0),
+		(float)config->GetReal("gravity", "z", 0.0)
+		);
 
 	if(!sceneDesc.cpuDispatcher)
 	{
@@ -90,6 +105,43 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
+
+	// GLEW Library Initialization
+	glewExperimental=true; // Needed in Core Profile
+	if( glewInit() != GLEW_OK )
+	{
+		std::cerr << "Failed to initialize GLEW" << std::endl;
+		return -1;
+	}
+
+
+	//ALBERTS MESS, DONT TOUCH PLEASE
+	// Camera Initialization
+	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
+	//glUseProgram(render_prog);
+	view_matrix = mat4(1.0f);
+	projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
+	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
+	//	1,
+	//	GL_FALSE,
+	//	glm::value_ptr(projection_matrix)	// pointer to data in Mat4f
+	//	);
+
+	//old way. dont forget to comment out some of camera code in ONRENDER
+	//gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
+	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
+	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
+	//	0.0f, 1.0f, 0.0f);
+	
+	// Print OpenGL information
+	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
+	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
+	std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
 	return true;
 }

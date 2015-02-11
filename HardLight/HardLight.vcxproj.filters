@@ -1,54 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="HardLight.cpp" />
+    <ClCompile Include="HL_BuildScene.cpp" />
+    <ClCompile Include="HL_CreateVehicle.cpp" />
+    <ClCompile Include="HL_OnCleanup.cpp" />
+    <ClCompile Include="HL_OnEvent.cpp" />
+    <ClCompile Include="HL_OnExecute.cpp" />
+    <ClCompile Include="HL_OnInit.cpp" />
+    <ClCompile Include="HL_OnLoop.cpp" />
+    <ClCompile Include="HL_OnRender.cpp" />
+    <ClCompile Include="inih\cpp\INIReader.cpp" />
+    <ClCompile Include="inih\ini.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HardLight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_BuildScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnCleanup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnInit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnRender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnExecute.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Control.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="HardLight.h" />
+    <ClInclude Include="inih\cpp\INIReader.h" />
+    <ClInclude Include="inih\ini.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HardLight.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <None Include="config.ini" />
   </ItemGroup>
 </Project>
