@@ -13,6 +13,7 @@ bool HardLight::BuildScene()
 	PxRigidStatic* plane = gPhysics->createRigidStatic(pose);
 	PxShape* shape = plane->createShape(PxPlaneGeometry(), *planeMaterial);
 	gScene->addActor(*plane);
+	vector<vec3> *mesh;
 	world.add_entity(*plane, Mesh::createPlaneMesh());
 	
 	// *** Create Wall-Planes *** //

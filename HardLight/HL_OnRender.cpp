@@ -114,7 +114,6 @@ bool HardLight::DrawEntity(Entity entity)
 		//	break;
 
 		case PxGeometryType::ePLANE:
-			cout<<"Im a plane" << endl;
 			//glGetFloatv(GL_MODELVIEW_MATRIX, model);
 			//glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_plane);
 			//glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_plane);
@@ -126,6 +125,15 @@ bool HardLight::DrawEntity(Entity entity)
 			//glVertex3f(0, size, size);
 			//glVertex3f(0, -size, size);
 			//glEnd();
+
+			vector<vec3> mesh;
+
+			mesh.push_back(vec3(-25.0f, 25.0f, 0.0f));
+			mesh.push_back(vec3(-25.0f, -25.0f, 0.0f));
+			mesh.push_back(vec3(25.0f, 25.0f, 0.0f));
+			mesh.push_back(vec3(25.0f, -25.0f, 0.0f));
+
+			entity.set_mesh(mesh);
 
 			// Load vertex buffer
 			glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
@@ -165,6 +173,9 @@ bool HardLight::DrawEntity(Entity entity)
 			glUseProgram(entity.get_program_id());
 			glBindVertexArray(entity.get_vao());
 			glDrawArrays(GL_QUADS, 0, entity.get_mesh().size());
+
+		//	cout << glm::to_string(entity.get_mesh()) << endl;
+
 			break;
 		}
 		//gluDeleteQuadric(quad);
@@ -181,17 +192,17 @@ void HardLight::OnRender()
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+	//glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
-	//gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
-	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
-	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
-	//	0.0f, 1.0f, 0.0f);
+	gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
+	gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
+		gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
+		0.0f, 1.0f, 0.0f);
 
 	//glMatrixMode(GL_MODELVIEW);
 	//glLoadIdentity();
@@ -201,6 +212,8 @@ void HardLight::OnRender()
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glShadeModel(GL_SMOOTH);
+
+	cout << "View Matrix: " << glm::to_string(view_matrix) << endl;
 
 	// Stage Lighting
 	GLfloat lightPosition[4] = {0.0f, 10.0f, 10.0f, 1.0f};
