@@ -39,6 +39,7 @@ bool HardLight::OnInit()
 			if (SDL_IsGameController(i)) {
 				controller = SDL_GameControllerOpen(i);
 				if (controller) {
+					printf("%s",SDL_GameControllerName(controller));
 					break;
 				} else {
 				return false;
