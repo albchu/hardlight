@@ -2,8 +2,9 @@
 #include "HardLight.h"
 
 //==============================================================================
-bool HardLight::DrawRigidActor(PxRigidActor* actor)
+bool HardLight::DrawEntity(Entity entity)
 {
+	PxRigidActor* actor = entity.get_actor()->isRigidActor();
 	// Actor Shading
 	GLfloat ambient_cube[]={0.0f, 0.0f, 0.60f, 1.0f};
 	GLfloat ambient_sphere[]={0.60f, 0.60f, 0.0f, 1.0f};
@@ -27,7 +28,6 @@ bool HardLight::DrawRigidActor(PxRigidActor* actor)
 	PxU32 nShapes = actor->getNbShapes();
 	PxShape** shapes = new PxShape*[nShapes];
 	actor->getShapes(shapes, nShapes);
-	cout << "nshapes" << nShapes << endl;
 	for (unsigned int i = 0; i < nShapes; i++)
 	{
 		glPushMatrix();
@@ -47,15 +47,15 @@ bool HardLight::DrawRigidActor(PxRigidActor* actor)
 		PxPlaneGeometry plane;
 		switch(type)
 		{
-		case PxGeometryType::eSPHERE:
-			glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_sphere);
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_sphere);
-			if (!shapes[i]->getSphereGeometry(sphere)) return false;
-			cout << lPose.p.x << " " << lPose.p.y << " " << lPose.p.z << endl;
-			cout << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
-			gluSphere(quad, sphere.radius, 9, 7);
-			
-			break;
+		//case PxGeometryType::eSPHERE:
+		//	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_sphere);
+		//	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_sphere);
+		//	if (!shapes[i]->getSphereGeometry(sphere)) return false;
+		//	cout << lPose.p.x << " " << lPose.p.y << " " << lPose.p.z << endl;
+		//	cout << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
+		//	gluSphere(quad, sphere.radius, 9, 7);
+		//	
+		//	break;
 
 		//case PxGeometryType::eBOX:
 		//	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_cube);
@@ -166,7 +166,7 @@ void HardLight::OnRender()
 	{
 		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)
 		{
-			DrawRigidActor(world.getEntities()[i].get_actor()->isRigidActor());
+			DrawEntity(world.getEntities()[i]);
 		}
 	}
 

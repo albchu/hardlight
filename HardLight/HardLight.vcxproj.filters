@@ -15,6 +15,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
@@ -22,6 +23,7 @@
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />
