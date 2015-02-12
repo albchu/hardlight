@@ -31,7 +31,7 @@ bool HardLight::DrawEntity(Entity entity)
 
 	// RGB values for the vertices
 	std::vector<glm::vec3> colors;
-	for (int i = 0; i < entity.get_mesh().size(); i++)
+	for (unsigned int i = 0; i < entity.get_mesh().size(); i++)
 	{
 		//float r = getRandFloat(0.30, 1.0);
 		//float g = getRandFloat(0.60, 1.0);
@@ -78,7 +78,7 @@ void HardLight::OnRender()
 	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
 	view_matrix = translate(view_matrix, vec3((right-left)*speed, 0.0f, (forward-back)*speed));
 
-	for(int i = 0; i < world.getEntities().size(); i++)
+	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
 		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)
 		{

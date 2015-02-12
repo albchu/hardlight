@@ -57,7 +57,7 @@ bool HardLight::BuildScene()
 		gScene->addActor(*sphereActor);
 		world.add_entity(*sphereActor);
 	}
-=======
+
 	Entity entity1;
 	entity1.set_actor(*plane);
 
@@ -114,6 +114,5 @@ bool HardLight::BuildScene()
 	//	gScene->addActor(*sphereActor);
 	//	//world.add_entity(*sphereActor);
 	//}
->>>>>>> ff2ad552eb051ffb389d8dd2b95643fb4763586d
 	return true;
 }

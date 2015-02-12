@@ -36,3 +36,4 @@
 *.opensdf
 *.pdb
 *.vcxproj.user
+*.unsuccessfulbuild

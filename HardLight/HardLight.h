@@ -29,8 +29,6 @@
 #include "objLoader.h"
 #include "World.h"
 #include "Mesh.h"
-//#include "Entity.h"		// ALBERT NOTE: THIS IS FOR DEBUG, DONT HAVE THIS !
-
 
 using namespace physx;
 using namespace glm;
@@ -64,6 +62,7 @@ private:
 	PxScene* gScene;
 	PxFoundation* gFoundation;
 	PxPhysics* gPhysics;
+	PxCooking* gCooking;
 	PxDefaultErrorCallback gDefaultErrorCallback;
 	PxDefaultAllocator gDefaultAllocatorCallback;
 	PxSimulationFilterShader gDefaultFilterShader;
