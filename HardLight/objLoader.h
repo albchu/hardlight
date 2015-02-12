@@ -1,3 +1,6 @@
+#ifndef _OBJLOADER_H_
+#define _OBJLOADER_H_
+
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
@@ -9,6 +12,9 @@
 #include <utility>
 #include <glm/glm.hpp>
 
+class objLoader {
+
+private:
 
 std::vector<glm::vec3> m_vertices; 	// essentially an array of type Vector3f
 std::vector<glm::vec3> m_faces;
@@ -18,7 +24,31 @@ std::vector<glm::vec3> m_vnormals;
 std::vector<glm::vec2> m_textures; 	// used to store texture coordinates
 std::vector<glm::vec3> m_textfaces;	// used to associate a texture coordinate with a face
 
-bool LoadObj(const char* filename)
+char* mtl_filename;
+
+public:
+
+objLoader();
+
+bool LoadObj(const char*);
+
+};
+
+
+objLoader::objLoader() {
+
+	m_vertices = std::vector<glm::vec3>();
+	m_faces = std::vector<glm::vec3>();
+	m_normals = std::vector<glm::vec3>();
+	m_fnormals = std::vector<glm::vec3>();
+	m_vnormals = std::vector<glm::vec3>();
+	m_textures = std::vector<glm::vec2>();
+	m_textfaces = std::vector<glm::vec3>();
+
+}
+
+
+bool objLoader::LoadObj(const char* filename)
 {
 	using std::fstream;
 	using std::ios;
@@ -122,6 +152,17 @@ bool LoadObj(const char* filename)
 
 
 				break;
+			case 'm':
+				for(int i = 0; i < 6; i++) {
+					lineBuffer[i] = ' ';
+				}
+
+				mtl_filename = strtok(lineBuffer, seps);
+				break;
+
+			case 'u':
+
+
 		}
 	}
 
@@ -130,3 +171,5 @@ bool LoadObj(const char* filename)
 	std::cout << "Obj file loaded with " << m_vertices.size() << " vertices, " << m_textures.size() << " texture coords, and " << m_faces.size() << " faces." << std::endl;
 	return true;
 }
+
+#endif
