@@ -1,6 +1,9 @@
 //==============================================================================
 #include "HardLight.h"
 //==============================================================================
+
+const int deadzone = 8000;
+
 void HardLight::OnEvent(SDL_Event* Event)
 {
 	switch (Event->type)
@@ -84,14 +87,30 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 		break;
 	case SDL_CONTROLLERAXISMOTION:
-		printf("Left X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX));
-		printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY));
-		//Right Stick
-		printf("Right X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX));
-		printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY));
-		//trigger buttons
-		printf("Left Trigger = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT));
-		printf("Right Trigger = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT));
+		int LeftX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
+		if (LeftX < -deadzone){
+			left = (LeftX+deadzone)/(-24768.0);
+		}else if(LeftX > deadzone){
+			right = (LeftX-deadzone)/(24768.0);
+		}else{
+			left = right = 0;
+		}
+		int LeftY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+		if (LeftY < -deadzone){		//up on joystick
+			back = (LeftY+deadzone)/(-24768.0);
+		}else if(LeftY > deadzone){ //down on joystick
+			forward = (LeftY-deadzone)/(24768.0);
+		}else{
+			forward = back = 0;
+		}
+		//printf("Left X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX));
+		//printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY));
+		////Right Stick
+		//printf("Right X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX));
+		//printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY));
+		////trigger buttons
+		//printf("Left Trigger = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT));
+		//printf("Right Trigger = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT));
 		break;
 	} // end type
 }

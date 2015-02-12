@@ -4,6 +4,7 @@
 //==============================================================================
 int main(int argc, char* argv[])
 {
+	
     HardLight game;
     return game.OnExecute();
 }

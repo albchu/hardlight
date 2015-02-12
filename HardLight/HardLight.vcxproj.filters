@@ -15,6 +15,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="World.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp">
       <Filter>SnippetVehicleCommon</Filter>
     </ClCompile>
@@ -36,6 +37,11 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>SnippetVehicleCommon</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="objLoader.cpp" />
+>>>>>>> ff2ad552eb051ffb389d8dd2b95643fb4763586d
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
@@ -43,6 +49,7 @@
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="World.h" />
+<<<<<<< HEAD
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h">
       <Filter>SnippetVehicleCommon</Filter>
     </ClInclude>
@@ -64,6 +71,11 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
       <Filter>SnippetVehicleCommon</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="objLoader.h" />
+    <ClInclude Include="Parser.h" />
+>>>>>>> ff2ad552eb051ffb389d8dd2b95643fb4763586d
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />

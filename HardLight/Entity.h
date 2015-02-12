@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <glm/glm.hpp>		// Used for vec3
 #include <vector>
 #include <GL/glew.h>
 #include <PxPhysicsAPI.h>
+#include "ShaderTools.h"
 
 using namespace glm;
 using namespace std;
@@ -36,6 +36,7 @@ public:
 	Entity();
 
 	// Buffer object initialization
+	void initProgramID();
 	void initVAO();
 	void initVBO();
 	void initCBO();
@@ -45,32 +46,32 @@ public:
 	void setupCBO();
 
 	// sets program_id
-	void createShaderProgram(string, string);
+	//void createShaderProgram(string, string);
 
 	void render();
 	
-	void			set_position(vec3);
+	void			set_position(vec3&);
 	vec3			get_position();
 
-	void			set_model(mat4);
+	void			set_model(mat4&);
 	mat4			get_model();
 
-	void			set_program_id(GLuint);
+	void			set_program_id(GLuint&);
 	GLuint			get_program_id();
 
 	// Vertex array object
-	void			set_vao(GLuint);
+	void			set_vao(GLuint&);
 	GLuint			get_vao();
 
 	// Vertex buffer object
-	void			set_vbo(GLuint);
+	void			set_vbo(GLuint&);
 	GLuint			get_vbo();
 
 	// Color buffer object
-	void			set_cbo(GLuint);
+	void			set_cbo(GLuint&);
 	GLuint			get_cbo();
 
-	void			set_mesh(vector<vec3>);
+	void			set_mesh(vector<vec3>&);
 	vector<vec3>	get_mesh();
 
 	void			set_actor(PxActor&);

@@ -114,13 +114,16 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
-
+	glEnable( GL_DEPTH_TEST );
 
 	//ALBERTS MESS, DONT TOUCH PLEASE
 	// Camera Initialization
 	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
 	//glUseProgram(render_prog);
+	//view_matrix = mat4(1.0f);
 	projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+
+	//view_matrix = translate(view_matrix, vec3(0,5,-10));
 	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
 	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
 	//	1,

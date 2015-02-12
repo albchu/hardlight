@@ -26,7 +26,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "objLoader.h"
 #include "World.h"
+#include "Mesh.h"
+//#include "Entity.h"		// ALBERT NOTE: THIS IS FOR DEBUG, DONT HAVE THIS !
+
 
 using namespace physx;
 using namespace glm;
@@ -83,12 +87,10 @@ private:
 	GLfloat lightDiffuseColour[4];
 	GLfloat lightSpecularColour[4];
 
-	bool DrawRigidActor(PxRigidActor* actor);
+	bool DrawEntity(Entity entity);
 
 	mat4 projection_matrix;
 	mat4 view_matrix;
-
-	GLint render_projection_matrix_loc;
 
 	World world;
 

@@ -16,6 +16,12 @@ Entity World::add_entity(PxActor& actor, vector<vec3> mesh)
 	return entity;
 }
 
+Entity World::add_entity(Entity& entity)
+{
+	entities.push_back(entity);
+	return entity;
+}
+
 vector<Entity> World::getEntities()
 {
 	return entities;
