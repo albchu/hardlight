@@ -102,6 +102,7 @@
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
+    <ClInclude Include="objLoader.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Mesh.h" />
