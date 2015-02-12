@@ -24,6 +24,7 @@
 #include "objLoader.h"
 #include "World.h"
 #include "Mesh.h"
+//#include "Entity.h"		// ALBERT NOTE: THIS IS FOR DEBUG, DONT HAVE THIS !
 
 
 using namespace physx;
@@ -84,8 +85,6 @@ private:
 
 	mat4 projection_matrix;
 	mat4 view_matrix;
-
-	GLint render_projection_matrix_loc;
 
 	World world;
 

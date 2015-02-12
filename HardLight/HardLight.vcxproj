@@ -96,8 +96,12 @@
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="objLoader.cpp" />
     <ClCompile Include="Parser.cpp" />
+=======
+    <ClCompile Include="ShaderTools.cpp" />
+>>>>>>> 2e39d33812d817490ed23578012e1ca231ff166c
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -107,10 +111,16 @@
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Mesh.h" />
+<<<<<<< HEAD
     <ClInclude Include="Parser.h" />
+=======
+    <ClInclude Include="ShaderTools.h" />
+>>>>>>> 2e39d33812d817490ed23578012e1ca231ff166c
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="basic_fs.glsl" />
+    <None Include="basic_vs.glsl" />
     <None Include="config.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
