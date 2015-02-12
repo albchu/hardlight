@@ -16,6 +16,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="objLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
@@ -25,6 +27,7 @@
     <ClInclude Include="World.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="objLoader.h" />
+    <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />

@@ -21,8 +21,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "objLoader.h"
 #include "World.h"
 #include "Mesh.h"
+
 
 using namespace physx;
 using namespace glm;
