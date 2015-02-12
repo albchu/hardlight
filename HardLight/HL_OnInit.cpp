@@ -77,7 +77,7 @@ bool HardLight::OnInit()
 		return false;
 	}
 	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
-	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eACCELERATION);
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
 
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
 	sceneDesc.gravity = PxVec3(
@@ -88,7 +88,7 @@ bool HardLight::OnInit()
 
 	if(!sceneDesc.cpuDispatcher)
 	{
-		physx::PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
+		PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 		if(!mCpuDispatcher)
 		{
 			return false;
@@ -97,7 +97,7 @@ bool HardLight::OnInit()
 	}
 	if(!sceneDesc.filterShader)
 	{
-		sceneDesc.filterShader = gDefaultFilterShader;
+		sceneDesc.filterShader = VehicleFilterShader;
 	}
 
 	gScene = gPhysics->createScene(sceneDesc);
@@ -106,12 +106,13 @@ bool HardLight::OnInit()
 		return false;
 	}
 
+	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
+
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
 	if( glewInit() != GLEW_OK )
 	{
-		std::cerr << "Failed to initialize GLEW" << std::endl;
-		return -1;
+		return false;
 	}
 
 

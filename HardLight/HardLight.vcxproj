@@ -95,6 +95,13 @@
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +109,13 @@
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>

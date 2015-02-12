@@ -16,6 +16,11 @@
 #include<iostream>
 
 #include <PxPhysicsAPI.h>
+#include <vehicle/PxVehicleUtil.h>
+#include "SnippetVehicleCommon/SnippetVehicleRaycast.h"
+#include "SnippetVehicleCommon/SnippetVehicleFilterShader.h"
+#include "SnippetVehicleCommon/SnippetVehicleTireFriction.h"
+#include "SnippetVehicleCommon/SnippetVehicleCreate.h"
 
 #include <glm/gtx/string_cast.hpp>
 #include <glm/glm.hpp>
@@ -37,6 +42,7 @@ using namespace glm;
 #pragma comment(lib, "PhysX3ExtensionsDEBUG.lib")
 #pragma comment(lib, "PxTaskDEBUG.lib")
 #pragma comment(lib, "PhysX3VehicleDEBUG.lib")
+#pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
 
 //==============================================================================
 class HardLight
@@ -85,6 +91,17 @@ private:
 	GLint render_projection_matrix_loc;
 
 	World world;
+
+	//vehicles
+	VehicleSceneQueryData* gVehicleSceneQueryData;
+	PxBatchQuery* gBatchQuery;
+	PxMaterial* gMaterial;
+	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
+	PxRigidStatic* gGroundPlane;
+	PxVehicleDrive4W* gVehicle4W;
+	PxRigidActor* vehicle;
+	bool gIsVehicleInAir;
+	PxVehicleDrive4WRawInputData gVehicleInputData;
 
 public:
 	HardLight();

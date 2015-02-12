@@ -15,6 +15,27 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
@@ -22,8 +43,34 @@
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
+      <Filter>SnippetVehicleCommon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SnippetVehicleCommon">
+      <UniqueIdentifier>{50a33062-511e-4b56-9983-a3e4f60f9b74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

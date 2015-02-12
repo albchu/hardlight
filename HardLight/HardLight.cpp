@@ -39,6 +39,8 @@ HardLight::HardLight()
 	lightDiffuseColour[3] = 1.0f;
 	lightSpecularColour[0] = lightSpecularColour[1] = lightSpecularColour[2] = 0.8f;
 	lightSpecularColour[3] = 1.0f;
+
+	gIsVehicleInAir = true;
 }
 //==============================================================================
 HardLight::~HardLight()

@@ -7,7 +7,7 @@ bool HardLight::BuildScene()
 	PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
 	PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
 	PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
-
+	/*
 	// *** Create Ground-Plane *** //
 	PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
 	PxRigidStatic* plane = gPhysics->createRigidStatic(pose);
@@ -39,11 +39,11 @@ bool HardLight::BuildScene()
 	PxShape* rightShape2 = rightPlane2->createShape(PxPlaneGeometry(), *planeMaterial);
 	gScene->addActor(*rightPlane2);
 	world.add_entity(*rightPlane2);
-	
+	*/
 	// Initialize Sphere Actor
 	PxReal sphereDensity = 2.0f;
-	PxTransform sphereTransform(PxVec3(0.0f, 4.0f, 0.0f));
-	PxSphereGeometry sphereGeometry(0.7f);
+	PxTransform sphereTransform(PxVec3(0.0f, 10.0f, 0.0f));
+	PxSphereGeometry sphereGeometry(0.2f);
 	for (int i=0; i<nbObjects; i++)
 	{
 		sphereTransform.p  = PxVec3(0.0f,4.0f+4*i,0.0f);

@@ -5,7 +5,8 @@
 int HardLight::OnExecute()
 {
 	if(!OnInit()) return EXIT_FAILURE;
-	if(!BuildScene()) exit(EXIT_FAILURE);
+	if(!BuildScene()) return EXIT_FAILURE;
+	if(!CreateVehicle()) return EXIT_FAILURE;
 
     SDL_Event Event;
 
