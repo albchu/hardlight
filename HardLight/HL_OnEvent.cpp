@@ -1,13 +1,6 @@
 //==============================================================================
 #include "HardLight.h"
 //==============================================================================
-
-void updateMatrixColumn(glm::mat4 & matrix, int column, glm::vec3 vector)
-{
-	matrix[column][0] = vector.x;
-	matrix[column][1] = vector.y;
-	matrix[column][2] = vector.z;
-}
 void HardLight::OnEvent(SDL_Event* Event)
 {
 	switch (Event->type)
@@ -24,10 +17,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 			break;
 		case SDLK_a:
 			left = 1;
-			view_matrix = translate(view_matrix, vec3(-10,0,0));
-			//updateMatrixColumn(view_matrix, 3, vec3(-10,0,0));
-			//projection_matrix = translate(projection_matrix, vec3(-10,0,0));
-			cout << "View Matrix changed " << endl;
 			break;
 		case SDLK_d:
 			right = 1;

@@ -16,6 +16,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ShaderTools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h" />
@@ -24,8 +25,11 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="World.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ShaderTools.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />
+    <None Include="basic_vs.glsl" />
+    <None Include="basic_fs.glsl" />
   </ItemGroup>
 </Project>
