@@ -72,8 +72,8 @@ bool HardLight::CreateVehicle()
 	vector<vec3> vehicle_mesh;
 	vehicle_mesh.push_back(vec3(-1.0f, 0.0f, -1.0f));
 	vehicle_mesh.push_back(vec3(1.0f, 0.0f, -1.0f));
-	vehicle_mesh.push_back(vec3(1.0f, 0.0f, 1.0f));
 	vehicle_mesh.push_back(vec3(-1.0f, 0.0f, 1.0f));
+	vehicle_mesh.push_back(vec3(1.0f, 0.0f, 1.0f));
 
 	world.add_entity(gVehicle4W->getRigidDynamicActor(), vehicle_mesh);
 	vehicle = gVehicle4W->getRigidDynamicActor();

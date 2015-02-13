@@ -18,21 +18,8 @@ bool HardLight::DrawEntity(Entity entity)
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	
-	//model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
-
-	/*PxU32 nShapes = actor->getNbShapes();
-	PxShape** shapes = new PxShape*[nShapes];
-	actor->getShapes(shapes, nShapes);
-	for (unsigned int i = 0; i < nShapes; i++) {
-		PxTransform lPose = shapes[i]->getLocalPose();
-		model = translate(model, vec3(lPose.p.x, lPose.p.y, lPose.p.z));
-		PxReal lrads;
-		PxVec3 laxis;
-		lPose.q.toRadiansAndUnitAxis(lrads, laxis);
-		model = rotate(model, (GLfloat) (lrads*180.0/PxPi), vec3(laxis.x, laxis.y, laxis.z));
-	}*/
-
+	cout << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
+	model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
 
 	// Load vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
@@ -94,7 +81,7 @@ void HardLight::OnRender()
 	//glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
+	// Camera controls
 	view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
 	//PxTransform gPose = vehicle->getGlobalPose();
 	//view_matrix = mat4(1.0f);

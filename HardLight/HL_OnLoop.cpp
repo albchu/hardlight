@@ -41,22 +41,22 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	//PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, gVehicleInputData, timestep, gIsVehicleInAir, *gVehicle4W);
+	PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, gVehicleInputData, timestep, gIsVehicleInAir, *gVehicle4W);
 
-	////Raycasts.
-	//PxVehicleWheels* vehicles[1] = {gVehicle4W};
-	//PxRaycastQueryResult* raycastResults = gVehicleSceneQueryData->getRaycastQueryResultBuffer(0);
-	//const PxU32 raycastResultsSize = gVehicleSceneQueryData->getRaycastQueryResultBufferSize();
-	//PxVehicleSuspensionRaycasts(gBatchQuery, 1, vehicles, raycastResultsSize, raycastResults);
+	//Raycasts.
+	PxVehicleWheels* vehicles[1] = {gVehicle4W};
+	PxRaycastQueryResult* raycastResults = gVehicleSceneQueryData->getRaycastQueryResultBuffer(0);
+	const PxU32 raycastResultsSize = gVehicleSceneQueryData->getRaycastQueryResultBufferSize();
+	PxVehicleSuspensionRaycasts(gBatchQuery, 1, vehicles, raycastResultsSize, raycastResults);
 
-	////Vehicle update.
-	//const PxVec3 grav = gScene->getGravity();
-	//PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
-	//PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, gVehicle4W->mWheelsSimData.getNbWheels()}};
-	//PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
+	//Vehicle update.
+	const PxVec3 grav = gScene->getGravity();
+	PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
+	PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, gVehicle4W->mWheelsSimData.getNbWheels()}};
+	PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
-	////Work out if the vehicle is in the air.
-	//gIsVehicleInAir = gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
+	//Work out if the vehicle is in the air.
+	gIsVehicleInAir = gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
 
 	//Scene update.
 	gScene->simulate(timestep);
