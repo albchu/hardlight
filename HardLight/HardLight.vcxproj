@@ -96,6 +96,7 @@
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshData.cpp" />
     <ClCompile Include="objLoader.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ShaderTools.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshData.h" />
     <ClInclude Include="objLoader.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ShaderTools.h" />
