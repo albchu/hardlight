@@ -1,3 +1,6 @@
+#ifndef _ENTITY_H_
+#define _ENTITY_H_
+
 // The class holds information for each entity in our opengl scene
 #include <algorithm>
 #include <stdio.h>
@@ -68,3 +71,5 @@ public:
 	void			set_actor(PxActor*);
 	PxActor*		get_actor();
 };
+
+#endif

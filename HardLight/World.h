@@ -1,3 +1,6 @@
+#ifndef _WORLD_H_
+#define _WORLD_H_
+
 // This class is the entire world representation. It holds a list of entities with operations on the entities
 #include "Entity.h"
 #include <vector>
@@ -16,3 +19,5 @@ public:
 	void add_entity(Entity& entity);
 	vector<Entity> getEntities();
 };
+
+#endif
