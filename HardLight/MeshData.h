@@ -1,6 +1,13 @@
 #ifndef _MESHDATA_H_
 #define _MESHDATA_H_
 
+/*
+ * MeshData class
+ *
+ * Holds data read from OBJ file.
+ *
+ */
+
 #include <vector>
 #include <glm/glm.hpp>
 
@@ -21,9 +28,26 @@ private:
 public:
 
 	MeshData();
-	MeshData(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >);
+	MeshData(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, 
+			 std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, char* filename);
 
+	void addVertex(glm::vec3);
+	glm::vec3 getVertex(int);
 
+	void addNormal(glm::vec3);
+	glm::vec3 getNormal(int);
+
+	void addTexture(glm::vec2);
+	glm::vec2 getTexture(int);
+
+	void addFace(glm::tvec3<int>);
+	glm::tvec3<int> getFace(int);
+
+	void addFaceNormal(glm::tvec3<int>);
+	glm::tvec3<int> getFaceNormal(int);
+
+	void addFaceTexture(glm::tvec3<int>);
+	glm::tvec3<int> getFaceTexture(int);
 };
 
 
