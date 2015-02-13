@@ -5,13 +5,11 @@
 #include "Entity.h"
 #include "Mesh.h"
 #include <vector>
-#include <map>
 
 class World
 {
 private:
 	vector<Entity> entities;
-	map<Entity, Mesh> meshes;
 
 public:
 	//void add_new_actor

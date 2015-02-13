@@ -2,19 +2,12 @@
 
 objLoader::objLoader() {
 
-	m_vertices = std::vector<glm::vec3>();
-	m_faces = std::vector<glm::tvec3<int> >();
-	m_normals = std::vector<glm::vec3>();
-	m_fnormals = std::vector<glm::tvec3<int> >();
-	m_vnormals = std::vector<glm::vec3>();
-	m_textures = std::vector<glm::vec2>();
-	m_textfaces = std::vector<glm::tvec3<int> >();
-
 }
 
-
-bool objLoader::loadObj(Parser parser)
+MeshData objLoader::loadObj(Parser parser)
 {
+
+	MeshData temp = MeshData();
 
 	for(std::string line : parser.getFileContainer()) {
 		char seps[] = " /";
