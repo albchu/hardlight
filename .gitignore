@@ -33,3 +33,7 @@
 *.idb
 *.sdf
 *.suo
+*.opensdf
+*.pdb
+*.vcxproj.user
+*.unsuccessfulbuild

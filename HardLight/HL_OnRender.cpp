@@ -1,104 +1,80 @@
 //==============================================================================
 #include "HardLight.h"
 
-//==============================================================================
-void HardLight::DrawRigidActor(PxRigidActor* actor)
+float getRandFloat(float low, float high)
 {
-	// Actor Shading
-	GLfloat ambient_cube[]={0.0f, 0.0f, 0.60f, 1.0f};
-	GLfloat ambient_sphere[]={0.60f, 0.60f, 0.0f, 1.0f};
+	return (low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low))));
+}
 
-	GLfloat mat_diffuse_cube[]={0.0f, 0.0f, 0.85f, 1.0f};
-	GLfloat mat_diffuse_sphere[]={0.85f, 0.85f, 0.0f, 1.0f};
+//==============================================================================
+bool HardLight::DrawEntity(Entity entity)
+{
+	PxRigidActor* actor = entity.get_actor()->isRigidActor();
+	mat4 model;
 
-	glLoadIdentity();
+	// Update the model matrix of the entity with physx changes
 	PxTransform gPose = actor->getGlobalPose();
-	glTranslatef(gPose.p.x, gPose.p.y, gPose.p.z);
+	model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	glRotatef((GLfloat) (rads*180/M_PI), axis.x, axis.y, axis.z);
-	PxU32 nShapes = actor->getNbShapes();
+	
+	//model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
+
+	/*PxU32 nShapes = actor->getNbShapes();
 	PxShape** shapes = new PxShape*[nShapes];
 	actor->getShapes(shapes, nShapes);
-	for (unsigned int i = 0; i < nShapes; i++)
-	{
-		glPushMatrix();
-
+	for (unsigned int i = 0; i < nShapes; i++) {
 		PxTransform lPose = shapes[i]->getLocalPose();
-		glTranslatef(lPose.p.x, lPose.p.y, lPose.p.z);
-		lPose.q.toRadiansAndUnitAxis(rads, axis);
-		glRotatef((GLfloat) (rads*180/M_PI), axis.x, axis.y, axis.z);
-		
-		PxGeometryType::Enum type = shapes[i]->getGeometryType();
-		PxSphereGeometry sphere;
-		GLUquadricObj * quad = gluNewQuadric();
-		gluQuadricDrawStyle(quad, GLU_FILL);
-		gluQuadricNormals(quad, GLU_SMOOTH); 
-		gluQuadricOrientation(quad, GLU_OUTSIDE);
-		PxBoxGeometry box;
-		switch(type)
-		{
-		case PxGeometryType::eSPHERE:
-			glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_sphere);
-			glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_sphere);
-			if (!shapes[i]->getSphereGeometry(sphere)) return;
-			gluSphere(quad, sphere.radius, 9, 7);
-			break;
+		model = translate(model, vec3(lPose.p.x, lPose.p.y, lPose.p.z));
+		PxReal lrads;
+		PxVec3 laxis;
+		lPose.q.toRadiansAndUnitAxis(lrads, laxis);
+		model = rotate(model, (GLfloat) (lrads*180.0/PxPi), vec3(laxis.x, laxis.y, laxis.z));
+	}*/
 
-		case PxGeometryType::eBOX:
-			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_cube);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse_cube);
-			if (!shapes[i]->getBoxGeometry(box)) return;
-			float half = box.halfExtents.x;
-			glBegin(GL_POLYGON); // front
-			glNormal3f(0.0f, 0.0f, 1.0f);
-			glVertex3f(-half, -half, half);
-			glVertex3f(half, -half, half);
-			glVertex3f(half, half, half);
-			glVertex3f(-half, half, half);
-			glEnd();
-			glBegin(GL_POLYGON); // back
-			glNormal3f(0.0f, 0.0f, -1.0f);
-			glVertex3f(-half, half, -half);
-			glVertex3f(half, half, -half);
-			glVertex3f(half, -half, -half);
-			glVertex3f(-half, -half, -half);
-			glEnd();
-			glBegin(GL_POLYGON); // right
-			glNormal3f(1.0f, 0.0f, 0.0f);
-			glVertex3f(half, -half, -half);
-			glVertex3f(half, half, -half);
-			glVertex3f(half, half, half);
-			glVertex3f(half, -half, half);
-			glEnd();
-			glBegin(GL_POLYGON); // left
-			glNormal3f(-1.0f, 0.0f, 0.0f);
-			glVertex3f(-half, -half, half);
-			glVertex3f(-half, half, half);
-			glVertex3f(-half, half, -half);
-			glVertex3f(-half, -half, -half);
-			glEnd();
-			glBegin(GL_POLYGON); // top
-			glNormal3f(0.0f, 1.0f, 0.0f);
-			glVertex3f(half, half, half);
-			glVertex3f(half, half, -half);
-			glVertex3f(-half, half, -half);
-			glVertex3f(-half, half, half);
-			glEnd();
-			glBegin(GL_POLYGON); // bottom
-			glNormal3f(0.0f, -1.0f, 0.0f);
-			glVertex3f(-half, -half, half);
-			glVertex3f(-half, -half, -half);
-			glVertex3f(half, -half, -half);
-			glVertex3f(half, -half, half);
-			glEnd();
-			break;
-		}
-		gluDeleteQuadric(quad);
-		glPopMatrix();
+
+	// Load vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(glm::vec3) * entity.get_mesh().size(),	// byte size of Vec3f, 4 of them
+		entity.get_mesh().data(),		// pointer (Vec3f*) to contents of verts
+		GL_STATIC_DRAW);	// Usage pattern of GPU buffer
+
+	// RGB values for the vertices
+	std::vector<glm::vec3> colors;
+	for (unsigned int i = 0; i < entity.get_mesh().size(); i++)
+	{
+		//float r = getRandFloat(0.30, 1.0);
+		//float g = getRandFloat(0.60, 1.0);
+		//float b = getRandFloat(0.70, 1.0);
+		colors.push_back(glm::vec3(0.5,0.5,0.5));//(r, g, b));
 	}
-	delete shapes;
+
+	glBindBuffer(GL_ARRAY_BUFFER, entity.get_cbo());
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(glm::vec3)*colors.size(),
+		colors.data(),
+		GL_STATIC_DRAW);
+
+	// Load entity MVP 
+	mat4 mvp = projection_matrix * view_matrix * model;
+	GLint mvpID = glGetUniformLocation(entity.get_program_id(), "MVP");
+
+	glUseProgram(entity.get_program_id());
+	glUniformMatrix4fv(mvpID,		// ID
+		1,		// only 1 matrix
+		GL_FALSE,	// transpose matrix, Mat4f is row major
+		glm::value_ptr(mvp)	// pointer to data in Mat4f
+		);
+
+	glUseProgram(entity.get_program_id());
+	glBindVertexArray(entity.get_vao());
+	//GLfloat width = 25;
+	//glLineWidth(width);
+	glDrawArrays(GL_LINE_LOOP, 0, entity.get_mesh().size());
+
+	return false;
 }
 
 //------------------------------------------------------------------------------
@@ -108,62 +84,28 @@ void HardLight::OnRender()
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+	//glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// camera
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
-	gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
-		gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
-		0.0f, 1.0f, 0.0f);
+	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
+	//view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
+	PxTransform gPose = vehicle->getGlobalPose();
+	view_matrix = mat4(1.0f);
+	view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 
-	glBegin(GL_LINES);
-	glColor3f(0.7f, 0.7f, 0.7f);
+	PxReal rads;
+	PxVec3 axis;
+	gPose.q.toRadiansAndUnitAxis(rads, axis);
 
-	for(int i=-grid_size; i<=grid_size; i++)
+	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
-		glVertex3f((float)i , -0.1f, (float)-grid_size);
-		glVertex3f((float)i , -0.1f, (float)grid_size);
-
-		glVertex3f((float)-grid_size, -0.1f, (float)i);
-		glVertex3f((float)grid_size, -0.1f, (float)i);
-	}
-	glEnd();
-	
-	// Set actor shading & stage lighting
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glShadeModel(GL_SMOOTH);
-
-	// Stage Lighting
-	GLfloat lightPosition[4] = {0.0f, 10.0f, 10.0f, 1.0f};
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightAmbientColour);
-	glLightfv(GL_LIGHT0,GL_DIFFUSE,lightDiffuseColour);
-	glLightfv(GL_LIGHT0,GL_SPECULAR,lightSpecularColour);
-	glLightfv(GL_LIGHT0,GL_POSITION, lightPosition);
-
-	PxActorTypeFlags desiredTypes = PxActorTypeFlag::eRIGID_STATIC
-		| PxActorTypeFlag::eRIGID_DYNAMIC;
-	PxU32 count = gScene->getNbActors(desiredTypes);
-	PxActor** buffer = new PxActor*[count];
-	gScene->getActors(desiredTypes, buffer, count);
-	for(PxU32 i = 0; i < count; i++)
-	{
-		if (buffer[i]->getOwnerClient() == PX_DEFAULT_CLIENT)   //skip actors owned by foreign clients
+		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)
 		{
-			DrawRigidActor(buffer[i]->isRigidActor());
+			DrawEntity(world.getEntities()[i]);
 		}
 	}
-	delete buffer;
 
-	glDisable(GL_LIGHTING);
 	SDL_GL_SwapWindow(window);
 
 }

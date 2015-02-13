@@ -4,6 +4,13 @@
 //==============================================================================
 void HardLight::OnCleanup()
 {
+	gVehicle4W->getRigidDynamicActor()->release();
+	gVehicle4W->free();
+	gGroundPlane->release();
+	gBatchQuery->release();
+	gVehicleSceneQueryData->free(gDefaultAllocator);
+	gFrictionPairs->release();
+	PxCloseVehicleSDK();
 	if (gScene != NULL) gScene->release();
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();
