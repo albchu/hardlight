@@ -3,12 +3,12 @@
 objLoader::objLoader() {
 
 	m_vertices = std::vector<glm::vec3>();
-	m_faces = std::vector<glm::vec3>();
+	m_faces = std::vector<glm::tvec3<int> >();
 	m_normals = std::vector<glm::vec3>();
-	m_fnormals = std::vector<glm::vec3>();
+	m_fnormals = std::vector<glm::tvec3<int> >();
 	m_vnormals = std::vector<glm::vec3>();
 	m_textures = std::vector<glm::vec2>();
-	m_textfaces = std::vector<glm::vec3>();
+	m_textfaces = std::vector<glm::tvec3<int> >();
 
 }
 
@@ -21,10 +21,10 @@ bool objLoader::loadObj(Parser parser)
 		char *token;
 		char *context = NULL;
 		int i;
-		glm::vec3 face;
+		glm::tvec3<int> face;
 		glm::vec2 texture;
-		glm::vec3 faceText;
-		glm::vec3 faceNorm;
+		glm::tvec3<int> faceText;
+		glm::tvec3<int> faceNorm;
 
 		glm::vec3 temp_vec3;
 		glm::vec2 temp_vec2;
@@ -75,31 +75,31 @@ bool objLoader::loadObj(Parser parser)
 			line[0] = ' ';
 
 			token = strtok_s((char*)line.c_str(), seps, &context);
-			face.x = atof(token) - 1;
+			face.x = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.x = atof(token) - 1;
+			faceText.x = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.x = atof(token) - 1;
+			faceNorm.x = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			face.y = atof(token) - 1;
+			face.y = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.y = atof(token) - 1;
+			faceText.y = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.y = atof(token) - 1;
+			faceNorm.y = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			face.z = atof(token) - 1;
+			face.z = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.z = atof(token) - 1;
+			faceText.z = atoi(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.z = atof(token) - 1;
+			faceNorm.z = atoi(token) - 1;
 
 			m_faces.push_back(face);
 			m_textfaces.push_back(faceText);
