@@ -2,8 +2,33 @@
 #include "HardLight.h"
 
 //==============================================================================
+
+// searches directory for .objs and fills list of parsed objs
+void HardLight::loadAllOBJs(const char* directory) {
+
+	char searchPath[200];
+
+	sprintf(searchPath, "%s*.obj", directory);
+	WIN32_FIND_DATA fd;
+	HANDLE handle = ::FindFirstFile((LPCWSTR)searchPath, &fd);
+	if(handle != INVALID_HANDLE_VALUE) { 
+        do { 
+
+            if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
+
+				std::string dirString = std::string(directory);
+				std::string filename = std::string((char*)fd.cFileName);
+				parsedOBJs.push_back(Parser((dirString + filename).c_str()));
+            }
+        }while(::FindNextFile(handle, &fd)); 
+        ::FindClose(handle); 
+    } 
+}
+
 bool HardLight::OnInit()
 {
+	loadAllOBJs("../data/");
+
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		return false;

@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <vector>
+#include <string>
+#include<iostream>
+#include <windows.h>
 #include "inih/cpp\INIReader.h"
 
 #include <GL/glew.h>
@@ -13,7 +16,7 @@
 
 //#include <gl/GLU.h>
 
-#include<iostream>
+
 
 #include <PxPhysicsAPI.h>
 #include <vehicle/PxVehicleUtil.h>
@@ -84,6 +87,11 @@ private:
 	mat4 view_matrix;
 
 	World world;
+
+	objLoader objParser;
+	std::vector<Parser> parsedOBJs;
+
+	void loadAllOBJs(const char*);
 
 	//vehicles
 	VehicleSceneQueryData* gVehicleSceneQueryData;
