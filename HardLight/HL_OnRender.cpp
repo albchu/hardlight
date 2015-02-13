@@ -72,9 +72,16 @@ bool HardLight::DrawEntity(Entity entity)
 	glBindVertexArray(entity.get_vao());
 	//GLfloat width = 25;
 	//glLineWidth(width);
-	glDrawArrays(GL_LINE_LOOP, 0, entity.get_mesh().size());
+	glDrawArrays(entity.get_draw_mode(), 0, entity.get_mesh().size());
 
 	return false;
+}
+
+void updateMatrixColumn(glm::mat4 & matrix, int column, glm::vec3 vector)
+{
+	matrix[column][0] = vector.x;
+	matrix[column][1] = vector.y;
+	matrix[column][2] = vector.z;
 }
 
 //------------------------------------------------------------------------------
@@ -88,15 +95,17 @@ void HardLight::OnRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
-	//view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
-	PxTransform gPose = vehicle->getGlobalPose();
-	view_matrix = mat4(1.0f);
-	view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
+	//PxTransform gPose = vehicle->getGlobalPose();
+	//view_matrix = mat4(1.0f);
+	//view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y-10, gPose.p.z));
+	//cout << "Car Position: " << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
 
+	//updateMatrixColumn(view_matrix, 3, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 
-	PxReal rads;
-	PxVec3 axis;
-	gPose.q.toRadiansAndUnitAxis(rads, axis);
+	//PxReal rads;
+	//PxVec3 axis;
+	//gPose.q.toRadiansAndUnitAxis(rads, axis);
 
 	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{

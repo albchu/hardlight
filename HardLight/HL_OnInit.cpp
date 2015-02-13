@@ -123,7 +123,7 @@ bool HardLight::OnInit()
 	//view_matrix = mat4(1.0f);
 	projection_matrix = perspective(45.0f, (float)window_width/(float)window_height, 0.1f, 1000.0f);
 
-	view_matrix = translate(view_matrix, vec3(0,-5,0));
+	view_matrix = translate(view_matrix, vec3(0,-10,-10));
 	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
 	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
 	//	1,

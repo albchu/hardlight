@@ -9,10 +9,18 @@ bool HardLight::BuildScene()
 	PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
 
 	// *** Create Ground-Plane *** //
-	/*PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
-	PxRigidStatic* plane = gPhysics->createRigidStatic(pose);
-	PxShape* shape = plane->createShape(PxPlaneGeometry(), *planeMaterial);
-	gScene->addActor(*plane);*/
+	PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
+	PxRigidStatic* gGroundPlane = gPhysics->createRigidStatic(pose);
+	PxShape* shape = gGroundPlane->createShape(PxPlaneGeometry(), *planeMaterial);
+	gScene->addActor(*gGroundPlane);
+
+	vector<vec3> plane_mesh;
+	plane_mesh.push_back(vec3(0.0f, -10.0f, -10.0f));
+	plane_mesh.push_back(vec3(0.0f, 10.0f, -10.0f));
+	plane_mesh.push_back(vec3(0.0f, 10.0f, 10.0f));
+	plane_mesh.push_back(vec3(0.0f, -10.0f, 10.0f));
+
+	world.add_entity(gGroundPlane, plane_mesh);
 	
 
 	//world.add_entity(*plane, Mesh::createPlaneMesh());

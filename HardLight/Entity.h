@@ -23,6 +23,7 @@ class Entity
 {
 private:
 	vector<vec3> mesh;		// The manifestation of this entity
+	GLuint draw_mode;
 	GLuint program_id;
 	GLuint vao; // vertex array object
 	GLuint vbo; // vertex buffer object
@@ -67,4 +68,7 @@ public:
 
 	void			set_actor(PxActor*);
 	PxActor*		get_actor();
+	
+	void			set_draw_mode(GLuint&);
+	GLuint			get_draw_mode();
 };

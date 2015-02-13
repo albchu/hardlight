@@ -2,6 +2,7 @@
 
 Entity::Entity(PxActor* init_actor, vector<vec3>& init_mesh)
 {
+	draw_mode = GL_TRIANGLE_STRIP;
 	actor = init_actor;
 	mesh = init_mesh;
 
@@ -107,6 +108,16 @@ void Entity::set_program_id(GLuint& new_program_id)
 GLuint Entity::get_program_id()
 {
 	return program_id;
+}
+
+void Entity::set_draw_mode(GLuint& new_draw_mode)
+{
+	draw_mode = new_draw_mode;
+}
+
+GLuint Entity::get_draw_mode()
+{
+	return draw_mode;
 }
 
 void Entity::set_actor(PxActor* new_actor)
