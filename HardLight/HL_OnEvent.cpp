@@ -33,6 +33,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_LSHIFT:
 			speed *= fast;
 			break;
+		case SDLK_UP:
+			gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+			gVehicleInputData.setAnalogAccel(1.0f);
+			break;
+		case SDLK_DOWN:
+			gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+			gVehicleInputData.setAnalogAccel(1.0f);
+			break;
+		case SDLK_LEFT:
+			gVehicleInputData.setAnalogSteer(1.0f);
+			break;
+		case SDLK_RIGHT:
+			gVehicleInputData.setAnalogSteer(-1.0f);
+			break;
 		} // end key_down
 		break;
 
@@ -53,6 +67,18 @@ void HardLight::OnEvent(SDL_Event* Event)
 			break;
 		case SDLK_LSHIFT:
 			speed /= fast;
+			break;
+		case SDLK_UP:
+			gVehicleInputData.setAnalogAccel(0.0f);
+			break;
+		case SDLK_DOWN:
+			gVehicleInputData.setAnalogAccel(0.0f);
+			break;
+		case SDLK_LEFT:
+			gVehicleInputData.setAnalogSteer(0.0f);
+			break;
+		case SDLK_RIGHT:
+			gVehicleInputData.setAnalogSteer(0.0f);
 			break;
 		} // end key_up
 		break;

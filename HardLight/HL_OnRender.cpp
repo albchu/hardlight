@@ -10,17 +10,16 @@ float getRandFloat(float low, float high)
 bool HardLight::DrawEntity(Entity entity)
 {
 	PxRigidActor* actor = entity.get_actor()->isRigidActor();
-	mat4 model;// = entity.get_model();
+	mat4 model;
 
 	// Update the model matrix of the entity with physx changes
 	PxTransform gPose = actor->getGlobalPose();
-	//model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	//model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
-
-	
+	cout << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
+	model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
 
 	// Load vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
@@ -31,7 +30,7 @@ bool HardLight::DrawEntity(Entity entity)
 
 	// RGB values for the vertices
 	std::vector<glm::vec3> colors;
-	for (int i = 0; i < entity.get_mesh().size(); i++)
+	for (unsigned int i = 0; i < entity.get_mesh().size(); i++)
 	{
 		//float r = getRandFloat(0.30, 1.0);
 		//float g = getRandFloat(0.60, 1.0);
@@ -48,7 +47,7 @@ bool HardLight::DrawEntity(Entity entity)
 	// Load entity MVP 
 	mat4 mvp = projection_matrix * view_matrix * model;
 	GLint mvpID = glGetUniformLocation(entity.get_program_id(), "MVP");
-	
+
 	glUseProgram(entity.get_program_id());
 	glUniformMatrix4fv(mvpID,		// ID
 		1,		// only 1 matrix
@@ -58,11 +57,18 @@ bool HardLight::DrawEntity(Entity entity)
 
 	glUseProgram(entity.get_program_id());
 	glBindVertexArray(entity.get_vao());
-	GLfloat width = 25;
-	glLineWidth(width);
-	glDrawArrays(GL_LINE_LOOP, 0, entity.get_mesh().size());
+	//GLfloat width = 25;
+	//glLineWidth(width);
+	glDrawArrays(entity.get_draw_mode(), 0, entity.get_mesh().size());
 
 	return false;
+}
+
+void updateMatrixColumn(glm::mat4 & matrix, int column, glm::vec3 vector)
+{
+	matrix[column][0] = vector.x;
+	matrix[column][1] = vector.y;
+	matrix[column][2] = vector.z;
 }
 
 //------------------------------------------------------------------------------
@@ -75,10 +81,20 @@ void HardLight::OnRender()
 	//glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
-	view_matrix = translate(view_matrix, vec3((right-left)*speed, 0.0f, (forward-back)*speed));
+	// Camera controls
+	view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
+	//PxTransform gPose = vehicle->getGlobalPose();
+	//view_matrix = mat4(1.0f);
+	//view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y-10, gPose.p.z));
+	//cout << "Car Position: " << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
 
-	for(int i = 0; i < world.getEntities().size(); i++)
+	//updateMatrixColumn(view_matrix, 3, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+
+	//PxReal rads;
+	//PxVec3 axis;
+	//gPose.q.toRadiansAndUnitAxis(rads, axis);
+
+	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
 		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)
 		{

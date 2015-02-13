@@ -55,7 +55,7 @@ bool HardLight::OnInit()
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocator, gDefaultErrorCallback);
 	if(!gFoundation)
 	{
 		return false;
@@ -77,7 +77,7 @@ bool HardLight::OnInit()
 		return false;
 	}
 	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
-	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eACCELERATION);
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
 
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
 	sceneDesc.gravity = PxVec3(
@@ -88,7 +88,7 @@ bool HardLight::OnInit()
 
 	if(!sceneDesc.cpuDispatcher)
 	{
-		physx::PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
+		PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 		if(!mCpuDispatcher)
 		{
 			return false;
@@ -97,7 +97,7 @@ bool HardLight::OnInit()
 	}
 	if(!sceneDesc.filterShader)
 	{
-		sceneDesc.filterShader = gDefaultFilterShader;
+		sceneDesc.filterShader = VehicleFilterShader;
 	}
 
 	gScene = gPhysics->createScene(sceneDesc);
@@ -106,12 +106,13 @@ bool HardLight::OnInit()
 		return false;
 	}
 
+	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
+
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
 	if( glewInit() != GLEW_OK )
 	{
-		std::cerr << "Failed to initialize GLEW" << std::endl;
-		return -1;
+		return false;
 	}
 	glEnable( GL_DEPTH_TEST );
 
@@ -120,9 +121,9 @@ bool HardLight::OnInit()
 	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
 	//glUseProgram(render_prog);
 	//view_matrix = mat4(1.0f);
-	projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+	projection_matrix = perspective(45.0f, (float)window_width/(float)window_height, 0.1f, 1000.0f);
 
-	//view_matrix = translate(view_matrix, vec3(0,5,-10));
+	view_matrix = translate(view_matrix, vec3(0,-10,-10));
 	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
 	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
 	//	1,

@@ -16,6 +16,11 @@
 #include<iostream>
 
 #include <PxPhysicsAPI.h>
+#include <vehicle/PxVehicleUtil.h>
+#include "SnippetVehicleCommon/SnippetVehicleRaycast.h"
+#include "SnippetVehicleCommon/SnippetVehicleFilterShader.h"
+#include "SnippetVehicleCommon/SnippetVehicleTireFriction.h"
+#include "SnippetVehicleCommon/SnippetVehicleCreate.h"
 
 #include <glm/gtx/string_cast.hpp>
 #include <glm/glm.hpp>
@@ -24,8 +29,6 @@
 #include "objLoader.h"
 #include "World.h"
 #include "Mesh.h"
-//#include "Entity.h"		// ALBERT NOTE: THIS IS FOR DEBUG, DONT HAVE THIS !
-
 
 using namespace physx;
 using namespace glm;
@@ -41,6 +44,7 @@ using namespace glm;
 #pragma comment(lib, "PhysX3ExtensionsDEBUG.lib")
 #pragma comment(lib, "PxTaskDEBUG.lib")
 #pragma comment(lib, "PhysX3VehicleDEBUG.lib")
+#pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
 
 //==============================================================================
 class HardLight
@@ -58,28 +62,21 @@ private:
 	PxScene* gScene;
 	PxFoundation* gFoundation;
 	PxPhysics* gPhysics;
+	PxCooking* gCooking;
 	PxDefaultErrorCallback gDefaultErrorCallback;
-	PxDefaultAllocator gDefaultAllocatorCallback;
+	PxDefaultAllocator gDefaultAllocator;
 	PxSimulationFilterShader gDefaultFilterShader;
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
 	Uint32 msMax;
 
-	int nbObjects;
-	float size;
-
-	PxVec3 gCameraPos;
-	PxVec3 gCameraForward;
 	float speed;
 	float fast;
 	int forward;
 	int back;
 	int left;
 	int right;
-	GLfloat lightAmbientColour[4];
-	GLfloat lightDiffuseColour[4];
-	GLfloat lightSpecularColour[4];
 
 	bool DrawEntity(Entity entity);
 
@@ -87,6 +84,17 @@ private:
 	mat4 view_matrix;
 
 	World world;
+
+	//vehicles
+	VehicleSceneQueryData* gVehicleSceneQueryData;
+	PxBatchQuery* gBatchQuery;
+	PxMaterial* gMaterial;
+	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
+	PxRigidStatic* gGroundPlane;
+	PxVehicleDrive4W* gVehicle4W;
+	PxRigidActor* vehicle;
+	bool gIsVehicleInAir;
+	PxVehicleDrive4WRawInputData gVehicleInputData;
 
 public:
 	HardLight();

@@ -3,12 +3,12 @@
 objLoader::objLoader() {
 
 	m_vertices = std::vector<glm::vec3>();
-	m_faces = std::vector<glm::vec3>();
+	m_faces = std::vector<glm::tvec3<int> >();
 	m_normals = std::vector<glm::vec3>();
-	m_fnormals = std::vector<glm::vec3>();
+	m_fnormals = std::vector<glm::tvec3<int> >();
 	m_vnormals = std::vector<glm::vec3>();
 	m_textures = std::vector<glm::vec2>();
-	m_textfaces = std::vector<glm::vec3>();
+	m_textfaces = std::vector<glm::tvec3<int> >();
 
 }
 
@@ -21,10 +21,10 @@ bool objLoader::loadObj(Parser parser)
 		char *token;
 		char *context = NULL;
 		int i;
-		glm::vec3 face;
+		glm::tvec3<int> face;
 		glm::vec2 texture;
-		glm::vec3 faceText;
-		glm::vec3 faceNorm;
+		glm::tvec3<int> faceText;
+		glm::tvec3<int> faceNorm;
 
 		glm::vec3 temp_vec3;
 		glm::vec2 temp_vec2;

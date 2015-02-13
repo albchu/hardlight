@@ -1,14 +1,11 @@
 #include "Entity.h"
 
-Entity::Entity(vec3 init_position, vector<vec3> init_mesh)
+Entity::Entity(PxActor* init_actor, vector<vec3>& init_mesh)
 {
-	position = init_position;
+	draw_mode = GL_TRIANGLE_STRIP;
+	actor = init_actor;
 	mesh = init_mesh;
-	Entity();
-}
 
-Entity::Entity()
-{
 	initProgramID();
 	initVAO();
 	initVBO();
@@ -54,87 +51,6 @@ void Entity::setupCBO() {
 	glBindVertexArray(0);
 }
 
-
-
-////#############################################################################
-////  load a shader file into opengl
-////  This code is from the openGL tutorial:
-////  http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/
-////#############################################################################
-//void Entity::createShaderProgram(string vertex_shader_path, string fragment_shader_path) {
-//
-//	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-//	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-//	
-//	string Line;
-//	
-//	string VertexShaderCode;
-//	ifstream VertexShaderStream(vertex_shader_path, ios::in);
-//	if(VertexShaderStream.is_open()) {
-//		Line = "";
-//		while(getline(VertexShaderStream, Line))
-//			VertexShaderCode += "\n" + Line;
-//		VertexShaderStream.close();
-//	}
-//	
-//	string FragmentShaderCode;
-//	ifstream FragmentShaderStream(fragment_shader_path, ios::in);
-//	if(FragmentShaderStream.is_open()) {
-//		Line = "";
-//		while(getline(FragmentShaderStream, Line))
-//			FragmentShaderCode += "\n" + Line;
-//		FragmentShaderStream.close();
-//	}
-//	
-//	GLint Result = GL_FALSE;
-//	int InfoLogLength;
-//	
-//	// Compile Vertex Shader
-//	printf("Compiling shader : %s\n", vertex_shader_path);
-//	char const * VertexSourcePointer = VertexShaderCode.c_str();
-//	glShaderSource(vertexShaderID, 1, &VertexSourcePointer, NULL);
-//	glCompileShader(vertexShaderID);
-//	
-//	// Check Vertex Shader
-//	glGetShaderiv(vertexShaderID, GL_COMPILE_STATUS, &Result);
-//	glGetShaderiv(vertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//	vector<char> VertexShaderErrorMessage(InfoLogLength);
-//	glGetShaderInfoLog(vertexShaderID, InfoLogLength, NULL, NULL);
-//	fprintf(stdout, "%s\n", &VertexShaderErrorMessage[0]);
-//	
-//	// Compile Fragment Shader
-//	printf("Compiling shader : %s\n", fragment_shader_path);
-//	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
-//	glShaderSource(fragmentShaderID, 1, &FragmentSourcePointer, NULL);
-//	glCompileShader(fragmentShaderID);
-//	
-//	// Check Fragment Shader
-//	glGetShaderiv(fragmentShaderID, GL_COMPILE_STATUS, &Result);
-//	glGetShaderiv(fragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//	vector<char> FragmentShaderErrorMessage(InfoLogLength);
-//	glGetShaderInfoLog(fragmentShaderID, InfoLogLength, NULL, NULL);
-//	fprintf(stdout, "%s\n", &FragmentShaderErrorMessage[0]);
-//	
-//	// link program
-//	fprintf(stdout, "Linking program\n");
-//	GLuint ProgramID = glCreateProgram();
-//	glAttachShader(ProgramID, vertexShaderID);
-//	glAttachShader(ProgramID, fragmentShaderID);
-//	glLinkProgram(ProgramID);
-//	
-//	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-//	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//	vector<char> ProgramErrorMessage(std::max(InfoLogLength, int(1)));
-//	glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-//	fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
-//	
-//	glDeleteShader(vertexShaderID);
-//	glDeleteShader(fragmentShaderID);
-//	
-//	program_id = ProgramID;
-//}
-
-// Renders an object to opengl
 void Entity::render()
 {
 	glUseProgram(program_id);
@@ -152,26 +68,6 @@ vector<vec3> Entity::get_mesh()
 void Entity::set_mesh(vector<vec3>& new_mesh)
 {
 	mesh = new_mesh;
-}
-
-void Entity::set_position(vec3& new_position)
-{
-	position = new_position;
-}
-
-vec3 Entity::get_position()
-{
-	return position;
-}
-
-void Entity::set_model(mat4& new_model)
-{
-	model = new_model;
-}
-
-mat4 Entity::get_model()
-{
-	return model;
 }
 
 void Entity::set_vao(GLuint& new_vao)
@@ -214,9 +110,19 @@ GLuint Entity::get_program_id()
 	return program_id;
 }
 
-void Entity::set_actor(PxActor& new_actor)
+void Entity::set_draw_mode(GLuint& new_draw_mode)
 {
-	actor = &new_actor;
+	draw_mode = new_draw_mode;
+}
+
+GLuint Entity::get_draw_mode()
+{
+	return draw_mode;
+}
+
+void Entity::set_actor(PxActor* new_actor)
+{
+	actor = new_actor;
 }
 
 PxActor* Entity::get_actor()

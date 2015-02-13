@@ -4,26 +4,28 @@
 //==============================================================================
 bool HardLight::BuildScene()
 {
-	PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
-	PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
-	PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
+	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
+	//PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
+	//PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
 
-	// *** Create Ground-Plane *** //
-	PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
-	PxRigidStatic* plane = gPhysics->createRigidStatic(pose);
-	PxShape* shape = plane->createShape(PxPlaneGeometry(), *planeMaterial);
-	gScene->addActor(*plane);
-	Entity entity1;
-	entity1.set_actor(*plane);
+	//// *** Create Ground-Plane *** //
+	//PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(1.0f, 0.0f, 0.0f)));
+	//PxRigidStatic* gGroundPlane = gPhysics->createRigidStatic(pose);
+	//PxShape* shape = gGroundPlane->createShape(PxPlaneGeometry(), *planeMaterial);
+	//gScene->addActor(*gGroundPlane);
 
-	vector<vec3> mesh;
-	mesh.push_back(vec3(-10.0f, 0.0f, 10.0f));
-	mesh.push_back(vec3(10.0f, 0.0f, 10.0f));
-	mesh.push_back(vec3(10.0f, 0.0f, -10.0f));
-	mesh.push_back(vec3(-10.0f, 0.0f, -10.0f));
-	entity1.set_mesh(mesh);
+	//vector<vec3> plane_mesh;
+	////plane_mesh.push_back(vec3(0.0f, -10.0f, -10.0f));
+	////plane_mesh.push_back(vec3(0.0f, 10.0f, -10.0f));
+	////plane_mesh.push_back(vec3(0.0f, 10.0f, 10.0f));
+	////plane_mesh.push_back(vec3(0.0f, -10.0f, 10.0f));
+	//plane_mesh.push_back(vec3(-25.0f, 25.0f, -20.0f));
+	//plane_mesh.push_back(vec3(25.0f, 25.0f, -20.0f));
+	//plane_mesh.push_back(vec3(-25.0f, -25.0f, -20.0f));
+	//plane_mesh.push_back(vec3(25.0f, -25.0f, -20.0f));
 
-	world.add_entity(entity1);
+	//world.add_entity(gGroundPlane, plane_mesh);
+	
 
 	//world.add_entity(*plane, Mesh::createPlaneMesh());
 	//
