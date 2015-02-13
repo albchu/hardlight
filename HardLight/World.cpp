@@ -1,25 +1,21 @@
 #include "World.h"
 
 // Creates an entity with a PxActor and adds it to the list of entities
-Entity World::add_entity(PxActor& actor)
+void World::add_entity(PxActor* init_actor)
 {
-	Entity entity;
-	entity.set_actor(actor);
-	entities.push_back(entity);
-	return entity;
+	vector<vec3> empty_mesh;
+	add_entity(init_actor, empty_mesh);
 }
 
-Entity World::add_entity(PxActor& actor, vector<vec3> mesh)
+void World::add_entity(PxActor* init_actor, vector<vec3>& init_mesh)
 {
-	Entity entity = add_entity(actor);
-	entity.set_mesh(mesh);
-	return entity;
+	Entity entity = Entity(init_actor, init_mesh);
+	add_entity(entity);
 }
 
-Entity World::add_entity(Entity& entity)
+void World::add_entity(Entity& entity)
 {
 	entities.push_back(entity);
-	return entity;
 }
 
 vector<Entity> World::getEntities()

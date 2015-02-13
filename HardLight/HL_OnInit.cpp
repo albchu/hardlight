@@ -55,7 +55,7 @@ bool HardLight::OnInit()
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 
-	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocator, gDefaultErrorCallback);
 	if(!gFoundation)
 	{
 		return false;
@@ -121,9 +121,9 @@ bool HardLight::OnInit()
 	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
 	//glUseProgram(render_prog);
 	//view_matrix = mat4(1.0f);
-	projection_matrix = perspective(60.0f, window_width/(float)window_height, 0.01f, 1000.f);
+	projection_matrix = perspective(45.0f, (float)window_width/(float)window_height, 0.1f, 1000.0f);
 
-	//view_matrix = translate(view_matrix, vec3(0,5,-10));
+	view_matrix = translate(view_matrix, vec3(0,-5,0));
 	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
 	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
 	//	1,

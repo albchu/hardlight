@@ -10,17 +10,29 @@ float getRandFloat(float low, float high)
 bool HardLight::DrawEntity(Entity entity)
 {
 	PxRigidActor* actor = entity.get_actor()->isRigidActor();
-	mat4 model;// = entity.get_model();
+	mat4 model;
 
 	// Update the model matrix of the entity with physx changes
 	PxTransform gPose = actor->getGlobalPose();
-	//model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
+	
 	//model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
 
-	
+	/*PxU32 nShapes = actor->getNbShapes();
+	PxShape** shapes = new PxShape*[nShapes];
+	actor->getShapes(shapes, nShapes);
+	for (unsigned int i = 0; i < nShapes; i++) {
+		PxTransform lPose = shapes[i]->getLocalPose();
+		model = translate(model, vec3(lPose.p.x, lPose.p.y, lPose.p.z));
+		PxReal lrads;
+		PxVec3 laxis;
+		lPose.q.toRadiansAndUnitAxis(lrads, laxis);
+		model = rotate(model, (GLfloat) (lrads*180.0/PxPi), vec3(laxis.x, laxis.y, laxis.z));
+	}*/
+
 
 	// Load vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
@@ -48,7 +60,7 @@ bool HardLight::DrawEntity(Entity entity)
 	// Load entity MVP 
 	mat4 mvp = projection_matrix * view_matrix * model;
 	GLint mvpID = glGetUniformLocation(entity.get_program_id(), "MVP");
-	
+
 	glUseProgram(entity.get_program_id());
 	glUniformMatrix4fv(mvpID,		// ID
 		1,		// only 1 matrix
@@ -58,8 +70,8 @@ bool HardLight::DrawEntity(Entity entity)
 
 	glUseProgram(entity.get_program_id());
 	glBindVertexArray(entity.get_vao());
-	GLfloat width = 25;
-	glLineWidth(width);
+	//GLfloat width = 25;
+	//glLineWidth(width);
 	glDrawArrays(GL_LINE_LOOP, 0, entity.get_mesh().size());
 
 	return false;
@@ -76,7 +88,15 @@ void HardLight::OnRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//// camera, will enable keyboard control at the moment with the shitty opengl 2 way
-	view_matrix = translate(view_matrix, vec3((right-left)*speed, 0.0f, (forward-back)*speed));
+	//view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
+	PxTransform gPose = vehicle->getGlobalPose();
+	view_matrix = mat4(1.0f);
+	view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+
+
+	PxReal rads;
+	PxVec3 axis;
+	gPose.q.toRadiansAndUnitAxis(rads, axis);
 
 	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{

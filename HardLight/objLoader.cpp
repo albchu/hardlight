@@ -75,31 +75,31 @@ bool objLoader::loadObj(Parser parser)
 			line[0] = ' ';
 
 			token = strtok_s((char*)line.c_str(), seps, &context);
-			face.x = atoi(token) - 1;
+			face.x = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.x = atoi(token) - 1;
+			faceText.x = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.x = atoi(token) - 1;
+			faceNorm.x = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			face.y = atoi(token) - 1;
+			face.y = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.y = atoi(token) - 1;
+			faceText.y = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.y = atoi(token) - 1;
+			faceNorm.y = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			face.z = atoi(token) - 1;
+			face.z = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceText.z = atoi(token) - 1;
+			faceText.z = atof(token) - 1;
 
 			token = strtok_s(NULL, seps, &context);
-			faceNorm.z = atoi(token) - 1;
+			faceNorm.z = atof(token) - 1;
 
 			m_faces.push_back(face);
 			m_textfaces.push_back(faceText);

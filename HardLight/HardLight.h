@@ -64,27 +64,19 @@ private:
 	PxPhysics* gPhysics;
 	PxCooking* gCooking;
 	PxDefaultErrorCallback gDefaultErrorCallback;
-	PxDefaultAllocator gDefaultAllocatorCallback;
+	PxDefaultAllocator gDefaultAllocator;
 	PxSimulationFilterShader gDefaultFilterShader;
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
 	Uint32 msMax;
 
-	int nbObjects;
-	float size;
-
-	PxVec3 gCameraPos;
-	PxVec3 gCameraForward;
 	float speed;
 	float fast;
 	int forward;
 	int back;
 	int left;
 	int right;
-	GLfloat lightAmbientColour[4];
-	GLfloat lightDiffuseColour[4];
-	GLfloat lightSpecularColour[4];
 
 	bool DrawEntity(Entity entity);
 

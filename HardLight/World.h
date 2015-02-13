@@ -9,8 +9,8 @@ private:
 
 public:
 	//void add_new_actor
-	Entity add_entity(PxActor&);
-	Entity add_entity(PxActor&, vector<vec3>);
-	Entity add_entity(Entity& entity);
+	void add_entity(PxActor* init_actor);
+	void add_entity(PxActor* init_actor, vector<vec3>& init_mesh);
+	void add_entity(Entity& entity);
 	vector<Entity> getEntities();
 };

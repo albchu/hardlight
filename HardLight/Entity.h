@@ -22,9 +22,7 @@ using namespace physx;
 class Entity
 {
 private:
-	vec3 position;	// Marks the central position of the entity
 	vector<vec3> mesh;		// The manifestation of this entity
-	mat4 model;
 	GLuint program_id;
 	GLuint vao; // vertex array object
 	GLuint vbo; // vertex buffer object
@@ -32,8 +30,7 @@ private:
 	PxActor* actor;
 
 public:
-	Entity(vec3, vector<vec3>);
-	Entity();
+	Entity(PxActor*, vector<vec3>&);
 
 	// Buffer object initialization
 	void initProgramID();
@@ -50,12 +47,6 @@ public:
 
 	void render();
 	
-	void			set_position(vec3&);
-	vec3			get_position();
-
-	void			set_model(mat4&);
-	mat4			get_model();
-
 	void			set_program_id(GLuint&);
 	GLuint			get_program_id();
 
@@ -74,6 +65,6 @@ public:
 	void			set_mesh(vector<vec3>&);
 	vector<vec3>	get_mesh();
 
-	void			set_actor(PxActor&);
+	void			set_actor(PxActor*);
 	PxActor*		get_actor();
 };

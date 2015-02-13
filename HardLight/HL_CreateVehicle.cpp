@@ -7,7 +7,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial)
 	//Set up the chassis mass, dimensions, moment of inertia, and center of mass offset.
 	//The moment of inertia is just the moment of inertia of a cuboid but modified for easier steering.
 	//Center of mass offset is 0.65m above the base of the chassis and 0.25m towards the front.
-	const PxF32 chassisMass = 150.0f;
+	const PxF32 chassisMass = 1500.0f;
 	const PxVec3 chassisDims(2.5f,2.0f,5.0f);
 	const PxVec3 chassisMOI
 		((chassisDims.y*chassisDims.y + chassisDims.z*chassisDims.z)*chassisMass/12.0f,
@@ -44,7 +44,7 @@ bool HardLight::CreateVehicle()
 	gMaterial = gPhysics->createMaterial(1.9f, 1.9f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
-	gVehicleSceneQueryData = VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocatorCallback);
+	gVehicleSceneQueryData = VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator);
 	gBatchQuery = VehicleSceneQueryData::setUpBatchedSceneQuery(0, *gVehicleSceneQueryData, gScene);
 	
 	//Create the friction table for each combination of tire and surface type.
@@ -53,7 +53,14 @@ bool HardLight::CreateVehicle()
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-	world.add_entity(*gGroundPlane);
+
+	vector<vec3> plane_mesh;
+	plane_mesh.push_back(vec3(0.0f, -10.0f, -10.0f));
+	plane_mesh.push_back(vec3(0.0f, 10.0f, -10.0f));
+	plane_mesh.push_back(vec3(0.0f, 10.0f, 10.0f));
+	plane_mesh.push_back(vec3(0.0f, -10.0f, 10.0f));
+
+	world.add_entity(gGroundPlane, plane_mesh);
 
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial);
@@ -61,7 +68,14 @@ bool HardLight::CreateVehicle()
 	PxTransform startTransform(PxVec3(0, (vehicleDesc.chassisDims.y*0.5f + vehicleDesc.wheelRadius + 10.0f), 0), PxQuat(PxIdentity));
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
-	world.add_entity(*gVehicle4W->getRigidDynamicActor());
+
+	vector<vec3> vehicle_mesh;
+	vehicle_mesh.push_back(vec3(-1.0f, 0.0f, -1.0f));
+	vehicle_mesh.push_back(vec3(1.0f, 0.0f, -1.0f));
+	vehicle_mesh.push_back(vec3(1.0f, 0.0f, 1.0f));
+	vehicle_mesh.push_back(vec3(-1.0f, 0.0f, 1.0f));
+
+	world.add_entity(gVehicle4W->getRigidDynamicActor(), vehicle_mesh);
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.

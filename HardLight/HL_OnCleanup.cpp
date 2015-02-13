@@ -8,7 +8,7 @@ void HardLight::OnCleanup()
 	gVehicle4W->free();
 	gGroundPlane->release();
 	gBatchQuery->release();
-	gVehicleSceneQueryData->free(gDefaultAllocatorCallback);
+	gVehicleSceneQueryData->free(gDefaultAllocator);
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
 	if (gScene != NULL) gScene->release();
