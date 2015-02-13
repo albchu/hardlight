@@ -1,11 +1,13 @@
 // This class is the entire world representation. It holds a list of entities with operations on the entities
 #include "Entity.h"
 #include <vector>
+#include <map>
 
 class World
 {
 private:
 	vector<Entity> entities;
+	map<Entity, Mesh> meshes;
 
 public:
 	//void add_new_actor
