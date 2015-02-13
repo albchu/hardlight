@@ -6,8 +6,15 @@ objLoader::objLoader() {
 
 MeshData objLoader::loadObj(Parser parser)
 {
+	std::vector<glm::vec3> m_vertices; 	// essentially an array of type Vector3f
+	std::vector<glm::vec3> m_normals;
+	std::vector<glm::vec2> m_textures; 	// used to store texture coordinates
 
-	MeshData temp = MeshData();
+	std::vector<glm::tvec3<int> > m_faces;
+	std::vector<glm::tvec3<int> > m_fnormals; 	// use in face normal calculation
+	std::vector<glm::tvec3<int> > m_textfaces;	// used to associate a texture coordinate with a face
+
+	char* mtl_filename;
 
 	for(std::string line : parser.getFileContainer()) {
 		char seps[] = " /";
@@ -111,11 +118,13 @@ MeshData objLoader::loadObj(Parser parser)
 		}
 	}
 
-	std::cout << "Obj file loaded with " << m_vertices.size() << " vertices, " << m_textures.size() << " texture coords, and " << m_faces.size() << " faces." << std::endl;
+	MeshData temp = MeshData(m_vertices, m_normals, m_textures, m_faces, m_fnormals, m_textfaces, mtl_filename);
+
+	/*std::cout << "Obj file loaded with " << m_vertices.size() << " vertices, " << m_textures.size() << " texture coords, and " << m_faces.size() << " faces." << std::endl;
 	std::cout << "Also has " << m_normals.size() << "normals " << std::endl;
 
 	std::string testString;
 
-	std::getline(std::cin, testString);
-	return true;
+	std::getline(std::cin, testString);*/
+	return temp;
 }

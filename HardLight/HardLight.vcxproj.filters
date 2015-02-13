@@ -74,6 +74,9 @@
     <ClCompile Include="Entity.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="MeshData.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -123,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
