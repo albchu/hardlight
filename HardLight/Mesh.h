@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 #include <glm/glm.hpp>
 
@@ -17,11 +18,14 @@ class Mesh
 {
 private:
 
-	map<Entity, MeshData> meshes;
+	map<string, MeshData> meshes;
 
 public:
 	static vector<vec3> createPlaneMesh();
 
+	MeshData getEntityMesh(string);
+	void setEntityMesh(string, MeshData);
+	void deleteEntityMesh(string);
 };
 
 #endif

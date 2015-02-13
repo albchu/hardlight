@@ -11,3 +11,18 @@ vector<vec3> Mesh::createPlaneMesh()
 
 	return mesh;
 }
+
+MeshData Mesh::getEntityMesh(string ent)
+{
+	return meshes[ent]; 
+}
+
+void Mesh::setEntityMesh(string ent, MeshData m_data)
+{
+	meshes[ent] = m_data;
+}
+
+void Mesh::deleteEntityMesh(string ent)
+{
+	meshes.erase(ent);
+}
