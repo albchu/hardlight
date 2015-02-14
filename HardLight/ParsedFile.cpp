@@ -1,15 +1,15 @@
 
-#include "Parser.h"
+#include "ParsedFile.h"
 
-std::vector<std::string> Parser::getFileContainer() {
+std::vector<std::string> ParsedFile::getFileContainer() {
 	return parsedFileContainer;
 }
 
-Parser::Parser(const char* filename) {
+ParsedFile::ParsedFile(const char* filename) {
 	loadFile(filename);
 }
 
-bool Parser::loadFile(const char* filename) {
+bool ParsedFile::loadFile(const char* filename) {
 
 	std::fstream fileIn;
 	char lineBuffer[BUFFERSIZE];
