@@ -89,7 +89,7 @@ private:
 	World world;
 
 	objLoader objParser;
-	std::vector<Parser> parsedOBJs;
+	std::vector<ParsedFile> parsedOBJs;
 
 	void loadAllOBJs(const char*);
 

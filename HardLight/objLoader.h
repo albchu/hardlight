@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <glm/glm.hpp>
 #include "MeshData.h"
-#include "Parser.h"
+#include "ParsedFile.h"
 
 class objLoader {
 
@@ -14,7 +14,7 @@ public:
 
 	objLoader();
 
-	MeshData loadObj(Parser);
+	MeshData loadObj(ParsedFile);
 
 };
 
