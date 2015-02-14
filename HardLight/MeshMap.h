@@ -1,5 +1,5 @@
-#ifndef _MESH_H_
-#define _MESH_H_
+#ifndef _MESHMAP_H_
+#define _MESHMAP_H_
 
 
 #include "MeshData.h"
@@ -14,7 +14,7 @@
 using namespace std;
 using namespace glm;
 
-class Mesh
+class MeshMap
 {
 private:
 
