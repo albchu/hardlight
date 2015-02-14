@@ -1,5 +1,5 @@
-#ifndef _PARSER_H_
-#define _PARSER_H_
+#ifndef _PARSEDFILE_H_
+#define _PARSEDFILE_H_
 
 #include <string>
 #include <vector>
@@ -8,14 +8,14 @@
 
 #define BUFFERSIZE 1024
 
-class Parser {
+class ParsedFile {
 
 private:
 
 	std::vector<std::string> parsedFileContainer;
 
 public:
-	Parser(const char*);
+	ParsedFile(const char*);
 
 	bool loadFile(const char*);
 

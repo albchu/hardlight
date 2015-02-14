@@ -4,7 +4,7 @@ objLoader::objLoader() {
 
 }
 
-MeshData objLoader::loadObj(Parser parser)
+MeshData objLoader::loadObj(ParsedFile parser)
 {
 	std::vector<glm::vec3> m_vertices; 	// essentially an array of type Vector3f
 	std::vector<glm::vec3> m_normals;

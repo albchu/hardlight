@@ -29,7 +29,7 @@ void HardLight::loadAllOBJs(const char* directory) {
 
 				std::string dirString = std::string(directory);
 				std::string filename = std::string(cbuff);
-				parsedOBJs.push_back(Parser((dirString + filename).c_str()));
+				parsedOBJs.push_back(ParsedFile((dirString + filename).c_str()));
             }
         }while(::FindNextFile(handle, &fd));
         ::FindClose(handle); 
