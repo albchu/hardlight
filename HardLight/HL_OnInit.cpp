@@ -7,20 +7,31 @@
 void HardLight::loadAllOBJs(const char* directory) {
 
 	char searchPath[200];
+	wchar_t* wbuff;
+	char* cbuff;
 
 	sprintf(searchPath, "%s*.obj", directory);
 	WIN32_FIND_DATA fd;
-	HANDLE handle = ::FindFirstFile((LPCWSTR)searchPath, &fd);
+
+	int size = MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, NULL, 0);
+	wbuff = new wchar_t[size];
+	MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, wbuff, size);
+
+	HANDLE handle = ::FindFirstFile(wbuff, &fd);
 	if(handle != INVALID_HANDLE_VALUE) { 
         do { 
 
             if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
 
+				size = WideCharToMultiByte(CP_UTF8, 0, fd.cFileName, -1, NULL, 0,  NULL, NULL);
+				cbuff = new char[size];
+				WideCharToMultiByte(CP_UTF8, 0, fd.cFileName, -1, &cbuff[0], size, NULL, NULL);
+
 				std::string dirString = std::string(directory);
-				std::string filename = std::string((char*)fd.cFileName);
+				std::string filename = std::string(cbuff);
 				parsedOBJs.push_back(Parser((dirString + filename).c_str()));
             }
-        }while(::FindNextFile(handle, &fd)); 
+        }while(::FindNextFile(handle, &fd));
         ::FindClose(handle); 
     } 
 }
@@ -28,6 +39,8 @@ void HardLight::loadAllOBJs(const char* directory) {
 bool HardLight::OnInit()
 {
 	loadAllOBJs("../data/");
+	for(int counter = 0; counter < parsedOBJs.size(); counter++)
+		cout << parsedOBJs[counter].getFileContainer()[0] << endl;
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{

@@ -25,11 +25,5 @@ bool Parser::loadFile(const char* filename) {
 	}
 
 	fileIn.close();
-
-	std::cout << parsedFileContainer.size() << std::endl;
-
-	std::string testString;
-
-	std::getline(std::cin, testString);
 	return true;
 }
