@@ -6,13 +6,13 @@
 #include "MeshData.h"
 #include "ParsedFile.h"
 
-class objLoader {
+class objParser {
 
 private:
 
 public:
 
-	objLoader();
+	objParser();
 
 	MeshData loadObj(ParsedFile);
 

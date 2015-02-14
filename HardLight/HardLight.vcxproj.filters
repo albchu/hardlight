@@ -59,12 +59,6 @@
     <ClCompile Include="World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="objLoader.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Parser.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderTools.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -76,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="MeshData.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ParsedFile.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="objParser.cpp">
+      <Filter>objLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,12 +112,6 @@
     <ClInclude Include="World.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="objLoader.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Parser.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderTools.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -129,6 +123,12 @@
     </ClInclude>
     <ClInclude Include="MeshData.h">
       <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ParsedFile.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="objParser.h">
+      <Filter>objLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

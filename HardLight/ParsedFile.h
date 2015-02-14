@@ -1,6 +1,11 @@
 #ifndef _PARSEDFILE_H_
 #define _PARSEDFILE_H_
 
+/* Class ParsedFile
+ *
+ * reads file and stores it
+ */
+
 #include <string>
 #include <vector>
 #include <fstream>

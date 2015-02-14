@@ -29,7 +29,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "objLoader.h"
+#include "objParser.h"
 #include "World.h"
 #include "Mesh.h"
 
@@ -88,7 +88,7 @@ private:
 
 	World world;
 
-	objLoader objParser;
+	objParser objParser;
 	std::vector<ParsedFile> parsedOBJs;
 
 	void loadAllOBJs(const char*);
