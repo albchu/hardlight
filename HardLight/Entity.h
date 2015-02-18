@@ -2,15 +2,13 @@
 #define _ENTITY_H_
 
 // The class holds information for each entity in our opengl scene
-#include <algorithm>
-#include <stdio.h>
-#include <string>
-#include <fstream>
 #include <glm/glm.hpp>		// Used for vec3
 #include <vector>
 #include <GL/glew.h>
 #include <PxPhysicsAPI.h>
+
 #include "ShaderTools.h"
+#include "MeshData.h"
 
 using namespace glm;
 using namespace std;
@@ -25,12 +23,15 @@ using namespace physx;
 class Entity
 {
 private:
-	vector<vec3> mesh;		// The manifestation of this entity
 	GLuint draw_mode;
-	GLuint program_id;
-	GLuint vao; // vertex array object
-	GLuint vbo; // vertex buffer object
-	GLuint cbo; // color buffer object
+	MeshData mesh_data;
+	GLuint programID;
+	GLuint VertexArrayID; // vertex array object
+	GLuint MatrixID;
+	GLuint ViewMatrixID;
+	GLuint ModelMatrixID;
+	GLuint TextureID;
+	GLuint VertexBufferID; // vertex buffer object
 	PxActor* actor;
 
 public:
@@ -54,18 +55,8 @@ public:
 	void			set_program_id(GLuint&);
 	GLuint			get_program_id();
 
-	// Vertex array object
-	void			set_vao(GLuint&);
-	GLuint			get_vao();
-
-	// Vertex buffer object
-	void			set_vbo(GLuint&);
+	GLuint			getVertexArrayID();
 	GLuint			get_vbo();
-
-	// Color buffer object
-	void			set_cbo(GLuint&);
-	GLuint			get_cbo();
-
 	void			set_mesh(vector<vec3>&);
 	vector<vec3>	get_mesh();
 

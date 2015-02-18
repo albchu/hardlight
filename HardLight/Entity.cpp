@@ -6,13 +6,9 @@ Entity::Entity(PxActor* init_actor, vector<vec3>& init_mesh)
 	actor = init_actor;
 	mesh = init_mesh;
 
-	initProgramID();
-	initVAO();
-	initVBO();
-	initCBO();
-	setupVAO();
-	setupVBO();
-	setupCBO();
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+	programID = LoadShaders("StandardShading.vertexshader", "basic_fs.glsl");
 }
 
 void Entity::initProgramID() {
