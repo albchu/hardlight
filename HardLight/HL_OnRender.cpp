@@ -1,105 +1,40 @@
 //==============================================================================
 #include "HardLight.h"
+#include <glm\gtx\rotate_vector.hpp>
 
-float getRandFloat(float low, float high)
-{
-	return (low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low))));
-}
-
-//==============================================================================
-bool HardLight::DrawEntity(Entity entity)
-{
-	PxRigidActor* actor = entity.get_actor()->isRigidActor();
-	mat4 model;
-
-	// Update the model matrix of the entity with physx changes
-	PxTransform gPose = actor->getGlobalPose();
-	model = translate(model, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
-	PxReal rads;
-	PxVec3 axis;
-	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	cout << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
-	model = rotate(model, (GLfloat) (rads*180.0/PxPi), vec3(axis.x, axis.y, axis.z));
-
-	// Load vertex buffer
-	glBindBuffer(GL_ARRAY_BUFFER, entity.get_vbo());
-	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(glm::vec3) * entity.get_mesh().size(),	// byte size of Vec3f, 4 of them
-		entity.get_mesh().data(),		// pointer (Vec3f*) to contents of verts
-		GL_STATIC_DRAW);	// Usage pattern of GPU buffer
-
-	// RGB values for the vertices
-	std::vector<glm::vec3> colors;
-	for (unsigned int i = 0; i < entity.get_mesh().size(); i++)
-	{
-		//float r = getRandFloat(0.30, 1.0);
-		//float g = getRandFloat(0.60, 1.0);
-		//float b = getRandFloat(0.70, 1.0);
-		colors.push_back(glm::vec3(0.5,0.5,0.5));//(r, g, b));
-	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, entity.get_cbo());
-	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(glm::vec3)*colors.size(),
-		colors.data(),
-		GL_STATIC_DRAW);
-
-	// Load entity MVP 
-	mat4 mvp = projection_matrix * view_matrix * model;
-	GLint mvpID = glGetUniformLocation(entity.get_program_id(), "MVP");
-
-	glUseProgram(entity.get_program_id());
-	glUniformMatrix4fv(mvpID,		// ID
-		1,		// only 1 matrix
-		GL_FALSE,	// transpose matrix, Mat4f is row major
-		glm::value_ptr(mvp)	// pointer to data in Mat4f
-		);
-
-	glUseProgram(entity.get_program_id());
-	glBindVertexArray(entity.get_vao());
-	//GLfloat width = 25;
-	//glLineWidth(width);
-	glDrawArrays(entity.get_draw_mode(), 0, entity.get_mesh().size());
-
-	return false;
-}
-
-void updateMatrixColumn(glm::mat4 & matrix, int column, glm::vec3 vector)
-{
-	matrix[column][0] = vector.x;
-	matrix[column][1] = vector.y;
-	matrix[column][2] = vector.z;
-}
-
-//------------------------------------------------------------------------------
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	//glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Camera controls
-	view_matrix = translate(view_matrix, vec3((left-right)*speed, 0.0f, (forward-back)*speed));
-	//PxTransform gPose = vehicle->getGlobalPose();
-	//view_matrix = mat4(1.0f);
-	//view_matrix = translate(view_matrix, vec3(gPose.p.x, gPose.p.y-10, gPose.p.z));
-	//cout << "Car Position: " << gPose.p.x << " " << gPose.p.y << " " << gPose.p.z << endl;
+	cam_translate += vec3(0.0f, 0.0f, (forward-back)*speed);
+	cam_rotate += (right-left)*speed / 30.0f;
+	if (cam_rotate > PxTwoPi) cam_rotate -= PxTwoPi;
+	if (cam_rotate < 0.0f) cam_rotate += PxTwoPi;
 
-	//updateMatrixColumn(view_matrix, 3, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	vec3 camera_position(cam_translate);
+	camera_position = rotateY(camera_position, cam_rotate);
+	vec3 light(5.0f, 10.0f, -5.0f);
+	// view_matrix for all entities
+	PxTransform gPose = vehicle->getGlobalPose();
+	PxReal rads;
+	PxVec3 axis;
+	gPose.q.toRadiansAndUnitAxis(rads, axis);
+	camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
 
-	//PxReal rads;
-	//PxVec3 axis;
-	//gPose.q.toRadiansAndUnitAxis(rads, axis);
+	vec3 v_pos(gPose.p.x, gPose.p.y, gPose.p.z);
+	vec3 up(0.0f, 1.0f, 0.0f);
+	if (cam_translate.z > 0.0f) up *= -1.0f;
+	camera_position += v_pos;
+	mat4 view_matrix = lookAt(camera_position, v_pos + vec3(0,5,0), up);
 
 	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
-		if ( world.getEntities()[i].get_actor()->getOwnerClient() == PX_DEFAULT_CLIENT)
-		{
-			DrawEntity(world.getEntities()[i]);
-		}
+		world.getEntities()[i].render(projection_matrix, view_matrix, light);
 	}
 
 	SDL_GL_SwapWindow(window);

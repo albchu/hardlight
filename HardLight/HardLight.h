@@ -6,17 +6,13 @@
 #include <string>
 #include<iostream>
 #include <windows.h>
-#include "inih/cpp\INIReader.h"
+#include "inih\cpp\INIReader.h"
 
-#include <GL/glew.h>
+#include <GL\glew.h>
 
 #include <SDL_opengl.h>
 #include <SDL.h>
-#include <GL/GL.h>
-
-//#include <gl/GLU.h>
-
-
+#include <GL\GL.h>
 
 #include <PxPhysicsAPI.h>
 #include <vehicle/PxVehicleUtil.h>
@@ -31,7 +27,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
-#include "Mesh.h"
+#include "MeshData.h"
+#include "MeshMap.h"
 
 using namespace physx;
 using namespace glm;
@@ -76,17 +73,17 @@ private:
 
 	float speed;
 	float fast;
-	int forward;
-	int back;
-	int left;
-	int right;
-
-	bool DrawEntity(Entity entity);
+	float forward;
+	float back;
+	float left;
+	float right;
 
 	mat4 projection_matrix;
-	mat4 view_matrix;
+	vec3 cam_translate;
+	float cam_rotate;
 
 	World world;
+	MeshMap mesh_map;
 
 	objParser objParser;
 	std::vector<ParsedFile> parsedOBJs;

@@ -62,9 +62,6 @@
     <ClCompile Include="ShaderTools.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>World</Filter>
     </ClCompile>
@@ -75,6 +72,15 @@
       <Filter>objLoader</Filter>
     </ClCompile>
     <ClCompile Include="objParser.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshMap.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="tempOBJ\objloader.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="tempOBJ\vboindexer.cpp">
       <Filter>objLoader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -115,9 +121,6 @@
     <ClInclude Include="ShaderTools.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>World</Filter>
     </ClInclude>
@@ -128,6 +131,15 @@
       <Filter>objLoader</Filter>
     </ClInclude>
     <ClInclude Include="objParser.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="tempOBJ\objloader.hpp">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="tempOBJ\vboindexer.hpp">
       <Filter>objLoader</Filter>
     </ClInclude>
   </ItemGroup>

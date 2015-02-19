@@ -24,43 +24,32 @@ class Entity
 {
 private:
 	GLuint draw_mode;
-	MeshData mesh_data;
-	GLuint programID;
-	GLuint VertexArrayID; // vertex array object
-	GLuint MatrixID;
-	GLuint ViewMatrixID;
-	GLuint ModelMatrixID;
-	GLuint TextureID;
-	GLuint VertexBufferID; // vertex buffer object
-	PxActor* actor;
+	MeshData* mesh_data;
+	PxRigidActor* actor;
+	GLuint texture;
+
+	GLuint program_id;
+	GLuint vertex_array_id;
+	GLuint mvp_matrix_id;
+	GLuint view_matrix_id;
+	GLuint model_matrix_id;
+	GLuint texture_id;
+	GLuint vertex_buffer_id;
+	GLuint normal_buffer_id;
+	GLuint texture_buffer_id;
+	GLuint light_id;
 
 public:
-	Entity(PxActor*, vector<vec3>&);
+	Entity(PxRigidActor*, MeshData*, const char*);
 
-	// Buffer object initialization
-	void initProgramID();
-	void initVAO();
-	void initVBO();
-	void initCBO();
+	void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 
-	void setupVAO();
-	void setupVBO();
-	void setupCBO();
+	void			set_texture();
 
-	// sets program_id
-	//void createShaderProgram(string, string);
+	void			set_mesh_data(MeshData*);
+	MeshData*		get_mesh_data();
 
-	void render();
-	
-	void			set_program_id(GLuint&);
-	GLuint			get_program_id();
-
-	GLuint			getVertexArrayID();
-	GLuint			get_vbo();
-	void			set_mesh(vector<vec3>&);
-	vector<vec3>	get_mesh();
-
-	void			set_actor(PxActor*);
+	void			set_actor(PxRigidActor*);
 	PxActor*		get_actor();
 	
 	void			set_draw_mode(GLuint&);

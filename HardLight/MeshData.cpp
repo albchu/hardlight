@@ -3,7 +3,6 @@
  */
 
 #include "MeshData.h"
-#include <iostream>
 
 MeshData::MeshData() {
 	m_vertices = std::vector<glm::vec3>();
@@ -36,8 +35,8 @@ void MeshData::addVertex(glm::vec3 vertex) {
 }
 
 glm::vec3 MeshData::getVertex(int pos) {
-	if(pos > m_vertices.size() || pos < 0) {
-		std::cout << "vertex position is out of bounds" << std::endl;
+	if(pos > (int)m_vertices.size() || pos < 0) {
+		fprintf(stderr, "vertex position is out of bounds\n");
 	}
 
 	return m_vertices[pos];
@@ -48,8 +47,8 @@ void MeshData::addNormal(glm::vec3 normal) {
 }
 
 glm::vec3 MeshData::getNormal(int pos) {
-	if(pos > m_normals.size() || pos < 0) {
-		std::cout << "normal position is out of bounds" << std::endl;
+	if(pos > (int)m_normals.size() || pos < 0) {
+		fprintf(stderr, "normal position is out of bounds\n");
 	}
 
 	return m_normals[pos];
@@ -60,8 +59,8 @@ void MeshData::addTexture(glm::vec2 texture) {
 }
 
 glm::vec2 MeshData::getTexture(int pos) {
-	if(pos > m_textures.size() || pos < 0) {
-		std::cout << "texture position is out of bounds" << std::endl;
+	if(pos > (int)m_textures.size() || pos < 0) {
+		fprintf(stderr, "texture position is out of bounds\n");
 	}
 
 	return m_textures[pos];
@@ -72,8 +71,8 @@ void MeshData::addFace(glm::tvec3<int> face) {
 }
 
 glm::tvec3<int> MeshData::getFace(int pos) {
-	if(pos > m_faces.size() || pos < 0) {
-		std::cout << "face position is out of bounds" << std::endl;
+	if(pos > (int)m_faces.size() || pos < 0) {
+		fprintf(stderr, "face position is out of bounds\n");
 	}
 
 	return m_faces[pos];
@@ -84,8 +83,8 @@ void MeshData::addFaceNormal(glm::tvec3<int> faceNorm) {
 }
 
 glm::tvec3<int> MeshData::getFaceNormal(int pos) {
-	if(pos > m_fnormals.size() || pos < 0) {
-		std::cout << "face normal position is out of bounds" << std::endl;
+	if(pos > (int)m_fnormals.size() || pos < 0) {
+		fprintf(stderr, "face normal position is out of bounds\n");
 	}
 
 	return m_fnormals[pos];
@@ -96,9 +95,13 @@ void MeshData::addFaceTexture(glm::tvec3<int> faceTexture) {
 }
 
 glm::tvec3<int> MeshData::getFaceTexture(int pos) {
-	if(pos > m_textfaces.size() || pos < 0) {
-		std::cout << "face texture position is out of bounds" << std::endl;
+	if(pos > (int)m_textfaces.size() || pos < 0) {
+		fprintf(stderr, "face texture position is out of bounds\n");
 	}
 
 	return m_textfaces[pos];
 }
+
+std::vector<glm::vec3>* MeshData::getVertices() { return &m_vertices; }
+std::vector<glm::vec3>* MeshData::getNormals() { return &m_normals; }
+std::vector<glm::vec2>* MeshData::getTextureCoordinates() { return &m_textures; }

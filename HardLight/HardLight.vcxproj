@@ -95,8 +95,8 @@
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshMap.cpp" />
     <ClCompile Include="objParser.cpp" />
     <ClCompile Include="ParsedFile.cpp" />
     <ClCompile Include="ShaderTools.cpp" />
@@ -107,6 +107,8 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
+    <ClCompile Include="tempOBJ\objloader.cpp" />
+    <ClCompile Include="tempOBJ\vboindexer.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,8 +116,8 @@
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshData.h" />
+    <ClInclude Include="MeshMap.h" />
     <ClInclude Include="objParser.h" />
     <ClInclude Include="ParsedFile.h" />
     <ClInclude Include="ShaderTools.h" />
@@ -126,6 +128,8 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="tempOBJ\objloader.hpp" />
+    <ClInclude Include="tempOBJ\vboindexer.hpp" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>

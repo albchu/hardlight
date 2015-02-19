@@ -21,9 +21,8 @@ private:
 	map<string, MeshData> meshes;
 
 public:
-	static vector<vec3> createPlaneMesh();
-
-	MeshData getEntityMesh(string);
+	MeshMap();
+	MeshData* getEntityMesh(string);
 	void setEntityMesh(string, MeshData);
 	void deleteEntityMesh(string);
 };

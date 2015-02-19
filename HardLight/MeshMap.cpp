@@ -1,20 +1,19 @@
 #include "MeshMap.h"
+#include "tempOBJ\objloader.hpp"
 
-vector<vec3> MeshMap::createPlaneMesh()
+MeshMap::MeshMap()
 {
-	vector<vec3> mesh;
-
-	mesh.push_back(vec3(-25.0f, 25.0f, -100.0f));
-	mesh.push_back(vec3(-25.0f, -57.0f, 0.0f));
-	mesh.push_back(vec3(405.0f, 25.0f, 0.0f));
-	mesh.push_back(vec3(25.0f, -25.0f, 0.0f));
-
-	return mesh;
+	MeshData bike;
+	loadOBJ("../data/HardLightBike.obj", bike.m_vertices, bike.m_textures, bike.m_normals);
+	meshes["HardLightBike"] = bike;
+	MeshData plane;
+	loadOBJ("../data/plane.obj", plane.m_vertices, plane.m_textures, plane.m_normals);
+	meshes["plane"] = plane;
 }
 
-MeshData MeshMap::getEntityMesh(string ent)
+MeshData* MeshMap::getEntityMesh(string ent)
 {
-	return meshes[ent]; 
+	return &meshes[ent]; 
 }
 
 void MeshMap::setEntityMesh(string ent, MeshData m_data)
@@ -22,7 +21,7 @@ void MeshMap::setEntityMesh(string ent, MeshData m_data)
 	meshes[ent] = m_data;
 }
 
-void Mesh::deleteEntityMesh(string ent)
+void MeshMap::deleteEntityMesh(string ent)
 {
 	meshes.erase(ent);
 }

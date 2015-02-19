@@ -15,10 +15,6 @@ class MeshData {
 
 private:
 
-	std::vector<glm::vec3> m_vertices; 	// essentially an array of type Vector3f
-	std::vector<glm::vec3> m_normals;
-	std::vector<glm::vec2> m_textures; 	// used to store texture coordinates
-
 	std::vector<glm::tvec3<int> > m_faces;
 	std::vector<glm::tvec3<int> > m_fnormals; 	// use in face normal calculation
 	std::vector<glm::tvec3<int> > m_textfaces;	// used to associate a texture coordinate with a face
@@ -26,6 +22,9 @@ private:
 	char* mtl_filename;
 
 public:
+	std::vector<glm::vec3> m_vertices; 	// essentially an array of type Vector3f
+	std::vector<glm::vec3> m_normals;
+	std::vector<glm::vec2> m_textures; 	// used to store texture coordinates
 
 	MeshData();
 	MeshData(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, 
@@ -48,6 +47,10 @@ public:
 
 	void addFaceTexture(glm::tvec3<int>);
 	glm::tvec3<int> getFaceTexture(int);
+
+	std::vector<glm::vec3>* getVertices();
+	std::vector<glm::vec3>* getNormals();
+	std::vector<glm::vec2>* getTextureCoordinates();
 };
 
 

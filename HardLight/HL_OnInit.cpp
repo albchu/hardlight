@@ -19,9 +19,9 @@ void HardLight::loadAllOBJs(const char* directory) {
 
 	HANDLE handle = ::FindFirstFile(wbuff, &fd);
 	if(handle != INVALID_HANDLE_VALUE) { 
-        do { 
+		do { 
 
-            if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
+			if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
 
 				size = WideCharToMultiByte(CP_UTF8, 0, fd.cFileName, -1, NULL, 0,  NULL, NULL);
 				cbuff = new char[size];
@@ -30,18 +30,19 @@ void HardLight::loadAllOBJs(const char* directory) {
 				std::string dirString = std::string(directory);
 				std::string filename = std::string(cbuff);
 				parsedOBJs.push_back(ParsedFile((dirString + filename).c_str()));
-            }
-        }while(::FindNextFile(handle, &fd));
-        ::FindClose(handle); 
-    } 
+			}
+		}while(::FindNextFile(handle, &fd));
+		::FindClose(handle); 
+	} 
 }
 
 bool HardLight::OnInit()
 {
+	/*
 	loadAllOBJs("../data/");
-	for(int counter = 0; counter < parsedOBJs.size(); counter++)
+	for(unsigned int counter = 0; counter < parsedOBJs.size(); counter++)
 		cout << parsedOBJs[counter].getFileContainer()[0] << endl;
-
+	*/
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 	{
 		return false;
@@ -148,36 +149,23 @@ bool HardLight::OnInit()
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
-	if( glewInit() != GLEW_OK )
+	if (glewInit() != GLEW_OK)
 	{
 		return false;
 	}
-	glEnable( GL_DEPTH_TEST );
 
-	//ALBERTS MESS, DONT TOUCH PLEASE
-	// Camera Initialization
-	//GLuint render_prog = CreateShaderProgram("basic_vs.glsl", "basic_fs.glsl");
-	//glUseProgram(render_prog);
-	//view_matrix = mat4(1.0f);
+	// Dark blue background
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
+
 	projection_matrix = perspective(45.0f, (float)window_width/(float)window_height, 0.1f, 1000.0f);
 
-	view_matrix = translate(view_matrix, vec3(0,-10,-10));
-	//render_projection_matrix_loc = glGetUniformLocation(GL_PROJECTION, "projection_matrix");
-	//glUniformMatrix4fv(render_projection_matrix_loc,		// ID
-	//	1,
-	//	GL_FALSE,
-	//	glm::value_ptr(projection_matrix)	// pointer to data in Mat4f
-	//	);
+	cam_translate = vec3(0.0f, 10.0f, -10.0f);
+	cam_rotate = 0.0f;
 
-	//old way. dont forget to comment out some of camera code in ONRENDER
-	//gCameraPos += PxVec3((right-left)*speed, 0.0f, (back-forward)*speed);
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//gluPerspective(60.0f, window_width/(float)window_height, 1.0f, 10000.0f);
-	//gluLookAt(gCameraPos.x, gCameraPos.y, gCameraPos.z,
-	//	gCameraPos.x + gCameraForward.x, gCameraPos.y + gCameraForward.y, gCameraPos.z + gCameraForward.z,
-	//	0.0f, 1.0f, 0.0f);
-	
 	// Print OpenGL information
 	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;

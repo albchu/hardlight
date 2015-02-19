@@ -19,16 +19,16 @@ void HardLight::OnEvent(SDL_Event* Event)
 			running = false;
 			break;
 		case SDLK_a:
-			left = 1;
+			left = 1.0f;
 			break;
 		case SDLK_d:
-			right = 1;
+			right = 1.0f;
 			break;
 		case SDLK_s:
-			back = 1;
+			back = 1.0f;
 			break;
 		case SDLK_w:
-			forward = 1;
+			forward = 1.0f;
 			break;
 		case SDLK_LSHIFT:
 			speed *= fast;
@@ -54,16 +54,16 @@ void HardLight::OnEvent(SDL_Event* Event)
 		switch (Event->key.keysym.sym)
 		{
 		case SDLK_a:
-			left = 0;
+			left = 0.0f;
 			break;
 		case SDLK_d:
-			right = 0;
+			right = 0.0f;
 			break;
 		case SDLK_s:
-			back = 0;
+			back = 0.0f;
 			break;
 		case SDLK_w:
-			forward = 0;
+			forward = 0.0f;
 			break;
 		case SDLK_LSHIFT:
 			speed /= fast;
@@ -89,19 +89,19 @@ void HardLight::OnEvent(SDL_Event* Event)
 	case SDL_CONTROLLERAXISMOTION:
 		int LeftX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
 		if (LeftX < -deadzone){
-			left = (LeftX+deadzone)/(-24768.0);
+			left = (LeftX+deadzone)/-24768.0f;
 		}else if(LeftX > deadzone){
-			right = (LeftX-deadzone)/(24768.0);
+			right = (LeftX-deadzone)/24768.0f;
 		}else{
 			left = right = 0;
 		}
 		int LeftY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
 		if (LeftY < -deadzone){		//up on joystick
-			back = (LeftY+deadzone)/(-24768.0);
+			back = (LeftY+deadzone)/-24768.0f;
 		}else if(LeftY > deadzone){ //down on joystick
-			forward = (LeftY-deadzone)/(24768.0);
+			forward = (LeftY-deadzone)/24768.0f;
 		}else{
-			forward = back = 0;
+			forward = back = 0.0f;
 		}
 		//printf("Left X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX));
 		//printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY));
