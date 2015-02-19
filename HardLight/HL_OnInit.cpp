@@ -159,11 +159,17 @@ bool HardLight::OnInit()
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
-	projection_matrix = perspective(45.0f, (float)window_width/(float)window_height, 0.1f, 1000.0f);
+	projection_matrix = perspective(
+		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
+		(float)window_width/(float)window_height,
+		0.1f, 1000.0f);
 
-	cam_translate = vec3(0.0f, 10.0f, -10.0f);
+	cam_translate = vec3(
+		(float)config->GetReal("camera", "x", 0.0),
+		(float)config->GetReal("camera", "y", 5.0),
+		(float)config->GetReal("camera", "z", -10.0));
 	cam_rotate = 0.0f;
 
 	// Print OpenGL information
