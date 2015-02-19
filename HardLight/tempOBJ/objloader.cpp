@@ -18,14 +18,11 @@
 // - More secure. Change another line and you can inject code.
 // - Loading from memory, stream, etc
 
-bool loadOBJ(
-	const char * path, 
-	std::vector<glm::vec3> & out_vertices, 
-	std::vector<glm::vec2> & out_uvs,
-	std::vector<glm::vec3> & out_normals
-){
+MeshData loadOBJ(const char * path)
+{
 	printf("Loading OBJ file %s...\n", path);
 
+	MeshData out_mesh;
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices; 
 	std::vector<glm::vec2> temp_uvs;
@@ -36,7 +33,7 @@ bool loadOBJ(
 	if( file == NULL ){
 		printf("Impossible to open the file ! Are you in the right path ? See Tutorial 1 for details\n");
 		getchar();
-		return false;
+		return MeshData();
 	}
 
 	while( 1 ){
@@ -70,7 +67,7 @@ bool loadOBJ(
 			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
 			if (matches != 9){
 				printf("File can't be read by our simple parser :-( Try exporting with other options\n");
-				return false;
+				return MeshData();
 			}
 			vertexIndices.push_back(vertexIndex[0]);
 			vertexIndices.push_back(vertexIndex[1]);
@@ -103,13 +100,13 @@ bool loadOBJ(
 		glm::vec3 normal = temp_normals[ normalIndex-1 ];
 		
 		// Put the attributes in buffers
-		out_vertices.push_back(vertex);
-		out_uvs     .push_back(uv);
-		out_normals .push_back(normal);
+		out_mesh.addVertex(vertex);
+		out_mesh.addTexture(uv);
+		out_mesh.addNormal(normal);
 	
 	}
 
-	return true;
+	return out_mesh;
 }
 
 

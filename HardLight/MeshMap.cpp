@@ -3,12 +3,8 @@
 
 MeshMap::MeshMap()
 {
-	MeshData bike;
-	loadOBJ("../data/HardLightBike.obj", bike.m_vertices, bike.m_textures, bike.m_normals);
-	meshes["HardLightBike"] = bike;
-	MeshData plane;
-	loadOBJ("../data/plane.obj", plane.m_vertices, plane.m_textures, plane.m_normals);
-	meshes["plane"] = plane;
+	setEntityMesh("HardLightBike", loadOBJ("../data/HardlightBike.obj"));
+	setEntityMesh("plane", loadOBJ("../data/plane.obj"));
 }
 
 MeshData* MeshMap::getEntityMesh(string ent)
