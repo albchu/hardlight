@@ -33,7 +33,7 @@
 #include "PxPhysicsAPI.h"
 #include "vehicle/PxVehicleDriveTank.h"
 #include "vehicle/PxVehicleNoDrive.h"
-
+#include "..\inih\cpp\INIReader.h"
 using namespace physx;
 
 ////////////////////////////////////////////////
@@ -71,7 +71,7 @@ struct VehicleDesc
 	PxU32 numWheels;
 };
 
-PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking);
+PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking, INIReader* config);
 
 PxVehicleDriveTank* createVehicleTank(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking);
 

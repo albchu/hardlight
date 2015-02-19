@@ -31,6 +31,7 @@
 #include "SnippetVehicleTireFriction.h"
 #include "SnippetVehicleRaycast.h"
 
+
 namespace FourWheel
 {
 
@@ -61,7 +62,7 @@ void setupWheelsSimulationData
 (const PxF32 wheelMass, const PxF32 wheelMOI, const PxF32 wheelRadius, const PxF32 wheelWidth, 
  const PxU32 numWheels, const PxVec3* wheelCenterActorOffsets,
  const PxVec3& chassisCMOffset, const PxF32 chassisMass,
- PxVehicleWheelsSimData* wheelsSimData)
+ PxVehicleWheelsSimData* wheelsSimData, INIReader* config)
 {
 	//Set up the wheels.
 	PxVehicleWheelData wheels[PX_MAX_NB_WHEELS];
@@ -105,10 +106,10 @@ void setupWheelsSimulationData
 		//Set the suspension data.
 		for(PxU32 i = 0; i < numWheels; i++)
 		{
-			suspensions[i].mMaxCompression = 0.3f;
-			suspensions[i].mMaxDroop = 0.1f;
-			suspensions[i].mSpringStrength = 35000.0f;	
-			suspensions[i].mSpringDamperRate = 4500.0f;
+			suspensions[i].mMaxCompression = config->GetReal("bike", "suspensionMaxCompress", 1.3f);
+			suspensions[i].mMaxDroop = config->GetReal("bike", "suspensionMaxDroop", 0.1);
+			suspensions[i].mSpringStrength = config->GetReal("bike", "suspensionSpringStrength", 35000.0f);	
+			suspensions[i].mSpringDamperRate = config->GetReal("bike", "suspensionDamperRate", 4500.0f);
 			suspensions[i].mSprungMass = suspSprungMasses[i];
 		}
 
@@ -178,7 +179,7 @@ void setupWheelsSimulationData
 
 } //namespace FourWheel
 
-PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* physics, PxCooking* cooking)
+PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* physics, PxCooking* cooking, INIReader* config)
 {
 	const PxVec3 chassisDims = vehicle4WDesc.chassisDims;
 	const PxF32 wheelWidth = vehicle4WDesc.wheelWidth;
@@ -240,7 +241,7 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 			(vehicle4WDesc.wheelMass, vehicle4WDesc.wheelMOI, wheelRadius, wheelWidth, 
 			 numWheels, wheelCenterActorOffsets,
 			 vehicle4WDesc.chassisCMOffset, vehicle4WDesc.chassisMass,
-			 wheelsSimData);
+			 wheelsSimData, config);
 	}
 
 	//Set up the sim data for the vehicle drive model.
@@ -253,8 +254,8 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 
 		//Engine
 		PxVehicleEngineData engine;
-		engine.mPeakTorque=500.0f;
-		engine.mMaxOmega=600.0f;//approx 6000 rpm
+		engine.mPeakTorque=config->GetReal("bike", "engineMaxTorque", 1000.0f);
+		engine.mMaxOmega=config->GetReal("bike", "engineMaxRPM", 1000.0f); // Value * 10 == total rpm
 		driveSimData.setEngineData(engine);
 
 		//Gears
@@ -264,7 +265,7 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 
 		//Clutch
 		PxVehicleClutchData clutch;
-		clutch.mStrength=10.0f;
+		clutch.mStrength=80.0f;
 		driveSimData.setClutchData(clutch);
 
 		//Ackermann steer accuracy

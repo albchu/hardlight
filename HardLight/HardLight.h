@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
-#include<iostream>
+#include <iostream>
 #include <windows.h>
 #include "inih\cpp\INIReader.h"
 
