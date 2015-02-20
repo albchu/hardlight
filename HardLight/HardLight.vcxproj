@@ -105,7 +105,6 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="tempOBJ\objloader.cpp" />
     <ClCompile Include="tempOBJ\vboindexer.cpp" />

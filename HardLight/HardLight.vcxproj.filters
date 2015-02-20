@@ -50,9 +50,6 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
