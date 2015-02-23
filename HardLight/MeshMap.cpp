@@ -1,10 +1,22 @@
 #include "MeshMap.h"
 #include "tempOBJ\objloader.hpp"
+#include "objParser.h"
+#include "ParsedFile.h"
 
 MeshMap::MeshMap()
 {
-	setEntityMesh("HardLightBike", loadOBJ("../data/HardlightBike.obj"));
-	setEntityMesh("plane", loadOBJ("../data/plane.obj"));
+	
+	objParser parser;
+
+	MeshData bike = parser.loadObj(ParsedFile("../data/HardlightBike.obj"));
+	MeshData plane = parser.loadObj(ParsedFile("../data/plane.obj"));
+
+	bike.order_Arrays();
+	plane.order_Arrays();
+
+	setEntityMesh("HardLightBike", bike);
+	setEntityMesh("plane", plane);
+
 }
 
 MeshData* MeshMap::getEntityMesh(string ent)
