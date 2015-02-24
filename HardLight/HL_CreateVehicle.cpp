@@ -67,9 +67,11 @@ bool HardLight::CreateVehicle()
 	PxTransform startTransform(PxVec3(0, (vehicleDesc.chassisDims.y*0.5f + vehicleDesc.wheelRadius + 10.0f), 0), PxQuat(PxIdentity));
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
+
 	gVehicle4W->getRigidDynamicActor()->setName("bike");
 	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/bike.DDS");
 	world.add_entity(bike);
+
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.

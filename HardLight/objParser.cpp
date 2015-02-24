@@ -118,11 +118,5 @@ MeshData objParser::loadObj(ParsedFile parser)
 		}
 	}
 
-	/*std::cout << "Obj file loaded with " << m_vertices.size() << " vertices, " << m_textures.size() << " texture coords, and " << m_faces.size() << " faces." << std::endl;
-	std::cout << "Also has " << m_normals.size() << "normals " << std::endl;
-
-	std::string testString;
-
-	std::getline(std::cin, testString);*/
 	return MeshData(m_vertices, m_normals, m_textures, m_faces, m_fnormals, m_textfaces, mtl_filename);
 }

@@ -30,6 +30,53 @@ MeshData::MeshData(std::vector<glm::vec3> verts, std::vector<glm::vec3> norms, s
 	mtl_filename = filename;
 }
 
+void MeshData::order_Arrays() {
+
+	std::vector<glm::vec3> temp_vertices, temp_normals;
+	std::vector<glm::vec2> temp_textfaces;
+
+	for(glm::tvec3<int> face : m_faces) {
+
+		glm::vec3 vertex1 = m_vertices[face.x];
+		glm::vec3 vertex2 = m_vertices[face.y];
+		glm::vec3 vertex3 = m_vertices[face.z];
+
+		temp_vertices.push_back(vertex1);
+		temp_vertices.push_back(vertex2);
+		temp_vertices.push_back(vertex3);
+
+	}
+
+	for(glm::tvec3<int> faceNormal : m_fnormals) {
+
+		glm::vec3 normal1 = m_normals[faceNormal.x];
+		glm::vec3 normal2 = m_normals[faceNormal.y];
+		glm::vec3 normal3 = m_normals[faceNormal.z];
+
+		temp_normals.push_back(normal1);
+		temp_normals.push_back(normal2);
+		temp_normals.push_back(normal3);
+
+	}
+
+	for(glm::tvec3<int> facetexture : m_textfaces) {
+
+		glm::vec2 text1 = m_textures[facetexture.x];
+		glm::vec2 text2 = m_textures[facetexture.y];
+		glm::vec2 text3 = m_textures[facetexture.z];
+
+		temp_textfaces.push_back(text1);
+		temp_textfaces.push_back(text2);
+		temp_textfaces.push_back(text3);
+
+	}
+
+	m_vertices = temp_vertices;
+	m_normals = temp_normals;
+	m_textures = temp_textfaces;
+
+}
+
 void MeshData::addVertex(glm::vec3 vertex) {
 	m_vertices.push_back(vertex);
 }
