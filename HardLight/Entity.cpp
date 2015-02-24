@@ -1,13 +1,23 @@
 #include "Entity.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file)
+Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path)
 {
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_dds_texture(texture_file);
+	texture = load_dds_texture(texture_file_path);
+	init_opengl();
+}
 
+Entity::Entity()
+{
+	draw_mode = GL_TRIANGLES;
+}
+
+// Holds all the preamble required to render a proper opengl object later on
+void Entity::init_opengl()
+{
 	glGenVertexArrays(1, &vertex_array_id);
 	glBindVertexArray(vertex_array_id);
 
@@ -49,18 +59,38 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* t
 	light_id = glGetUniformLocation(program_id, "LightPosition_worldspace");
 }
 
-void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
+mat4 Entity::get_model_matrix()
 {
-	// Use our shader
-	glUseProgram(program_id);
-
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
+	
+	//if(actor->getName() == "bike")
+	//{
+	//	std::cout << "\nRotation degrees: " << rads * 180/PxPi << endl;
+	//	std::cout << "Rotation axis: " << glm::to_string(vec3(axis.x, axis.y, axis.z)) << endl;
+	//	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));
+	//}
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
+	//model_matrix = rotate(model_matrix, rads, vec3(0, 0, axis.z));
+	//model_matrix = rotate(model_matrix, rads, vec3(0, axis.y, 0));
+	//model_matrix = rotate(model_matrix, rads, vec3(axis.x, 0, 0));
+	//model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
+
+	return model_matrix;
+}
+
+void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
+{
+
+
+	// Use our shader
+	glUseProgram(program_id);
+
+	mat4 model_matrix = this->get_model_matrix();
 
 	mat4 mvp_matrix = projection_matrix * view_matrix * model_matrix;
 
@@ -130,3 +160,6 @@ GLuint Entity::get_draw_mode()						{ return draw_mode; }
 
 void Entity::set_actor(PxRigidActor* new_actor)	{ actor = new_actor; }
 PxActor* Entity::get_actor()				{ return actor; }
+
+void Entity::set_texture(GLuint new_texture)	{ texture = new_texture; }
+

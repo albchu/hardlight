@@ -80,6 +80,9 @@
     <ClCompile Include="tempOBJ\vboindexer.cpp">
       <Filter>objLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Bike.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -138,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="tempOBJ\vboindexer.hpp">
       <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Bike.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
+#include "Entity.h"
+#include "Bike.h"
 #include "MeshData.h"
 #include "MeshMap.h"
 

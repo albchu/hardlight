@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bike.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="HardLight.cpp" />
     <ClCompile Include="HL_BuildScene.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bike.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />

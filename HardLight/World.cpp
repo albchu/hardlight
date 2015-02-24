@@ -1,11 +1,11 @@
 #include "World.h"
 
-void World::add_entity(Entity& entity)
+void World::add_entity(Entity* entity)
 {
 	entities.push_back(entity);
 }
 
-vector<Entity> World::getEntities()
+vector<Entity*> World::getEntities()
 {
 	return entities;
 }
