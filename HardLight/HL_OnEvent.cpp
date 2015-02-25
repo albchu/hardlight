@@ -2,7 +2,7 @@
 #include "HardLight.h"
 //==============================================================================
 
-const int deadzone = 8000;
+const int deadZone = 8000;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
@@ -88,21 +88,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break;
 	case SDL_CONTROLLERAXISMOTION:
 		int LeftX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
-		if (LeftX < -deadzone){
-			left = (LeftX+deadzone)/-24768.0f;
-		}else if(LeftX > deadzone){
-			right = (LeftX-deadzone)/24768.0f;
-		}else{
-			left = right = 0;
-		}
-		int LeftY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
-		if (LeftY < -deadzone){		//up on joystick
-			back = (LeftY+deadzone)/-24768.0f;
-		}else if(LeftY > deadzone){ //down on joystick
-			forward = (LeftY-deadzone)/24768.0f;
-		}else{
-			forward = back = 0.0f;
-		}
+			if (LeftX < -deadZone || LeftX > deadZone){
+				gVehicleInputData.setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
+			}else{
+				gVehicleInputData.setAnalogSteer(0.0f);
+			}
+			if(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
+				gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+				gVehicleInputData.setAnalogAccel(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
+			}else if(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
+				gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+				gVehicleInputData.setAnalogAccel((SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
+			}else{
+				gVehicleInputData.setAnalogAccel(0.0f);
+			}
 		//printf("Left X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX));
 		//printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY));
 		////Right Stick
