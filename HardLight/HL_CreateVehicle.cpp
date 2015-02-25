@@ -69,7 +69,7 @@ bool HardLight::CreateVehicle()
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
 	gVehicle4W->getRigidDynamicActor()->setName("bike");
-	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/BikeTexture.tga");
+	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/uvgrid.tga");
 	world.add_entity(bike);
 
 	vehicle = gVehicle4W->getRigidDynamicActor();
