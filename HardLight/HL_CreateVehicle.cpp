@@ -59,7 +59,7 @@ bool HardLight::CreateVehicle()
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
 
-	world.add_entity(Entity(gGroundPlane, mesh_map.getEntityMesh("plane"), "../data/plane.DDS"));
+	world.add_entity(Entity(gGroundPlane, mesh_map.getEntityMesh("plane"), "../data/uvgrid.tga"));
 
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
@@ -68,7 +68,7 @@ bool HardLight::CreateVehicle()
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
-	world.add_entity(Entity(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/plane.DDS"));
+	world.add_entity(Entity(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/BikeTexture.tga"));
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.
