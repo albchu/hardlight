@@ -92,6 +92,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 		int RightY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 			if (LeftX < -deadZone || LeftX > deadZone){
 				gVehicleInputData.setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
+
 			}else{
 				gVehicleInputData.setAnalogSteer(0.0f);
 			}

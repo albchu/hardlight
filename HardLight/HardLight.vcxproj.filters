@@ -83,6 +83,9 @@
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -143,6 +146,9 @@
       <Filter>objLoader</Filter>
     </ClInclude>
     <ClInclude Include="Bike.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
