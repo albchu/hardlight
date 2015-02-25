@@ -77,11 +77,14 @@ void setupWheelsSimulationData
 		}
 
 		//Enable the handbrake for the rear wheels only.
-		wheels[PxVehicleDrive4WWheelOrder::eREAR_LEFT].mMaxHandBrakeTorque=4000.0f;
-		wheels[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].mMaxHandBrakeTorque=4000.0f;
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_LEFT].mMaxHandBrakeTorque = config->GetReal("bike", "maxHandBreak", 4500.0f);
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].mMaxHandBrakeTorque = config->GetReal("bike", "maxHandBreak", 4500.0f);
+
 		//Enable steering for the front wheels only.
-		wheels[PxVehicleDrive4WWheelOrder::eFRONT_LEFT].mMaxSteer=PxPi*0.3333f;
-		wheels[PxVehicleDrive4WWheelOrder::eFRONT_RIGHT].mMaxSteer=PxPi*0.3333f;
+		wheels[PxVehicleDrive4WWheelOrder::eFRONT_LEFT].mMaxSteer=PxPi*0.25f;
+		wheels[PxVehicleDrive4WWheelOrder::eFRONT_RIGHT].mMaxSteer=PxPi*0.25f;		
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_LEFT].mMaxSteer=PxPi*0.25f;
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].mMaxSteer=PxPi*0.25f;
 	}
 
 	//Set up the tires.
@@ -255,6 +258,7 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 		//Engine
 		PxVehicleEngineData engine;
 		engine.mPeakTorque=config->GetReal("bike", "engineMaxTorque", 1000.0f);
+		engine.mDampingRateZeroThrottleClutchDisengaged=config->GetReal("bike", "throttleDampeningOnDisengage", 1000.0f);
 		engine.mMaxOmega=config->GetReal("bike", "engineMaxRPM", 1000.0f); // Value * 10 == total rpm
 		driveSimData.setEngineData(engine);
 
@@ -265,7 +269,7 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 
 		//Clutch
 		PxVehicleClutchData clutch;
-		clutch.mStrength=80.0f;
+		clutch.mStrength=180.0f;
 		driveSimData.setClutchData(clutch);
 
 		//Ackermann steer accuracy

@@ -50,9 +50,6 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTankCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
@@ -82,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="tempOBJ\vboindexer.cpp">
       <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Bike.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="tempOBJ\vboindexer.hpp">
       <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Bike.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

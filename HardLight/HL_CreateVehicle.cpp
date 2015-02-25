@@ -8,11 +8,11 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 	//The moment of inertia is just the moment of inertia of a cuboid but modified for easier steering.
 	//Center of mass offset is 0.65m above the base of the chassis and 0.25m towards the front.
 	const PxF32 chassisMass = config->GetReal("bike", "chassisMass", 1500.0f);
-	const PxVec3 chassisDims(2.5f,2.0f,5.0f);
+	const PxVec3 chassisDims(2.5f,2.0f,8.0f);
 	const PxVec3 chassisMOI
-		((chassisDims.y*chassisDims.y + chassisDims.z*chassisDims.z)*chassisMass/12.0f,
-		 (chassisDims.x*chassisDims.x + chassisDims.z*chassisDims.z)*0.8f*chassisMass/12.0f,
-		 (chassisDims.x*chassisDims.x + chassisDims.y*chassisDims.y)*chassisMass/12.0f);
+		((chassisDims.y*chassisDims.y + chassisDims.z*chassisDims.z)*chassisMass/(config->GetReal("bike", "chassisMoIFactor", 12.0f)),
+		 (chassisDims.x*chassisDims.x + chassisDims.z*chassisDims.z)*0.8f*chassisMass/(config->GetReal("bike", "chassisMoIFactor", 12.0f)),
+		 (chassisDims.x*chassisDims.x + chassisDims.y*chassisDims.y)*chassisMass/(config->GetReal("bike", "chassisMoIFactor", 12.0f)));
 
 	const PxF32 centerOfMassX = config->GetReal("bike", "centerOfMassX", 0.0);
 	const PxF32 centerOfMassY = config->GetReal("bike", "centerOfMassY", -chassisDims.y*0.5f - 0.65f);
@@ -58,8 +58,8 @@ bool HardLight::CreateVehicle()
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-
-	world.add_entity(Entity(gGroundPlane, mesh_map.getEntityMesh("plane"), "../data/uvgrid.tga"));
+	Entity* ground = new Entity(gGroundPlane, mesh_map.getEntityMesh("plane"), "../data/plane.DDS");
+	world.add_entity(ground);
 
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
@@ -68,7 +68,10 @@ bool HardLight::CreateVehicle()
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
-	world.add_entity(Entity(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/BikeTexture.tga"));
+	gVehicle4W->getRigidDynamicActor()->setName("bike");
+	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/bike.DDS");
+	world.add_entity(bike);
+
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.

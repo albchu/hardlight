@@ -1,8 +1,9 @@
 #ifndef _ENTITY_H_
 #define _ENTITY_H_
-
+#include <iostream>
 // The class holds information for each entity in our opengl scene
 #include <glm/glm.hpp>		// Used for vec3
+#include "glm/gtx/string_cast.hpp"		// Used for to_string
 #include <vector>
 #include <GL/glew.h>
 #include <PxPhysicsAPI.h>
@@ -22,7 +23,7 @@ using namespace physx;
 
 class Entity
 {
-private:
+protected:
 	GLuint draw_mode;
 	MeshData* mesh_data;
 	PxRigidActor* actor;
@@ -41,10 +42,11 @@ private:
 
 public:
 	Entity(PxRigidActor*, MeshData*, const char*);
+	Entity();
 
-	void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
+	virtual void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 
-	void			set_texture();
+	void			set_texture_path(const char*);
 
 	void			set_mesh_data(MeshData*);
 	MeshData*		get_mesh_data();
@@ -54,5 +56,11 @@ public:
 	
 	void			set_draw_mode(GLuint&);
 	GLuint			get_draw_mode();
+
+	// Does all required calculations on a model matrix based
+	virtual mat4	get_model_matrix();
+	void			init_opengl();
+
+	void			set_texture(GLuint);
 };
 #endif

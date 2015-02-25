@@ -4,15 +4,16 @@
 // This class is the entire world representation. It holds a list of entities with operations on the entities
 #include "Entity.h"
 #include <vector>
-
+#include "Bike.h"
 class World
 {
 private:
-	vector<Entity> entities;
+	vector<Entity*> entities;
 
 public:
-	void add_entity(Entity& entity);
-	vector<Entity> getEntities();
+	void add_entity(Entity* entity);
+	void add_bike(PxActor* actor);
+	vector<Entity*> getEntities();
 };
 
 #endif

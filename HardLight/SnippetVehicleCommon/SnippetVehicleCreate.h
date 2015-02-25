@@ -31,7 +31,6 @@
 #define SNIPPET_VEHICLE_COMMON_H
 
 #include "PxPhysicsAPI.h"
-#include "vehicle/PxVehicleDriveTank.h"
 #include "vehicle/PxVehicleNoDrive.h"
 #include "..\inih\cpp\INIReader.h"
 using namespace physx;
@@ -72,8 +71,6 @@ struct VehicleDesc
 };
 
 PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking, INIReader* config);
-
-PxVehicleDriveTank* createVehicleTank(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking);
 
 PxVehicleNoDrive* createVehicleNoDrive(const VehicleDesc& vehDesc, PxPhysics* physics, PxCooking* cooking);
 
