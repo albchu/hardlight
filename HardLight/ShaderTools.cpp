@@ -97,6 +97,125 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 	return ProgramID;
 }
 
+// prints error from specified function if applicable
+void errorReport(const char* function) {
+	int error = glGetError();
+
+	if(error != GL_NO_ERROR) {
+		switch(error) {
+		case GL_INVALID_ENUM:
+			fprintf(stderr, "%s has thrown an error. (GL_INVALID_ENUM)\n", function);
+			break;
+		case GL_INVALID_VALUE:
+			fprintf(stderr, "%s has thrown an error. (GL_INVALID_VALUE)\n", function);
+			break;
+		case GL_INVALID_OPERATION:
+			fprintf(stderr, "%s has thrown an error. (GL_INVALID_OPERATION)\n", function);
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			fprintf(stderr, "%s has thrown an error. (GL_INVALID_FRAMEBUFFER_OPERATION)\n", function);
+			break;
+		case GL_OUT_OF_MEMORY:
+			fprintf(stderr, "%s has thrown an error. (GL_OUT_OF_MEMORY)\n", function);
+			break;
+		}
+	}
+}
+
+GLuint load_tga_texture(const char * imagepath) {
+
+	GLuint textureID;
+	unsigned char * imageBuffer;
+	unsigned char cGarbage, file_type, pixelDepth;
+	short int iGarbage, width, height;
+	int mode, total;
+	FILE* file;
+
+	file = fopen(imagepath, "rb");
+	if(file == NULL) {
+		fprintf(stderr, "Couldn't open %s.\n", imagepath);
+		return -1;
+	}
+
+	// Read 12 byte Header
+	fread(&cGarbage, sizeof(unsigned char), 1, file);
+	fread(&cGarbage, sizeof(unsigned char), 1, file);
+	
+	fread(&file_type, sizeof(unsigned char), 1, file);
+
+	fread(&iGarbage, sizeof(short int), 1, file);
+	fread(&iGarbage, sizeof(short int), 1, file);
+	fread(&cGarbage, sizeof(unsigned char), 1, file);
+	fread(&iGarbage, sizeof(short int), 1, file);
+	fread(&iGarbage, sizeof(short int), 1, file);
+
+	fread(&width, sizeof(short int), 1, file);
+	fread(&height, sizeof(short int), 1, file);
+	fread(&pixelDepth, sizeof(unsigned char), 1, file);
+
+	fread(&cGarbage, sizeof(unsigned char), 1, file);
+
+	if((file_type != 2) && (file_type != 3)) {
+		fprintf(stderr, "Cannot read %s. It is likely compressed.\n", imagepath);
+		fclose(file);
+		return -1;
+	}
+
+	mode = pixelDepth / 8;
+	total = width * height * mode;
+
+	// read image data
+	imageBuffer = (unsigned char *)malloc(total * sizeof(unsigned char));
+
+	if(imageBuffer == NULL) {
+		fprintf(stderr, "Out of space reading file!\n");
+		fclose(file);
+		free(imageBuffer);
+		return -1;
+	}
+
+	fread(imageBuffer, sizeof(unsigned char), total, file);
+
+	if(ferror(file)) {
+		fprintf(stderr, "Couldn't read %s.", imagepath);
+		fclose(file);
+		free(imageBuffer);
+		return -1;
+	}
+
+	if (mode >= 3) {
+		int aux;
+
+		for (int i=0; i < total; i+= mode) {
+			aux = imageBuffer[i];
+			imageBuffer[i] = imageBuffer[i+2];
+			imageBuffer[i+2] = aux;
+		}
+	}
+
+	glGenTextures(1, &textureID);
+
+	errorReport("glGenTextures");
+
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	errorReport("glBindTexture");
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	errorReport("glTexParameteri");
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	errorReport("glTexParameteri");
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageBuffer);
+
+	errorReport("glTexImage2D");
+
+	free(imageBuffer);
+	fclose(file);
+
+	return textureID;
+
+}
+
 #define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
 #define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
