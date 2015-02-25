@@ -193,6 +193,8 @@ GLuint load_tga_texture(const char * imagepath) {
 		}
 	}
 
+
+	// Bind and add texture
 	glGenTextures(1, &textureID);
 
 	errorReport("glGenTextures");
