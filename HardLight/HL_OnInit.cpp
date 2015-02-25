@@ -10,7 +10,7 @@ void HardLight::loadAllOBJs(const char* directory) {
 	wchar_t* wbuff;
 	char* cbuff;
 
-	sprintf(searchPath, "%s*.obj", directory);
+	sprintf_s(searchPath, "%s*.obj", directory);
 	WIN32_FIND_DATA fd;
 
 	int size = MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, NULL, 0);

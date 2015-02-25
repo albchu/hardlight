@@ -6,7 +6,7 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* t
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_dds_texture(texture_file);
+	texture = load_tga_texture(texture_file);
 
 	glGenVertexArrays(1, &vertex_array_id);
 	glBindVertexArray(vertex_array_id);
