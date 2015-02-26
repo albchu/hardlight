@@ -87,8 +87,6 @@ private:
 	World world;
 	MeshMap mesh_map;
 
-	void loadAllOBJs(const char*);
-
 	//vehicles
 	VehicleSceneQueryData* gVehicleSceneQueryData;
 	PxBatchQuery* gBatchQuery;
