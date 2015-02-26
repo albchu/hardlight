@@ -15,6 +15,7 @@ Entity::Entity()
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
+	mesh_data = new MeshData();
 }
 
 // Holds all the preamble required to render a proper opengl object later on
