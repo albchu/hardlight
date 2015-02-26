@@ -109,6 +109,7 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="tempOBJ\objloader.cpp" />
     <ClCompile Include="tempOBJ\vboindexer.cpp" />
     <ClCompile Include="World.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="TailWall.h" />
     <ClInclude Include="tempOBJ\objloader.hpp" />
     <ClInclude Include="tempOBJ\vboindexer.hpp" />
     <ClInclude Include="World.h" />
