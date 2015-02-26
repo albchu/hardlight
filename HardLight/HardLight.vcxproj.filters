@@ -83,10 +83,14 @@
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="EntityTypes.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="TailWall.cpp">
+      <Filter>Vehicle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,8 +154,12 @@
     <ClInclude Include="Bike.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="TailWall.h" />
+    <ClInclude Include="Sound.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="TailWall.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
@@ -171,6 +179,12 @@
     </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{03dbf43f-682b-4f3a-a158-14cb5be4cfe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{06699f33-7277-4aa2-9250-0f2a4bb6f079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vehicle">
+      <UniqueIdentifier>{645cb868-ef68-48b8-9974-21e2bd0d1951}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
