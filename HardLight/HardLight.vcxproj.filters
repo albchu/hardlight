@@ -83,6 +83,9 @@
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="EntityTypes.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">

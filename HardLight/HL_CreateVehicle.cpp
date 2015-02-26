@@ -44,7 +44,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool HardLight::CreateVehicle()
+bool HardLight::CreateVehicle(vec3 init_position)
 {
 	gMaterial = gPhysics->createMaterial(1.9f, 1.9f, 0.6f);
 

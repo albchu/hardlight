@@ -3,6 +3,7 @@
 
 Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path)
 {
+	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
@@ -12,6 +13,7 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* t
 
 Entity::Entity()
 {
+	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 }
 
@@ -68,17 +70,9 @@ mat4 Entity::get_model_matrix()
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
 	
-	//if(actor->getName() == "bike")
-	//{
-	//	std::cout << "\nRotation degrees: " << rads * 180/PxPi << endl;
-	//	std::cout << "Rotation axis: " << glm::to_string(vec3(axis.x, axis.y, axis.z)) << endl;
-	//	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));
-	//}
+	model_matrix = scale(model_matrix, vec3(8.5, 8.5, 8.5));
+
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-	//model_matrix = rotate(model_matrix, rads, vec3(0, 0, axis.z));
-	//model_matrix = rotate(model_matrix, rads, vec3(0, axis.y, 0));
-	//model_matrix = rotate(model_matrix, rads, vec3(axis.x, 0, 0));
-	//model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
 
 	return model_matrix;
 }
@@ -160,6 +154,7 @@ GLuint Entity::get_draw_mode()						{ return draw_mode; }
 
 void Entity::set_actor(PxRigidActor* new_actor)	{ actor = new_actor; }
 PxActor* Entity::get_actor()				{ return actor; }
+int Entity::get_type()				{ return type; }
 
 void Entity::set_texture(GLuint new_texture)	{ texture = new_texture; }
 

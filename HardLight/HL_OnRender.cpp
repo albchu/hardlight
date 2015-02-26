@@ -18,7 +18,7 @@ void HardLight::OnRender()
 
 	vec3 camera_position(cam_translate);
 	camera_position = rotateY(camera_position, cam_rotate);
-	vec3 light(5.0f, 5.0f, -5.0f);
+	vec3 light(5.0f, 15.0f, -5.0f);
 	// view_matrix for all entities
 	PxTransform gPose = vehicle->getGlobalPose();
 	PxReal rads;

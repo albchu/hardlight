@@ -10,6 +10,7 @@
 
 #include "ShaderTools.h"
 #include "MeshData.h"
+#include "EntityTypes.cpp"
 
 using namespace glm;
 using namespace std;
@@ -39,6 +40,7 @@ protected:
 	GLuint normal_buffer_id;
 	GLuint texture_buffer_id;
 	GLuint light_id;
+	int type;
 
 public:
 	Entity(PxRigidActor*, MeshData*, const char*);
@@ -62,5 +64,7 @@ public:
 	void			init_opengl();
 
 	void			set_texture(GLuint);
+	
+	int				get_type();
 };
 #endif

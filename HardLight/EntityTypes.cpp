@@ -1,0 +1,6 @@
+enum EntityTypes
+{
+	UNDECLARED,
+	BIKE,
+	NONRENDERABLE
+};

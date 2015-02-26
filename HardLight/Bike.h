@@ -8,14 +8,15 @@
 #include "glm/gtx/string_cast.hpp"		// Used for to_string
 
 using namespace glm;
+using namespace std;
 
 class Bike : public Entity
 {
 
 public:
-	Bike(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
+	Bike(PxRigidActor* actor, MeshData* meshdata, const char* texture);//:Entity(actor, meshdata, texture){};
 	virtual mat4 get_model_matrix();
 private:
-
+	
 };
 #endif
