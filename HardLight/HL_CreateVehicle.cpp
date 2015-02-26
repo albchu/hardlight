@@ -74,10 +74,10 @@ bool HardLight::CreateVehicle(PxVec3 init_position)
 	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), MeshMap::Instance()->getEntityMesh("HardLightBike.obj"), "../data/Textures/BikeTexture.tga");
 	world.add_entity(bike);
 
-	Entity* skybox = new Entity();
+	/*Entity* skybox = new Entity();
 	skybox->set_mesh_data(MeshMap::Instance()->getEntityMesh("skybox.obj"));
 	skybox->set_texture(load_tga_texture("../data/Textures/skybox_test.tga"));
-	world.add_entity(skybox);
+	world.add_entity(skybox);*/
 
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
