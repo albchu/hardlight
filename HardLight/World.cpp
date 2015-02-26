@@ -9,3 +9,10 @@ vector<Entity*> World::getEntities()
 {
 	return entities;
 }
+
+void World::clear()
+{
+	for(Entity* e : entities) {
+		free(e);
+	}
+}
