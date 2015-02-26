@@ -30,7 +30,7 @@ MeshData::MeshData(std::vector<glm::vec3> verts, std::vector<glm::vec3> norms, s
 	mtl_filename = filename;
 }
 
-void MeshData::order_Arrays() {
+void MeshData::order_arrays() {
 
 	std::vector<glm::vec3> temp_vertices, temp_normals;
 	std::vector<glm::vec2> temp_textfaces;
