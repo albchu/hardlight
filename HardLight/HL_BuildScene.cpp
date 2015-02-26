@@ -1,9 +1,13 @@
 //==============================================================================
 #include "HardLight.h"
+#include "TailWall.h"
 
 //==============================================================================
+
+
 bool HardLight::BuildScene()
 {
+
 	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
 	//PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
 	//PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
