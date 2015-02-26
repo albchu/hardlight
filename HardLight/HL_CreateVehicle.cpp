@@ -44,7 +44,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool HardLight::CreateVehicle(vec3 init_position)
+bool HardLight::CreateVehicle(PxVec3 init_position)
 {
 	gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
@@ -64,7 +64,7 @@ bool HardLight::CreateVehicle(vec3 init_position)
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
 	gVehicle4W = createVehicle4W(vehicleDesc, gPhysics, gCooking, config);
-	PxTransform startTransform(PxVec3(0, (vehicleDesc.chassisDims.y*0.5f + vehicleDesc.wheelRadius + 10.0f), 0), PxQuat(PxIdentity));
+	PxTransform startTransform(init_position, PxQuat(PxIdentity));
 	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 

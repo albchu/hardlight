@@ -113,7 +113,7 @@ public:
 
 	bool BuildScene();
 
-	bool CreateVehicle(vec3 init_position);
+	bool CreateVehicle(PxVec3 init_position);
 
 	void OnEvent(SDL_Event* Event);
 

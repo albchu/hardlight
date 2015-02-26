@@ -83,6 +83,11 @@
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="TailWall.cpp" />
+    <ClCompile Include="EntityTypes.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -145,6 +150,8 @@
     <ClInclude Include="Bike.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
