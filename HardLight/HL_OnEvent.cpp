@@ -88,6 +88,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break;
 	case SDL_CONTROLLERAXISMOTION:
 		int LeftX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
+		int RightX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
+		int RightY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 			if (LeftX < -deadZone || LeftX > deadZone){
 				gVehicleInputData.setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
 
@@ -102,6 +104,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 				gVehicleInputData.setAnalogAccel((SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
 			}else{
 				gVehicleInputData.setAnalogAccel(0.0f);
+			}
+			if(RightX < -deadZone){
+				left =(RightX)/(-32768.0f);
+			}else if(RightX > deadZone){
+				left = (RightX)/(-32768.0f);
+			}else {
+				left = right = 0.0f;
+			}		
+			if(RightY > deadZone){
+				forward = (RightY)/(-32768.0f);
+			}else if(RightY < -deadZone){
+				forward = (RightY)/(-32768.0f);
+			}else{
+				forward = back = 0.0f;
 			}
 		//printf("Left X = %i ", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX));
 		//printf("Y = %i\n", SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY));

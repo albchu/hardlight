@@ -83,7 +83,11 @@
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="EntityTypes.cpp">
+=======
+    <ClCompile Include="Sound.cpp">
+>>>>>>> a0877b6b99335ac2edb212358dc0105eb0bcfb5a
       <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,6 +150,9 @@
       <Filter>objLoader</Filter>
     </ClInclude>
     <ClInclude Include="Bike.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>

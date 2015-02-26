@@ -46,7 +46,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 //==============================================================================
 bool HardLight::CreateVehicle(vec3 init_position)
 {
-	gMaterial = gPhysics->createMaterial(1.9f, 1.9f, 0.6f);
+	gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
 	gVehicleSceneQueryData = VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator);
@@ -69,7 +69,7 @@ bool HardLight::CreateVehicle(vec3 init_position)
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
 	gVehicle4W->getRigidDynamicActor()->setName("bike");
-	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/uvgrid.tga");
+	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike"), "../data/BikeTexture.tga");
 	world.add_entity(bike);
 
 	vehicle = gVehicle4W->getRigidDynamicActor();
