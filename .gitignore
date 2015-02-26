@@ -36,3 +36,4 @@
 *.pdb
 *.vcxproj.user
 *.unsuccessfulbuild
+/HardLight/Debug
