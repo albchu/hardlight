@@ -1,190 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Bike.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityTypes.cpp" />
+    <ClCompile Include="HardLight.cpp" />
+    <ClCompile Include="HL_BuildScene.cpp" />
+    <ClCompile Include="HL_CreateVehicle.cpp" />
+    <ClCompile Include="HL_OnCleanup.cpp" />
+    <ClCompile Include="HL_OnEvent.cpp" />
+    <ClCompile Include="HL_OnExecute.cpp" />
+    <ClCompile Include="HL_OnInit.cpp" />
+    <ClCompile Include="HL_OnLoop.cpp" />
+    <ClCompile Include="HL_OnRender.cpp" />
+    <ClCompile Include="inih\cpp\INIReader.cpp" />
+    <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="HardLight.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_BuildScene.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_CreateVehicle.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnCleanup.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnEvent.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnExecute.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnInit.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnLoop.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnRender.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="inih\ini.c">
-      <Filter>INIReader</Filter>
-    </ClCompile>
-    <ClCompile Include="inih\cpp\INIReader.cpp">
-      <Filter>INIReader</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderTools.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ParsedFile.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="objParser.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMap.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\objloader.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\vboindexer.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Bike.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="EntityTypes.cpp">
-=======
-    <ClCompile Include="Sound.cpp">
->>>>>>> a0877b6b99335ac2edb212358dc0105eb0bcfb5a
-      <Filter>World</Filter>
-    </ClCompile>
+    <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshMap.cpp" />
+    <ClCompile Include="objParser.cpp" />
+    <ClCompile Include="ParsedFile.cpp" />
+    <ClCompile Include="ShaderTools.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="tempOBJ\objloader.cpp" />
+    <ClCompile Include="tempOBJ\vboindexer.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HardLight.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
-    <ClInclude Include="inih\ini.h">
-      <Filter>INIReader</Filter>
-    </ClInclude>
-    <ClInclude Include="inih\cpp\INIReader.h">
-      <Filter>INIReader</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderTools.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="ParsedFile.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="objParser.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMap.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="tempOBJ\objloader.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="tempOBJ\vboindexer.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Bike.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>World</Filter>
-    </ClInclude>
+    <ClInclude Include="Bike.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="HardLight.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="inih\cpp\INIReader.h" />
+    <ClInclude Include="inih\ini.h" />
+    <ClInclude Include="MeshData.h" />
+    <ClInclude Include="MeshMap.h" />
+    <ClInclude Include="objParser.h" />
+    <ClInclude Include="ParsedFile.h" />
+    <ClInclude Include="ShaderTools.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="tempOBJ\objloader.hpp" />
+    <ClInclude Include="tempOBJ\vboindexer.hpp" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="HardLight">
-      <UniqueIdentifier>{834a1969-b312-40cf-bc74-4afd760c0d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="INIReader">
-      <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PhysX">
-      <UniqueIdentifier>{924186b8-7d0c-48b6-8938-fc51e1d8656a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="World">
-      <UniqueIdentifier>{d2527940-1e40-4163-8eab-4e3b031a1519}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="objLoader">
-      <UniqueIdentifier>{d2a24f12-16d4-46e2-9f66-d82788bb2e39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering">
-      <UniqueIdentifier>{03dbf43f-682b-4f3a-a158-14cb5be4cfe5}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="config.ini">
-      <Filter>HardLight</Filter>
-    </None>
-    <None Include="basic_fs.glsl">
-      <Filter>Rendering</Filter>
-    </None>
-    <None Include="basic_vs.glsl">
-      <Filter>Rendering</Filter>
-    </None>
+    <None Include="basic_fs.glsl" />
+    <None Include="basic_vs.glsl" />
+    <None Include="config.ini" />
   </ItemGroup>
 </Project>
