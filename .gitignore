@@ -33,6 +33,8 @@
 *.sdf
 *.suo
 *.opensdf
+*.obj
 *.pdb
 *.vcxproj.user
 *.unsuccessfulbuild
+/HardLight/Debug
