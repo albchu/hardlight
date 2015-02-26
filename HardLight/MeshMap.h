@@ -25,6 +25,7 @@ public:
 	MeshData* getEntityMesh(string);
 	void setEntityMesh(string, MeshData);
 	void deleteEntityMesh(string);
+	void loadAllOBJs(const char*);
 };
 
 #endif

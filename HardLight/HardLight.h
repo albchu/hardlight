@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <windows.h>
 #include "inih\cpp\INIReader.h"
 
 #include <GL\glew.h>
@@ -86,9 +85,6 @@ private:
 
 	World world;
 	MeshMap mesh_map;
-
-	objParser objParser;
-	std::vector<ParsedFile> parsedOBJs;
 
 	void loadAllOBJs(const char*);
 
