@@ -2,6 +2,7 @@
 #include "HardLight.h"
 #include "MeshData.h"
 #include "MeshMap.h"
+#include "shaderTools.h"
 //==============================================================================
 VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 {
@@ -72,6 +73,11 @@ bool HardLight::CreateVehicle(PxVec3 init_position)
 	gVehicle4W->getRigidDynamicActor()->setName("bike");
 	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), MeshMap::Instance()->getEntityMesh("HardLightBike.obj"), "../data/Textures/BikeTexture.tga");
 	world.add_entity(bike);
+
+	Entity* skybox = new Entity();
+	skybox->set_mesh_data(MeshMap::Instance()->getEntityMesh("skybox.obj"));
+	skybox->set_texture(load_tga_texture("../data/Textures/skybox_test.tga"));
+	world.add_entity(skybox);
 
 	vehicle = gVehicle4W->getRigidDynamicActor();
 
