@@ -1,5 +1,6 @@
 //==============================================================================
 #include "HardLight.h"
+vec3 oldPos = vec3(0.0f,0.0f,0.0f);
 
 PxF32 gSteerVsForwardSpeedData[2*8]=
 {
@@ -61,6 +62,15 @@ void HardLight::OnLoop()
 	//Scene update.
 	gScene->simulate(timestep);
 	msPhysics = msCurrent;
+
+	// tail creation
+	PxTransform Vpos = vehicle->getGlobalPose();
+	vec3 newPos = vec3(Vpos.p.x,Vpos.p.y,Vpos.p.z);
+	vec3 major = oldPos-newPos;
+	if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
+		tail.CreateTail(oldPos,newPos,1);
+		oldPos = newPos;
+	}
 
 	while(!gScene->fetchResults() )
 	{

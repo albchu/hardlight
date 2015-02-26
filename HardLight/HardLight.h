@@ -29,6 +29,7 @@
 #include "World.h"
 #include "Entity.h"
 #include "Bike.h"
+#include "TailWall.h"
 #include "MeshData.h"
 #include "MeshMap.h"
 
@@ -102,7 +103,8 @@ private:
 	PxRigidActor* vehicle;
 	bool gIsVehicleInAir;
 	PxVehicleDrive4WRawInputData gVehicleInputData;
-
+	//tail
+	TailWall tail;
 public:
 	HardLight();
 	~HardLight();
