@@ -1,6 +1,7 @@
 //==============================================================================
 #include "HardLight.h"
-
+#include "MeshData.h"
+#include "MeshMap.h"
 //==============================================================================
 VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 {
@@ -58,7 +59,7 @@ bool HardLight::CreateVehicle(PxVec3 init_position)
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-	Entity* ground = new Entity(gGroundPlane, mesh_map.getEntityMesh("plane.obj"), "../data/uvgrid.tga");
+	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/uvgrid.tga");
 	world.add_entity(ground);
 
 	//Create a vehicle that will drive on the plane.
@@ -69,7 +70,7 @@ bool HardLight::CreateVehicle(PxVec3 init_position)
 	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
 
 	gVehicle4W->getRigidDynamicActor()->setName("bike");
-	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), mesh_map.getEntityMesh("HardLightBike.obj"), "../data/BikeTexture.tga");
+	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), MeshMap::Instance()->getEntityMesh("HardLightBike.obj"), "../data/BikeTexture.tga");
 	world.add_entity(bike);
 
 	vehicle = gVehicle4W->getRigidDynamicActor();

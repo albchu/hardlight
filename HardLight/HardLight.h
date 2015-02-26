@@ -29,8 +29,7 @@
 #include "Entity.h"
 #include "Bike.h"
 #include "TailWall.h"
-#include "MeshData.h"
-#include "MeshMap.h"
+
 
 using namespace physx;
 using namespace glm;
@@ -85,8 +84,7 @@ private:
 	float cam_rotate;
 
 	World world;
-	MeshMap mesh_map;
-
+	
 	//vehicles
 	VehicleSceneQueryData* gVehicleSceneQueryData;
 	PxBatchQuery* gBatchQuery;

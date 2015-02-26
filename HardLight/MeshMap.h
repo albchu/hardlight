@@ -17,11 +17,14 @@ using namespace glm;
 class MeshMap
 {
 private:
-
+	MeshMap();  // Private so that it can  not be called
+	static MeshMap* m_pInstance;
 	map<string, MeshData> meshes;
 
 public:
-	MeshMap();
+	static MeshMap* Instance();		// Singleton pattern
+
+	
 	MeshData* getEntityMesh(string);
 	void setEntityMesh(string, MeshData);
 	void deleteEntityMesh(string);
