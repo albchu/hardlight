@@ -34,18 +34,18 @@ void HardLight::OnEvent(SDL_Event* Event)
 			speed *= fast;
 			break;
 		case SDLK_UP:
-			gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			gVehicleInputData.setAnalogAccel(1.0f);
+			bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+			bike->getInputData().setAnalogAccel(1.0f);
 			break;
 		case SDLK_DOWN:
-			gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-			gVehicleInputData.setAnalogAccel(1.0f);
+			bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+			bike->getInputData().setAnalogAccel(1.0f);
 			break;
 		case SDLK_LEFT:
-			gVehicleInputData.setAnalogSteer(1.0f);
+			bike->getInputData().setAnalogSteer(1.0f);
 			break;
 		case SDLK_RIGHT:
-			gVehicleInputData.setAnalogSteer(-1.0f);
+			bike->getInputData().setAnalogSteer(-1.0f);
 			break;
 		} // end key_down
 		break;
@@ -69,16 +69,16 @@ void HardLight::OnEvent(SDL_Event* Event)
 			speed /= fast;
 			break;
 		case SDLK_UP:
-			gVehicleInputData.setAnalogAccel(0.0f);
+			bike->getInputData().setAnalogAccel(0.0f);
 			break;
 		case SDLK_DOWN:
-			gVehicleInputData.setAnalogAccel(0.0f);
+			bike->getInputData().setAnalogAccel(0.0f);
 			break;
 		case SDLK_LEFT:
-			gVehicleInputData.setAnalogSteer(0.0f);
+			bike->getInputData().setAnalogSteer(0.0f);
 			break;
 		case SDLK_RIGHT:
-			gVehicleInputData.setAnalogSteer(0.0f);
+			bike->getInputData().setAnalogSteer(0.0f);
 			break;
 		} // end key_up
 		break;
@@ -91,19 +91,19 @@ void HardLight::OnEvent(SDL_Event* Event)
 		int RightX = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 		int RightY = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 			if (LeftX < -deadZone || LeftX > deadZone){
-				gVehicleInputData.setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
+				bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
 
 			}else{
-				gVehicleInputData.setAnalogSteer(0.0f);
+				bike->getInputData().setAnalogSteer(0.0f);
 			}
 			if(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
-				gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-				gVehicleInputData.setAnalogAccel(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
+				bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+				bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
 			}else if(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
-				gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-				gVehicleInputData.setAnalogAccel((SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
+				bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+				bike->getInputData().setAnalogAccel((SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
 			}else{
-				gVehicleInputData.setAnalogAccel(0.0f);
+				bike->getInputData().setAnalogAccel(0.0f);
 			}
 			if(RightX < -deadZone){
 				left =(RightX)/(-32768.0f);

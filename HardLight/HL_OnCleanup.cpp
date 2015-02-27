@@ -4,11 +4,11 @@
 //==============================================================================
 void HardLight::OnCleanup()
 {
-	gVehicle4W->getRigidDynamicActor()->release();
-	gVehicle4W->free();
+	bike->getVehicle4W()->getRigidDynamicActor()->release();
+	bike->getVehicle4W()->free();
 	gGroundPlane->release();
-	gBatchQuery->release();
-	gVehicleSceneQueryData->free(gDefaultAllocator);
+	bike->getBatchQuery()->release();
+	bike->getVehicleSceneQueryData()->free(gDefaultAllocator);
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
 	world.clear();

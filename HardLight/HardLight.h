@@ -14,11 +14,8 @@
 #include <GL\GL.h>
 
 #include <PxPhysicsAPI.h>
-#include <vehicle/PxVehicleUtil.h>
-#include "SnippetVehicleCommon/SnippetVehicleRaycast.h"
-#include "SnippetVehicleCommon/SnippetVehicleFilterShader.h"
-#include "SnippetVehicleCommon/SnippetVehicleTireFriction.h"
-#include "SnippetVehicleCommon/SnippetVehicleCreate.h"
+
+
 
 #include <glm/gtx/string_cast.hpp>
 #include <glm/glm.hpp>
@@ -86,17 +83,20 @@ private:
 	World world;
 	
 	//vehicles
-	VehicleSceneQueryData* gVehicleSceneQueryData;
-	PxBatchQuery* gBatchQuery;
-	PxMaterial* gMaterial;
+	//VehicleSceneQueryData* gVehicleSceneQueryData;
+	//PxBatchQuery* gBatchQuery;
+
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 	PxRigidStatic* gGroundPlane;
-	PxVehicleDrive4W* gVehicle4W;
-	PxRigidActor* vehicle;
-	bool gIsVehicleInAir;
-	PxVehicleDrive4WRawInputData gVehicleInputData;
+	//PxVehicleDrive4W* gVehicle4W;
+	//PxRigidActor* vehicle;
+	//bool gIsVehicleInAir;
+	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
 	TailWall tail;
+
+	Bike* bike;
+
 public:
 	HardLight();
 	~HardLight();
@@ -107,7 +107,7 @@ public:
 
 	bool BuildScene();
 
-	bool CreateVehicle(PxVec3 init_position);
+	bool CreateVehicle(Bike* &bike, PxVec3 init_position);
 
 	void OnEvent(SDL_Event* Event);
 

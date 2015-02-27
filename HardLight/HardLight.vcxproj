@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bike.cpp" />
+    <ClCompile Include="Bikes.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityTypes.cpp" />
     <ClCompile Include="HardLight.cpp" />
@@ -102,7 +103,6 @@
     <ClCompile Include="objParser.cpp" />
     <ClCompile Include="ParsedFile.cpp" />
     <ClCompile Include="ShaderTools.cpp" />
-    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp" />
@@ -117,9 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bike.h" />
+    <ClInclude Include="Bikes.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
-    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />

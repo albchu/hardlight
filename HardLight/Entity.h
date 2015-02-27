@@ -11,6 +11,7 @@
 #include "ShaderTools.h"
 #include "MeshData.h"
 #include "EntityTypes.cpp"
+#include "MeshMap.h"
 
 using namespace glm;
 using namespace std;

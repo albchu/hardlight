@@ -92,7 +92,7 @@
     <ClCompile Include="TailWall.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
+    <ClCompile Include="Bikes.cpp">
       <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
@@ -163,7 +163,7 @@
     <ClInclude Include="TailWall.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="SkyBox.h">
+    <ClInclude Include="Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
