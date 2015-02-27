@@ -121,18 +121,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
       <Filter>PhysX</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderTools.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMap.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="TailWall.h">
-      <Filter>Vehicle</Filter>
-    </ClInclude>
     <ClInclude Include="include\HardLight.h">
       <Filter>HardLight</Filter>
     </ClInclude>
@@ -151,9 +139,6 @@
     <ClInclude Include="include\SkyBox.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="include\TailWall.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="include\World.h">
       <Filter>World</Filter>
     </ClInclude>
@@ -163,11 +148,23 @@
     <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="SoundMixer.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="include\EntityTypes.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshData.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderTools.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailWall.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SoundMixer.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

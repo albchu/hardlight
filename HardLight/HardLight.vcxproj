@@ -121,17 +121,18 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
+    <ClInclude Include="include\MeshData.h" />
+    <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
     <ClInclude Include="include\Player_Bike.h" />
+    <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
+    <ClInclude Include="include\SoundMixer.h" />
     <ClInclude Include="include\TailWall.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
-    <ClInclude Include="MeshData.h" />
-    <ClInclude Include="MeshMap.h" />
-    <ClInclude Include="ShaderTools.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h" />
@@ -139,8 +140,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
-    <ClInclude Include="SoundMixer.h" />
-    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />
