@@ -68,7 +68,7 @@ void HardLight::OnLoop()
 
 	// tail creation
 
-	PxTransform newPos = vehicle->getGlobalPose();
+	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;
 
