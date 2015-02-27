@@ -110,7 +110,7 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
-    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="tempOBJ\objloader.cpp" />
     <ClCompile Include="tempOBJ\vboindexer.cpp" />
@@ -122,7 +122,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="SkyBox.h" />
-    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundMixer.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="MeshData.h" />
