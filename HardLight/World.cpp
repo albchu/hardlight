@@ -13,7 +13,7 @@ vector<Entity*> World::getEntities()
 void World::clear()
 {
 	for(Entity* e : entities) {
-		delete e;
+		free(e);
 	}
 
 	entities.clear();

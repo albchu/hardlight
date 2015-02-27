@@ -12,8 +12,8 @@ bool HardLight::BuildScene()
 	sfxMix.InitializeMixer();
 	sfxMix.PlayBackgroundMusic();
 
-	//skybox = SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
-	//world.add_entity(&skybox);
+	skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
+	world.add_entity(skybox);
 
 	//PxMaterial* ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
