@@ -17,6 +17,12 @@ Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
 	init_opengl();
 }
 
+Bike::~Bike() {
+	free(vehicle4W);
+	free(vehicleSceneQueryData);
+	free(batchQuery);
+}
+
 mat4 Bike::get_model_matrix()
 {
 	mat4 model_matrix = mat4(1.0);

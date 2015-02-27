@@ -18,6 +18,11 @@ Entity::Entity()
 	mesh_data = new MeshData();
 }
 
+Entity::~Entity() {
+	delete mesh_data;
+	free(actor);
+}
+
 // Holds all the preamble required to render a proper opengl object later on
 void Entity::init_opengl()
 {

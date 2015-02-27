@@ -32,6 +32,16 @@ MeshData::MeshData(std::vector<glm::vec3> verts, std::vector<glm::vec3> norms, s
 	mtl_filename = filename;
 }
 
+MeshData::~MeshData() {
+	m_vertices.clear();
+	m_normals.clear();
+	m_textures.clear();
+
+	m_faces.clear();
+	m_fnormals.clear();
+	m_textfaces.clear();
+}
+
 void MeshData::order_arrays()
 {
 

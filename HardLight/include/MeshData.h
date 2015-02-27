@@ -31,6 +31,7 @@ public:
 	MeshData();
 	MeshData(std::vector<glm::vec3>, std::vector<glm::vec3>, std::vector<glm::vec2>, 
 			 std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, char* filename);
+	~MeshData();
 
 	void order_arrays();
 	void CreateTail(glm::vec3, glm::vec3,float);

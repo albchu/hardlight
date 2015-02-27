@@ -46,6 +46,7 @@ protected:
 public:
 	Entity(PxRigidActor*, MeshData*, const char*);
 	Entity();
+	~Entity();
 
 	virtual void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 

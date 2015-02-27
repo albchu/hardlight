@@ -4,6 +4,10 @@
 
 using namespace glm;
 
+SkyBox::SkyBox() {
+	Entity();
+}
+
 SkyBox::SkyBox(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path) 
 {
 	type = SKYBOX;
