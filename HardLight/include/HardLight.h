@@ -27,6 +27,7 @@
 #include "Bike.h"
 #include "Bikes.h"
 #include "TailWall.h"
+#include "SoundMixer.h"
 
 
 using namespace physx;
@@ -99,6 +100,8 @@ private:
 
 	Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
+
+	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
 public:
 	HardLight();

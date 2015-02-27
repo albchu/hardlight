@@ -86,39 +86,49 @@ void HardLight::OnEvent(SDL_Event* Event)
 	case SDL_MOUSEMOTION:
 
 		break;
+
+	case SDL_CONTROLLERBUTTONDOWN:
+		switch (Event->cbutton.button)
+		{
+		case SDL_CONTROLLER_BUTTON_A: // A button
+			sfxMix.PlaySoundEffect();
+			break;
+		}
+		break;
+
 	case SDL_CONTROLLERAXISMOTION:
 		int LeftX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTX);
 		int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
 		int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
-			if (LeftX < -deadZone || LeftX > deadZone){
-				bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
+		if (LeftX < -deadZone || LeftX > deadZone){
+			bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
 
-			}else{
-				bike->getInputData().setAnalogSteer(0.0f);
-			}
-			if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
-				bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-				bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
-			}else if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
-				bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-				bike->getInputData().setAnalogAccel((SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
-			}else{
-				bike->getInputData().setAnalogAccel(0.0f);
-			}
-			if(RightX < -deadZone){
-				left =(RightX)/(-32768.0f);
-			}else if(RightX > deadZone){
-				left = (RightX)/(-32768.0f);
-			}else {
-				left = right = 0.0f;
-			}		
-			if(RightY > deadZone){
-				forward = (RightY)/(-32768.0f);
-			}else if(RightY < -deadZone){
-				forward = (RightY)/(-32768.0f);
-			}else{
-				forward = back = 0.0f;
-			}
+		}else{
+			bike->getInputData().setAnalogSteer(0.0f);
+		}
+		if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
+			bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+			bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
+		}else if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
+			bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+			bike->getInputData().setAnalogAccel((SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
+		}else{
+			bike->getInputData().setAnalogAccel(0.0f);
+		}
+		if(RightX < -deadZone){
+			left =(RightX)/(-32768.0f);
+		}else if(RightX > deadZone){
+			left = (RightX)/(-32768.0f);
+		}else {
+			left = right = 0.0f;
+		}		
+		if(RightY > deadZone){
+			forward = (RightY)/(-32768.0f);
+		}else if(RightY < -deadZone){
+			forward = (RightY)/(-32768.0f);
+		}else{
+			forward = back = 0.0f;
+		}
 		break;
 	} // end type
 }

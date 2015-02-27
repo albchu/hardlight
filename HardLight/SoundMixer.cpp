@@ -22,7 +22,7 @@ void SoundMixer::InitializeMixer()
 		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		exit; 
 	} 
-	
+
 	//Load sound effects 
 	sfxEngine = Mix_LoadWAV( "../data/Audio/sfxEngine.wav" ); 
 	if( sfxEngine == NULL ) 
@@ -36,7 +36,10 @@ void SoundMixer::CloseMixer()
 {
 
 }
-
+void SoundMixer::PlaySoundEffect()
+{
+	Mix_PlayChannel(-1, sfxEngine, 0);
+}
 void SoundMixer::PlayBackgroundMusic()
 {
 	//If there is no music playing 
@@ -62,3 +65,4 @@ void SoundMixer::PlayBackgroundMusic()
 		} 
 	}
 }
+
