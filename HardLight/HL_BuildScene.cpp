@@ -10,7 +10,7 @@
 bool HardLight::BuildScene()
 {
 
-	Entity* skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxIdentity))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/skybox_test.tga");
+	Entity* skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxIdentity))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/space_skybox.tga");
 	world.add_entity(skybox);
 
 	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
