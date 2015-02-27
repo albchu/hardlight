@@ -75,7 +75,7 @@ void HardLight::OnLoop()
 	if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
 		//MeshMap::Instance()->getEntityMesh("Wall.obj")->CreateTail(oldPos,newPos,1);
 		oldPos = dis;
-		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/uvgrid.tga");
+		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
 		world.add_entity(Wall);
 	}
 
