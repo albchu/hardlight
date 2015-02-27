@@ -3,14 +3,12 @@
 #include "TailWall.h"
 #include "MeshMap.h"
 #include "SkyBox.h"
-#include "SoundMixer.h"
 
 //==============================================================================
 
 
 bool HardLight::BuildScene()
 {
-	SoundMixer sfxMix;
 	sfxMix.InitializeMixer();
 	sfxMix.PlayBackgroundMusic();
 

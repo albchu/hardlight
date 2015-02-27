@@ -20,6 +20,7 @@ public:
 	void CloseMixer();
 
 	void PlayBackgroundMusic();
+	void PlaySoundEffect();
 };
 
 #endif
