@@ -9,6 +9,6 @@ void errorReport(const char*);
 // returns texture id used by OpenGL
 GLuint load_tga_texture(const char * imagepath);
 
-GLuint load_dds_texture(const char * imagepath);
+//GLuint load_dds_texture(const char * imagepath);
 
 #endif
