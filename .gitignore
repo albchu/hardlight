@@ -35,8 +35,6 @@
 *.opensdf
 *.obj
 *.pdb
-*.vcxproj
-*.vcxproj.filters
 *.vcxproj.user
 *.unsuccessfulbuild
 /HardLight/Debug
