@@ -11,11 +11,11 @@ void HardLight::OnCleanup()
 	bike->getVehicleSceneQueryData()->free(gDefaultAllocator);
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
-	world.clear();
+	world.clear();	
 	if (gScene != NULL) gScene->release();
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();
-	
+
 	if (glcontext != NULL) SDL_GL_DeleteContext(glcontext);
 	if (window != NULL) SDL_DestroyWindow(window);
 	SDL_Quit();

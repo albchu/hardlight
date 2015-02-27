@@ -80,7 +80,7 @@ void HardLight::OnLoop()
 		world.add_entity(Wall);
 	}
 
-	skybox.set_actor(gPhysics->createRigidStatic(newPos));
+	//skybox.set_actor(gPhysics->createRigidStatic(newPos));
 
 	
 
