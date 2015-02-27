@@ -26,6 +26,7 @@
 #include "Entity.h"
 #include "Bike.h"
 #include "Bikes.h"
+#include "SkyBox.h"
 #include "TailWall.h"
 
 
@@ -95,6 +96,7 @@ private:
 	//bool gIsVehicleInAir;
 	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
+	SkyBox skybox;
 	TailWall tail;
 
 	Bike* bike;
