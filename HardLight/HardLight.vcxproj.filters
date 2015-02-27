@@ -163,11 +163,11 @@
     <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="SoundMixer.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="include\EntityTypes.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SoundMixer.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
