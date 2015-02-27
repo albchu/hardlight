@@ -97,7 +97,7 @@ private:
 	//bool gIsVehicleInAir;
 	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
-	//SkyBox skybox;
+	SkyBox* skybox;
 	TailWall tail;
 
 	Bike* bike;

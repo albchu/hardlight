@@ -18,6 +18,11 @@ SkyBox::SkyBox(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* t
 	init_opengl();
 }
 
+SkyBox::~SkyBox() {
+	free(mesh_data);
+	actor->release();
+}
+
 mat4 SkyBox::get_model_matrix() {
 
 	mat4 model_matrix = mat4(1.0);

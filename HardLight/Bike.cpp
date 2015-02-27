@@ -18,9 +18,9 @@ Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
 }
 
 Bike::~Bike() {
-	free(vehicle4W);
+	vehicle4W->release();
 	free(vehicleSceneQueryData);
-	free(batchQuery);
+	batchQuery->release();
 }
 
 mat4 Bike::get_model_matrix()

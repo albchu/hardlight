@@ -8,6 +8,7 @@ class SkyBox : public Entity
 public:
 	SkyBox();
 	SkyBox(PxRigidActor* actor, MeshData* meshdata, const char* texture);
+	~SkyBox();
 	virtual mat4 get_model_matrix();
 };
 
