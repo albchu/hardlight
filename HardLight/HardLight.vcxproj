@@ -140,7 +140,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
     <ClInclude Include="SoundMixer.h" />
-    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />

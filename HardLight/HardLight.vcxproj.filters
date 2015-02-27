@@ -130,9 +130,6 @@
     <ClInclude Include="MeshMap.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="TailWall.h">
-      <Filter>Vehicle</Filter>
-    </ClInclude>
     <ClInclude Include="include\HardLight.h">
       <Filter>HardLight</Filter>
     </ClInclude>
@@ -151,9 +148,6 @@
     <ClInclude Include="include\SkyBox.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="include\TailWall.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="include\World.h">
       <Filter>World</Filter>
     </ClInclude>
@@ -168,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="include\EntityTypes.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailWall.h">
+      <Filter>Vehicle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
