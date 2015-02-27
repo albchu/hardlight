@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "inih\cpp\INIReader.h"
+#include "../inih\cpp\INIReader.h"
 
 #include <GL\glew.h>
 

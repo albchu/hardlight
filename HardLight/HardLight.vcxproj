@@ -43,6 +43,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>include;..\Libraries\SDL2-2.0.3\include;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Include;..\Libraries\glm;..\Libraries\glew-1.12.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Libraries\SDL2-2.0.3\lib\x86;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Lib\vc11win32;..\Libraries\glew-1.12.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <SourcePath>src;$(VCInstallDir)atlmfc\src\mfc;$(VCInstallDir)atlmfc\src\mfcm;$(VCInstallDir)atlmfc\src\atl;$(VCInstallDir)crt\src;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -85,25 +86,10 @@
     <ClCompile Include="Bike.cpp" />
     <ClCompile Include="Bikes.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EntityTypes.cpp" />
-    <ClCompile Include="HardLight.cpp" />
-    <ClCompile Include="HL_BuildScene.cpp" />
-    <ClCompile Include="HL_CreateVehicle.cpp" />
-    <ClCompile Include="HL_OnCleanup.cpp" />
-    <ClCompile Include="HL_OnEvent.cpp" />
-    <ClCompile Include="HL_OnExecute.cpp" />
-    <ClCompile Include="HL_OnInit.cpp" />
-    <ClCompile Include="HL_OnLoop.cpp" />
-    <ClCompile Include="HL_OnRender.cpp" />
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshMap.cpp" />
-    <ClCompile Include="objParser.cpp" />
-    <ClCompile Include="ParsedFile.cpp" />
     <ClCompile Include="Player_Bike.cpp" />
-    <ClCompile Include="ShaderTools.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
@@ -111,16 +97,29 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
+    <ClCompile Include="src\HardLight.cpp" />
+    <ClCompile Include="src\HL_BuildScene.cpp" />
+    <ClCompile Include="src\HL_CreateVehicle.cpp" />
+    <ClCompile Include="src\HL_OnCleanup.cpp" />
+    <ClCompile Include="src\HL_OnEvent.cpp" />
+    <ClCompile Include="src\HL_OnExecute.cpp" />
+    <ClCompile Include="src\HL_OnInit.cpp" />
+    <ClCompile Include="src\HL_OnLoop.cpp" />
+    <ClCompile Include="src\HL_OnRender.cpp" />
+    <ClCompile Include="src\MeshData.cpp" />
+    <ClCompile Include="src\MeshMap.cpp" />
+    <ClCompile Include="src\objParser.cpp" />
+    <ClCompile Include="src\ParsedFile.cpp" />
+    <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="TailWall.cpp" />
-    <ClCompile Include="tempOBJ\objloader.cpp" />
-    <ClCompile Include="tempOBJ\vboindexer.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bike.h" />
     <ClInclude Include="include\Bikes.h" />
     <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
@@ -142,8 +141,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
     <ClInclude Include="SoundMixer.h" />
     <ClInclude Include="TailWall.h" />
-    <ClInclude Include="tempOBJ\objloader.hpp" />
-    <ClInclude Include="tempOBJ\vboindexer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />

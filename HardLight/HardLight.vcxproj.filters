@@ -2,33 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="HardLight.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_BuildScene.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_CreateVehicle.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnCleanup.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnEvent.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnExecute.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnInit.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnLoop.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnRender.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
     <ClCompile Include="inih\ini.c">
       <Filter>INIReader</Filter>
     </ClCompile>
@@ -56,34 +29,10 @@
     <ClCompile Include="World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderTools.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ParsedFile.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="objParser.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMap.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\objloader.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\vboindexer.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
     <ClCompile Include="Bike.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityTypes.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="TailWall.cpp">
@@ -97,6 +46,48 @@
     </ClCompile>
     <ClCompile Include="Player_Bike.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HardLight.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_CreateVehicle.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnCleanup.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnEvent.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnExecute.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnInit.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnLoop.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnRender.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_BuildScene.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParsedFile.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objParser.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderTools.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshData.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshMap.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="SoundMixer.cpp">
       <Filter>Sound</Filter>
@@ -139,12 +130,6 @@
     <ClInclude Include="MeshMap.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="tempOBJ\objloader.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="tempOBJ\vboindexer.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
     <ClInclude Include="TailWall.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
@@ -180,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="SoundMixer.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityTypes.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
