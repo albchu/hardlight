@@ -92,6 +92,9 @@
     <ClCompile Include="TailWall.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>
+    <ClCompile Include="Bikes.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -159,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="TailWall.h">
       <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Bikes.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

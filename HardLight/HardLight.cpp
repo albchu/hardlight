@@ -29,7 +29,7 @@ HardLight::HardLight()
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
 
-	gIsVehicleInAir = true;
+	//bike->setInAir(true);
 }
 //==============================================================================
 HardLight::~HardLight()

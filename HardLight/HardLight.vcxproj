@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bike.cpp" />
+    <ClCompile Include="Bikes.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityTypes.cpp" />
     <ClCompile Include="HardLight.cpp" />
@@ -116,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bike.h" />
+    <ClInclude Include="Bikes.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
     <ClInclude Include="Sound.h" />

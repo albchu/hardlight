@@ -1,6 +1,6 @@
 //==============================================================================
 #include "HardLight.h"
-#include "MeshData.h"
+
 #include "MeshMap.h"
 //==============================================================================
 VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
@@ -45,13 +45,14 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool HardLight::CreateVehicle(PxVec3 init_position)
+bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 {
-	gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	bike = new Bike();
+	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
-	gVehicleSceneQueryData = VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator);
-	gBatchQuery = VehicleSceneQueryData::setUpBatchedSceneQuery(0, *gVehicleSceneQueryData, gScene);
+	bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator));
+	bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), gScene));
 	
 	//Create the friction table for each combination of tire and surface type.
 	gFrictionPairs = createFrictionPairs(gMaterial);
@@ -64,23 +65,25 @@ bool HardLight::CreateVehicle(PxVec3 init_position)
 
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
-	gVehicle4W = createVehicle4W(vehicleDesc, gPhysics, gCooking, config);
+	bike->setVehicle4W(createVehicle4W(vehicleDesc, gPhysics, gCooking, config));
 	PxTransform startTransform(init_position, PxQuat(PxIdentity));
-	gVehicle4W->getRigidDynamicActor()->setGlobalPose(startTransform);
-	gScene->addActor(*gVehicle4W->getRigidDynamicActor());
+	bike->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
+	gScene->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
 
-	gVehicle4W->getRigidDynamicActor()->setName("bike");
-	Entity* bike = new Bike(gVehicle4W->getRigidDynamicActor(), MeshMap::Instance()->getEntityMesh("HardLightBike.obj"), "../data/BikeTexture.tga");
+	//bike = new Bike(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
+	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
+	bike->set_texture(load_tga_texture("../data/BikeTexture.tga"));
+	bike->init_opengl();
 	world.add_entity(bike);
 
-	vehicle = gVehicle4W->getRigidDynamicActor();
+	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.
 	//Set the vehicle to use auto-gears.
-	gVehicle4W->setToRestState();
-	gVehicle4W->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-	gVehicle4W->mDriveDynData.setUseAutoGears(true);
+	bike->getVehicle4W()->setToRestState();
+	bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+	bike->getVehicle4W()->mDriveDynData.setUseAutoGears(true);
 
-	gIsVehicleInAir = true;
+	bike->setInAir(true);
 	return true;
 }

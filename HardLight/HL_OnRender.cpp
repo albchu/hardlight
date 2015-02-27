@@ -20,7 +20,7 @@ void HardLight::OnRender()
 	camera_position = rotateY(camera_position, cam_rotate);
 	vec3 light(5.0f, 15.0f, -5.0f);
 	// view_matrix for all entities
-	PxTransform gPose = vehicle->getGlobalPose();
+	PxTransform gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);

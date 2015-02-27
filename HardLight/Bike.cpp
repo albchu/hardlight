@@ -1,11 +1,18 @@
 #include "Bike.h"
 
-Bike::Bike(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path)
+Bike::Bike()
+{
+	type = BIKE;
+	draw_mode = GL_TRIANGLES;
+	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
+}
+
+Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
 {
 	type = BIKE;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
-	mesh_data = init_mesh_data;
+	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
 	texture = load_tga_texture(texture_file_path);
 	init_opengl();
 }
@@ -29,3 +36,58 @@ mat4 Bike::get_model_matrix()
 
 	return model_matrix;
 }
+
+PxVehicleDrive4W* Bike::getVehicle4W()
+{
+	return vehicle4W;
+}
+
+PxVehicleDrive4WRawInputData Bike::getInputData()
+{
+	return inputData;
+}
+
+VehicleSceneQueryData* Bike::getVehicleSceneQueryData()
+{
+	return vehicleSceneQueryData;
+}
+
+PxBatchQuery* Bike::getBatchQuery()
+{
+	return batchQuery;
+}
+
+bool Bike::isInAir()
+{
+	return inAir;
+}
+
+void Bike::setVehicle4W(PxVehicleDrive4W* new_vehicle4W)
+{
+	vehicle4W = new_vehicle4W;
+}
+
+
+void Bike::setInputData(PxVehicleDrive4WRawInputData new_inputData)
+{
+	inputData = new_inputData;
+}
+
+
+void Bike::setVehicleSceneQueryData(VehicleSceneQueryData* new_vehicleSceneQueryData)
+{
+	vehicleSceneQueryData = new_vehicleSceneQueryData;
+}
+
+
+void Bike::setBatchQuery(PxBatchQuery* new_batchQuery)
+{
+	batchQuery = new_batchQuery;
+}
+
+
+void Bike::setInAir(bool new_inAir)
+{
+	inAir = new_inAir;
+}
+
