@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\Libraries\SDL2-2.0.3\include;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Include;..\Libraries\glm;..\Libraries\glew-1.12.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\Libraries\SDL2-2.0.3\include;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Include;..\Libraries\glm;..\Libraries\glew-1.12.0\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\Libraries\SDL2-2.0.3\lib\x86;..\Libraries\PhysX-3.3.2_WINDOWS_SDK_Core\Lib\vc11win32;..\Libraries\glew-1.12.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -118,19 +118,21 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bike.h" />
-    <ClInclude Include="Bikes.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="HardLight.h" />
-    <ClInclude Include="Player_Bike.h" />
-    <ClInclude Include="SkyBox.h" />
-    <ClInclude Include="Sound.h" />
+    <ClInclude Include="include\Bike.h" />
+    <ClInclude Include="include\Bikes.h" />
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\HardLight.h" />
+    <ClInclude Include="include\objParser.h" />
+    <ClInclude Include="include\ParsedFile.h" />
+    <ClInclude Include="include\Player_Bike.h" />
+    <ClInclude Include="include\SkyBox.h" />
+    <ClInclude Include="include\Sound.h" />
+    <ClInclude Include="include\TailWall.h" />
+    <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="MeshMap.h" />
-    <ClInclude Include="objParser.h" />
-    <ClInclude Include="ParsedFile.h" />
     <ClInclude Include="ShaderTools.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h" />
@@ -142,7 +144,6 @@
     <ClInclude Include="TailWall.h" />
     <ClInclude Include="tempOBJ\objloader.hpp" />
     <ClInclude Include="tempOBJ\vboindexer.hpp" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />

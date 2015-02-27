@@ -2,7 +2,7 @@
 #ifndef OBJLOADER_H
 #define OBJLOADER_H
 
-#include "../MeshData.h"
+#include "MeshData.h"
 
 MeshData loadOBJ(const char * path);
 	/*std::vector<glm::vec3> & out_vertices, 

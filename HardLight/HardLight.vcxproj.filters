@@ -103,9 +103,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HardLight.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
     <ClInclude Include="inih\ini.h">
       <Filter>INIReader</Filter>
     </ClInclude>
@@ -133,23 +130,11 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
       <Filter>PhysX</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderTools.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="MeshData.h">
       <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="ParsedFile.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="objParser.h">
-      <Filter>objLoader</Filter>
     </ClInclude>
     <ClInclude Include="MeshMap.h">
       <Filter>Rendering</Filter>
@@ -160,22 +145,40 @@
     <ClInclude Include="tempOBJ\vboindexer.hpp">
       <Filter>objLoader</Filter>
     </ClInclude>
-    <ClInclude Include="Bike.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="TailWall.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="Bikes.h">
+    <ClInclude Include="include\HardLight.h">
+      <Filter>HardLight</Filter>
+    </ClInclude>
+    <ClInclude Include="include\objParser.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ParsedFile.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sound.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="SkyBox.h">
+    <ClInclude Include="include\Player_Bike.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="Player_Bike.h">
+    <ClInclude Include="include\SkyBox.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailWall.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bike.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
