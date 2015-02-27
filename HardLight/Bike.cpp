@@ -42,7 +42,7 @@ PxVehicleDrive4W* Bike::getVehicle4W()
 	return vehicle4W;
 }
 
-PxVehicleDrive4WRawInputData Bike::getInputData()
+PxVehicleDrive4WRawInputData& Bike::getInputData()
 {
 	return inputData;
 }

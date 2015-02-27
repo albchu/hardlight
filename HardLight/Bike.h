@@ -26,7 +26,7 @@ public:
 	virtual mat4 get_model_matrix();
 
 	PxVehicleDrive4W* getVehicle4W();
-	PxVehicleDrive4WRawInputData getInputData();
+	PxVehicleDrive4WRawInputData& getInputData();
 	VehicleSceneQueryData* getVehicleSceneQueryData();
 	PxBatchQuery* getBatchQuery();
 	bool isInAir();
