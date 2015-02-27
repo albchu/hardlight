@@ -7,19 +7,17 @@
 #include <string>
 
 
-class SoundMixer {
+class Sound {
 
 private:
 	Mix_Music *musicOverworld;
 	Mix_Chunk *sfxEngine;
 	
 public:
-	SoundMixer();
+	Sound();
 
 	void InitializeMixer();
-	void CloseMixer();
 
-	void PlayBackgroundMusic();
 };
 
 #endif

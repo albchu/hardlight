@@ -2,33 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="HardLight.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_BuildScene.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_CreateVehicle.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnCleanup.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnEvent.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnExecute.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnInit.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnLoop.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
-    <ClCompile Include="HL_OnRender.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
     <ClCompile Include="inih\ini.c">
       <Filter>INIReader</Filter>
     </ClCompile>
@@ -56,34 +29,10 @@
     <ClCompile Include="World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderTools.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ParsedFile.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="objParser.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMap.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\objloader.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="tempOBJ\vboindexer.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
     <ClCompile Include="Bike.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityTypes.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="TailWall.cpp">
@@ -95,14 +44,56 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="Player_Bike.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HardLight.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_CreateVehicle.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnCleanup.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnEvent.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnExecute.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnInit.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnLoop.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_OnRender.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_BuildScene.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParsedFile.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objParser.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderTools.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshData.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshMap.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
     <ClCompile Include="SoundMixer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HardLight.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
     <ClInclude Include="inih\ini.h">
       <Filter>INIReader</Filter>
     </ClInclude>
@@ -130,47 +121,53 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
       <Filter>PhysX</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderTools.h">
       <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="MeshData.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="ParsedFile.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="objParser.h">
-      <Filter>objLoader</Filter>
-    </ClInclude>
     <ClInclude Include="MeshMap.h">
       <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="tempOBJ\objloader.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="tempOBJ\vboindexer.hpp">
-      <Filter>objLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Bike.h">
-      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="TailWall.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="Bikes.h">
+    <ClInclude Include="include\HardLight.h">
+      <Filter>HardLight</Filter>
+    </ClInclude>
+    <ClInclude Include="include\objParser.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ParsedFile.h">
+      <Filter>objLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="SkyBox.h">
+    <ClInclude Include="include\Player_Bike.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SkyBox.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailWall.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\World.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bike.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="SoundMixer.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityTypes.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

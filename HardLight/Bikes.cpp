@@ -1,4 +1,10 @@
 #include "Bikes.h"
+#include "Player_Bike.h"
+void Bikes::add_player_bike(Player_Bike* bike, SDL_GameController* controller)
+{
+	bike->set_controller(controller);
+	player_bikes.push_back(bike);
+}
 
 vector<Bike*> Bikes::get_all_bikes()
 {
@@ -10,7 +16,7 @@ vector<Bike*> Bikes::get_all_bikes()
 	return all_bikes;
 }
 
-vector<Bike*> Bikes::get_player_bikes()
+vector<Player_Bike*> Bikes::get_player_bikes()
 {
 	return player_bikes;
 }

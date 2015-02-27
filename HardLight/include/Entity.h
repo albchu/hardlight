@@ -10,7 +10,7 @@
 
 #include "ShaderTools.h"
 #include "MeshData.h"
-#include "EntityTypes.cpp"
+#include "EntityTypes.h"
 #include "MeshMap.h"
 
 using namespace glm;

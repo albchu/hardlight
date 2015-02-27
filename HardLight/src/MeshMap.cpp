@@ -1,5 +1,4 @@
 #include "MeshMap.h"
-#include "tempOBJ\objloader.hpp"
 #include "objParser.h"
 #include "ParsedFile.h"
 #include <windows.h>
