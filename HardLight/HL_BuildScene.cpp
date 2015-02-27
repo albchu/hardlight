@@ -13,6 +13,22 @@ bool HardLight::BuildScene()
 	Entity* skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxIdentity))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/space_skybox.tga");
 	world.add_entity(skybox);
 
+	//PxMaterial* ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+
+	////Create the batched scene queries for the suspension raycasts.
+	//bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator));
+	//bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), gScene));
+	//
+	////Create the friction table for each combination of tire and surface type.
+	//gFrictionPairs = createFrictionPairs(ground_material);
+	//
+	////Create a plane to drive on.
+	//gGroundPlane = createDrivablePlane(ground_material, gPhysics);
+	//gScene->addActor(*gGroundPlane);
+	//Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/uvgrid.tga");
+	//world.add_entity(ground);
+
+
 	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
 	//PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
 	//PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
