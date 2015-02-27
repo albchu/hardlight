@@ -44,15 +44,11 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
-
+	cout << "Number of controllers detected: "<<SDL_NumJoysticks()<<endl;
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 		if (SDL_IsGameController(i)) {
-			controller = SDL_GameControllerOpen(i);
-			if (controller) {
-				break;
-			} else {
-				return false;
-			}
+			controllers.push_back(SDL_GameControllerOpen(i));
+
 		}
 	}
 	glClearColor(0, 0, 0, 0);

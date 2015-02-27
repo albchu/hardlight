@@ -25,6 +25,7 @@
 #include "World.h"
 #include "Entity.h"
 #include "Bike.h"
+#include "Bikes.h"
 #include "TailWall.h"
 
 
@@ -56,6 +57,7 @@ private:
 	SDL_Window* window;
 	SDL_GLContext glcontext;
 	SDL_GameController* controller;
+	vector<SDL_GameController*> controllers;
 
 	PxScene* gScene;
 	PxFoundation* gFoundation;
@@ -96,6 +98,7 @@ private:
 	TailWall tail;
 
 	Bike* bike;
+	Bikes bikes;		// Holds arrays of all bikes on the scene
 
 public:
 	HardLight();
