@@ -33,7 +33,7 @@ public:
 			 std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, std::vector<glm::tvec3<int> >, char* filename);
 
 	void order_arrays();
-
+	void CreateTail(glm::vec3, glm::vec3,float);
 	void addVertex(glm::vec3);
 	glm::vec3 getVertex(int);
 
