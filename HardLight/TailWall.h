@@ -1,6 +1,8 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "Entity.h"
+#include <PxPhysicsAPI.h>
+#include <glm\gtx\rotate_vector.hpp>
 
 using namespace glm;
 using namespace std;
@@ -19,6 +21,7 @@ public:
 	vector<vec3> getTailNorm(void);
 	vector<vec2> getTailUV(void);
 	TailWall();
-
+	TailWall(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
+	//mat4 get_model_matrix();
 };
 
