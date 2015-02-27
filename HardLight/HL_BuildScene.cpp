@@ -1,12 +1,17 @@
 //==============================================================================
 #include "HardLight.h"
 #include "TailWall.h"
+#include "MeshMap.h"
+#include "SkyBox.h"
 
 //==============================================================================
 
 
 bool HardLight::BuildScene()
 {
+
+	Entity* skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxIdentity))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/space_skybox.tga");
+	world.add_entity(skybox);
 
 	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
 	//PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);

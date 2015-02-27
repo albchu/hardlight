@@ -129,7 +129,7 @@ bool HardLight::OnInit()
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
 		(float)window_width/(float)window_height,
-		0.1f, 1000.0f);
+		0.1f, 2000.0f);
 
 	cam_translate = vec3(
 		(float)config->GetReal("camera", "x", 0.0),
