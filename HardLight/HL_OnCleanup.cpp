@@ -11,6 +11,7 @@ void HardLight::OnCleanup()
 	bike->getVehicleSceneQueryData()->free(gDefaultAllocator);
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
+	world.clear();
 	if (gScene != NULL) gScene->release();
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();

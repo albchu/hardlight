@@ -60,7 +60,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/uvgrid.tga");
+	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/uvgrid.tga");
 	world.add_entity(ground);
 
 	//Create a vehicle that will drive on the plane.
@@ -74,6 +74,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
 	bike->set_texture(load_tga_texture("../data/BikeTexture.tga"));
 	bike->init_opengl();
+
 	world.add_entity(bike);
 
 	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();

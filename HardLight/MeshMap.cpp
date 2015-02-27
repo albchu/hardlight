@@ -23,7 +23,7 @@ MeshMap* MeshMap::Instance()
 MeshMap::MeshMap()
 {
 	
-	loadAllOBJs("../data/");
+	loadAllOBJs("../data/Models/");
 
 }
 
@@ -72,8 +72,9 @@ void MeshMap::loadAllOBJs(const char* directory) {
 
 				std::string dirString = std::string(directory);
 				std::string filename = std::string(cbuff);
+
 				mesh = parser.loadObj(ParsedFile((dirString + filename).c_str()));
-				mesh.order_Arrays();
+				mesh.order_arrays();
 				setEntityMesh( filename, mesh);
 
 				cout << filename << endl;

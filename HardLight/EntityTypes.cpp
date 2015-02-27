@@ -2,5 +2,6 @@ enum EntityTypes
 {
 	UNDECLARED,
 	BIKE,
-	NONRENDERABLE
+	NONRENDERABLE,
+	SKYBOX
 };
