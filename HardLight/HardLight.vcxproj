@@ -111,6 +111,7 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
+    <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="tempOBJ\objloader.cpp" />
     <ClCompile Include="tempOBJ\vboindexer.cpp" />
@@ -125,7 +126,6 @@
     <ClInclude Include="include\ParsedFile.h" />
     <ClInclude Include="include\Player_Bike.h" />
     <ClInclude Include="include\SkyBox.h" />
-    <ClInclude Include="include\Sound.h" />
     <ClInclude Include="include\TailWall.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
@@ -140,6 +140,7 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="SoundMixer.h" />
     <ClInclude Include="TailWall.h" />
     <ClInclude Include="tempOBJ\objloader.hpp" />
     <ClInclude Include="tempOBJ\vboindexer.hpp" />

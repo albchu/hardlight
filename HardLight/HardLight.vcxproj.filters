@@ -98,6 +98,9 @@
     <ClCompile Include="Player_Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="SoundMixer.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -154,9 +157,6 @@
     <ClInclude Include="include\ParsedFile.h">
       <Filter>objLoader</Filter>
     </ClInclude>
-    <ClInclude Include="include\Sound.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
     <ClInclude Include="include\Entity.h">
       <Filter>World</Filter>
     </ClInclude>
@@ -177,6 +177,9 @@
     </ClInclude>
     <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMixer.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
