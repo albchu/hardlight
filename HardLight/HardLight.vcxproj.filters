@@ -29,23 +29,8 @@
     <ClCompile Include="World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderTools.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ParsedFile.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="objParser.cpp">
-      <Filter>objLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMap.cpp">
-      <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Bike.cpp">
       <Filter>World</Filter>
@@ -88,6 +73,21 @@
     </ClCompile>
     <ClCompile Include="src\HL_BuildScene.cpp">
       <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParsedFile.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objParser.cpp">
+      <Filter>objLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderTools.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshData.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshMap.cpp">
+      <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

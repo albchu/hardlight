@@ -89,12 +89,7 @@
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshMap.cpp" />
-    <ClCompile Include="objParser.cpp" />
-    <ClCompile Include="ParsedFile.cpp" />
     <ClCompile Include="Player_Bike.cpp" />
-    <ClCompile Include="ShaderTools.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
@@ -111,6 +106,11 @@
     <ClCompile Include="src\HL_OnInit.cpp" />
     <ClCompile Include="src\HL_OnLoop.cpp" />
     <ClCompile Include="src\HL_OnRender.cpp" />
+    <ClCompile Include="src\MeshData.cpp" />
+    <ClCompile Include="src\MeshMap.cpp" />
+    <ClCompile Include="src\objParser.cpp" />
+    <ClCompile Include="src\ParsedFile.cpp" />
+    <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
