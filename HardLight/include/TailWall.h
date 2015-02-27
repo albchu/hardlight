@@ -22,6 +22,6 @@ public:
 	vector<vec2> getTailUV(void);
 	TailWall();
 	TailWall(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
-	//mat4 get_model_matrix();
+	mat4 get_model_matrix();
 };
 
