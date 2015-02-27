@@ -68,16 +68,16 @@ void HardLight::OnLoop()
 
 	// tail creation
 
-	//PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
-	//vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
-	//vec3 major = oldPos -dis;
+	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
+	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
+	vec3 major = oldPos -dis;
 
-	//if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
-	//	//MeshMap::Instance()->getEntityMesh("Wall.obj")->CreateTail(oldPos,newPos,1);
-	//	oldPos = dis;
-	//	TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/uvgrid.tga");
-	//	world.add_entity(Wall);
-	//}
+	if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
+		//MeshMap::Instance()->getEntityMesh("Wall.obj")->CreateTail(oldPos,newPos,1);
+		oldPos = dis;
+		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
+		world.add_entity(Wall);
+	}
 
 	while(!gScene->fetchResults() )
 	{

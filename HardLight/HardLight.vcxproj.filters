@@ -86,9 +86,6 @@
     <ClCompile Include="EntityTypes.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="TailWall.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>

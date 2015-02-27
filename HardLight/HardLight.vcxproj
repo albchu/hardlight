@@ -111,7 +111,6 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="TailWall.cpp" />
     <ClCompile Include="tempOBJ\objloader.cpp" />
     <ClCompile Include="tempOBJ\vboindexer.cpp" />
