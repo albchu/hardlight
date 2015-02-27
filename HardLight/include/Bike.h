@@ -5,10 +5,10 @@
 
 #include <PxPhysicsAPI.h>
 #include <vehicle/PxVehicleUtil.h>
-#include "SnippetVehicleCommon/SnippetVehicleRaycast.h"
-#include "SnippetVehicleCommon/SnippetVehicleFilterShader.h"
-#include "SnippetVehicleCommon/SnippetVehicleTireFriction.h"
-#include "SnippetVehicleCommon/SnippetVehicleCreate.h"
+#include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
+#include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
+#include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
+#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
 
 #include <glm\gtx\rotate_vector.hpp>
 #include <glm/glm.hpp>		// Used for vec3
