@@ -102,6 +102,7 @@
     <ClCompile Include="MeshMap.cpp" />
     <ClCompile Include="objParser.cpp" />
     <ClCompile Include="ParsedFile.cpp" />
+    <ClCompile Include="Player_Bike.cpp" />
     <ClCompile Include="ShaderTools.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Bikes.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="HardLight.h" />
+    <ClInclude Include="Player_Bike.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
