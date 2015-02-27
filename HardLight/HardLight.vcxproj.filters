@@ -95,6 +95,9 @@
     <ClCompile Include="Bikes.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HardLight.h">
@@ -164,6 +167,9 @@
       <Filter>Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="Bikes.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
