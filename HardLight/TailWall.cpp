@@ -53,7 +53,7 @@ mat4 TailWall::get_model_matrix()
 	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
 
 	model_matrix = rotate(model_matrix, rads, vec3(0, axis.y, 0));
-	model_matrix = translate(model_matrix, vec3(0, 0, 2/tailScale));
+	model_matrix = translate(model_matrix, vec3(0, 0, (1+tailScale)/(tailScale)));
 
 	return model_matrix;
 }
