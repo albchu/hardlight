@@ -2,7 +2,6 @@
 #include "HardLight.h"
 #include "MeshData.h"
 #include "MeshMap.h"
-#include "Skybox.h"
 
 vec3 oldPos = vec3(0.0f,1.0f,600.0f);
 PxF32 gSteerVsForwardSpeedData[2*8]=
@@ -73,12 +72,12 @@ void HardLight::OnLoop()
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;
 
-	if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
-		//MeshMap::Instance()->getEntityMesh("Wall.obj")->CreateTail(oldPos,newPos,1);
-		oldPos = dis;
-		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
-		world.add_entity(Wall);
-	}
+	//if(sqrt(major.x*major.x+major.y*major.y+major.z*major.z) > 1){
+	//	//MeshMap::Instance()->getEntityMesh("Wall.obj")->CreateTail(oldPos,newPos,1);
+	//	oldPos = dis;
+	//	TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
+	//	world.add_entity(Wall);
+	//}
 
 	skybox->set_actor(gPhysics->createRigidStatic(newPos));
 
