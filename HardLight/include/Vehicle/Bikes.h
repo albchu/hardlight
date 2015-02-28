@@ -14,14 +14,14 @@ class Bikes
 {
 public:
 	void add_bot_bike(Bike* bike);
-	void add_player_bike(Player_Bike* bike, SDL_GameController* controller);
+	void add_player_bike(Bike* bike, SDL_GameController* controller);
 	vector<Bike*> get_all_bikes();
 	vector<Player_Bike*> get_player_bikes();
-	vector<Bike*> get_bot_bikes();
+	vector<Bot_Bike*> get_bot_bikes();
 
 private:
 	vector<Player_Bike*> player_bikes;
-	vector<Bike*> bot_bikes;
+	vector<Bot_Bike*> bot_bikes;
 };
 
 #endif

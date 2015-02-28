@@ -6,6 +6,7 @@ const int deadZone = 8000;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
+	Bike* bike = bikes.get_player_bikes()[0];
 	switch (Event->type)
 	{
 	case SDL_QUIT:

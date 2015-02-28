@@ -100,8 +100,7 @@ private:
 	SkyBox* skybox;
 	TailWall tail;
 
-	Bike* bike;
-	Bike* bike2;
+	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
