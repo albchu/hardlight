@@ -15,6 +15,7 @@ public:
 	void add_bike(PxActor* actor);
 	vector<Entity*> getEntities();
 	void clear(); // frees pointers
+	void remove(Entity* e);
 };
 
 #endif

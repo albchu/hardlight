@@ -2,9 +2,12 @@
 
 TailWall::TailWall()
 {
-	mesh_data = new MeshData();
+	tailScale = 1.0f;
 }
+TailWall::~TailWall(){
 
+}
+/*
 void TailWall::CreateTail(vec3 topLeft, vec3 topRight, float height)
 {
 	vec3 wallNormal;
@@ -32,7 +35,7 @@ void TailWall::CreateTail(vec3 topLeft, vec3 topRight, float height)
 	mesh_data->addTexture(vec2(0,1));
 	mesh_data->addTexture(vec2(1,0));
 	mesh_data->addTexture(vec2(1,1));
-}
+}*/
 
 mat4 TailWall::get_model_matrix()
 {
@@ -46,22 +49,16 @@ mat4 TailWall::get_model_matrix()
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
 	
 	model_matrix = scale(model_matrix, vec3(2.5, 2.5, 2.5));
+	model_matrix = scale(model_matrix, vec3(tailScale, 1, tailScale));
 	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
 
-	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-	model_matrix = translate(model_matrix, vec3(0, 0, 1.5));
+	model_matrix = rotate(model_matrix, rads, vec3(0, axis.y, 0));
+	model_matrix = translate(model_matrix, vec3(0, 0, 2/tailScale));
 
 	return model_matrix;
 }
+void TailWall::setScale(float size){
+	tailScale = size;
+}
 
-vector<vec3> TailWall::getTail(void)
-{
-	return Tails;
-}
-vector<vec2> TailWall::getTailUV(){
-	return TailUV;
-}
-vector<vec3> TailWall::getTailNorm(){
-	return Normals;
-}
 
