@@ -1,7 +1,7 @@
 #ifndef _PLAYER_BIKE_H
 #define _PLAYER_BIKE_H
 
-#include "Bike.h"
+#include "Vehicle/Bike.h"
 #include <SDL.h>
 
 using namespace glm;
