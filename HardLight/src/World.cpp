@@ -18,3 +18,14 @@ void World::clear()
 
 	entities.clear();
 }
+
+void World::remove(Entity* entity)
+{
+	for(int i = 0; i < entities.size();i++){
+		if(entities[i] == entity){
+			entities.erase(entities.begin()+i);
+			free(entity);
+			break;
+		}
+	}
+}

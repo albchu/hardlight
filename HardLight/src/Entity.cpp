@@ -19,7 +19,7 @@ Entity::Entity()
 }
 
 Entity::~Entity() {
-	free(mesh_data);
+	actor->release();
 }
 
 // Holds all the preamble required to render a proper opengl object later on
