@@ -184,7 +184,6 @@ GLuint load_tga_texture(const char * imagepath) {
 	}
 
 	if (mode >= 3) {
-		fprintf(stderr, "mode = %d\n", mode);
 		int aux;
 
 		for (int i=0; i < total; i+= mode) {
