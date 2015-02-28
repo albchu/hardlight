@@ -2,7 +2,6 @@
 #include "HardLight.h"
 #include "TailWall.h"
 #include "MeshMap.h"
-#include "SkyBox.h"
 
 //==============================================================================
 
