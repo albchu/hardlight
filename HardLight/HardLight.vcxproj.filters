@@ -26,25 +26,10 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="Bike.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="TailWall.cpp">
       <Filter>Vehicle</Filter>
     </ClCompile>
-    <ClCompile Include="Bikes.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="SkyBox.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="src\HardLight.cpp">
@@ -92,6 +77,21 @@
     <ClCompile Include="SoundMixer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\Bike.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bikes.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player_Bike.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -120,15 +120,6 @@
     </ClInclude>
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
       <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderTools.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMap.h">
-      <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="include\HardLight.h">
       <Filter>HardLight</Filter>
@@ -166,6 +157,9 @@
     <ClInclude Include="include\TailWall.h">
       <Filter>Vehicle</Filter>
     </ClInclude>
+    <ClInclude Include="include\MeshData.h" />
+    <ClInclude Include="include\MeshMap.h" />
+    <ClInclude Include="include\ShaderTools.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">

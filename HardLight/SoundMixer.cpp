@@ -16,7 +16,7 @@ void SoundMixer::InitializeMixer()
 	}
 
 	//Load music 
-	musicOverworld = Mix_LoadMUS( "../data/Audio/musicOverworld.wav" ); 
+	musicOverworld = Mix_LoadMUS( "../data/Audio/musicOverworld2.wav" ); 
 	if( musicOverworld == NULL ) 
 	{
 		std::cout << "Failed to load beat music! SDL_mixer Error: " << Mix_GetError() << std::endl;

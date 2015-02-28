@@ -83,13 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bike.cpp" />
-    <ClCompile Include="Bikes.cpp" />
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="inih\cpp\INIReader.cpp" />
     <ClCompile Include="inih\ini.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player_Bike.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp" />
@@ -97,6 +93,9 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
+    <ClCompile Include="src\Bike.cpp" />
+    <ClCompile Include="src\Bikes.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
     <ClCompile Include="src\HL_CreateVehicle.cpp" />
@@ -110,10 +109,11 @@
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
     <ClCompile Include="src\ParsedFile.cpp" />
+    <ClCompile Include="src\Player_Bike.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
+    <ClCompile Include="src\World.cpp" />
     <ClCompile Include="TailWall.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bike.h" />
