@@ -93,8 +93,8 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
-    <ClCompile Include="src\Bike.cpp" />
-    <ClCompile Include="src\Bikes.cpp" />
+    <ClCompile Include="src\AI\AI.cpp" />
+    <ClCompile Include="src\AI\Bot_Controller.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
@@ -109,15 +109,18 @@
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
     <ClCompile Include="src\ParsedFile.cpp" />
-    <ClCompile Include="src\Player_Bike.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
+    <ClCompile Include="src\Vehicle\Bike.cpp" />
+    <ClCompile Include="src\Vehicle\Bikes.cpp" />
+    <ClCompile Include="src\Vehicle\Bot_Bike.cpp" />
+    <ClCompile Include="src\Vehicle\Player_Bike.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="TailWall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Bike.h" />
-    <ClInclude Include="include\Bikes.h" />
+    <ClInclude Include="include\AI\AI.h" />
+    <ClInclude Include="include\AI\Bot_Controller.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
@@ -125,11 +128,14 @@
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
-    <ClInclude Include="include\Player_Bike.h" />
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
     <ClInclude Include="include\TailWall.h" />
+    <ClInclude Include="include\Vehicle\Bike.h" />
+    <ClInclude Include="include\Vehicle\Bikes.h" />
+    <ClInclude Include="include\Vehicle\Bot_Bike.h" />
+    <ClInclude Include="include\Vehicle\Player_Bike.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />

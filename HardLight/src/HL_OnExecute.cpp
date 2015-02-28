@@ -6,6 +6,13 @@ int HardLight::OnExecute()
 {
 	if(!OnInit()) return EXIT_FAILURE;
 	if(!BuildScene()) return EXIT_FAILURE;
+
+	for (int i = 0 ; i < config->GetInteger("game", "numBots", 0) ; i++)
+	{
+		Bike* new_bike;
+		if(!CreateVehicle(new_bike, PxVec3(rand() % 100,rand() % 100,rand() % 100))) return EXIT_FAILURE;
+		bikes.add_bot_bike(new_bike);
+	}
 	if(!CreateVehicle(bike, PxVec3(0,30,500))) return EXIT_FAILURE;
 	//if(!CreateVehicle(PxVec3(0,50,600))) return EXIT_FAILURE;
 

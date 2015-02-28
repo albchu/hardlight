@@ -27,7 +27,7 @@
       <Filter>PhysX</Filter>
     </ClCompile>
     <ClCompile Include="TailWall.cpp">
-      <Filter>Vehicle</Filter>
+      <Filter>World\Vehicle</Filter>
     </ClCompile>
     <ClCompile Include="SkyBox.cpp">
       <Filter>World</Filter>
@@ -77,20 +77,29 @@
     <ClCompile Include="SoundMixer.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="src\Bike.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bikes.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Entity.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player_Bike.cpp">
       <Filter>World</Filter>
     </ClCompile>
     <ClCompile Include="src\World.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Bikes.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Bot_Bike.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Player_Bike.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Bike.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AI\AI.cpp">
+      <Filter>World\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AI\Bot_Controller.cpp">
+      <Filter>World\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,19 +142,10 @@
     <ClInclude Include="include\Entity.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="include\Player_Bike.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="include\SkyBox.h">
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="include\World.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Bike.h">
-      <Filter>World</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Bikes.h">
       <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityTypes.h">
@@ -155,11 +155,29 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="include\TailWall.h">
-      <Filter>Vehicle</Filter>
+      <Filter>World\Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\ShaderTools.h" />
+    <ClInclude Include="include\Vehicle\Bikes.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Bot_Bike.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Player_Bike.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Bike.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AI\Bot_Controller.h">
+      <Filter>World\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AI\AI.h">
+      <Filter>World\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
@@ -183,8 +201,11 @@
     <Filter Include="Sound">
       <UniqueIdentifier>{06699f33-7277-4aa2-9250-0f2a4bb6f079}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Vehicle">
+    <Filter Include="World\Vehicle">
       <UniqueIdentifier>{645cb868-ef68-48b8-9974-21e2bd0d1951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\AI">
+      <UniqueIdentifier>{5bfe7afb-78fd-4b41-90e4-8d49d71f56dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

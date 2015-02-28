@@ -24,8 +24,8 @@
 #include "objParser.h"
 #include "World.h"
 #include "Entity.h"
-#include "Bike.h"
-#include "Bikes.h"
+#include "Vehicle/Bike.h"
+#include "Vehicle/Bikes.h"
 #include "SkyBox.h"
 #include "TailWall.h"
 #include "SoundMixer.h"
@@ -101,6 +101,7 @@ private:
 	TailWall tail;
 
 	Bike* bike;
+	Bike* bike2;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
