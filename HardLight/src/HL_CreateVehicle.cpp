@@ -60,7 +60,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(ground);
 
 	//Create a vehicle that will drive on the plane.
