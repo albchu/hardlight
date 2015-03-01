@@ -2,33 +2,36 @@
 #include "HardLight.h"
 #include <glm\gtx\rotate_vector.hpp>
 
+
 float Scale;
-vec3 oldPos = vec3(0.0f,1.0f,600.0f);
-vector<TailWall*> playerTail;
+int i = 0;
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 	Bike* bike = bikes.get_player_bikes()[0];
+
 	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;
 	Scale = sqrt(major.x*major.x+major.z*major.z);
 	skybox->set_actor(gPhysics->createRigidStatic(newPos));
-	if(Scale > 1){
+	if(Scale > 0.5){ // size of slices
 		newPos.p.x = (newPos.p.x+oldPos.x)/2.0;
 		newPos.p.y = (newPos.p.y+oldPos.y)/2.0;
 		newPos.p.z = (newPos.p.z+oldPos.z)/2.0;
 		oldPos = dis;
-		
-		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
+		if(playerTail.size() < 30){
+		TailSegment* Wall = new TailSegment(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
 		playerTail.push_back(Wall);
 		Wall->setScale(Scale);
 		world.add_entity(Wall);
-		if(playerTail.size() > 10){
-			world.remove(playerTail[0]);
-			playerTail.erase(playerTail.begin());
+		}else{
+			
+			playerTail[i]->get_actor()->setGlobalPose(newPos);
+			playerTail[i]->setScale(Scale);
+			i = (i+1)%30;
 		}
 	}
 		
@@ -42,7 +45,7 @@ void HardLight::OnRender()
 
 	vec3 camera_position(cam_translate);
 	camera_position = rotateY(camera_position, cam_rotate);
-	vec3 light(5.0f, 15.0f, -5.0f);
+	vec3 light(newPos.p.x + 400.0f, newPos.p.y + 1000.0f, newPos.p.z + 200.0f);
 	// view_matrix for all entities
 	PxTransform gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	PxReal rads;

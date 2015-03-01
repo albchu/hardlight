@@ -116,6 +116,7 @@
     <ClCompile Include="src\Vehicle\Bike.cpp" />
     <ClCompile Include="src\Vehicle\Bikes.cpp" />
     <ClCompile Include="src\World.cpp" />
+    <ClCompile Include="TailSegment.cpp" />
     <ClCompile Include="TailWall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +134,7 @@
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
-    <ClInclude Include="include\TailWall.h" />
+    <ClInclude Include="include\TailSegment.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
     <ClInclude Include="include\Vehicle\Bikes.h" />
     <ClInclude Include="include\World.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />
