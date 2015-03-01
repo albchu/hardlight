@@ -94,7 +94,9 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="src\AI\AI.cpp" />
-    <ClCompile Include="src\AI\Bot_Controller.cpp" />
+    <ClCompile Include="src\Controls\Bot_Controller.cpp" />
+    <ClCompile Include="src\Controls\Controller.cpp" />
+    <ClCompile Include="src\Controls\Player_Controller.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
@@ -113,15 +115,15 @@
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
     <ClCompile Include="src\Vehicle\Bikes.cpp" />
-    <ClCompile Include="src\Vehicle\Bot_Bike.cpp" />
-    <ClCompile Include="src\Vehicle\Player_Bike.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="TailSegment.cpp" />
     <ClCompile Include="TailWall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
-    <ClInclude Include="include\AI\Bot_Controller.h" />
+    <ClInclude Include="include\Controls\Bot_Controller.h" />
+    <ClInclude Include="include\Controls\Controller.h" />
+    <ClInclude Include="include\Controls\Player_Controller.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
@@ -135,8 +137,6 @@
     <ClInclude Include="include\TailSegment.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
     <ClInclude Include="include\Vehicle\Bikes.h" />
-    <ClInclude Include="include\Vehicle\Bot_Bike.h" />
-    <ClInclude Include="include\Vehicle\Player_Bike.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />

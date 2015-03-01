@@ -2,7 +2,7 @@
 #define _BOT_CONTROLLER_H
 
 
-class Bot_Controller
+class Bot_Controller : public Controller
 {
 public:
 

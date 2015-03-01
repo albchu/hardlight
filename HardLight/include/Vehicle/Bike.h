@@ -37,6 +37,7 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
+
 private:
 	PxVehicleDrive4W* vehicle4W;
 	PxVehicleDrive4WRawInputData inputData;
