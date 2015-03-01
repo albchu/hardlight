@@ -2,7 +2,31 @@
 #include "HardLight.h"
 
 //==============================================================================
+int getNbCores()
+{
+	return 4;
+}
 
+PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+										PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+										PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+{
+	PX_UNUSED(attributes0);
+	PX_UNUSED(attributes1);
+	PX_UNUSED(filterData0);
+	PX_UNUSED(filterData1);
+	PX_UNUSED(constantBlockSize);
+	PX_UNUSED(constantBlock);
+
+	// all initial and persisting reports for everything, with per-point data
+	pairFlags = PxPairFlag::eRESOLVE_CONTACTS
+			  |	PxPairFlag::eNOTIFY_TOUCH_FOUND 
+			  | PxPairFlag::eNOTIFY_TOUCH_PERSISTS
+			  | PxPairFlag::eNOTIFY_CONTACT_POINTS;
+	return PxFilterFlag::eDEFAULT;
+}
+
+//==============================================================================
 bool HardLight::OnInit()
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -41,77 +65,65 @@ bool HardLight::OnInit()
 	{
 		return false;
 	}
+
 	cout << "Number of controllers detected: "<<SDL_NumJoysticks()<<endl;
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
 		if (SDL_IsGameController(i)) {
 			controllers.push_back(SDL_GameControllerOpen(i));
-
 		}
 	}
-	glClearColor(0, 0, 0, 0);
-	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
 
-	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocator, gDefaultErrorCallback);
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
 	if(!gFoundation)
-	{
 		return false;
-	}
 
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale());
+	PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
+
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
 	if(gPhysics == NULL)
-	{
 		return false;
-	}
-
 	if(!PxInitExtensions(*gPhysics))
-	{
 		return false;
-	}
 
 	if(!PxInitVehicleSDK(*gPhysics))
-	{
 		return false;
-	}
 	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
 	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
 
+	if(gPhysics->getPvdConnectionManager())
+	{
+		gPhysics->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
+		gConnection = PxVisualDebuggerExt::createConnection(gPhysics->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
+	}
+
+	PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
+	if (numWorkers == 0)
+		return false;
+	numWorkers--;
+	gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
+	if (!gDispatcher)
+		return false;
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
+	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.gravity = PxVec3(
 		(float)config->GetReal("gravity", "x", 0.0),
 		(float)config->GetReal("gravity", "y", 0.0),
 		(float)config->GetReal("gravity", "z", 0.0)
 		);
-
-	if(!sceneDesc.cpuDispatcher)
-	{
-		PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
-		if(!mCpuDispatcher)
-		{
-			return false;
-		}
-		sceneDesc.cpuDispatcher = mCpuDispatcher;
-	}
-
-	if(!sceneDesc.filterShader)
-	{
-		sceneDesc.filterShader = VehicleFilterShader;
-	}
+	sceneDesc.filterShader = VehicleFilterShader;
+	//sceneDesc.filterShader = gFilterShader;
+	sceneDesc.simulationEventCallback = this;
 
 	gScene = gPhysics->createScene(sceneDesc);
 	if(!gScene)
-	{
 		return false;
-	}
 
 	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
 	if (glewInit() != GLEW_OK)
-	{
 		return false;
-	}
 
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -119,14 +131,16 @@ bool HardLight::OnInit()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glDepthMask(GL_TRUE);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
+
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
 		(float)window_width/(float)window_height,
-		0.1f, 3200.0f);
+		0.1f, 10000.0f);
 
 	cam_translate = vec3(
 		(float)config->GetReal("camera", "x", 0.0),

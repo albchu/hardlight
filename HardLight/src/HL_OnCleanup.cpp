@@ -10,12 +10,17 @@ void HardLight::OnCleanup()
 		aBike->getVehicle4W()->free();
 
 		aBike->getBatchQuery()->release();
-		aBike->getVehicleSceneQueryData()->free(gDefaultAllocator);
+		aBike->getVehicleSceneQueryData()->free(gAllocator);
 	}
+
 	gFrictionPairs->release();
 	gGroundPlane->release();
 	PxCloseVehicleSDK();
 	if (gScene != NULL) gScene->release();
+	if (gDispatcher != NULL) gDispatcher->release();
+	PxCloseExtensions();
+	PxProfileZoneManager* profileZoneManager = gPhysics->getProfileZoneManager();
+	if (gConnection != NULL) gConnection->release();
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();
 

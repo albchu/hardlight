@@ -58,7 +58,7 @@ void Bikes::kill_bike(Bike* bike)
 		if (player_bikes[i] == bike)
 		{
 			dead_bikes.push_back(player_bikes[i]);
-			//player_bikes.erase(player_bikes.begin()+i);
+			player_bikes.erase(player_bikes.begin()+i);
 			return;
 		}
 	}

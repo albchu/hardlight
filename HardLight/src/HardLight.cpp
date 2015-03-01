@@ -16,10 +16,13 @@ HardLight::HardLight()
 	window = NULL;
 	glcontext = NULL;
 
-	gScene = NULL;
-	gPhysics = NULL;
 	gFoundation = NULL;
-	gDefaultFilterShader = PxDefaultSimulationFilterShader;
+	gConnection = NULL;
+	gPhysics = NULL;
+	gDispatcher = NULL;
+	gScene = NULL;
+	gCooking = NULL;
+	gMaterial = NULL;
 
 	msPhysics = SDL_GetTicks();
 	msGraphics = msPhysics;
