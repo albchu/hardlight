@@ -11,6 +11,8 @@ int HardLight::OnExecute()
 	{
 		Bike* new_bike = new Bot_Bike();
 		if(!CreateVehicle(new_bike, PxVec3(-100+i*20,5,600))) return EXIT_FAILURE;
+		Bike* new_bike = new Bike();
+		if(!CreateVehicle(new_bike, PxVec3(0,50,600))) return EXIT_FAILURE;
 		bikes.add_bot_bike(new_bike);
 	}
 	
@@ -20,8 +22,12 @@ int HardLight::OnExecute()
 		bikes.add_player_bike(new_bike, controllers[i]);
 		if(!CreateVehicle(new_bike, PxVec3(0,5,550))) return EXIT_FAILURE;
 	//	bike = new_bike;
+		Bike* new_bike = new Bike();
+		if(!CreateVehicle(new_bike, PxVec3(0,30,600))) return EXIT_FAILURE;
+		bikes.add_player_bike(new_bike, controllers[i]);
 	}
 
+	controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
 
     SDL_Event Event;
 

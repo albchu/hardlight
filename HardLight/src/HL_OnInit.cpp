@@ -119,6 +119,9 @@ bool HardLight::OnInit()
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
@@ -126,7 +129,7 @@ bool HardLight::OnInit()
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
 		(float)window_width/(float)window_height,
-		0.1f, 3000.0f);
+		0.1f, 3200.0f);
 
 	cam_translate = vec3(
 		(float)config->GetReal("camera", "x", 0.0),

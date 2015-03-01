@@ -89,34 +89,6 @@ void MeshData::order_arrays()
 	m_textures = temp_textfaces;
 
 }
-void MeshData::CreateTail(glm::vec3 topLeft, glm::vec3 topRight, float height)
-{
-	glm::vec3 wallNormal;
-	glm::vec3 cross1, cross2;
-	//top half of wall
-	m_vertices.push_back(topLeft);
-	m_vertices.push_back(glm::vec3(topLeft.x,topLeft.y-height,topLeft.z));
-	m_vertices.push_back(topRight);
-	cross1 = glm::vec3(topLeft.x,topLeft.y-height,topLeft.z)-topLeft;
-	cross2 =topRight-topLeft;
-	wallNormal = cross(cross1,cross2);
-	glm::normalize(wallNormal);
-	//bottom half of wall
-	m_vertices.push_back(glm::vec3(topLeft.x,topLeft.y-height,topLeft.z));
-	m_vertices.push_back(topRight);
-	m_vertices.push_back(glm::vec3(topRight.x,topRight.y-height,topRight.z));
-
-	for(int i = 0; i<6;i++){
-		m_normals.push_back(wallNormal);
-	}
-
-	m_textures.push_back(glm::vec2(0,0));
-	m_textures.push_back(glm::vec2(0,1));
-	m_textures.push_back(glm::vec2(1,0));
-	m_textures.push_back(glm::vec2(0,1));
-	m_textures.push_back(glm::vec2(1,0));
-	m_textures.push_back(glm::vec2(1,1));
-}
 
 void MeshData::addVertex(glm::vec3 vertex)
 {
