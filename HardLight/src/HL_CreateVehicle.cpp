@@ -72,7 +72,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 
 	//bike = new Bike(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
 	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
-	bike->set_texture(load_tga_texture("../data/Textures/BikeTexture.tga"));
+	bike->set_texture(load_tga_texture("../data/Textures/BikeTexture2.tga"));
 	bike->init_opengl();
 
 	world.add_entity(bike);
