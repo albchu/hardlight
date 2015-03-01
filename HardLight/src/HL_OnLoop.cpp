@@ -42,7 +42,7 @@ void HardLight::OnLoop()
 	if (msCurrent - msPhysics < 1000 / 60) return;
 	Uint32 elapsed = msCurrent - msPhysics;
 	if (elapsed > msMax) elapsed = msMax;
-	float timestep = elapsed / 1000.0f;
+	float timestep = elapsed / 2000.0f;
 	Bike* bike = bikes.get_player_bikes()[0];
 	PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
