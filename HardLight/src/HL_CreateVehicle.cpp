@@ -47,7 +47,6 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 //==============================================================================
 bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 {
-//	bike = new Bike();
 	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
@@ -57,12 +56,6 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	//Create the friction table for each combination of tire and surface type.
 	gFrictionPairs = createFrictionPairs(gMaterial);
 	
-	//Create a plane to drive on.
-	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
-	gScene->addActor(*gGroundPlane);
-	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
-	world.add_entity(ground);
-
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
 	bike->setVehicle4W(createVehicle4W(vehicleDesc, gPhysics, gCooking, config));

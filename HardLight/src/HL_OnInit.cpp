@@ -95,6 +95,7 @@ bool HardLight::OnInit()
 		}
 		sceneDesc.cpuDispatcher = mCpuDispatcher;
 	}
+
 	if(!sceneDesc.filterShader)
 	{
 		sceneDesc.filterShader = VehicleFilterShader;

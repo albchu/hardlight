@@ -29,6 +29,13 @@ void HardLight::OnRender()
 		if(playerTail.size() > 10){
 			world.remove(playerTail[0]);
 			playerTail.erase(playerTail.begin());
+	for (int i = 0; i < bikesToKill.size(); i++)
+	{
+		gScene->removeActor(*bikesToKill[i]->get_actor(), false);
+		bikesToKill[i]->get_actor()->release();
+		bikes.kill_bike(bikesToKill[i]);
+		sfxMix.PlaySoundEffect();
+	}
 		}
 	}
 		

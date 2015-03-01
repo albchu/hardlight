@@ -48,7 +48,7 @@ using namespace glm;
 #pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
 
 //==============================================================================
-class HardLight
+class HardLight : public PxSimulationEventCallback
 {
 private:
 	INIReader* config;
@@ -68,6 +68,13 @@ private:
 	PxDefaultErrorCallback gDefaultErrorCallback;
 	PxDefaultAllocator gDefaultAllocator;
 	PxSimulationFilterShader gDefaultFilterShader;
+
+	// Implements PxSimulationEventCallback
+	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
+	virtual void onTrigger(PxTriggerPair*, PxU32) {}
+	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
+	virtual void onWake(PxActor**, PxU32) {}
+	virtual void onSleep(PxActor**, PxU32) {}
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -102,6 +109,7 @@ private:
 
 	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
+	vector<Bike*> bikesToKill;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 

@@ -101,6 +101,9 @@
     <ClCompile Include="src\AI\Bot_Controller.cpp">
       <Filter>World\AI</Filter>
     </ClCompile>
+    <ClCompile Include="src\HL_OnContact.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">

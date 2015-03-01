@@ -18,10 +18,13 @@ public:
 	vector<Bike*> get_all_bikes();
 	vector<Player_Bike*> get_player_bikes();
 	vector<Bot_Bike*> get_bot_bikes();
+	Bike* get_bike(PxRigidActor* actor);
+	void kill_bike(Bike* bike);
 
 private:
 	vector<Player_Bike*> player_bikes;
 	vector<Bot_Bike*> bot_bikes;
+	vector<Bike*> dead_bikes;
 };
 
 #endif
