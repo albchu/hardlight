@@ -10,7 +10,7 @@ void HardLight::OnRender()
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
-
+	Bike* bike = bikes.get_player_bikes()[0];
 	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;

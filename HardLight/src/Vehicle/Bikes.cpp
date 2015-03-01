@@ -1,16 +1,16 @@
 #include "Vehicle/Bikes.h"
 #include "Vehicle/Player_Bike.h"
 
-void Bikes::add_player_bike(Player_Bike* bike, SDL_GameController* controller)
+void Bikes::add_player_bike(Bike* bike, SDL_GameController* controller)
 {
-	bike->set_controller(controller);
-	player_bikes.push_back(bike);
+	((Player_Bike*)bike)->set_controller(controller);
+	player_bikes.push_back(((Player_Bike*)bike));
 }
 
 void Bikes::add_bot_bike(Bike* bike)
 {
 	//bike->set_controller(controller);
-	bot_bikes.push_back(bike);
+	bot_bikes.push_back(((Bot_Bike*)bike));
 }
 
 vector<Bike*> Bikes::get_all_bikes()
@@ -28,7 +28,7 @@ vector<Player_Bike*> Bikes::get_player_bikes()
 	return player_bikes;
 }
 
-vector<Bike*> Bikes::get_bot_bikes()
+vector<Bot_Bike*> Bikes::get_bot_bikes()
 {
 	return bot_bikes;
 }
