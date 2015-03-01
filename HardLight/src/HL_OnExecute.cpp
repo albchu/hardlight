@@ -10,14 +10,14 @@ int HardLight::OnExecute()
 	for (int i = 0 ; i < config->GetInteger("game", "numBots", 0) ; i++)
 	{
 		Bike* new_bike = new Bot_Bike();
-		if(!CreateVehicle(new_bike, PxVec3(0,50,600))) return EXIT_FAILURE;
+		if(!CreateVehicle(new_bike, PxVec3(i*20,50,600))) return EXIT_FAILURE;
 		bikes.add_bot_bike(new_bike);
 	}
 	
 	for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 0) ; i++)
 	{
 		Bike* new_bike = new Player_Bike();
-		if(!CreateVehicle(new_bike, PxVec3(0,30,600))) return EXIT_FAILURE;
+		if(!CreateVehicle(new_bike, PxVec3(i*20,30,600))) return EXIT_FAILURE;
 		bikes.add_player_bike(new_bike, controllers[i]);
 	//	bike = new_bike;
 	}
