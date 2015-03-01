@@ -33,17 +33,16 @@ vector<Bike*> Bikes::get_bot_bikes()
 {
 	return bot_bikes;
 }
-<<<<<<< HEAD
 
 Bike* Bikes::get_bike(PxRigidActor* actor)
 {
-	for (int i = 0; i < player_bikes.size(); i++)
+	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i]->get_actor() == actor)
 			return player_bikes[i];
 	}
 
-	for (int i = 0; i < bot_bikes.size(); i++)
+	for (unsigned int i = 0; i < bot_bikes.size(); i++)
 	{
 		if (bot_bikes[i]->get_actor() == actor)
 			return bot_bikes[i];
@@ -54,7 +53,7 @@ Bike* Bikes::get_bike(PxRigidActor* actor)
 
 void Bikes::kill_bike(Bike* bike)
 {
-	for (int i = 0; i < player_bikes.size(); i++)
+	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i] == bike)
 		{
@@ -64,7 +63,7 @@ void Bikes::kill_bike(Bike* bike)
 		}
 	}
 
-	for (int i = 0; i < bot_bikes.size(); i++)
+	for (unsigned int i = 0; i < bot_bikes.size(); i++)
 	{
 		if (bot_bikes[i] == bike)
 		{
@@ -74,6 +73,3 @@ void Bikes::kill_bike(Bike* bike)
 		}
 	}
 }
-=======
- 
->>>>>>> 105ea31ae6bef44333fbb4bd63a1fda00173b4a3

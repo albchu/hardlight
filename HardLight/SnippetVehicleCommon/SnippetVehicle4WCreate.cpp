@@ -77,8 +77,8 @@ void setupWheelsSimulationData
 		}
 
 		//Enable the handbrake for the rear wheels only.
-		wheels[PxVehicleDrive4WWheelOrder::eREAR_LEFT].mMaxHandBrakeTorque = config->GetReal("bike", "maxHandBreak", 4500.0f);
-		wheels[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].mMaxHandBrakeTorque = config->GetReal("bike", "maxHandBreak", 4500.0f);
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_LEFT].mMaxHandBrakeTorque = (float)config->GetReal("bike", "maxHandBreak", 4500.0f);
+		wheels[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].mMaxHandBrakeTorque = (float)config->GetReal("bike", "maxHandBreak", 4500.0f);
 
 		//Enable steering for the front wheels only.
 		wheels[PxVehicleDrive4WWheelOrder::eFRONT_LEFT].mMaxSteer=PxPi*0.25f;
@@ -109,10 +109,10 @@ void setupWheelsSimulationData
 		//Set the suspension data.
 		for(PxU32 i = 0; i < numWheels; i++)
 		{
-			suspensions[i].mMaxCompression = config->GetReal("bike", "suspensionMaxCompress", 1.3f);
-			suspensions[i].mMaxDroop = config->GetReal("bike", "suspensionMaxDroop", 0.1);
-			suspensions[i].mSpringStrength = config->GetReal("bike", "suspensionSpringStrength", 35000.0f);	
-			suspensions[i].mSpringDamperRate = config->GetReal("bike", "suspensionDamperRate", 4500.0f);
+			suspensions[i].mMaxCompression = (float)config->GetReal("bike", "suspensionMaxCompress", 1.3f);
+			suspensions[i].mMaxDroop = (float)config->GetReal("bike", "suspensionMaxDroop", 0.1);
+			suspensions[i].mSpringStrength = (float)config->GetReal("bike", "suspensionSpringStrength", 35000.0f);	
+			suspensions[i].mSpringDamperRate = (float)config->GetReal("bike", "suspensionDamperRate", 4500.0f);
 			suspensions[i].mSprungMass = suspSprungMasses[i];
 		}
 
@@ -257,9 +257,9 @@ PxVehicleDrive4W* createVehicle4W(const VehicleDesc& vehicle4WDesc, PxPhysics* p
 
 		//Engine
 		PxVehicleEngineData engine;
-		engine.mPeakTorque=config->GetReal("bike", "engineMaxTorque", 1000.0f);
-		engine.mDampingRateZeroThrottleClutchDisengaged=config->GetReal("bike", "throttleDampeningOnDisengage", 1000.0f);
-		engine.mMaxOmega=config->GetReal("bike", "engineMaxRPM", 1000.0f); // Value * 10 == total rpm
+		engine.mPeakTorque=(float)config->GetReal("bike", "engineMaxTorque", 1000.0f);
+		engine.mDampingRateZeroThrottleClutchDisengaged=(float)config->GetReal("bike", "throttleDampeningOnDisengage", 1000.0f);
+		engine.mMaxOmega=(float)config->GetReal("bike", "engineMaxRPM", 1000.0f); // Value * 10 == total rpm
 		driveSimData.setEngineData(engine);
 
 		//Gears

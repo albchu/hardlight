@@ -2,14 +2,24 @@
 #include "HardLight.h"
 #include <glm\gtx\rotate_vector.hpp>
 
-
 float Scale;
 int i = 0;
+
+//==============================================================================
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
+
+	for (unsigned int j = 0; j < bikesToKill.size(); j++)
+	{
+		gScene->removeActor(*bikesToKill[j]->get_actor(), false);
+		bikesToKill[j]->get_actor()->release();
+		bikes.kill_bike(bikesToKill[j]);
+		//sfxMix.PlaySoundEffect();
+	}
+
 	Bike* bike = bikes.get_player_bikes()[0];
 
 	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
@@ -17,34 +27,30 @@ void HardLight::OnRender()
 	vec3 major = oldPos -dis;
 	Scale = sqrt(major.x*major.x+major.z*major.z);
 	skybox->set_actor(gPhysics->createRigidStatic(newPos));
-	if(Scale > 0.5){ // size of slices
-		newPos.p.x = (newPos.p.x+oldPos.x)/2.0;
-		newPos.p.y = (newPos.p.y+oldPos.y)/2.0;
-		newPos.p.z = (newPos.p.z+oldPos.z)/2.0;
+	if(Scale > 0.5)
+	{ // size of slices
+		newPos.p.x = (newPos.p.x+oldPos.x)/2.0f;
+		newPos.p.y = (newPos.p.y+oldPos.y)/2.0f;
+		newPos.p.z = (newPos.p.z+oldPos.z)/2.0f;
 		oldPos = dis;
 		if(playerTail.size() < 30){
-		TailSegment* Wall = new TailSegment(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
-		playerTail.push_back(Wall);
-		Wall->setScale(Scale);
-		world.add_entity(Wall);
-		if(playerTail.size() > 10){
-			world.remove(playerTail[0]);
-			playerTail.erase(playerTail.begin());
-	for (int i = 0; i < bikesToKill.size(); i++)
-	{
-		gScene->removeActor(*bikesToKill[i]->get_actor(), false);
-		bikesToKill[i]->get_actor()->release();
-		bikes.kill_bike(bikesToKill[i]);
-		sfxMix.PlaySoundEffect();
-	}
-		}else{
-			
-			playerTail[i]->get_actor()->setGlobalPose(newPos);
-			playerTail[i]->setScale(Scale);
-			i = (i+1)%30;
+			TailSegment* Wall = new TailSegment(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
+			playerTail.push_back(Wall);
+			Wall->setScale(Scale);
+			world.add_entity(Wall);
+			if(playerTail.size() > 10){
+				world.remove(playerTail[0]);
+				playerTail.erase(playerTail.begin());
+			}
+			else
+			{
+				playerTail[i]->get_actor()->setGlobalPose(newPos);
+				playerTail[i]->setScale(Scale);
+				i = (i+1)%30;
+			}
 		}
 	}
-		
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Camera controls

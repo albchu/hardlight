@@ -36,7 +36,7 @@ private:
 public:
 	SoundMixer();
 
-	void InitializeMixer(INIReader *config);
+	bool InitializeMixer(INIReader *config);
 	void CloseMixer();
 
 	void PlayMusic(int index);
