@@ -157,7 +157,7 @@ void Entity::set_draw_mode(GLuint& new_draw_mode)	{ draw_mode = new_draw_mode; }
 GLuint Entity::get_draw_mode()						{ return draw_mode; }
 
 void Entity::set_actor(PxRigidActor* new_actor)	{ actor = new_actor; }
-PxActor* Entity::get_actor()				{ return actor; }
+PxRigidActor* Entity::get_actor()				{ return actor; }
 int Entity::get_type()				{ return type; }
 
 void Entity::set_texture(GLuint new_texture)	{ texture = new_texture; }

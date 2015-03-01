@@ -2,8 +2,9 @@
 #include "HardLight.h"
 #include <glm\gtx\rotate_vector.hpp>
 
-float Scale;
 
+float Scale;
+int i = 0;
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
@@ -21,14 +22,16 @@ void HardLight::OnRender()
 		newPos.p.y = (newPos.p.y+oldPos.y)/2.0;
 		newPos.p.z = (newPos.p.z+oldPos.z)/2.0;
 		oldPos = dis;
-		
+		if(playerTail.size() < 30){
 		TailSegment* Wall = new TailSegment(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
 		playerTail.push_back(Wall);
 		Wall->setScale(Scale);
 		world.add_entity(Wall);
-		if(playerTail.size() > 30){ // number of slices
-			world.remove(playerTail[0]);
-			playerTail.erase(playerTail.begin());
+		}else{
+			
+			playerTail[i]->get_actor()->setGlobalPose(newPos);
+			playerTail[i]->setScale(Scale);
+			i = (i+1)%30;
 		}
 	}
 		
