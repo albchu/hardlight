@@ -12,13 +12,9 @@ void HardLight::OnCleanup()
 		aBike->getBatchQuery()->release();
 		aBike->getVehicleSceneQueryData()->free(gDefaultAllocator);
 	}
-
-
-
 	gFrictionPairs->release();
 	gGroundPlane->release();
 	PxCloseVehicleSDK();
-	world.clear();	
 	if (gScene != NULL) gScene->release();
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();

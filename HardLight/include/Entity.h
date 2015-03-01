@@ -68,5 +68,6 @@ public:
 	void			set_texture(GLuint);
 	
 	int				get_type();
+	void			release();
 };
 #endif
