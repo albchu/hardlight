@@ -3,8 +3,6 @@
 #define _BIKES_H
 
 #include "Bike.h"
-#include "Player_Bike.h"
-#include "Bot_Bike.h"
 #include <vector>
 #include <SDL.h>
 
@@ -16,12 +14,12 @@ public:
 	void add_bot_bike(Bike* bike);
 	void add_player_bike(Bike* bike, SDL_GameController* controller);
 	vector<Bike*> get_all_bikes();
-	vector<Player_Bike*> get_player_bikes();
-	vector<Bot_Bike*> get_bot_bikes();
+	vector<Bike*> get_player_bikes();
+	vector<Bike*> get_bot_bikes();
 
 private:
-	vector<Player_Bike*> player_bikes;
-	vector<Bot_Bike*> bot_bikes;
+	vector<Bike*> player_bikes;
+	vector<Bike*> bot_bikes;
 };
 
 #endif

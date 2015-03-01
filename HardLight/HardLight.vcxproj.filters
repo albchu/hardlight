@@ -86,20 +86,20 @@
     <ClCompile Include="src\Vehicle\Bikes.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vehicle\Bot_Bike.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vehicle\Player_Bike.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
     <ClCompile Include="src\Vehicle\Bike.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
     <ClCompile Include="src\AI\AI.cpp">
       <Filter>World\AI</Filter>
     </ClCompile>
-    <ClCompile Include="src\AI\Bot_Controller.cpp">
-      <Filter>World\AI</Filter>
+    <ClCompile Include="src\Controls\Bot_Controller.cpp">
+      <Filter>World\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controls\Player_Controller.cpp">
+      <Filter>World\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controls\Controller.cpp">
+      <Filter>World\Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,20 +163,20 @@
     <ClInclude Include="include\Vehicle\Bikes.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="include\Vehicle\Bot_Bike.h">
-      <Filter>World\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Vehicle\Player_Bike.h">
-      <Filter>World\Vehicle</Filter>
-    </ClInclude>
     <ClInclude Include="include\Vehicle\Bike.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
-    <ClInclude Include="include\AI\Bot_Controller.h">
-      <Filter>World\AI</Filter>
-    </ClInclude>
     <ClInclude Include="include\AI\AI.h">
       <Filter>World\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Controls\Bot_Controller.h">
+      <Filter>World\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Controls\Controller.h">
+      <Filter>World\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Controls\Player_Controller.h">
+      <Filter>World\Controls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +206,9 @@
     </Filter>
     <Filter Include="World\AI">
       <UniqueIdentifier>{5bfe7afb-78fd-4b41-90e4-8d49d71f56dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\Controls">
+      <UniqueIdentifier>{83e7335a-00bc-46dc-8608-7bcb771b8a18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
