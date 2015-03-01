@@ -117,6 +117,7 @@
     <ClCompile Include="src\Vehicle\Player_Bike.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="TailSegment.cpp" />
+    <ClCompile Include="TailWall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
+    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />

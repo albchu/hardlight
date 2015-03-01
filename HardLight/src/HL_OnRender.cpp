@@ -3,13 +3,13 @@
 #include <glm\gtx\rotate_vector.hpp>
 
 float Scale;
-vec3 oldPos = vec3(0.0f,1.0f,600.0f);
-vector<TailSegment*> playerTail;
+
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
+	Bike* bike = bikes.get_player_bikes()[0];
 
 	PxTransform newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);

@@ -98,10 +98,9 @@ private:
 	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
 	SkyBox* skybox;
-	TailSegment tail;
-
-	Bike* bike;
-	Bike* bike2;
+	vec3 oldPos;
+	vector<TailSegment*> playerTail;
+	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files

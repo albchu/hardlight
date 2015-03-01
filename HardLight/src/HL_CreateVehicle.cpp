@@ -47,7 +47,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 //==============================================================================
 bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 {
-	bike = new Bike();
+//	bike = new Bike();
 	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
