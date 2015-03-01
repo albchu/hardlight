@@ -19,7 +19,6 @@ Entity::Entity()
 }
 
 Entity::~Entity() {
-	actor->release();
 }
 
 // Holds all the preamble required to render a proper opengl object later on
