@@ -116,7 +116,7 @@
     <ClCompile Include="src\Vehicle\Bot_Bike.cpp" />
     <ClCompile Include="src\Vehicle\Player_Bike.cpp" />
     <ClCompile Include="src\World.cpp" />
-    <ClCompile Include="TailWall.cpp" />
+    <ClCompile Include="TailSegment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
@@ -131,7 +131,7 @@
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
-    <ClInclude Include="include\TailWall.h" />
+    <ClInclude Include="include\TailSegment.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
     <ClInclude Include="include\Vehicle\Bikes.h" />
     <ClInclude Include="include\Vehicle\Bot_Bike.h" />

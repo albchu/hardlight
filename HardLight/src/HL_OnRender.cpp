@@ -4,7 +4,7 @@
 
 float Scale;
 vec3 oldPos = vec3(0.0f,1.0f,600.0f);
-vector<TailWall*> playerTail;
+vector<TailSegment*> playerTail;
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
@@ -16,17 +16,17 @@ void HardLight::OnRender()
 	vec3 major = oldPos -dis;
 	Scale = sqrt(major.x*major.x+major.z*major.z);
 	skybox->set_actor(gPhysics->createRigidStatic(newPos));
-	if(Scale > 1){
+	if(Scale > 0.5){ // size of slices
 		newPos.p.x = (newPos.p.x+oldPos.x)/2.0;
 		newPos.p.y = (newPos.p.y+oldPos.y)/2.0;
 		newPos.p.z = (newPos.p.z+oldPos.z)/2.0;
 		oldPos = dis;
 		
-		TailWall* Wall = new TailWall(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
+		TailSegment* Wall = new TailSegment(gPhysics->createRigidStatic(newPos),MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
 		playerTail.push_back(Wall);
 		Wall->setScale(Scale);
 		world.add_entity(Wall);
-		if(playerTail.size() > 10){
+		if(playerTail.size() > 30){ // number of slices
 			world.remove(playerTail[0]);
 			playerTail.erase(playerTail.begin());
 		}

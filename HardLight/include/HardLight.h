@@ -27,7 +27,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
-#include "TailWall.h"
+#include "TailSegment.h"
 #include "SoundMixer.h"
 
 
@@ -98,7 +98,7 @@ private:
 	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
 	SkyBox* skybox;
-	TailWall tail;
+	TailSegment tail;
 
 	Bike* bike;
 	Bike* bike2;

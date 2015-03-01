@@ -26,9 +26,6 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="TailWall.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
     <ClCompile Include="SkyBox.cpp">
       <Filter>World</Filter>
     </ClCompile>
@@ -101,6 +98,9 @@
     <ClCompile Include="src\AI\Bot_Controller.cpp">
       <Filter>World\AI</Filter>
     </ClCompile>
+    <ClCompile Include="TailSegment.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -154,9 +154,6 @@
     <ClInclude Include="include\SoundMixer.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="include\TailWall.h">
-      <Filter>World\Vehicle</Filter>
-    </ClInclude>
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\ShaderTools.h" />
@@ -177,6 +174,9 @@
     </ClInclude>
     <ClInclude Include="include\AI\AI.h">
       <Filter>World\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailSegment.h">
+      <Filter>World\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
