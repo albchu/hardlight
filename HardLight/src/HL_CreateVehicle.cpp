@@ -47,7 +47,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 //==============================================================================
 bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 {
-	bike = new Bike();
+//	bike = new Bike();
 	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the batched scene queries for the suspension raycasts.
@@ -60,7 +60,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	//Create a plane to drive on.
 	gGroundPlane = createDrivablePlane(gMaterial, gPhysics);
 	gScene->addActor(*gGroundPlane);
-	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/uvgrid.tga");
+	Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(ground);
 
 	//Create a vehicle that will drive on the plane.
@@ -72,7 +72,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 
 	//bike = new Bike(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
 	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
-	bike->set_texture(load_tga_texture("../data/Textures/BikeTexture.tga"));
+	bike->set_texture(load_tga_texture("../data/Textures/BikeTexture2.tga"));
 	bike->init_opengl();
 
 	world.add_entity(bike);

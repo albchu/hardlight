@@ -23,11 +23,13 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
+#include "Controls/Controller.h"
+#include "Controls/Player_Controller.h"
 #include "Entity.h"
-#include "Bike.h"
-#include "Bikes.h"
+#include "Vehicle/Bike.h"
+#include "Vehicle/Bikes.h"
 #include "SkyBox.h"
-#include "TailWall.h"
+#include "TailSegment.h"
 #include "SoundMixer.h"
 
 
@@ -58,7 +60,8 @@ private:
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
-	SDL_GameController* controller;
+	
+	Controller* controller;	//ThiS SI ALBERTS CODE ITS TEMP 
 	vector<SDL_GameController*> controllers;
 
 	PxScene* gScene;
@@ -98,9 +101,9 @@ private:
 	//PxVehicleDrive4WRawInputData gVehicleInputData;
 	//tail
 	SkyBox* skybox;
-	TailWall tail;
-
-	Bike* bike;
+	vec3 oldPos;
+	vector<TailSegment*> playerTail;
+	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files

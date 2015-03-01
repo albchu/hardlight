@@ -1,16 +1,15 @@
 //==============================================================================
 #include "HardLight.h"
-#include "TailWall.h"
+#include "TailSegment.h"
 #include "MeshMap.h"
-#include "SkyBox.h"
 
 //==============================================================================
 
 
 bool HardLight::BuildScene()
 {
-	sfxMix.InitializeMixer();
-	sfxMix.PlayBackgroundMusic();
+	sfxMix.InitializeMixer(config);
+	sfxMix.PlayMusic(0);
 
 	skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);

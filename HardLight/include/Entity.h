@@ -56,7 +56,7 @@ public:
 	MeshData*		get_mesh_data();
 
 	void			set_actor(PxRigidActor*);
-	PxActor*		get_actor();
+	PxRigidActor*		get_actor();
 	
 	void			set_draw_mode(GLuint&);
 	GLuint			get_draw_mode();
@@ -68,5 +68,6 @@ public:
 	void			set_texture(GLuint);
 	
 	int				get_type();
+	void			release();
 };
 #endif

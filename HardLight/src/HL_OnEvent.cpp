@@ -6,6 +6,7 @@ const int deadZone = 8000;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
+	Bike* bike = bikes.get_player_bikes()[0];
 	switch (Event->type)
 	{
 	case SDL_QUIT:
@@ -91,7 +92,19 @@ void HardLight::OnEvent(SDL_Event* Event)
 		switch (Event->cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_A: // A button
-			sfxMix.PlaySoundEffect();
+			sfxMix.PlaySoundEffect(0);
+			break;
+		case SDL_CONTROLLER_BUTTON_B: // B button
+			sfxMix.PlaySoundEffect(1);
+			break;
+		case SDL_CONTROLLER_BUTTON_X: // X button
+			sfxMix.PlaySoundEffect(2);
+			break;
+		case SDL_CONTROLLER_BUTTON_Y: // Y button
+			sfxMix.PlaySoundEffect(3);
+			break;
+		case SDL_CONTROLLER_BUTTON_START: // START button
+			sfxMix.PlaySoundEffect(4);
 			break;
 		}
 		break;
