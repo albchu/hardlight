@@ -19,7 +19,6 @@ Entity::Entity()
 }
 
 Entity::~Entity() {
-	actor->release();
 }
 
 // Holds all the preamble required to render a proper opengl object later on
@@ -163,3 +162,6 @@ int Entity::get_type()				{ return type; }
 
 void Entity::set_texture(GLuint new_texture)	{ texture = new_texture; }
 
+void Entity::release(){
+	actor->release();
+}
