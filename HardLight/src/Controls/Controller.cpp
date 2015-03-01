@@ -1,4 +1,8 @@
 #include "Controls/Controller.h"
 
-Controller::Controller()
-{}
+Controller::Controller(){}
+
+void Controller::forward()
+{
+	bike->getInputData().setAnalogAccel(1.0);
+}

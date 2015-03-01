@@ -21,6 +21,8 @@ int HardLight::OnExecute()
 		bikes.add_player_bike(new_bike, controllers[i]);
 	}
 
+	controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
+
     SDL_Event Event;
 
     while(running) {

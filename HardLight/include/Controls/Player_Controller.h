@@ -8,6 +8,8 @@ class Player_Controller : public Controller
 {
 public:
 	Player_Controller(Bike* bike, SDL_GameController* controller);
+	//void forward();
+
 private:
 	SDL_GameController* sdl_controller;
 };

@@ -23,6 +23,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
+#include "Controls/Controller.h"
+#include "Controls/Player_Controller.h"
 #include "Entity.h"
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
@@ -58,7 +60,8 @@ private:
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
-	SDL_GameController* controller;
+	
+	Controller* controller;	//ThiS SI ALBERTS CODE ITS TEMP 
 	vector<SDL_GameController*> controllers;
 
 	PxScene* gScene;
