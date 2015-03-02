@@ -102,6 +102,7 @@ private:
 	float cam_rotate;
 
 	World world;
+	float size;
 	
 	//vehicles
 	//VehicleSceneQueryData* gVehicleSceneQueryData;

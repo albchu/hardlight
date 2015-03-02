@@ -34,17 +34,13 @@ void HardLight::OnRender()
 			playerTail.push_back(Wall);
 			Wall->setScale(Scale);
 			world.add_entity(Wall);
-			if(playerTail.size() > 10){
-				world.remove(playerTail[0]);
-				playerTail.erase(playerTail.begin());
-			}
-			else
+
+		}else
 			{
 				playerTail[i]->get_actor()->setGlobalPose(newPos);
 				playerTail[i]->setScale(Scale);
 				i = (i+1)%30;
 			}
-		}
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
