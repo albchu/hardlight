@@ -84,8 +84,7 @@ bool HardLight::BuildScene()
 			return false;
 		world.add_entity(new_bike);
 		bikes.add_bot_bike(new_bike);
-		Controller * controllerz = new Bot_Controller(new_bike);
-		controllableBikes.push_back(controllerz);
+		
 	}
 
 	for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
@@ -101,11 +100,11 @@ bool HardLight::BuildScene()
 			bikes.add_player_bike(new_bike, NULL);
 	}
 
-	if (controllers.size() > 0)
-	{
-		controller = new Bot_Controller(bikes.get_bot_bikes()[0]);
-		//controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
-	}
+	//if (controllers.size() > 0)
+	//{
+	//	controller = new Bot_Controller(bikes.get_bot_bikes()[0]);
+	//	//controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
+	//}
 		
 	
 	sfxMix.PlayMusic(0);

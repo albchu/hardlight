@@ -73,21 +73,19 @@ void HardLight::OnLoop()
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
-	//if(!controller->get_bike()->is_deleted())
-	//	controller->forward();
-	//else
-	//	cout << "shit gone" << endl;
 	}
 
-
-	for(Controller* controllable: controllableBikes)
-	{
-		if(!controllable->get_bike()->is_deleted())
-		{
-			controllable->backwards();
-			controllable->steer(0.5);
-		}
-	}
+	// Move Bot Bikes
+	overMind->update_bikes();
+	overMind->move_bikes();
+	//for(Controller* controllable: bikes.get_controlled_bikes())
+	//{
+	//	if(!controllable->get_bike()->is_deleted())
+	//	{
+	//		controllable->backwards();
+	//		controllable->steer(0.5);
+	//	}
+	//}
 
 
 	//Scene update.

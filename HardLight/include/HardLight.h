@@ -21,6 +21,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
+#include "AI/AI.h"
 #include "Controls/Controller.h"
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
@@ -63,7 +64,6 @@ private:
 	SDL_Window* window;
 	SDL_GLContext glcontext;
 	
-	Controller* controller;	//ThiS SI ALBERTS CODE ITS TEMP 
 	vector<SDL_GameController*> controllers;
 
 	// physx objects
@@ -119,7 +119,8 @@ private:
 	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
-	vector<Controller*> controllableBikes;
+//	vector<Controller*> controllableBikes;
+	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
