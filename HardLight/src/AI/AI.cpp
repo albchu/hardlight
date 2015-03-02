@@ -5,19 +5,34 @@ AI::AI(Bikes* new_bikes)
 	bikes = new_bikes;
 }
 
+// Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
-	for(Controller* controllable: bikes->get_controlled_bikes())
+	for(Controller* controllableX: bikes->get_controlled_bikes())
 	{
-		if(!controllable->get_bike()->is_deleted())
+		for(Controller* controllableY: bikes->get_controlled_bikes())
 		{
-			controllable->backwards();
-			controllable->steer(0.5);
+			// Allow all vehicles to see each other
+			if(!controllableY->get_bike()->is_deleted())
+			{
+				controllableY->set_motion(&Controller::forward);
+				controllableY->set_steering(&Controller::steer);
+				controllableY->set_direction(-0.5);
+			}
 		}
 	}
 }
 
 void AI::move_bikes()
 {
-
+	for(Controller* controllable: bikes->get_controlled_bikes())
+	{
+		if(!controllable->get_bike()->is_deleted())
+		{
+			controllable->execute_motion();
+			controllable->execute_steering();
+		}
+	}
 }
+
+

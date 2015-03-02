@@ -9,7 +9,10 @@ public:
 	AI(Bikes* new_bikes);
 	void update_bikes();
 	void move_bikes();
+
+
 private:
 	Bikes* bikes;
+
 };
 #endif
