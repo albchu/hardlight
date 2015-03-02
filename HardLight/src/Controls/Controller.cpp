@@ -71,3 +71,8 @@ void Controller::set_direction(PxReal new_direction)
 {
 	direction = new_direction;
 }
+
+PxReal Controller::get_direction()
+{
+	return direction;
+}

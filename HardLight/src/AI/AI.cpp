@@ -10,13 +10,15 @@ void AI::update_bikes()
 {
 	for(Controller* controllableX: bikes->get_controlled_bikes())
 	{
+		controllableX->set_motion(&Controller::forward);
+		controllableX->set_steering(&Controller::steer);
+
 		for(Controller* controllableY: bikes->get_controlled_bikes())
 		{
 			// Allow all vehicles to see each other
 			if(!controllableY->get_bike()->is_deleted())
 			{
-				controllableY->set_motion(&Controller::forward);
-				controllableY->set_steering(&Controller::steer);
+
 				controllableY->set_direction(-0.5);
 			}
 		}

@@ -111,6 +111,7 @@
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
     <ClCompile Include="src\ParsedFile.cpp" />
+    <ClCompile Include="src\PhysxAgent.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
+    <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />

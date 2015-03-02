@@ -12,6 +12,7 @@
 #include "MeshData.h"
 #include "EntityTypes.h"
 #include "MeshMap.h"
+#include "PhysxAgent.h"
 
 using namespace glm;
 using namespace std;
@@ -73,5 +74,8 @@ public:
 
 	bool			is_deleted();
 	void			set_deleted(bool flag);
+
+	vec3			get_location();
+	vec3			get_direction_vector();
 };
 #endif

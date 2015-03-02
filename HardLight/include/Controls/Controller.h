@@ -21,6 +21,7 @@ public:
 	void set_motion(Callback);
 	void set_steering(Callback);
 	void set_direction(PxReal);
+	PxReal get_direction();
 	//void set_bike(Bike* new_bike);
 protected:
 	Bike* bike;

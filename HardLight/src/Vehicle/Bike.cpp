@@ -97,4 +97,3 @@ void Bike::setInAir(bool new_inAir)
 {
 	inAir = new_inAir;
 }
-
