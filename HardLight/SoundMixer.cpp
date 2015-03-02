@@ -107,6 +107,7 @@ void SoundMixer::CloseMixer()
 
 void SoundMixer::PlayMusic(int index)
 {
+	Mix_VolumeMusic(20);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
 	{ 

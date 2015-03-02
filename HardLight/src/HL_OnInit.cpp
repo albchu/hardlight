@@ -8,21 +8,29 @@ int getNbCores()
 }
 
 PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
-										PxFilterObjectAttributes attributes1, PxFilterData filterData1,
-										PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
-	PX_UNUSED(attributes0);
-	PX_UNUSED(attributes1);
-	PX_UNUSED(filterData0);
-	PX_UNUSED(filterData1);
-	PX_UNUSED(constantBlockSize);
-	PX_UNUSED(constantBlock);
+	// let triggers through
+	if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+	{
+		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+		return PxFilterFlag::eDEFAULT;
+	}
 
-	// all initial and persisting reports for everything, with per-point data
-	pairFlags = PxPairFlag::eRESOLVE_CONTACTS
-			  |	PxPairFlag::eNOTIFY_TOUCH_FOUND 
-			  | PxPairFlag::eNOTIFY_TOUCH_PERSISTS
-			  | PxPairFlag::eNOTIFY_CONTACT_POINTS;
+	if( (0 == (filterData0.word0 & filterData1.word1)) && (0 == (filterData1.word0 & filterData0.word1)) )
+		return PxFilterFlag::eSUPPRESS;
+
+	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+
+	if (((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_OBSTACLE))
+		|| ((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+		|| ((filterData0.word0 & COLLISION_FLAG_OBSTACLE) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+		)
+	{
+		pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	}
+
 	return PxFilterFlag::eDEFAULT;
 }
 
@@ -110,8 +118,8 @@ bool HardLight::OnInit()
 		(float)config->GetReal("gravity", "y", 0.0),
 		(float)config->GetReal("gravity", "z", 0.0)
 		);
-	sceneDesc.filterShader = VehicleFilterShader;
-	//sceneDesc.filterShader = gFilterShader;
+	//sceneDesc.filterShader = VehicleFilterShader;
+	sceneDesc.filterShader = gFilterShader;
 	sceneDesc.simulationEventCallback = this;
 
 	gScene = gPhysics->createScene(sceneDesc);

@@ -108,7 +108,6 @@ private:
 	//PxBatchQuery* gBatchQuery;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
-	PxRigidStatic* gGroundPlane;
 	//PxVehicleDrive4W* gVehicle4W;
 	//PxRigidActor* vehicle;
 	//bool gIsVehicleInAir;

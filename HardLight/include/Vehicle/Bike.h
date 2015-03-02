@@ -31,6 +31,7 @@ public:
 	VehicleSceneQueryData* getVehicleSceneQueryData();
 	PxBatchQuery* getBatchQuery();
 	bool isInAir();
+	bool invincible;
 
 	void setVehicle4W(PxVehicleDrive4W*);
 	void setInputData(PxVehicleDrive4WRawInputData);

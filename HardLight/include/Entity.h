@@ -48,7 +48,7 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	virtual void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
+	virtual void	render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 
 	void			set_texture_path(const char*);
 
@@ -56,7 +56,7 @@ public:
 	MeshData*		get_mesh_data();
 
 	void			set_actor(PxRigidActor*);
-	PxRigidActor*		get_actor();
+	PxRigidActor*	get_actor();
 	
 	void			set_draw_mode(GLuint&);
 	GLuint			get_draw_mode();

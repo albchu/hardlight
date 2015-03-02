@@ -14,10 +14,12 @@ void HardLight::OnRender()
 
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
-		gScene->removeActor(*bikesToKill[j]->get_actor(), false);
-		world.remove(bikesToKill[j]);
-		bikes.kill_bike(bikesToKill[j]);
-		sfxMix.PlaySoundEffect(1);
+		if (!bikesToKill[j]->invincible) {
+			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
+			world.remove(bikesToKill[j]);
+			bikes.kill_bike(bikesToKill[j]);
+			sfxMix.PlaySoundEffect(1);
+		}
 	}
 	bikesToKill.clear();
 
@@ -26,8 +28,8 @@ void HardLight::OnRender()
 		Bike* bike = bikes.get_player_bikes()[0];
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
-	
-	/*
+
+
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;
 	Scale = sqrt(major.x*major.x+major.z*major.z);
@@ -55,7 +57,7 @@ void HardLight::OnRender()
 			}
 		}
 	}
-	*/
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Camera controls
@@ -66,7 +68,7 @@ void HardLight::OnRender()
 
 	vec3 camera_position(cam_translate);
 	camera_position = rotateY(camera_position, cam_rotate);
-	vec3 light(newPos.p.x + 400.0f, newPos.p.y + 1000.0f, newPos.p.z + 200.0f);
+	vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
 	// view_matrix for all entities
 	//PxTransform gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	PxReal rads;

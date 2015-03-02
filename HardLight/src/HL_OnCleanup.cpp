@@ -14,7 +14,6 @@ void HardLight::OnCleanup()
 	}
 
 	gFrictionPairs->release();
-	gGroundPlane->release();
 	PxCloseVehicleSDK();
 	if (gScene != NULL) gScene->release();
 	if (gDispatcher != NULL) gDispatcher->release();
