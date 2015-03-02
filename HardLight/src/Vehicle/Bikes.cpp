@@ -34,6 +34,11 @@ vector<Bike*> Bikes::get_bot_bikes()
 	return bot_bikes;
 }
 
+vector<Controller*> Bikes::get_controlled_bikes()
+{
+	return controlled_bikes;
+}
+
 Bike* Bikes::get_bike(PxRigidActor* actor)
 {
 	for (unsigned int i = 0; i < player_bikes.size(); i++)

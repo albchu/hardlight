@@ -12,8 +12,10 @@ public:
 	void backwards();
 	void left();
 	void right();
+	void steer(PxReal steer);
 	Bike* get_bike();
 protected:
 	Bike* bike;
+	PxReal top_acceleration;
 };
 #endif

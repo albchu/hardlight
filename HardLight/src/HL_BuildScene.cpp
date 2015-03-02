@@ -34,7 +34,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setSimulationFilterData(simFilterData);
 
 	gScene->addActor(*groundPlane);
-	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(ground);
 	
 	//walls
@@ -48,7 +48,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	gScene->addActor(*wallPlane);
-	Entity* wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	Entity* wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*gPhysics, PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
@@ -56,7 +56,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	gScene->addActor(*wallPlane);
-	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*gPhysics, PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
@@ -64,7 +64,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	gScene->addActor(*wallPlane);
-	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*gPhysics, PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
@@ -72,7 +72,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	gScene->addActor(*wallPlane);
-	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
+	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 	
 	CreateVehicle vehicleCreator = CreateVehicle(config, gScene, gPhysics, gAllocator, gFoundation);
@@ -84,8 +84,8 @@ bool HardLight::BuildScene()
 			return false;
 		world.add_entity(new_bike);
 		bikes.add_bot_bike(new_bike);
-		//Controller * controllerz = new Bot_Controller(new_bike);
-		//controllableBikes.push_back(controllerz);
+		Controller * controllerz = new Bot_Controller(new_bike);
+		controllableBikes.push_back(controllerz);
 	}
 
 	for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
