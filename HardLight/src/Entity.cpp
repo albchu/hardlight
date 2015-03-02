@@ -9,7 +9,7 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* t
 	mesh_data = init_mesh_data;
 	texture = load_tga_texture(texture_file_path);
 	init_opengl();
-	//deleted = false;
+	deleted = false;
 }
 
 Entity::Entity()
@@ -17,7 +17,7 @@ Entity::Entity()
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = new MeshData();
-	//deleted = false;
+	deleted = false;
 }
 
 Entity::~Entity() {
@@ -168,12 +168,12 @@ void Entity::release(){
 	actor->release();
 }
 
-//void Entity::set_deleted(bool flag)
-//{
-//	deleted = flag;
-//}
-//
-//bool Entity::is_deleted()
-//{
-//	return deleted;
-//}
+void Entity::set_deleted(bool flag)
+{
+	deleted = flag;
+}
+
+bool Entity::is_deleted()
+{
+	return deleted;
+}

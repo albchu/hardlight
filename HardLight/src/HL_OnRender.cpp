@@ -74,7 +74,7 @@ void HardLight::OnRender()
 
 	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
-		//if(!world.getEntities()[i]->is_deleted())
+		if(!world.getEntities()[i]->is_deleted())
 			world.getEntities()[i]->render(projection_matrix, view_matrix, light);
 	}
 

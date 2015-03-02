@@ -6,6 +6,7 @@ Bike::Bike()
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
 	invincible = false;
+	deleted = false;
 }
 
 Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
@@ -17,6 +18,7 @@ Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
 	texture = load_tga_texture(texture_file_path);
 	init_opengl();
 	invincible = false;
+	deleted = false;
 }
 
 Bike::~Bike() {

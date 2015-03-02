@@ -44,7 +44,7 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->invincible) {
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
-			world.remove(bikesToKill[j]);
+			//world.remove(bikesToKill[j]);
 			bikes.kill_bike(bikesToKill[j]);
 			sfxMix.PlaySoundEffect(1);
 			bikesToKill[j]->set_actor(NULL);
@@ -79,7 +79,7 @@ void HardLight::OnLoop()
 		//gIsVehicleInAir = false;//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
 	//	cout << "Bike reference : " << bikes.get_bot_bikes()[0] << endl;
 	//if(controller->get_bike()->get_actor() != NULL)
-	//	controller->forward();
+		controller->forward();
 	}
 
 	//for(Controller* controllable: controllableBikes)
