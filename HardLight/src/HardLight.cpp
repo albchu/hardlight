@@ -21,8 +21,6 @@ HardLight::HardLight()
 	gPhysics = NULL;
 	gDispatcher = NULL;
 	gScene = NULL;
-	gCooking = NULL;
-	gMaterial = NULL;
 
 	msPhysics = SDL_GetTicks();
 	msGraphics = msPhysics;

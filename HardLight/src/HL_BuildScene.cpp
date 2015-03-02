@@ -10,7 +10,7 @@ bool HardLight::BuildScene()
 	skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);
 
-	gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the friction table for each combination of tire and surface type.
 	gFrictionPairs = createFrictionPairs(gMaterial);
@@ -75,20 +75,25 @@ bool HardLight::BuildScene()
 	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile.tga");
 	world.add_entity(wall);
 	
+	CreateVehicle vehicleCreator = CreateVehicle(config, gScene, gPhysics, gAllocator, gFoundation);
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
 	{
 		Bike* new_bike = new Bike();
-		if(!CreateVehicle(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+		if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
 			return false;
+		world.add_entity(new_bike);
 		bikes.add_bot_bike(new_bike);
+		//Controller * controllerz = new Bot_Controller(new_bike);
+		//controllableBikes.push_back(controllerz);
 	}
 
 	for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
 	{
 		Bike* new_bike = new Bike();
-		if(!CreateVehicle(new_bike, PxVec3(0,5,0)))
+		if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
 			return false;
+		world.add_entity(new_bike);
 		new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 		if (controllers.size() > 0)
 			bikes.add_player_bike(new_bike, controllers[i]);
@@ -97,7 +102,11 @@ bool HardLight::BuildScene()
 	}
 
 	if (controllers.size() > 0)
-		controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
+	{
+		controller = new Bot_Controller(bikes.get_bot_bikes()[0]);
+		//controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
+	}
+		
 	
 	sfxMix.PlayMusic(0);
 
