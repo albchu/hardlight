@@ -10,7 +10,8 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 
 void Bikes::add_bot_bike(Bike* bike)
 {
-	//bike->set_controller(new Bot_Controller());
+	Controller * controlled = new Bot_Controller(bike);
+	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);
 }
 
@@ -32,6 +33,11 @@ vector<Bike*> Bikes::get_player_bikes()
 vector<Bike*> Bikes::get_bot_bikes()
 {
 	return bot_bikes;
+}
+
+vector<Controller*> Bikes::get_controlled_bikes()
+{
+	return controlled_bikes;
 }
 
 Bike* Bikes::get_bike(PxRigidActor* actor)

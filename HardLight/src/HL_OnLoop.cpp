@@ -44,7 +44,6 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->invincible) {
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
-			//world.remove(bikesToKill[j]);
 			bikes.kill_bike(bikesToKill[j]);
 			sfxMix.PlaySoundEffect(1);
 			bikesToKill[j]->set_actor(NULL);
@@ -74,17 +73,18 @@ void HardLight::OnLoop()
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
-		//Work out if the vehicle is in the air.
-		//bike->setInAir(false);//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
-		//gIsVehicleInAir = false;//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
-	//	cout << "Bike reference : " << bikes.get_bot_bikes()[0] << endl;
-	//if(controller->get_bike()->get_actor() != NULL)
-		controller->forward();
 	}
 
-	//for(Controller* controllable: controllableBikes)
+	// Move Bot Bikes
+	overMind->update_bikes();
+	overMind->move_bikes();
+	//for(Controller* controllable: bikes.get_controlled_bikes())
 	//{
-	//	controllable->forward();
+	//	if(!controllable->get_bike()->is_deleted())
+	//	{
+	//		controllable->backwards();
+	//		controllable->steer(0.5);
+	//	}
 	//}
 
 
