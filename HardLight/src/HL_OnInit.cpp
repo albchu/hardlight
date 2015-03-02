@@ -126,7 +126,6 @@ bool HardLight::OnInit()
 	if(!gScene)
 		return false;
 
-	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile

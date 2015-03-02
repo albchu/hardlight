@@ -12,23 +12,12 @@ void HardLight::OnRender()
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	for (unsigned int j = 0; j < bikesToKill.size(); j++)
-	{
-		if (!bikesToKill[j]->invincible) {
-			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
-			world.remove(bikesToKill[j]);
-			bikes.kill_bike(bikesToKill[j]);
-			sfxMix.PlaySoundEffect(1);
-		}
-	}
-	bikesToKill.clear();
 
 	if (bikes.get_player_bikes().size() > 0)
 	{
 		Bike* bike = bikes.get_player_bikes()[0];
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
-
 
 	vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	vec3 major = oldPos -dis;
@@ -85,7 +74,8 @@ void HardLight::OnRender()
 
 	for(unsigned int i = 0; i < world.getEntities().size(); i++)
 	{
-		world.getEntities()[i]->render(projection_matrix, view_matrix, light);
+		//if(!world.getEntities()[i]->is_deleted())
+			world.getEntities()[i]->render(projection_matrix, view_matrix, light);
 	}
 
 	SDL_GL_SwapWindow(window);

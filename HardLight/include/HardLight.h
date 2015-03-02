@@ -15,8 +15,6 @@
 
 #include <PxPhysicsAPI.h>
 
-
-
 #include <glm/gtx/string_cast.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,12 +23,14 @@
 #include "World.h"
 #include "Controls/Controller.h"
 #include "Controls/Player_Controller.h"
+#include "Controls/Bot_Controller.h"
 #include "Entity.h"
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
 #include "TailSegment.h"
 #include "SoundMixer.h"
+#include "Vehicle/CreateVehicle.h"
 
 
 using namespace physx;
@@ -73,9 +73,9 @@ private:
 	PxPhysics* gPhysics;
 	PxDefaultCpuDispatcher*	gDispatcher;
 	PxScene* gScene;
-	PxMaterial* gMaterial;
+	
 	PxVisualDebuggerConnection*gConnection;
-	PxCooking* gCooking;
+	
 	
 	//PxSimulationFilterShader gDefaultFilterShader;
 
@@ -119,6 +119,7 @@ private:
 	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
+	vector<Controller*> controllableBikes;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
@@ -131,8 +132,6 @@ public:
 	bool OnInit();
 
 	bool BuildScene();
-
-	bool CreateVehicle(Bike* &bike, PxVec3 init_position);
 
 	void OnEvent(SDL_Event* Event);
 

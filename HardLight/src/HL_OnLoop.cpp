@@ -38,15 +38,28 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 //==============================================================================
 void HardLight::OnLoop()
 {
+
+	
+	for (unsigned int j = 0; j < bikesToKill.size(); j++)
+	{
+		if (!bikesToKill[j]->invincible) {
+			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
+			world.remove(bikesToKill[j]);
+			bikes.kill_bike(bikesToKill[j]);
+			sfxMix.PlaySoundEffect(1);
+			bikesToKill[j]->set_actor(NULL);
+		}
+	}
+	bikesToKill.clear();
+
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
 	Uint32 elapsed = msCurrent - msPhysics;
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	if (bikes.get_player_bikes().size() > 0)
+	for(Bike* bike : bikes.get_all_bikes())
 	{
-		Bike* bike = bikes.get_player_bikes()[0];
 		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
 		//Raycasts.
@@ -64,8 +77,17 @@ void HardLight::OnLoop()
 		//Work out if the vehicle is in the air.
 		//bike->setInAir(false);//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
 		//gIsVehicleInAir = false;//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
-		//controller->forward();
+	//	cout << "Bike reference : " << bikes.get_bot_bikes()[0] << endl;
+	//if(controller->get_bike()->get_actor() != NULL)
+	//	controller->forward();
 	}
+
+	//for(Controller* controllable: controllableBikes)
+	//{
+	//	controllable->forward();
+	//}
+
+
 	//Scene update.
 	gScene->simulate(timestep);
 	msPhysics = msCurrent;
