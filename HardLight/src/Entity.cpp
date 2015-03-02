@@ -75,8 +75,9 @@ mat4 Entity::get_model_matrix()
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	
-	model_matrix = scale(model_matrix, vec3(8.5, 8.5, 8.5));
+	float scaleFactor = 3.0f;
+
+	model_matrix = scale(model_matrix, vec3(scaleFactor, scaleFactor, scaleFactor));
 
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
 
