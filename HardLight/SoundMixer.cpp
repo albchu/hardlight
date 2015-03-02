@@ -13,7 +13,7 @@ SoundMixer::SoundMixer()
 	errorSound = "errorSound.wav";
 }
 
-void SoundMixer::InitializeMixer(INIReader *config)
+bool SoundMixer::InitializeMixer(INIReader *config)
 {
 	musicOverworldFile = pathToAudioDir + config->Get("sound", "musicOverWorldFile", errorSound);
 	sfxEngineFile = pathToAudioDir + config->Get("sound", "sfxEngineFile", errorSound);
@@ -26,7 +26,7 @@ void SoundMixer::InitializeMixer(INIReader *config)
 	if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) 
 	{ 
 		std::cout << "Problem initializing SDL_Mixer. SDL_Mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 
 	//Load music 
@@ -34,42 +34,42 @@ void SoundMixer::InitializeMixer(INIReader *config)
 	if( musicOverworld == NULL ) 
 	{
 		std::cout << "Failed to load background music: " << musicOverworldFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit; 
+		return false; 
 	} 
 	//Load sound effects 
 	sfxEngine = Mix_LoadWAV( sfxEngineFile.c_str() );
 	if( sfxEngine == NULL ) 
 	{ 
 		std::cout << "Failed to load sound effect: " << sfxEngineFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 
 	sfxExplosion = Mix_LoadWAV( sfxExplosionFile.c_str() ); 
 	if( sfxExplosion == NULL ) 
 	{ 
 		std::cout << "Failed to load sound effect: " << sfxExplosionFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 
 	sfxIntro = Mix_LoadWAV( sfxIntroFile.c_str() );
 	if( sfxIntro == NULL ) 
 	{ 
 		std::cout << "Failed to load sound effect: " << sfxIntroFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 	
 	sfxItemPickup = Mix_LoadWAV( sfxItemPickupFile.c_str() ); 
 	if( sfxItemPickup == NULL ) 
 	{ 
 		std::cout << "Failed to load sound effect: " << sfxItemPickupFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 
 	sfxItemUsed = Mix_LoadWAV( sfxItemUsedFile.c_str() );
 	if( sfxItemUsed == NULL ) 
 	{ 
 		std::cout << "Failed to load sound effect: " << sfxItemUsedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
-		exit;
+		return false;
 	}
 
 	// Add pointers to file list
@@ -79,6 +79,8 @@ void SoundMixer::InitializeMixer(INIReader *config)
 	sfxFilesList.push_back(sfxIntro);
 	sfxFilesList.push_back(sfxItemPickup);
 	sfxFilesList.push_back(sfxItemUsed);
+
+	return true;
 }
 
 void SoundMixer::CloseMixer()
@@ -105,6 +107,7 @@ void SoundMixer::CloseMixer()
 
 void SoundMixer::PlayMusic(int index)
 {
+	Mix_VolumeMusic(20);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
 	{ 

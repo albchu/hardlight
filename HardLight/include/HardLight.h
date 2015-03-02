@@ -48,9 +48,11 @@ using namespace glm;
 #pragma comment(lib, "PxTaskDEBUG.lib")
 #pragma comment(lib, "PhysX3VehicleDEBUG.lib")
 #pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
+#pragma comment(lib, "PhysXProfileSDKDEBUG.lib")
+#pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
 
 //==============================================================================
-class HardLight
+class HardLight : public PxSimulationEventCallback
 {
 private:
 	INIReader* config;
@@ -64,13 +66,25 @@ private:
 	Controller* controller;	//ThiS SI ALBERTS CODE ITS TEMP 
 	vector<SDL_GameController*> controllers;
 
-	PxScene* gScene;
+	// physx objects
+	PxDefaultAllocator gAllocator;
+	PxDefaultErrorCallback gErrorCallback;
 	PxFoundation* gFoundation;
 	PxPhysics* gPhysics;
+	PxDefaultCpuDispatcher*	gDispatcher;
+	PxScene* gScene;
+	PxMaterial* gMaterial;
+	PxVisualDebuggerConnection*gConnection;
 	PxCooking* gCooking;
-	PxDefaultErrorCallback gDefaultErrorCallback;
-	PxDefaultAllocator gDefaultAllocator;
-	PxSimulationFilterShader gDefaultFilterShader;
+	
+	//PxSimulationFilterShader gDefaultFilterShader;
+
+	// Implements PxSimulationEventCallback
+	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
+	virtual void onTrigger(PxTriggerPair*, PxU32) {}
+	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
+	virtual void onWake(PxActor**, PxU32) {}
+	virtual void onSleep(PxActor**, PxU32) {}
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -94,7 +108,6 @@ private:
 	//PxBatchQuery* gBatchQuery;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
-	PxRigidStatic* gGroundPlane;
 	//PxVehicleDrive4W* gVehicle4W;
 	//PxRigidActor* vehicle;
 	//bool gIsVehicleInAir;
@@ -105,6 +118,7 @@ private:
 	vector<TailSegment*> playerTail;
 	//Bike* bike;
 	Bikes bikes;		// Holds arrays of all bikes on the scene
+	vector<Bike*> bikesToKill;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 

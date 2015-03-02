@@ -102,6 +102,7 @@
     <ClCompile Include="src\HL_BuildScene.cpp" />
     <ClCompile Include="src\HL_CreateVehicle.cpp" />
     <ClCompile Include="src\HL_OnCleanup.cpp" />
+    <ClCompile Include="src\HL_OnContact.cpp" />
     <ClCompile Include="src\HL_OnEvent.cpp" />
     <ClCompile Include="src\HL_OnExecute.cpp" />
     <ClCompile Include="src\HL_OnInit.cpp" />
