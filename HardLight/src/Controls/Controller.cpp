@@ -4,5 +4,10 @@ Controller::Controller(){}
 
 void Controller::forward()
 {
-	bike->getInputData().setAnalogAccel(1.0);
+	bike->getInputData().setAnalogAccel(0.250);
+}
+
+Bike* Controller::get_bike()
+{
+	return bike;
 }

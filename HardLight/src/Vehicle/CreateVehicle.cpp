@@ -2,6 +2,15 @@
 #include "HardLight.h"
 #include "MeshMap.h"
 
+CreateVehicle::CreateVehicle(INIReader* new_config, PxScene* new_gScene, PxPhysics* new_gPhysics, PxDefaultAllocator new_gAllocator, PxFoundation* new_gFoundation)
+{
+	config = new_config;
+	gScene = new_gScene;
+	gPhysics = new_gPhysics;
+	gFoundation = new_gFoundation;
+	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
+}
+
 //==============================================================================
 VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 {
@@ -45,8 +54,9 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
+bool CreateVehicle::Create(Bike* &bike, PxVec3 init_position)
 {
+	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	//Create the batched scene queries for the suspension raycasts.
 	bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gAllocator));
 	bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), gScene));
@@ -63,7 +73,7 @@ bool HardLight::CreateVehicle(Bike* &bike, PxVec3 init_position)
 	bike->set_texture(load_tga_texture("../data/Textures/BikeTexture2.tga"));
 	bike->init_opengl();
 
-	world.add_entity(bike);
+	
 
 	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();
 

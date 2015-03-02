@@ -42,6 +42,7 @@ protected:
 	GLuint texture_buffer_id;
 	GLuint light_id;
 	int type;
+	bool deleted;
 
 public:
 	Entity(PxRigidActor*, MeshData*, const char*);
@@ -69,5 +70,8 @@ public:
 	
 	int				get_type();
 	void			release();
+
+	bool			is_deleted();
+	void			set_deleted(bool flag);
 };
 #endif

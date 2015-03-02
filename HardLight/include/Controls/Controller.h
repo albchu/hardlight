@@ -12,7 +12,7 @@ public:
 	void backwards();
 	void left();
 	void right();
-
+	Bike* get_bike();
 protected:
 	Bike* bike;
 };

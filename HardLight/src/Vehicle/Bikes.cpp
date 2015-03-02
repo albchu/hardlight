@@ -53,6 +53,7 @@ Bike* Bikes::get_bike(PxRigidActor* actor)
 
 void Bikes::kill_bike(Bike* bike)
 {
+	bike->set_deleted(true);
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i] == bike)

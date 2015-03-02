@@ -32,9 +32,6 @@
     <ClCompile Include="src\HardLight.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
-    <ClCompile Include="src\HL_CreateVehicle.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
     <ClCompile Include="src\HL_OnCleanup.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
@@ -106,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="src\HL_OnContact.cpp">
       <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\CreateVehicle.cpp">
+      <Filter>World\Vehicle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +180,11 @@
     </ClInclude>
     <ClInclude Include="include\Controls\Player_Controller.h">
       <Filter>World\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TailSegment.h" />
+    <ClInclude Include="TailWall.h" />
+    <ClInclude Include="include\Vehicle\CreateVehicle.h">
+      <Filter>World\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

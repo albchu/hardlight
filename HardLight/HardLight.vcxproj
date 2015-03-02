@@ -100,7 +100,6 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
-    <ClCompile Include="src\HL_CreateVehicle.cpp" />
     <ClCompile Include="src\HL_OnCleanup.cpp" />
     <ClCompile Include="src\HL_OnContact.cpp" />
     <ClCompile Include="src\HL_OnEvent.cpp" />
@@ -116,6 +115,7 @@
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
     <ClCompile Include="src\Vehicle\Bikes.cpp" />
+    <ClCompile Include="src\Vehicle\CreateVehicle.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="TailSegment.cpp" />
     <ClCompile Include="TailWall.cpp" />
@@ -138,6 +138,7 @@
     <ClInclude Include="include\TailSegment.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
     <ClInclude Include="include\Vehicle\Bikes.h" />
+    <ClInclude Include="include\Vehicle\CreateVehicle.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
