@@ -10,19 +10,27 @@
 using namespace glm;
 using namespace std;
 
-#pragma once
-class TailSegment: public Entity
+// This class does not inherit entity but holds an actor because TailWall will need the actors for rendering
+class TailSegment//: public Entity
 {
-protected:
-	float tailScale;
+private:
+	//float tailScale;
+	PxActor* actor;
+	vec3 start;
+	vec3 end;
+	float width;	// How wide the segment will be
+	float height;	// How high the segment will be
+
+
 public:
-	void CreateTail(vec3 topLeft, vec3 topRight, float height);
-	TailSegment();
-	~TailSegment();
+	TailSegment(vec3 new_start, vec3 new_end);
+	vector<vec3> get_wall_mesh();
+	//void CreateTail(vec3 topLeft, vec3 topRight, float height);
+	//TailSegment();
 	
-	TailSegment(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
-	mat4 get_model_matrix();
-	void setScale(float size);
+	//TailSegment(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
+	//mat4 get_model_matrix();
+	//void setScale(float size);
 };
 
 #endif

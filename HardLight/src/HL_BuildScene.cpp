@@ -94,13 +94,6 @@ bool HardLight::BuildScene()
 		else
 			bikes.add_player_bike(new_bike, NULL);
 	}
-
-	//if (controllers.size() > 0)
-	//{
-	//	controller = new Bot_Controller(bikes.get_bot_bikes()[0]);
-	//	//controller = new Player_Controller(bikes.get_player_bikes()[0], controllers[0]);
-	//}
-		
 	
 	sfxMix.PlayMusic(0);
 

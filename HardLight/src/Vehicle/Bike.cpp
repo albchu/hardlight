@@ -97,3 +97,8 @@ void Bike::setInAir(bool new_inAir)
 {
 	inAir = new_inAir;
 }
+
+TailWall* Bike::get_tail_wall()
+{
+	return tail_wall;
+}

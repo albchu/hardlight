@@ -1,22 +1,35 @@
 #include "Vehicle/TailWall.h"
 
 
-TailWall::TailWall(void)
+TailWall::TailWall(vec3 new_last_position)
 {
-	TailLength = 30;
+	max_length = 30;
+	last_position = new_last_position;
 }
 
-
-TailWall::~TailWall(void)
+void TailWall::update(vec3 new_position)
 {
-}
-
-TailSegment* TailWall::addSegment(TailSegment* tail){
-	bikeWall.insert(bikeWall.begin(),tail);
-	if(bikeWall.size() > TailLength){
-		tail = bikeWall.back();
-		bikeWall.pop_back();
-		return tail;
+	// Check the size of the tail list whether to add a new segment or reshuffle segments
+	if(segments.size() >= max_length)
+	{
+		// Reshuffle segments
+		//MAGICAL CODE
 	}
-	return NULL;
+	else
+	{
+		// Add new segment to tail
+		TailSegment* segment = new TailSegment(new_position, last_position);
+		segments.insert(segments.begin(), segment);
+	}
 }
+
+//
+//TailSegment* TailWall::addSegment(TailSegment* tail){
+//	bikeWall.insert(bikeWall.begin(),tail);
+//	if(bikeWall.size() > max_length){
+//		tail = bikeWall.back();
+//		bikeWall.pop_back();
+//		return tail;
+//	}
+//	return NULL;
+//}
