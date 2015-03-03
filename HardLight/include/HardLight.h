@@ -29,6 +29,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
+#include "Wall.h"
 #include "Common.h"
 #include "Vehicle/TailSegment.h"
 #include "Vehicle/TailWall.h"
@@ -97,6 +98,9 @@ private:
 	virtual void onWake(PxActor**, PxU32) {}
 	virtual void onSleep(PxActor**, PxU32) {}
 
+	void initOpenGL(Scene);
+
+
 	Uint32 msGraphics;
 	Uint32 msPhysics;
 	Uint32 msMax;
@@ -143,7 +147,6 @@ public:
 	int OnExecute();
 
 	bool OnInit();
-	bool initOpenGL(Scene);
 
 	bool BuildScene();
 

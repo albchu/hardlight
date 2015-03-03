@@ -34,7 +34,10 @@ PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData f
 	return PxFilterFlag::eDEFAULT;
 }
 
-bool HardLight::initOpenGL(Scene scene) {
+
+// initializes openGL
+// separates initialization by scene type
+void HardLight::initOpenGL(Scene scene) {
 	if(scene == GAME) {
 				// Dark blue background
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -58,15 +61,11 @@ bool HardLight::initOpenGL(Scene scene) {
 			(float)config->GetReal("camera", "y", 5.0),
 			(float)config->GetReal("camera", "z", -10.0));
 		cam_rotate = 0.0f;
-
-		return true;
 	}
 	else {
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 		projection_matrix = ortho(0.0f, 1280.0f, 720.0f, 0.0f, 0.0f, 1.0f);
-
-		return true;
 	}
 }
 
