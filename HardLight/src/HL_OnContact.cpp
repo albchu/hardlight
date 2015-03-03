@@ -10,8 +10,8 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 		if(cp.events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 		{
-			Bike* bike1 = bikes.get_bike(pairHeader.actors[0]);
-			Bike* bike2 = bikes.get_bike(pairHeader.actors[1]);
+			Bike* bike1 = bikes->get_bike(pairHeader.actors[0]);
+			Bike* bike2 = bikes->get_bike(pairHeader.actors[1]);
 			if (bike1 != NULL)
 			{
 				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())

@@ -29,7 +29,10 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
-#include "TailSegment.h"
+#include "Common.h"
+#include "Vehicle/TailSegment.h"
+#include "Vehicle/TailWall.h"
+#include "MeshMap.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 
@@ -118,7 +121,7 @@ private:
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
 	//Bike* bike;
-	Bikes bikes;		// Holds arrays of all bikes on the scene
+	Bikes* bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
 //	vector<Controller*> controllableBikes;
 	AI* overMind;

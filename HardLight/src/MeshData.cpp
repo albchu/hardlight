@@ -177,3 +177,8 @@ glm::tvec3<int> MeshData::getFaceTexture(int pos)
 std::vector<glm::vec3>* MeshData::getVertices() { return &m_vertices; }
 std::vector<glm::vec3>* MeshData::getNormals() { return &m_normals; }
 std::vector<glm::vec2>* MeshData::getTextureCoordinates() { return &m_textures; }
+
+void MeshData::setVertices(std::vector<glm::vec3> new_vertices)
+{
+	m_vertices = new_vertices;
+}

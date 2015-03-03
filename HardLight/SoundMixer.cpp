@@ -11,10 +11,20 @@ SoundMixer::SoundMixer()
 
 	pathToAudioDir = "../data/Audio/";
 	errorSound = "errorSound.wav";
+
+	musicVolume = -1;
+	sfxVolume = -1;
+
+	numChannels = 64;
+	currentChannelIndex = 0;
 }
 
 bool SoundMixer::InitializeMixer(INIReader *config)
 {
+	//Get musicVolume from .ini file
+	musicVolume = config->GetInteger("sound", "musicVolume", -1);
+	
+	//Get music file paths from the .ini file
 	musicOverworldFile = pathToAudioDir + config->Get("sound", "musicOverWorldFile", errorSound);
 	sfxEngineFile = pathToAudioDir + config->Get("sound", "sfxEngineFile", errorSound);
 	sfxExplosionFile = pathToAudioDir + config->Get("sound", "sfxExplosionFile", errorSound);
@@ -80,6 +90,8 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxFilesList.push_back(sfxItemPickup);
 	sfxFilesList.push_back(sfxItemUsed);
 
+	Mix_AllocateChannels(64);
+	printf("number of channels is now : %d\n", Mix_AllocateChannels(-1));
 	return true;
 }
 
@@ -107,7 +119,7 @@ void SoundMixer::CloseMixer()
 
 void SoundMixer::PlayMusic(int index)
 {
-	Mix_VolumeMusic(20);
+	Mix_VolumeMusic(musicVolume);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
 	{ 
@@ -132,8 +144,46 @@ void SoundMixer::PlayMusic(int index)
 	}
 }
 
+void SoundMixer::PlayMusic(int index, int volume)
+{
+	Mix_VolumeMusic(volume);
+	//If there is no music playing 
+	if( Mix_PlayingMusic() == 0 )
+	{ 
+		//Play the music 
+		Mix_PlayMusic( musicFilesList[index], -1 );
+	} 
+	//If music is being played 
+	else 
+	{ 
+		//If the music is paused 
+		if( Mix_PausedMusic() == 1 ) 
+		{ 
+			//Resume the music 
+			Mix_ResumeMusic();
+		} 
+		//If the music is playing 
+		else 
+		{ 
+			//Pause the music 
+			Mix_PauseMusic(); 
+		} 
+	}
+}
+
+
 void SoundMixer::PlaySoundEffect(int index)
 {
 	Mix_PlayChannel(-1, sfxFilesList[index], 0);
+}
+
+void SoundMixer::PlaySoundEffect(int index, float distance)
+{
+	/**********************************************
+	Insert distance-based volume calculations here
+	**********************************************/
+	
+	Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], 0);
+	currentChannelIndex++;
 }
 

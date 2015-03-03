@@ -44,9 +44,8 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->invincible) {
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
-			bikes.kill_bike(bikesToKill[j]);
+			bikes->kill_bike(bikesToKill[j]);
 			sfxMix.PlaySoundEffect(1);
-			bikesToKill[j]->set_actor(NULL);
 		}
 	}
 	bikesToKill.clear();
@@ -57,7 +56,7 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	for(Bike* bike : bikes.get_all_bikes())
+	for(Bike* bike : bikes->get_all_bikes())
 	{
 		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
@@ -78,27 +77,16 @@ void HardLight::OnLoop()
 	// Move Bot Bikes
 	overMind->update_bikes();
 	overMind->move_bikes();
-	//for(Controller* controllable: bikes.get_controlled_bikes())
-	//{
-	//	if(!controllable->get_bike()->is_deleted())
-	//	{
-	//		controllable->backwards();
-	//		controllable->steer(0.5);
-	//	}
-	//}
 
+	// Tail creation
+	//for(TailWall* tail_wall : bikes->get_all_tails())
+	//{
+	//	tail_wall->update(gScene, gPhysics);
+	//}
 
 	//Scene update.
 	gScene->simulate(timestep);
 	msPhysics = msCurrent;
-
-	// tail creation
-
-
-
-
-
-
 
 	gScene->fetchResults(true);
 }

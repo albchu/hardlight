@@ -164,8 +164,10 @@ bool HardLight::OnInit()
 	if (!sfxMix.InitializeMixer(config))
 		return false;
 
+	bikes = new Bikes(&world);
+
 	// Init AI system to govern bots
-	overMind = new AI(&bikes);
+	overMind = new AI(bikes);
 
 	return true;
 }

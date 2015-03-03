@@ -86,8 +86,6 @@ mat4 Entity::get_model_matrix()
 
 void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
 {
-
-
 	// Use our shader
 	glUseProgram(program_id);
 
@@ -177,4 +175,19 @@ void Entity::set_deleted(bool flag)
 bool Entity::is_deleted()
 {
 	return deleted;
+}
+
+vec3 Entity::get_location()
+{
+	PxTransform gPose = actor->getGlobalPose();
+	return vec3(gPose.p.x, gPose.p.y, gPose.p.z);
+}
+
+vec3 Entity::get_direction_vector()
+{
+	PxTransform gPose = actor->getGlobalPose();
+	PxQuat q = gPose.q;
+	PxVec3 global_forward = PxVec3(0,0,1);
+	
+	return Physx_Agent::toVec3(q.rotate(global_forward));
 }

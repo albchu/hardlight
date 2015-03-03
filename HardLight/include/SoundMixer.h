@@ -32,6 +32,12 @@ private:
 	std::string sfxIntroFile;
 	std::string sfxItemPickupFile;
 	std::string sfxItemUsedFile;
+
+	int musicVolume;
+	int sfxVolume;
+
+	int numChannels;
+	int currentChannelIndex;
 	
 public:
 	SoundMixer();
@@ -40,7 +46,9 @@ public:
 	void CloseMixer();
 
 	void PlayMusic(int index);
+	void PlayMusic(int index, int volume);
 	void PlaySoundEffect(int index);
+	void PlaySoundEffect(int index, float distance);
 };
 
 #endif

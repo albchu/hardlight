@@ -2,6 +2,7 @@
 #define _BIKE_H
 
 #include "Entity.h"
+//#include "TailWall.h"
 
 #include <PxPhysicsAPI.h>
 #include <vehicle/PxVehicleUtil.h>
@@ -21,8 +22,7 @@ class Bike : public Entity
 {
 
 public:
-	Bike();//:Entity(actor, meshdata, texture){};
-	Bike(PxRigidActor* actor, const char* texture);//:Entity(actor, meshdata, texture){};
+	Bike();
 	~Bike();
 	virtual mat4 get_model_matrix();
 
@@ -38,6 +38,8 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
+	virtual void set_actor(PxRigidActor*);
+	//TailWall* get_tail_wall();
 
 private:
 	PxVehicleDrive4W* vehicle4W;
@@ -45,6 +47,7 @@ private:
 	VehicleSceneQueryData* vehicleSceneQueryData;
 	PxBatchQuery* batchQuery;
 	bool inAir;
+	//TailWall* tail_wall;
 	// PxActor is handled by Entity parent class of Bike
 };
 #endif
