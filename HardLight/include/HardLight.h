@@ -55,12 +55,20 @@ using namespace glm;
 #pragma comment(lib, "PhysXProfileSDKDEBUG.lib")
 #pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
 
+enum Scene {
+	MENU,
+	PAUSE,
+	GAME,
+	GAME_OVER
+};
+
 //==============================================================================
 class HardLight : public PxSimulationEventCallback
 {
 private:
 	INIReader* config;
 	bool running;
+	Scene scene;
 
 	int window_width;
 	int window_height;
@@ -135,6 +143,7 @@ public:
 	int OnExecute();
 
 	bool OnInit();
+	bool initOpenGL(Scene);
 
 	bool BuildScene();
 
