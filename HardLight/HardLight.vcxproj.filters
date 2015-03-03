@@ -110,9 +110,7 @@
     <ClCompile Include="src\PhysxAgent.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Common.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
+    <ClCompile Include="src\Common.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -195,9 +193,7 @@
     <ClInclude Include="include\PhysxAgent.h">
       <Filter>PhysX</Filter>
     </ClInclude>
-    <ClInclude Include="include\Common.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
+    <ClInclude Include="include\Common.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">

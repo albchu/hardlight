@@ -2,6 +2,8 @@
 #define _AI_H
 
 #include "Vehicle/Bikes.h"
+#include "Common.h"
+#include <glm/gtx/vector_angle.hpp>
 
 class AI
 {
