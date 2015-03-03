@@ -68,7 +68,3 @@ void AI::move_bikes()
 	}
 }
 
-void AI::remove_bike(Bike* bike) {
-	bikes->kill_bike(bike);
-}
-
