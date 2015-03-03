@@ -29,6 +29,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
+#include "Common.h"
 #include "TailSegment.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"

@@ -1,15 +1,33 @@
 #include "Vehicle/Bikes.h"
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
+#include "Common.h"
+
+Bikes::Bikes()
+{
+	srand (time(NULL));
+}
+
+int getRandInt(int low, int high)
+{
+	return rand() % high + low;
+}
 
 void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 {
-	//bike->set_controller(new Player_Controller(sdl_controller));
+	int someInt = getRandInt(1,5);
+	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
+	char const * randTexture =  randTexturestr.c_str();
+	bike->set_texture(load_tga_texture(randTexture));
 	player_bikes.push_back(bike);
 }
 
 void Bikes::add_bot_bike(Bike* bike)
 {
+	int someInt = getRandInt(1,5);
+	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
+	char const * randTexture =  randTexturestr.c_str();
+	bike->set_texture(load_tga_texture(randTexture));
 	Controller * controlled = new Bot_Controller(bike);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);

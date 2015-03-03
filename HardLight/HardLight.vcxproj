@@ -94,6 +94,7 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="src\AI\AI.cpp" />
+    <ClCompile Include="src\Common.cpp" />
     <ClCompile Include="src\Controls\Bot_Controller.cpp" />
     <ClCompile Include="src\Controls\Controller.cpp" />
     <ClCompile Include="src\Controls\Player_Controller.cpp" />
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
+    <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Controls\Bot_Controller.h" />
     <ClInclude Include="include\Controls\Controller.h" />
     <ClInclude Include="include\Controls\Player_Controller.h" />

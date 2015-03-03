@@ -79,7 +79,7 @@ void HardLight::OnLoop()
 	overMind->update_bikes();
 	overMind->move_bikes();
 
-	cout << "Player Direction Vector: " << glm::to_string(bikes.get_player_bikes()[0]->get_direction_vector()) << endl;
+	//cout << "Player Direction Vector: " << glm::to_string(bikes.get_player_bikes()[0]->get_direction_vector()) << endl;
 
 	//for(Controller* controllable: bikes.get_controlled_bikes())
 	//{

@@ -12,6 +12,7 @@ using namespace std;
 class Bikes
 {
 public:
+	Bikes();
 	void add_bot_bike(Bike* bike);
 	void add_player_bike(Bike* bike, SDL_GameController* controller);
 	vector<Bike*> get_all_bikes();
