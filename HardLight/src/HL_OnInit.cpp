@@ -34,6 +34,42 @@ PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData f
 	return PxFilterFlag::eDEFAULT;
 }
 
+bool HardLight::initOpenGL(Scene scene) {
+	if(scene == GAME) {
+				// Dark blue background
+		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glDepthMask(GL_TRUE);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+		glEnable(GL_CULL_FACE);
+
+
+		projection_matrix = perspective(
+			(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
+			(float)window_width/(float)window_height,
+			0.1f, 10000.0f);
+
+		cam_translate = vec3(
+			(float)config->GetReal("camera", "x", 0.0),
+			(float)config->GetReal("camera", "y", 5.0),
+			(float)config->GetReal("camera", "z", -10.0));
+		cam_rotate = 0.0f;
+
+		return true;
+	}
+	else {
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+		projection_matrix = ortho(0.0f, 1280.0f, 720.0f, 0.0f, 0.0f, 1.0f);
+
+		return true;
+	}
+}
+
 //==============================================================================
 bool HardLight::OnInit()
 {
@@ -132,28 +168,7 @@ bool HardLight::OnInit()
 	if (glewInit() != GLEW_OK)
 		return false;
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glDepthMask(GL_TRUE);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_CULL_FACE);
-
-
-	projection_matrix = perspective(
-		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
-		(float)window_width/(float)window_height,
-		0.1f, 10000.0f);
-
-	cam_translate = vec3(
-		(float)config->GetReal("camera", "x", 0.0),
-		(float)config->GetReal("camera", "y", 5.0),
-		(float)config->GetReal("camera", "z", -10.0));
-	cam_rotate = 0.0f;
+	initOpenGL(scene);
 
 	// Print OpenGL information
 	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
