@@ -86,8 +86,6 @@ mat4 Entity::get_model_matrix()
 
 void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
 {
-
-
 	// Use our shader
 	glUseProgram(program_id);
 

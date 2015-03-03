@@ -121,7 +121,7 @@ private:
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
 	//Bike* bike;
-	Bikes bikes;		// Holds arrays of all bikes on the scene
+	Bikes* bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
 //	vector<Controller*> controllableBikes;
 	AI* overMind;

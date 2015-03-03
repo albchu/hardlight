@@ -86,14 +86,14 @@ void Bike::setInAir(bool new_inAir)
 	inAir = new_inAir;
 }
 
-TailWall* Bike::get_tail_wall()
-{
-	return tail_wall;
-}
+//TailWall* Bike::get_tail_wall()
+//{
+//	return tail_wall;
+//}
 
 void Bike::set_actor(PxRigidActor* new_actor)
 {
 	actor = new_actor;
 	PxTransform gPose = actor->getGlobalPose();
-	tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z));	// Initialize the tail object as soon as an actor is set for the bike;
+	//tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z), this);	// Initialize the tail object as soon as an actor is set for the bike;
 }

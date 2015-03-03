@@ -1,11 +1,10 @@
 #include "Vehicle/Bikes.h"
-#include "Controls/Player_Controller.h"
-#include "Controls/Bot_Controller.h"
-#include "Common.h"
 
-Bikes::Bikes()
+
+Bikes::Bikes(World* new_world)
 {
 	srand (time(NULL));
+	world = new_world;
 }
 
 int getRandInt(int low, int high)

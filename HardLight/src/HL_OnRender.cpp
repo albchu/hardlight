@@ -12,17 +12,17 @@ void HardLight::OnRender()
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	//Bike* bike = bikes.get_player_bikes()[0];
-	if (bikes.get_player_bikes().size() > 0)
+	//Bike* bike = bikes->get_player_bikes()[0];
+	if (bikes->get_player_bikes().size() > 0)
 	{
-		Bike* bike = bikes.get_player_bikes()[0];
+		Bike* bike = bikes->get_player_bikes()[0];
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
 
 	//vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	//vec3 major = oldPos -dis;
 	//Scale = sqrt(major.x*major.x+major.z*major.z);
-	//skybox->set_actor(gPhysics->createRigidStatic(newPos));
+	skybox->set_actor(gPhysics->createRigidStatic(newPos));
 	//if(Scale > 0.5)
 	//{ // size of slices
 	//	newPos.p.x = (newPos.p.x+oldPos.x)/2.0f;
@@ -76,7 +76,6 @@ void HardLight::OnRender()
 	PxVec3 axis;
 	newPos.q.toRadiansAndUnitAxis(rads, axis);
 	camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
-
 
 	vec3 v_pos(newPos.p.x, newPos.p.y, newPos.p.z);
 	vec3 up(0.0f, 1.0f, 0.0f);

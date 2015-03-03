@@ -31,7 +31,7 @@ bool HardLight::BuildScene()
 	gScene->addActor(*groundPlane);
 	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(ground);
-	
+
 	//walls
 	qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
 	simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
@@ -69,7 +69,7 @@ bool HardLight::BuildScene()
 	gScene->addActor(*wallPlane);
 	wall = new Entity(wallPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
-	
+
 	CreateVehicle vehicleCreator = CreateVehicle(config, gScene, gPhysics, gAllocator, gFoundation);
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
@@ -77,9 +77,12 @@ bool HardLight::BuildScene()
 		Bike* new_bike = new Bike();
 		if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
 			return false;
+
 		world.add_entity(new_bike);
-		bikes.add_bot_bike(new_bike);
-		
+		//TailWall* tail_wall = new TailWall(new_bike);
+		//world.add_entity(tail_wall);
+		bikes->add_bot_bike(new_bike);
+
 	}
 
 	for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
@@ -88,14 +91,17 @@ bool HardLight::BuildScene()
 		if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
 			return false;
 		world.add_entity(new_bike);
-		world.add_entity(new_bike->get_tail_wall());
+
+		//TailWall* tail_wall = new TailWall(new_bike);
+		//world.add_entity(tail_wall);
+		
 		new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 		if (controllers.size() > 0)
-			bikes.add_player_bike(new_bike, controllers[i]);
+			bikes->add_player_bike(new_bike, controllers[i]);
 		else
-			bikes.add_player_bike(new_bike, NULL);
+			bikes->add_player_bike(new_bike, NULL);
 	}
-	
+
 	sfxMix.PlayMusic(0);
 
 	return true;

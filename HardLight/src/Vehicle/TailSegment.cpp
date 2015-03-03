@@ -6,14 +6,24 @@
 //}
 
 // Takes two positions, start (closer to bike), and end (farther from bike)
-TailSegment::TailSegment(vec3 new_start, vec3 new_end)
+TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char* texture_file_path)
 {
 	start = new_start;
 	end = new_end;
+	type = TAIL_SEGMENT;
+	draw_mode = GL_TRIANGLES;
+	actor = init_actor;
+	
+	generate_wall_mesh();
+	mesh_data = new MeshData();
+	mesh_data->setVertices(mesh);
+	texture = load_tga_texture(texture_file_path);
+	init_opengl();
+	deleted = false;
 }
 
 // Generates a renderable mesh using the starting and ending positions
-vector<vec3> TailSegment::get_wall_mesh()
+void TailSegment::generate_wall_mesh()
 {
 	vec3 tail_vector = normalize(end - start); // Get a vector from the start of the tail seg to the end
 	vec3 global_up = vec3(0,1,0);
@@ -36,7 +46,6 @@ vector<vec3> TailSegment::get_wall_mesh()
 	vec3 end_top_left = end_top - ((width/2) * perp_vector);
 	vec3 end_top_right = end_top + ((width/2) * perp_vector);
 
-	vector<vec3> mesh;
 	mesh.push_back(start_bottom_left);
 	mesh.push_back(end_bottom_left);
 	mesh.push_back(start_top_left);
@@ -52,8 +61,6 @@ vector<vec3> TailSegment::get_wall_mesh()
 	mesh.push_back(end_top_right);
 	mesh.push_back(start_bottom_right);
 	mesh.push_back(start_top_right);
-
-	return mesh;
 }
 
 /*
