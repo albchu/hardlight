@@ -10,6 +10,7 @@ HardLight::HardLight()
 		exit(EXIT_FAILURE);
     }
 	running = true;
+	scene = GAME;
 
 	window_width = config->GetInteger("window", "width", 800);
 	window_height = config->GetInteger("window", "height", 600);
