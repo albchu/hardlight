@@ -14,7 +14,7 @@ class TailSegment: public Entity
 {
 private:
 	//float tailScale;
-	PxActor* actor;
+	//PxActor* actor;
 	vec3 start;
 	vec3 end;
 	float width;	// How wide the segment will be
@@ -26,7 +26,7 @@ public:
 	void generate_wall_mesh();
 	//void CreateTail(vec3 topLeft, vec3 topRight, float height);
 	//TailSegment();
-	
+	virtual mat4 get_model_matrix();
 	//TailSegment(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
 	//mat4 get_model_matrix();
 	//void setScale(float size);
