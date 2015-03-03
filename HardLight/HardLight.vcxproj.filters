@@ -111,6 +111,9 @@
     <ClCompile Include="src\Vehicle\TailWall.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wall.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="include\Vehicle\TailWall.h">
       <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Wall.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
