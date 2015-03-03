@@ -14,6 +14,7 @@ private:
 	vector<TailSegment*> segments;
 	vec3 last_position;	//The previous start of a tailsegment
 	float min_segment_allowance;	// This variable determines how far a bike must move before we should create a new wall segment
+	float max_segment_allowance;	// This variable determines how far a bike must move before we should create a new wall segment
 	Bike* bike;		// Reference to its bike
 	PxTransform gPose;
 

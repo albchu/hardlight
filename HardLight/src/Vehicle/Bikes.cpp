@@ -12,6 +12,7 @@ int getRandInt(int low, int high)
 	return rand() % high + low;
 }
 
+// Creates a player bike, loads it onto the world and adds it to the player bikes vector
 void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 {
 	world->add_entity(bike);
@@ -20,8 +21,18 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 	char const * randTexture =  randTexturestr.c_str();
 	bike->set_texture(load_tga_texture(randTexture));
 	player_bikes.push_back(bike);
+	add_tail(bike);
 }
 
+// Adds a tail wall to the world and the tail walls vector
+void Bikes::add_tail(Bike* bike)
+{
+	TailWall* tail_wall = new TailWall(bike);
+	tail_walls.push_back(tail_wall);
+	world->add_entity(tail_wall);
+}
+
+// Creates a bot bike, loads it onto the world and adds it to the bot bikes vector
 void Bikes::add_bot_bike(Bike* bike)
 {
 	world->add_entity(bike);
@@ -32,6 +43,7 @@ void Bikes::add_bot_bike(Bike* bike)
 	Controller * controlled = new Bot_Controller(bike);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);
+	//add_tail(bike);
 }
 
 vector<Bike*> Bikes::get_all_bikes()
@@ -98,4 +110,9 @@ void Bikes::kill_bike(Bike* bike)
 			return;
 		}
 	}
+}
+
+vector<TailWall*> Bikes::get_all_tails()
+{
+	return tail_walls;
 }
