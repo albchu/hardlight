@@ -10,6 +10,7 @@ void AI::update_bikes()
 {
 	for(int i = 0; i < bikes->get_controlled_bikes().size(); i++)
 	{
+
 		Controller* controllableX = bikes->get_controlled_bikes()[i];
 		if(!controllableX->get_bike()->is_deleted())
 		{
@@ -67,4 +68,7 @@ void AI::move_bikes()
 	}
 }
 
+void AI::remove_bike(Bike* bike) {
+	bikes->kill_bike(bike);
+}
 
