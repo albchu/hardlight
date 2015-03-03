@@ -43,7 +43,7 @@ void Bikes::add_bot_bike(Bike* bike)
 	Controller * controlled = new Bot_Controller(bike);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);
-	//add_tail(bike);
+	add_tail(bike);
 }
 
 vector<Bike*> Bikes::get_all_bikes()
