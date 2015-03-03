@@ -79,10 +79,10 @@ void HardLight::OnLoop()
 	overMind->move_bikes();
 
 	// Tail creation
-	//for(TailWall* tail_wall : bikes->get_all_tails())
-	//{
-	//	tail_wall->update(gScene, gPhysics);
-	//}
+	for(TailWall* tail_wall : bikes->get_all_tails())
+	{
+		tail_wall->update(gScene, gPhysics);
+	}
 
 	//Scene update.
 	gScene->simulate(timestep);

@@ -81,6 +81,7 @@ bool HardLight::BuildScene()
 		
 		//TailWall* tail_wall = new TailWall(new_bike);
 		//world.add_entity(tail_wall);
+		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
 		bikes->add_bot_bike(new_bike);
 
 	}

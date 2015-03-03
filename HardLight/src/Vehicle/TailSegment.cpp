@@ -13,10 +13,11 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 	type = TAIL_SEGMENT;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
-	
 	generate_wall_mesh();
-	mesh_data = new MeshData();
-	mesh_data->setVertices(mesh);
+	mesh_data = MeshMap::Instance()->getEntityMesh("Wall.obj");
+	
+	//mesh_data = new MeshData();
+	//mesh_data->setVertices(mesh);
 	texture = load_tga_texture(texture_file_path);
 	init_opengl();
 	deleted = false;
