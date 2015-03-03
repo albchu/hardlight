@@ -95,16 +95,20 @@
     <ClCompile Include="src\Controls\Controller.cpp">
       <Filter>World\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="TailSegment.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="TailWall.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
     <ClCompile Include="src\HL_OnContact.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
     <ClCompile Include="src\Vehicle\CreateVehicle.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysxAgent.cpp">
+      <Filter>PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common.cpp" />
+    <ClCompile Include="src\Vehicle\TailSegment.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\TailWall.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
   </ItemGroup>
@@ -181,9 +185,17 @@
     <ClInclude Include="include\Controls\Player_Controller.h">
       <Filter>World\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="include\TailSegment.h" />
-    <ClInclude Include="TailWall.h" />
     <ClInclude Include="include\Vehicle\CreateVehicle.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PhysxAgent.h">
+      <Filter>PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Common.h" />
+    <ClInclude Include="include\Vehicle\TailSegment.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\TailWall.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>

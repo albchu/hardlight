@@ -9,18 +9,6 @@ Bike::Bike()
 	deleted = false;
 }
 
-Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
-{
-	type = BIKE;
-	draw_mode = GL_TRIANGLES;
-	actor = init_actor;
-	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
-	texture = load_tga_texture(texture_file_path);
-	init_opengl();
-	invincible = false;
-	deleted = false;
-}
-
 Bike::~Bike() {
 }
 
@@ -98,3 +86,14 @@ void Bike::setInAir(bool new_inAir)
 	inAir = new_inAir;
 }
 
+//TailWall* Bike::get_tail_wall()
+//{
+//	return tail_wall;
+//}
+
+void Bike::set_actor(PxRigidActor* new_actor)
+{
+	actor = new_actor;
+	PxTransform gPose = actor->getGlobalPose();
+	//tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z), this);	// Initialize the tail object as soon as an actor is set for the bike;
+}

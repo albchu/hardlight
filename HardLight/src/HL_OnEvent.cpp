@@ -9,9 +9,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 	if (Event->type == SDL_QUIT)
 		running = false;
 
-	if (bikes.get_player_bikes().size() > 0)
+	if (bikes->get_player_bikes().size() > 0)
 	{
-		Bike* bike = bikes.get_player_bikes()[0];
+		Bike* bike = bikes->get_player_bikes()[0];
 		switch (Event->type)
 		{
 		case SDL_QUIT:

@@ -131,7 +131,7 @@ GLuint load_tga_texture(const char * imagepath) {
 	int mode, total;
 	FILE* file;
 
-	file = fopen(imagepath, "rb");
+	fopen_s(&file, imagepath, "rb");
 	if(file == NULL) {
 		fprintf(stderr, "Couldn't open %s.\n", imagepath);
 		return -1;
