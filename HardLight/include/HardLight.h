@@ -30,7 +30,9 @@
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
 #include "Common.h"
-#include "TailSegment.h"
+#include "Vehicle/TailSegment.h"
+#include "Vehicle/TailWall.h"
+#include "MeshMap.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 

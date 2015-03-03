@@ -1,5 +1,8 @@
-#include "TailSegment.h"
-#pragma once
+#ifndef _TAIL_WALL_H
+#define _TAIL_WALL_H
+
+#include "Vehicle/TailSegment.h"
+
 class TailWall
 {
 private:
@@ -11,3 +14,4 @@ public:
 	TailSegment* addSegment(TailSegment*);
 };
 
+#endif

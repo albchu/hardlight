@@ -1,3 +1,6 @@
+#ifndef _TAIL_SEG_H
+#define _TAIL_SEG_H
+
 #include <glm/glm.hpp>
 #include <vector>
 #include "Entity.h"
@@ -22,3 +25,4 @@ public:
 	void setScale(float size);
 };
 
+#endif

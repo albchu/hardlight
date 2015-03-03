@@ -118,9 +118,9 @@
     <ClCompile Include="src\Vehicle\Bike.cpp" />
     <ClCompile Include="src\Vehicle\Bikes.cpp" />
     <ClCompile Include="src\Vehicle\CreateVehicle.cpp" />
+    <ClCompile Include="src\Vehicle\TailSegment.cpp" />
+    <ClCompile Include="src\Vehicle\TailWall.cpp" />
     <ClCompile Include="src\World.cpp" />
-    <ClCompile Include="TailSegment.cpp" />
-    <ClCompile Include="TailWall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
@@ -139,10 +139,11 @@
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
-    <ClInclude Include="include\TailSegment.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
     <ClInclude Include="include\Vehicle\Bikes.h" />
     <ClInclude Include="include\Vehicle\CreateVehicle.h" />
+    <ClInclude Include="include\Vehicle\TailSegment.h" />
+    <ClInclude Include="include\Vehicle\TailWall.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
@@ -153,7 +154,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h" />
-    <ClInclude Include="TailWall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="basic_fs.glsl" />
