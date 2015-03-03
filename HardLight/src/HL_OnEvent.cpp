@@ -111,6 +111,16 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDL_CONTROLLER_BUTTON_START: // START button
 				sfxMix.PlaySoundEffect(4);
 				break;
+			case SDL_CONTROLLER_BUTTON_BACK:
+				for(Bike* bike : bikes.get_all_bikes()) {
+					bikes.kill_bike(bike);
+					world.remove(bike);
+				}
+				/*for(TailSegment* tail : playerTail)
+					delete tail;
+				playerTail.clear();*/
+				BuildScene();
+				break;
 			}
 			break;
 
