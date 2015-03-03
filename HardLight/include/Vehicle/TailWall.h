@@ -22,7 +22,7 @@ public:
 	void update(vec3 new_location);
 
 	// Needs to be overwritten so we can render the segments correctly
-	//virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
+	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 };
 
 #endif

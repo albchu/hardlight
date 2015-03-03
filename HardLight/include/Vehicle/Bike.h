@@ -38,7 +38,7 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
-
+	virtual void set_actor(PxRigidActor*);
 	TailWall* get_tail_wall();
 
 private:

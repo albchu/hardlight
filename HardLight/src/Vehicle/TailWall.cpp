@@ -23,6 +23,11 @@ void TailWall::update(vec3 new_position)
 	}
 }
 
+void TailWall::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
+{
+	cout << "TAILWALL RENDER!" << endl;
+}
+
 //
 //TailSegment* TailWall::addSegment(TailSegment* tail){
 //	bikeWall.insert(bikeWall.begin(),tail);

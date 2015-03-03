@@ -88,6 +88,7 @@ bool HardLight::BuildScene()
 		if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
 			return false;
 		world.add_entity(new_bike);
+		world.add_entity(new_bike->get_tail_wall());
 		new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 		if (controllers.size() > 0)
 			bikes.add_player_bike(new_bike, controllers[i]);

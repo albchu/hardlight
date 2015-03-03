@@ -49,7 +49,7 @@ void AI::update_bikes()
 			controllableX->set_motion(&Controller::forward);
 			controllableX->set_steering(&Controller::steer);
 			float position = (target_location.x-positionX.x)*(directionX.z-positionX.y) - (target_location.x-positionX.y)*(directionX.x-positionX.x);
-			cout << "steer degrees: " << position << endl;
+			//cout << "steer degrees: " << position << endl;
 			controllableX->set_direction(position);
 		}
 	}

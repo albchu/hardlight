@@ -57,7 +57,7 @@ public:
 	void			set_mesh_data(MeshData*);
 	MeshData*		get_mesh_data();
 
-	void			set_actor(PxRigidActor*);
+	virtual void	set_actor(PxRigidActor*);
 	PxRigidActor*	get_actor();
 	
 	void			set_draw_mode(GLuint&);

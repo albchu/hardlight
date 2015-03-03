@@ -46,7 +46,6 @@ void HardLight::OnLoop()
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
 			bikes.kill_bike(bikesToKill[j]);
 			sfxMix.PlaySoundEffect(1);
-			bikesToKill[j]->set_actor(NULL);
 		}
 	}
 	bikesToKill.clear();
@@ -79,29 +78,15 @@ void HardLight::OnLoop()
 	overMind->update_bikes();
 	overMind->move_bikes();
 
-	//cout << "Player Direction Vector: " << glm::to_string(bikes.get_player_bikes()[0]->get_direction_vector()) << endl;
-
-	//for(Controller* controllable: bikes.get_controlled_bikes())
-	//{
-	//	if(!controllable->get_bike()->is_deleted())
-	//	{
-	//		controllable->backwards();
-	//		controllable->steer(0.5);
-	//	}
-	//}
-
+	// Tail creation
+	for(Bike* bike : bikes.get_all_bikes())
+	{
+		bike->get_tail_wall()->update(bike->get_location());
+	}
 
 	//Scene update.
 	gScene->simulate(timestep);
 	msPhysics = msCurrent;
-
-	// tail creation
-
-
-
-
-
-
 
 	gScene->fetchResults(true);
 }
