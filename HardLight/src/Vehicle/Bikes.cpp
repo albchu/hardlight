@@ -14,6 +14,7 @@ int getRandInt(int low, int high)
 
 void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 {
+	world->add_entity(bike);
 	int someInt = getRandInt(1,5);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
@@ -23,6 +24,7 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 
 void Bikes::add_bot_bike(Bike* bike)
 {
+	world->add_entity(bike);
 	int someInt = getRandInt(1,5);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
