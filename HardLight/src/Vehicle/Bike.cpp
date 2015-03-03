@@ -9,17 +9,17 @@ Bike::Bike()
 	deleted = false;
 }
 
-Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
-{
-	type = BIKE;
-	draw_mode = GL_TRIANGLES;
-	actor = init_actor;
-	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
-	texture = load_tga_texture(texture_file_path);
-	init_opengl();
-	invincible = false;
-	deleted = false;
-}
+//Bike::Bike(PxRigidActor* init_actor, const char* texture_file_path)
+//{
+//	type = BIKE;
+//	draw_mode = GL_TRIANGLES;
+//	actor = init_actor;
+//	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike.obj");
+//	texture = load_tga_texture(texture_file_path);
+//	init_opengl();
+//	invincible = false;
+//	deleted = false;
+//}
 
 Bike::~Bike() {
 }

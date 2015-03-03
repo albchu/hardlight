@@ -22,8 +22,7 @@ class Bike : public Entity
 {
 
 public:
-	Bike();//:Entity(actor, meshdata, texture){};
-	Bike(PxRigidActor* actor, const char* texture);//:Entity(actor, meshdata, texture){};
+	Bike();
 	~Bike();
 	virtual mat4 get_model_matrix();
 
