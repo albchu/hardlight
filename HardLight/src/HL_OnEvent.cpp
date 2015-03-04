@@ -111,6 +111,13 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDL_CONTROLLER_BUTTON_START: // START button
 				sfxMix.PlaySoundEffect(4);
 				break;
+			case SDL_CONTROLLER_BUTTON_BACK:
+				for(Bike* bike : bikes->get_bot_bikes()) {
+					gScene->removeActor(*bike->get_actor(), false);
+					bikes->kill_bike(bike);
+				}
+				BuildScene();
+				break;
 			}
 			break;
 

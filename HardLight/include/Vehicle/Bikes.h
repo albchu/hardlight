@@ -29,6 +29,7 @@ public:
 	vector<Controller*> get_controlled_bikes();
 	Bike* get_bike(PxRigidActor* actor);
 	void kill_bike(Bike* bike);
+	void add_tail(Bike* bike);
 
 private:
 	vector<Bike*> player_bikes;

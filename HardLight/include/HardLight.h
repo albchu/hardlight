@@ -29,6 +29,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
+#include "Wall.h"
 #include "Common.h"
 #include "Vehicle/TailSegment.h"
 #include "Vehicle/TailWall.h"
@@ -55,12 +56,20 @@ using namespace glm;
 #pragma comment(lib, "PhysXProfileSDKDEBUG.lib")
 #pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
 
+enum Scene {
+	MENU,
+	PAUSE,
+	GAME,
+	GAME_OVER
+};
+
 //==============================================================================
 class HardLight : public PxSimulationEventCallback
 {
 private:
 	INIReader* config;
 	bool running;
+	Scene scene;
 
 	int window_width;
 	int window_height;
@@ -88,6 +97,9 @@ private:
 	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
 	virtual void onWake(PxActor**, PxU32) {}
 	virtual void onSleep(PxActor**, PxU32) {}
+
+	void initOpenGL(Scene);
+
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;

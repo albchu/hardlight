@@ -120,6 +120,7 @@
     <ClCompile Include="src\Vehicle\CreateVehicle.cpp" />
     <ClCompile Include="src\Vehicle\TailSegment.cpp" />
     <ClCompile Include="src\Vehicle\TailWall.cpp" />
+    <ClCompile Include="src\Wall.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="include\Vehicle\CreateVehicle.h" />
     <ClInclude Include="include\Vehicle\TailSegment.h" />
     <ClInclude Include="include\Vehicle\TailWall.h" />
+    <ClInclude Include="include\Wall.h" />
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
