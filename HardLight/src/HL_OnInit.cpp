@@ -41,9 +41,7 @@ void HardLight::initOpenGL(Scene scene) {
 bool HardLight::OnInit()
 {
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		return false;
-	}
+		cerr << "Could not initialize SDL" << endl;
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);
@@ -63,19 +61,13 @@ bool HardLight::OnInit()
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
 
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
-	{
-		return false;
-	}
+		cerr << "Could not create SDL window" << endl;
 
 	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
-	{
-		return false;
-	}
+		cerr << "Could not make SDL window fullscreen" << endl;
 
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
-	{
-		return false;
-	}
+		cerr << "Could not make SDL OpenGl context" << endl;
 
 	cout << "Number of controllers detected: "<<SDL_NumJoysticks()<<endl;
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
@@ -90,7 +82,7 @@ bool HardLight::OnInit()
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
 	if (glewInit() != GLEW_OK)
-		return false;
+		cerr << "Could not make initialize glew" << endl;
 
 	initOpenGL(scene);
 
@@ -101,14 +93,12 @@ bool HardLight::OnInit()
 	std::cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
 	if (!sfxMix.InitializeMixer(config))
-		return false;
+		cerr << "Could not initialize sound mixer" << endl;
 
 	bikes = new Bikes(&world);
 
 	// Init AI system to govern bots
 	overMind = new AI(bikes);
-
-
 
 	return true;
 }
