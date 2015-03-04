@@ -24,7 +24,7 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 		segments.insert(segments.begin(), segment);
 		segment->get_actor()->setGlobalPose(getTailTransform());
 	}
-	else
+	else	// Create a new wall segment
 	{
 		// Check that the wall segment is at least a certain length
 		float distance = glm::distance(new_position, last_position);
@@ -45,18 +45,14 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 PxTransform TailWall::getTailTransform()
 {
 	// Update segment actor position
-	gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();		// Get latest bike position
 	vec3 location = bike->get_location();
 	vec3 direction = bike->get_direction_vector();
 
 	// Get a point that moves behind the direction vector
 	location = location - (direction * vec3(tail_offset_scalar,tail_offset_scalar,tail_offset_scalar));
 
-
 	// Offset the physx actor for the tail so it doesnt start in the exact same spot as its bike
-	PxTransform bikeTransform = PxTransform(location.x, location.y, location.z, gPose.q);
-
-
+	PxTransform bikeTransform = PxTransform(location.x, location.y, location.z, bike->get_actor()->getGlobalPose().q);
 
 	return bikeTransform;
 }
