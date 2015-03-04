@@ -19,7 +19,7 @@ using namespace physx;
 class Physx_Agent
 {
 public:
-	Physx_Agent(INIReader* new_config);
+	Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
 	static vec3 toVec3(PxVec3);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
@@ -32,6 +32,8 @@ public:
 		PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
+
+
 private:
 	PxScene* gScene;
 	PxPhysics* gPhysics;

@@ -32,7 +32,7 @@ int Physx_Agent::getNbCores()
 	return 4;
 }
 
-Physx_Agent::Physx_Agent(INIReader* new_config)
+Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback)
 {
 	config = new_config;
 
@@ -52,7 +52,6 @@ Physx_Agent::Physx_Agent(INIReader* new_config)
 	if (!gDispatcher)
 		cerr << "Could not initialize physx dispatcher" << endl;
 
-
 	// Initialize the physx physics
 	PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
 
@@ -62,7 +61,6 @@ Physx_Agent::Physx_Agent(INIReader* new_config)
 
 	if(!PxInitExtensions(*gPhysics))
 		cerr << "Could not initialize physx extensions" << endl;
-
 
 	if(!PxInitVehicleSDK(*gPhysics))
 		cerr << "Could not initialize physx vehicle sdk" << endl;
@@ -86,7 +84,7 @@ Physx_Agent::Physx_Agent(INIReader* new_config)
 		(float)config->GetReal("gravity", "z", 0.0)
 		);
 	sceneDesc.filterShader = Physx_Agent::gFilterShader;
-	//sceneDesc.simulationEventCallback = this;
+	sceneDesc.simulationEventCallback = pxSimulationEventCallback;
 
 	gScene = gPhysics->createScene(sceneDesc);
 	if(!gScene)
@@ -141,3 +139,4 @@ PxDefaultErrorCallback Physx_Agent::get_error_callback()
 {
 	return gErrorCallback;
 }
+

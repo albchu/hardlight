@@ -39,7 +39,7 @@
 // separates initialization by scene type
 void HardLight::initOpenGL(Scene scene) {
 	if(scene == GAME) {
-				// Dark blue background
+		// Dark blue background
 		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 		glEnable(GL_BLEND);
@@ -116,58 +116,8 @@ bool HardLight::OnInit()
 		}
 	}
 
-
-
-	//gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
-	//if(!gFoundation)
-	//	return false;
-
-	//
-	//PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
-	//if (numWorkers == 0)
-	//	return false;
-	//numWorkers--;
-	//gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
-	//if (!gDispatcher)
-	//	return false;
-
-		//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config);
-
-	//PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
-
-	//gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
-	//if(gPhysics == NULL)
-	//	return false;
-	//if(!PxInitExtensions(*pxAgent->get_physics()))
-	//	return false;
-
-	//if(!PxInitVehicleSDK(*pxAgent->get_physics()))
-	//	return false;
-	//PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
-	//PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
-
-	//if(pxAgent->get_physics()->getPvdConnectionManager())
-	//{
-	//	pxAgent->get_physics()->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
-	//	gConnection = PxVisualDebuggerExt::createConnection(pxAgent->get_physics()->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
-	//}
-
-	//PxSceneDesc sceneDesc(pxAgent->get_physics()->getTolerancesScale());
-	//sceneDesc.cpuDispatcher = gDispatcher;
-	//sceneDesc.gravity = PxVec3(
-	//	(float)config->GetReal("gravity", "x", 0.0),
-	//	(float)config->GetReal("gravity", "y", 0.0),
-	//	(float)config->GetReal("gravity", "z", 0.0)
-	//	);
-	//sceneDesc.filterShader = VehicleFilterShader;
-	//sceneDesc.filterShader = gFilterShader;
-	//sceneDesc.simulationEventCallback = this;
-
-	//gScene = gPhysics->createScene(sceneDesc);
-	//if(!gScene)
-	//	return false;
-
+	//Initialize physx agent to govern all shared physx objects
+	pxAgent = new Physx_Agent(config, this);
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile

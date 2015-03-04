@@ -78,16 +78,6 @@ private:
 
 	Physx_Agent* pxAgent;
 
-	// physx objects
-	//PxDefaultAllocator gAllocator;
-	//PxDefaultErrorCallback gErrorCallback;
-	//PxFoundation* gFoundation;
-	//PxPhysics* gPhysics;
-	//PxDefaultCpuDispatcher*	gDispatcher;
-	//PxScene* gScene;
-	
-	//PxVisualDebuggerConnection*gConnection;
-
 	// Implements PxSimulationEventCallback
 	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
 	virtual void onTrigger(PxTriggerPair*, PxU32) {}
