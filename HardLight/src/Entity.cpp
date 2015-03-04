@@ -191,3 +191,8 @@ vec3 Entity::get_direction_vector()
 	
 	return Physx_Agent::toVec3(q.rotate(global_forward));
 }
+
+float Entity::get_distance(Entity* other)
+{
+	return (this->actor->getGlobalPose().p - other->actor->getGlobalPose().p).magnitude();
+}

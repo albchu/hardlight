@@ -23,6 +23,9 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 {
 	//Get musicVolume from .ini file
 	musicVolume = config->GetInteger("sound", "musicVolume", -1);
+
+	//Get maxHearingRadius from .ini file
+	maxHearingRadius = (float)config->GetReal("sound", "maxHearingRadius", 250.0f);
 	
 	//Get music file paths from the .ini file
 	musicOverworldFile = pathToAudioDir + config->Get("sound", "musicOverWorldFile", errorSound);
@@ -174,16 +177,21 @@ void SoundMixer::PlayMusic(int index, int volume)
 
 void SoundMixer::PlaySoundEffect(int index)
 {
-	Mix_PlayChannel(-1, sfxFilesList[index], 0);
+	printf("Channel: %d\n",Mix_PlayChannel(-1, sfxFilesList[index], 0));
 }
 
-void SoundMixer::PlaySoundEffect(int index, float distance)
+void SoundMixer::PlaySoundEffect(int index, float distance, int timesToRepeat)
 {
 	/**********************************************
 	Insert distance-based volume calculations here
 	**********************************************/
-	
-	Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], 0);
+	float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
+	sfxVolume = (int)(volumeRatio * maxHearingRadius);
+	Mix_Volume(currentChannelIndex, sfxVolume);
+
+	printf("Channel: %d\n",Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], timesToRepeat));
 	currentChannelIndex++;
+	if (currentChannelIndex > 63)
+		currentChannelIndex = 0;
 }
 
