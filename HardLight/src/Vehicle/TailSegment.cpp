@@ -70,7 +70,7 @@ mat4 TailSegment::get_model_matrix()
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
 	
-	//model_matrix = scale(model_matrix, vec3(1,0.5,0.5));
+	//model_matrix = scale(model_matrix, vec3(2,1,0.5));
 	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the model to get the correct physx bike lean
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
 	
