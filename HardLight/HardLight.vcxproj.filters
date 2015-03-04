@@ -117,9 +117,6 @@
     <ClCompile Include="src\Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\MenuScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Element.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -237,9 +234,6 @@
     <ClInclude Include="include\Image.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="include\MenuScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
@@ -289,6 +283,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="MainMenu.txt">
+      <Filter>Scene</Filter>
+    </Text>
+    <Text Include="Paused.txt">
+      <Filter>Scene</Filter>
+    </Text>
+    <Text Include="GameOver.txt">
       <Filter>Scene</Filter>
     </Text>
   </ItemGroup>
