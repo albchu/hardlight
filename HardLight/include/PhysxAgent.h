@@ -19,7 +19,7 @@ using namespace physx;
 class Physx_Agent
 {
 public:
-	Physx_Agent(INIReader* new_config, PxDefaultAllocator& gAllocator, PxDefaultErrorCallback& gErrorCallback);
+	Physx_Agent(INIReader* new_config);
 	static vec3 toVec3(PxVec3);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
@@ -28,13 +28,17 @@ public:
 	void cleanup();
 	int getNbCores();
 	static PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
-							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
-							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
+		PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+		PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
+	PxDefaultAllocator get_allocator();
+	PxDefaultErrorCallback get_error_callback();
 private:
 	PxScene* gScene;
 	PxPhysics* gPhysics;
 	INIReader* config;
 	PxFoundation* gFoundation;
 	PxDefaultCpuDispatcher* gDispatcher;
+	PxDefaultAllocator gAllocator;
+	PxDefaultErrorCallback gErrorCallback;
 };
 #endif

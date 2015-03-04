@@ -1,8 +1,8 @@
 #include "PhysxAgent.h"
 
 PxFilterFlags Physx_Agent::gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
-							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
-							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+										 PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+										 PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
 	// let triggers through
 	if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
@@ -35,7 +35,7 @@ int Physx_Agent::getNbCores()
 
 
 
-Physx_Agent::Physx_Agent(INIReader* new_config, PxDefaultAllocator& gAllocator, PxDefaultErrorCallback& gErrorCallback)
+Physx_Agent::Physx_Agent(INIReader* new_config)
 {
 	config = new_config;
 
@@ -118,3 +118,12 @@ vec3 Physx_Agent::toVec3(PxVec3 pxvec3)
 	return vec3(pxvec3.x, pxvec3.y, pxvec3.z);
 }
 
+PxDefaultAllocator Physx_Agent::get_allocator()
+{
+	return gAllocator;
+}
+
+PxDefaultErrorCallback Physx_Agent::get_error_callback()
+{
+	return gErrorCallback;
+}

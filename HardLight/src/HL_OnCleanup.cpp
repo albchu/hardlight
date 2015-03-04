@@ -10,7 +10,7 @@ void HardLight::OnCleanup()
 		aBike->getVehicle4W()->free();
 
 		aBike->getBatchQuery()->release();
-		aBike->getVehicleSceneQueryData()->free(gAllocator);
+		aBike->getVehicleSceneQueryData()->free(pxAgent->get_allocator());
 	}
 
 	gFrictionPairs->release();

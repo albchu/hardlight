@@ -132,7 +132,7 @@ bool HardLight::OnInit()
 	//	return false;
 
 		//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config, gAllocator, gErrorCallback);
+	pxAgent = new Physx_Agent(config);
 
 	//PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
 
