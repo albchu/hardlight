@@ -94,10 +94,12 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp" />
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp" />
     <ClCompile Include="src\AI\AI.cpp" />
+    <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Common.cpp" />
     <ClCompile Include="src\Controls\Bot_Controller.cpp" />
     <ClCompile Include="src\Controls\Controller.cpp" />
     <ClCompile Include="src\Controls\Player_Controller.cpp" />
+    <ClCompile Include="src\Element.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
@@ -108,11 +110,14 @@
     <ClCompile Include="src\HL_OnInit.cpp" />
     <ClCompile Include="src\HL_OnLoop.cpp" />
     <ClCompile Include="src\HL_OnRender.cpp" />
+    <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\MenuScene.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
     <ClCompile Include="src\ParsedFile.cpp" />
     <ClCompile Include="src\PhysxAgent.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
@@ -125,18 +130,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AI\AI.h" />
+    <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Common.h" />
     <ClInclude Include="include\Controls\Bot_Controller.h" />
     <ClInclude Include="include\Controls\Controller.h" />
     <ClInclude Include="include\Controls\Player_Controller.h" />
+    <ClInclude Include="include\Element.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
+    <ClInclude Include="include\Image.h" />
+    <ClInclude Include="include\MenuScene.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
     <ClInclude Include="include\PhysxAgent.h" />
+    <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
@@ -161,6 +171,9 @@
     <None Include="basic_fs.glsl" />
     <None Include="basic_vs.glsl" />
     <None Include="config.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MainMenu.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
