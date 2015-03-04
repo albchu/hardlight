@@ -1,5 +1,6 @@
 #include "PhysxAgent.h"
-PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+
+PxFilterFlags Physx_Agent::gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
 							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
@@ -26,7 +27,7 @@ PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData f
 	return PxFilterFlag::eDEFAULT;
 }
 
-int getNbCores()
+int Physx_Agent::getNbCores()
 {
 	return 4;
 }
@@ -70,7 +71,7 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxDefaultAllocator& gAllocator, 
 		(float)config->GetReal("gravity", "y", 0.0),
 		(float)config->GetReal("gravity", "z", 0.0)
 		);
-	sceneDesc.filterShader = gFilterShader;
+	sceneDesc.filterShader = Physx_Agent::gFilterShader;
 	//sceneDesc.simulationEventCallback = this;
 
 	gScene = gPhysics->createScene(sceneDesc);

@@ -26,7 +26,10 @@ public:
 	PxFoundation* get_foundation();
 	PxDefaultCpuDispatcher* get_dispatcher();
 	void cleanup();
-
+	int getNbCores();
+	static PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
 private:
 	PxScene* gScene;
 	PxPhysics* gPhysics;
