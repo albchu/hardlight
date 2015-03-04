@@ -129,6 +129,9 @@
     <ClCompile Include="src\Button.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Pickup.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="include\MenuScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pickup.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
