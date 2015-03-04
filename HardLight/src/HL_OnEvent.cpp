@@ -97,19 +97,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 			switch (Event->cbutton.button)
 			{
 			case SDL_CONTROLLER_BUTTON_A: // A button
-				sfxMix.PlaySoundEffect(0);
+				sfxMix.PlaySoundEffect("sfxEngine");
 				break;
 			case SDL_CONTROLLER_BUTTON_B: // B button
-				sfxMix.PlaySoundEffect(1);
+				sfxMix.PlaySoundEffect("sfxExplosion");
 				break;
 			case SDL_CONTROLLER_BUTTON_X: // X button
-				sfxMix.PlaySoundEffect(2);
+				sfxMix.PlaySoundEffect("sfxIntro");
 				break;
 			case SDL_CONTROLLER_BUTTON_Y: // Y button
-				sfxMix.PlaySoundEffect(3);
+				sfxMix.PlaySoundEffect("sfxItemPickUp");
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
-				sfxMix.PlaySoundEffect(4);
+				scene = MENU;
+				sfxMix.PlaySoundEffect("sfxItemUsed");
 				break;
 			case SDL_CONTROLLER_BUTTON_BACK:
 				for(Bike* bike : bikes->get_bot_bikes()) {

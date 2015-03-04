@@ -6,49 +6,58 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include "../inih\cpp\INIReader.h"
 
 
 class SoundMixer {
 
+
 private:
-	Mix_Music *musicOverworld;
-	Mix_Chunk *sfxEngine;
-	Mix_Chunk *sfxExplosion;
-	Mix_Chunk *sfxIntro;
-	Mix_Chunk *sfxItemPickup;
-	Mix_Chunk *sfxItemUsed;
+	Mix_Music							*musicOverworld;
+	Mix_Music							*musicMenu;
+	Mix_Chunk							*sfxEngine;
+	Mix_Chunk							*sfxExplosion;
+	Mix_Chunk							*sfxIntro;
+	Mix_Chunk							*sfxItemPickup;
+	Mix_Chunk							*sfxItemUsed;
 
-	std::vector<Mix_Music*> musicFilesList;
-	std::vector<Mix_Chunk*> sfxFilesList;
+	std::map<std::string, Mix_Music*>	musicFilesList;
+	std::map<std::string, Mix_Chunk*>	sfxFilesList;
 
-	std::string pathToAudioDir;
-	std::string errorSound;
+	std::string							pathToAudioDir;
+	std::string							errorSound;
 
-	std::string musicOverworldFile;
-	std::string sfxEngineFile;
-	std::string sfxExplosionFile;
-	std::string sfxIntroFile;
-	std::string sfxItemPickupFile;
-	std::string sfxItemUsedFile;
+	std::string							musicOverworldFile;
+	std::string							musicMenuFile;
+	std::string							sfxEngineFile;
+	std::string							sfxExplosionFile;
+	std::string							sfxIntroFile;
+	std::string							sfxItemPickupFile;
+	std::string							sfxItemUsedFile;
 
 	int musicVolume;
 	int sfxVolume;
 
 	int numChannels;
 	int currentChannelIndex;
-	
+
+	float maxHearingRadius;
+
 public:
 	SoundMixer();
 
-	bool InitializeMixer(INIReader *config);
-	void CloseMixer();
+	bool	InitializeMixer(INIReader *config);
+	void	CloseMixer();
 
-	void PlayMusic(int index);
-	void PlayMusic(int index, int volume);
-	void PlaySoundEffect(int index);
-	void PlaySoundEffect(int index, float distance);
+	int		PlayMusic(std::string key);
+	int		PlayMusic(std::string key, int volume);									// Play music at preset volume
+	int		PlaySoundEffect(std::string key);
+	int		PlaySoundEffect(std::string key, float distance, int timesToRepeat);	// Play sound effect based on distance from listener
+
+	void	UpdateVolume(int previousChannelIndex, float distance);					// Adjust currently playing sfx based on new distance from listener
+
 };
 
 #endif

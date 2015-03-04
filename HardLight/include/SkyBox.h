@@ -1,6 +1,13 @@
 #ifndef _SKYBOX_H_
 #define _SKYBOX_H_
 
+/*
+ * Skybox class
+ * 
+ * A cube that follows the player and the inside is textured.
+ *
+ */
+
 #include "Entity.h"
 
 class SkyBox : public Entity

@@ -111,6 +111,27 @@
     <ClCompile Include="src\Vehicle\TailWall.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wall.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MenuScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Element.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pickup.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -164,9 +185,6 @@
     <ClInclude Include="include\SoundMixer.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="include\MeshData.h" />
-    <ClInclude Include="include\MeshMap.h" />
-    <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\Vehicle\Bikes.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
@@ -197,6 +215,36 @@
     </ClInclude>
     <ClInclude Include="include\Vehicle\TailWall.h">
       <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Wall.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshData.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderTools.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Element.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Image.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MenuScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pickup.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +278,9 @@
     <Filter Include="World\Controls">
       <UniqueIdentifier>{83e7335a-00bc-46dc-8608-7bcb771b8a18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{42000ad5-4317-40a1-ba07-2ce504975fe9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini">
@@ -241,5 +292,10 @@
     <None Include="basic_vs.glsl">
       <Filter>Rendering</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MainMenu.txt">
+      <Filter>Scene</Filter>
+    </Text>
   </ItemGroup>
 </Project>

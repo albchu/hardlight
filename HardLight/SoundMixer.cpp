@@ -3,6 +3,8 @@
 SoundMixer::SoundMixer()
 {
 	musicOverworld = NULL;
+	musicMenu = NULL;
+
 	sfxEngine = NULL;
 	sfxExplosion = NULL;
 	sfxIntro = NULL;
@@ -23,9 +25,14 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 {
 	//Get musicVolume from .ini file
 	musicVolume = config->GetInteger("sound", "musicVolume", -1);
-	
+
+	//Get maxHearingRadius from .ini file
+	maxHearingRadius = (float)config->GetReal("sound", "maxHearingRadius", 250.0f);
+
 	//Get music file paths from the .ini file
 	musicOverworldFile = pathToAudioDir + config->Get("sound", "musicOverWorldFile", errorSound);
+	musicMenuFile = pathToAudioDir + config->Get("sound", "musicMenuFile", errorSound);
+
 	sfxEngineFile = pathToAudioDir + config->Get("sound", "sfxEngineFile", errorSound);
 	sfxExplosionFile = pathToAudioDir + config->Get("sound", "sfxExplosionFile", errorSound);
 	sfxIntroFile = pathToAudioDir + config->Get("sound", "sfxIntroFile", errorSound);
@@ -44,6 +51,12 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	if( musicOverworld == NULL ) 
 	{
 		std::cout << "Failed to load background music: " << musicOverworldFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		return false; 
+	} 
+	musicMenu = Mix_LoadMUS( musicMenuFile.c_str() ); 
+	if( musicMenu == NULL ) 
+	{
+		std::cout << "Failed to load menu music: " << musicMenuFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		return false; 
 	} 
 	//Load sound effects 
@@ -67,7 +80,7 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 		std::cout << "Failed to load sound effect: " << sfxIntroFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		return false;
 	}
-	
+
 	sfxItemPickup = Mix_LoadWAV( sfxItemPickupFile.c_str() ); 
 	if( sfxItemPickup == NULL ) 
 	{ 
@@ -83,12 +96,13 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	}
 
 	// Add pointers to file list
-	musicFilesList.push_back(musicOverworld);
-	sfxFilesList.push_back(sfxEngine);
-	sfxFilesList.push_back(sfxExplosion);
-	sfxFilesList.push_back(sfxIntro);
-	sfxFilesList.push_back(sfxItemPickup);
-	sfxFilesList.push_back(sfxItemUsed);
+	musicFilesList["musicOverworld"] = musicOverworld;
+	musicFilesList["musicMenu"] = musicMenu;
+	sfxFilesList["sfxEngine"] = sfxEngine;
+	sfxFilesList["sfxExplosion"] = sfxExplosion;
+	sfxFilesList["sfxIntro"] = sfxIntro;
+	sfxFilesList["sfxItemPickUp"] = sfxItemPickup;
+	sfxFilesList["sfxItemUsed"] = sfxItemUsed;
 
 	Mix_AllocateChannels(64);
 	printf("number of channels is now : %d\n", Mix_AllocateChannels(-1));
@@ -97,6 +111,12 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 
 void SoundMixer::CloseMixer()
 {
+	//Free the music 
+	Mix_FreeMusic( musicOverworld ); 
+	Mix_FreeMusic( musicMenu );
+	musicOverworld = NULL;
+	musicMenu = NULL;
+
 	//Free the sound effects 
 	Mix_FreeChunk( sfxEngine ); 
 	Mix_FreeChunk( sfxExplosion ); 
@@ -109,22 +129,20 @@ void SoundMixer::CloseMixer()
 	sfxItemPickup = NULL;
 	sfxItemUsed = NULL;
 
-	//Free the music 
-	Mix_FreeMusic( musicOverworld ); 
-	musicOverworld = NULL;
-
 	//Quit SDL subsystems
 	Mix_Quit();
 }
 
-void SoundMixer::PlayMusic(int index)
+int SoundMixer::PlayMusic(std::string key)
 {
+	int errorCode;
+	
 	Mix_VolumeMusic(musicVolume);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
 	{ 
 		//Play the music 
-		Mix_PlayMusic( musicFilesList[index], -1 );
+		errorCode = Mix_PlayMusic( musicFilesList[key], -1 );
 	} 
 	//If music is being played 
 	else 
@@ -142,16 +160,20 @@ void SoundMixer::PlayMusic(int index)
 			Mix_PauseMusic(); 
 		} 
 	}
+	return errorCode;
 }
 
-void SoundMixer::PlayMusic(int index, int volume)
+int SoundMixer::PlayMusic(std::string key, int volume)
 {
+	int errorCode;
+	
 	Mix_VolumeMusic(volume);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
 	{ 
 		//Play the music 
-		Mix_PlayMusic( musicFilesList[index], -1 );
+		errorCode = Mix_PlayMusic( musicFilesList[key], -1 );
+		printf("sdsd0 if success: %d\n", errorCode);
 	} 
 	//If music is being played 
 	else 
@@ -169,21 +191,49 @@ void SoundMixer::PlayMusic(int index, int volume)
 			Mix_PauseMusic(); 
 		} 
 	}
+	return errorCode;
 }
 
-
-void SoundMixer::PlaySoundEffect(int index)
+int SoundMixer::PlaySoundEffect(std::string key)
 {
-	Mix_PlayChannel(-1, sfxFilesList[index], 0);
+	int errorCode = Mix_PlayChannel(-1, sfxFilesList[key], 0);
+	printf("Channel: %d\n", errorCode);
+	return errorCode;
 }
 
-void SoundMixer::PlaySoundEffect(int index, float distance)
+int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepeat)
 {
-	/**********************************************
-	Insert distance-based volume calculations here
-	**********************************************/
-	
-	Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], 0);
+	int previousChannelIndex = currentChannelIndex;
+
+	// Calculate volume of sound effect based on distance from entity
+	float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
+	sfxVolume = (int)(volumeRatio * 128);
+	/*float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
+	sfxVolume = (int)(volumeRatio * maxHearingRadius);*/
+	Mix_Volume(currentChannelIndex, sfxVolume);
+
+
+	// Play the sound effect on the first avaliable channel
+	int errorCode = Mix_PlayChannel(currentChannelIndex, sfxFilesList[key], timesToRepeat);
+	if( errorCode == -1)
+	{
+		printf("Channel: %d\n", errorCode);
+		return errorCode;
+	}
 	currentChannelIndex++;
+	if (currentChannelIndex > 63)
+		currentChannelIndex = 0;
+
+	// Return the channel the sound was played on
+	return previousChannelIndex;
+}
+
+void SoundMixer::UpdateVolume(int previousChannelIndex, float distance)
+{
+	float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
+	sfxVolume = (int)(volumeRatio * 128);
+	/*float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
+	sfxVolume = (int)(volumeRatio * maxHearingRadius);*/
+	Mix_Volume(previousChannelIndex, sfxVolume);
 }
 

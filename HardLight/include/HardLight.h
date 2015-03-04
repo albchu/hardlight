@@ -29,6 +29,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
+#include "Wall.h"
 #include "Common.h"
 #include "Vehicle/TailSegment.h"
 #include "Vehicle/TailWall.h"
@@ -57,9 +58,7 @@ using namespace glm;
 
 enum Scene {
 	MENU,
-	PAUSE,
-	GAME,
-	GAME_OVER
+	GAME
 };
 
 //==============================================================================
@@ -96,6 +95,10 @@ private:
 	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
 	virtual void onWake(PxActor**, PxU32) {}
 	virtual void onSleep(PxActor**, PxU32) {}
+
+	// scene specific functions
+	void initOpenGL(Scene);
+
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -143,7 +146,6 @@ public:
 	int OnExecute();
 
 	bool OnInit();
-	bool initOpenGL(Scene);
 
 	bool BuildScene();
 

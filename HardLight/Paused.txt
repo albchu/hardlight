@@ -1,0 +1,18 @@
+[images]
+numberOfImages = 3
+image1 = data\Images\PausedTitle.png
+x1 = 325.0
+y1 = 100.0
+image2 = data\Images\Resume.png
+x2 = 570.0
+y2 = 325.0
+image3 = data\Images\Quit.png
+x3 = 570.0
+y3 = 425.0
+
+[buttons]
+numberOfButtons = 2
+imageNum = 2
+action = move
+imageNum = 3
+action = quit
