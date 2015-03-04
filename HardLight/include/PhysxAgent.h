@@ -40,5 +40,6 @@ private:
 	PxDefaultCpuDispatcher* gDispatcher;
 	PxDefaultAllocator gAllocator;
 	PxDefaultErrorCallback gErrorCallback;
+	PxVisualDebuggerConnection* gConnection;
 };
 #endif

@@ -139,19 +139,19 @@ bool HardLight::OnInit()
 	//gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
 	//if(gPhysics == NULL)
 	//	return false;
-	if(!PxInitExtensions(*pxAgent->get_physics()))
-		return false;
+	//if(!PxInitExtensions(*pxAgent->get_physics()))
+	//	return false;
 
-	if(!PxInitVehicleSDK(*pxAgent->get_physics()))
-		return false;
-	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
-	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
+	//if(!PxInitVehicleSDK(*pxAgent->get_physics()))
+	//	return false;
+	//PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
+	//PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
 
-	if(pxAgent->get_physics()->getPvdConnectionManager())
-	{
-		pxAgent->get_physics()->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
-		gConnection = PxVisualDebuggerExt::createConnection(pxAgent->get_physics()->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
-	}
+	//if(pxAgent->get_physics()->getPvdConnectionManager())
+	//{
+	//	pxAgent->get_physics()->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
+	//	gConnection = PxVisualDebuggerExt::createConnection(pxAgent->get_physics()->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
+	//}
 
 	//PxSceneDesc sceneDesc(pxAgent->get_physics()->getTolerancesScale());
 	//sceneDesc.cpuDispatcher = gDispatcher;

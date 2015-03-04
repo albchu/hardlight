@@ -32,9 +32,6 @@ int Physx_Agent::getNbCores()
 	return 4;
 }
 
-
-
-
 Physx_Agent::Physx_Agent(INIReader* new_config)
 {
 	config = new_config;
@@ -63,6 +60,23 @@ Physx_Agent::Physx_Agent(INIReader* new_config)
 	if(gPhysics == NULL)
 		cerr << "Could not initialize physx physics" << endl;
 
+	if(!PxInitExtensions(*gPhysics))
+		cerr << "Could not initialize physx extensions" << endl;
+
+
+	if(!PxInitVehicleSDK(*gPhysics))
+		cerr << "Could not initialize physx vehicle sdk" << endl;
+
+	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
+
+	if(gPhysics->getPvdConnectionManager())
+	{
+		gPhysics->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
+		gConnection = PxVisualDebuggerExt::createConnection(gPhysics->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
+	}
+
+
 	// Initialize the physx scene
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
 	sceneDesc.cpuDispatcher = gDispatcher;
@@ -86,7 +100,7 @@ void Physx_Agent::cleanup()
 	if (gScene != NULL) gScene->release();
 	if (gDispatcher != NULL) gDispatcher->release();
 	//PxCloseExtensions();
-	//if (gConnection != NULL) gConnection->release();
+	if (gConnection != NULL) gConnection->release();
 
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();

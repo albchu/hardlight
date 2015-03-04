@@ -18,7 +18,7 @@ HardLight::HardLight()
 	glcontext = NULL;
 
 	//gFoundation = NULL;
-	gConnection = NULL;
+	//gConnection = NULL;
 	//gPhysics = NULL;
 	//gDispatcher = NULL;
 	//gScene = NULL;

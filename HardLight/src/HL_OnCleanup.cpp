@@ -21,7 +21,7 @@ void HardLight::OnCleanup()
 	PxCloseExtensions();
 	//PxProfileZoneManager* profileZoneManager = pxAgent->get_physics()->getProfileZoneManager()->release();
 	//profileZoneManager->release();
-	if (gConnection != NULL) gConnection->release();
+	//if (gConnection != NULL) gConnection->release();
 	//if (gPhysics != NULL) gPhysics->release();
 	//if (gFoundation != NULL) gFoundation->release();
 
