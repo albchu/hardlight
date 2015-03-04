@@ -26,11 +26,34 @@ PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData f
 	return PxFilterFlag::eDEFAULT;
 }
 
+int getNbCores()
+{
+	return 4;
+}
 
 
-Physx_Agent::Physx_Agent(INIReader* new_config, PxFoundation* gFoundation, PxDefaultCpuDispatcher* gDispatcher)
+
+
+Physx_Agent::Physx_Agent(INIReader* new_config, PxDefaultAllocator& gAllocator, PxDefaultErrorCallback& gErrorCallback)
 {
 	config = new_config;
+
+	// Initialize foundation
+	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
+	if(!gFoundation)
+		cerr << "Could not initialize physx foundation" << endl;
+
+
+	// Initialize dispatcher
+	PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
+	if (numWorkers == 0)
+		cerr << "Could not initialize physx numWorkers" << endl;
+
+	numWorkers--;
+	gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
+	if (!gDispatcher)
+		cerr << "Could not initialize physx dispatcher" << endl;
+
 
 	// Initialize the physx physics
 	PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
@@ -60,12 +83,12 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxFoundation* gFoundation, PxDef
 void Physx_Agent::cleanup()
 {
 	if (gScene != NULL) gScene->release();
-	//if (gDispatcher != NULL) gDispatcher->release();
+	if (gDispatcher != NULL) gDispatcher->release();
 	//PxCloseExtensions();
 	//if (gConnection != NULL) gConnection->release();
 
 	if (gPhysics != NULL) gPhysics->release();
-	//if (gFoundation != NULL) gFoundation->release();
+	if (gFoundation != NULL) gFoundation->release();
 }
 
 PxPhysics* Physx_Agent::get_physics()
@@ -76,6 +99,16 @@ PxPhysics* Physx_Agent::get_physics()
 PxScene* Physx_Agent::get_scene()
 {
 	return gScene;
+}
+
+PxFoundation* Physx_Agent::get_foundation()
+{
+	return gFoundation;
+}
+
+PxDefaultCpuDispatcher* Physx_Agent::get_dispatcher()
+{
+	return gDispatcher;
 }
 
 

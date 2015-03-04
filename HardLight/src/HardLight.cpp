@@ -17,10 +17,10 @@ HardLight::HardLight()
 	window = NULL;
 	glcontext = NULL;
 
-	gFoundation = NULL;
+	//gFoundation = NULL;
 	gConnection = NULL;
 	//gPhysics = NULL;
-	gDispatcher = NULL;
+	//gDispatcher = NULL;
 	//gScene = NULL;
 
 	msPhysics = SDL_GetTicks();

@@ -2,11 +2,11 @@
 #include "HardLight.h"
 
 //==============================================================================
-int getNbCores()
-{
-	return 4;
-}
-
+//int getNbCores()
+//{
+//	return 4;
+//}
+//
 //PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 //							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
 //							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
@@ -118,21 +118,21 @@ bool HardLight::OnInit()
 
 
 
-	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
-	if(!gFoundation)
-		return false;
+	//gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
+	//if(!gFoundation)
+	//	return false;
 
-	
-	PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
-	if (numWorkers == 0)
-		return false;
-	numWorkers--;
-	gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
-	if (!gDispatcher)
-		return false;
+	//
+	//PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
+	//if (numWorkers == 0)
+	//	return false;
+	//numWorkers--;
+	//gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
+	//if (!gDispatcher)
+	//	return false;
 
 		//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config,gFoundation,gDispatcher );
+	pxAgent = new Physx_Agent(config, gAllocator, gErrorCallback);
 
 	//PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
 

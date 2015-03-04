@@ -81,9 +81,9 @@ private:
 	// physx objects
 	PxDefaultAllocator gAllocator;
 	PxDefaultErrorCallback gErrorCallback;
-	PxFoundation* gFoundation;
+	//PxFoundation* gFoundation;
 	//PxPhysics* gPhysics;
-	PxDefaultCpuDispatcher*	gDispatcher;
+	//PxDefaultCpuDispatcher*	gDispatcher;
 	//PxScene* gScene;
 	
 	PxVisualDebuggerConnection*gConnection;

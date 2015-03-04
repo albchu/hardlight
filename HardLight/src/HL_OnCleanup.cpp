@@ -17,13 +17,13 @@ void HardLight::OnCleanup()
 	PxCloseVehicleSDK();
 	pxAgent->cleanup();
 	//if (gScene != NULL) gScene->release();
-	if (gDispatcher != NULL) gDispatcher->release();
+	//if (gDispatcher != NULL) gDispatcher->release();
 	PxCloseExtensions();
 	//PxProfileZoneManager* profileZoneManager = pxAgent->get_physics()->getProfileZoneManager()->release();
 	//profileZoneManager->release();
 	if (gConnection != NULL) gConnection->release();
 	//if (gPhysics != NULL) gPhysics->release();
-	if (gFoundation != NULL) gFoundation->release();
+	//if (gFoundation != NULL) gFoundation->release();
 
 	if (glcontext != NULL) SDL_GL_DeleteContext(glcontext);
 	if (window != NULL) SDL_DestroyWindow(window);

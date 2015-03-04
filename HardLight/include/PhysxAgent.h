@@ -19,15 +19,19 @@ using namespace physx;
 class Physx_Agent
 {
 public:
-	Physx_Agent(INIReader* new_config, PxFoundation* gFoundation, PxDefaultCpuDispatcher* gDispatcher);
+	Physx_Agent(INIReader* new_config, PxDefaultAllocator& gAllocator, PxDefaultErrorCallback& gErrorCallback);
 	static vec3 toVec3(PxVec3);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
+	PxFoundation* get_foundation();
+	PxDefaultCpuDispatcher* get_dispatcher();
 	void cleanup();
 
 private:
 	PxScene* gScene;
 	PxPhysics* gPhysics;
 	INIReader* config;
+	PxFoundation* gFoundation;
+	PxDefaultCpuDispatcher* gDispatcher;
 };
 #endif
