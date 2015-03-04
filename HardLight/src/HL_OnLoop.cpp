@@ -39,13 +39,14 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 void HardLight::OnLoop()
 {
 
-	
+
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
 		if (!bikesToKill[j]->invincible) {
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
 			bikes->kill_bike(bikesToKill[j]);
-			sfxMix.PlaySoundEffect("sfxExplosion");
+			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
+				sfxMix.PlaySoundEffect("sfxExplosion", bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]), 0);
 		}
 	}
 	bikesToKill.clear();
