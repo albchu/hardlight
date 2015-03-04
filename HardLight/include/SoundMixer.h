@@ -38,6 +38,8 @@ private:
 
 	int numChannels;
 	int currentChannelIndex;
+
+	float maxHearingRadius;
 	
 public:
 	SoundMixer();
@@ -48,7 +50,7 @@ public:
 	void PlayMusic(int index);
 	void PlayMusic(int index, int volume);
 	void PlaySoundEffect(int index);
-	void PlaySoundEffect(int index, float distance);
+	void PlaySoundEffect(int index, float distance, int timesToRepeat);
 };
 
 #endif

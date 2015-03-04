@@ -7,6 +7,7 @@
 #include <vector>
 #include <GL/glew.h>
 #include <PxPhysicsAPI.h>
+#include <cmath>
 
 #include "ShaderTools.h"
 #include "MeshData.h"
@@ -77,5 +78,6 @@ public:
 
 	vec3			get_location();
 	vec3			get_direction_vector();
+	float			get_distance(Entity* other);
 };
 #endif
