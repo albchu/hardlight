@@ -177,7 +177,7 @@ void SoundMixer::PlayMusic(int index, int volume)
 
 void SoundMixer::PlaySoundEffect(int index)
 {
-	Mix_PlayChannel(-1, sfxFilesList[index], 0);
+	printf("Channel: %d\n",Mix_PlayChannel(-1, sfxFilesList[index], 0));
 }
 
 void SoundMixer::PlaySoundEffect(int index, float distance, int timesToRepeat)
@@ -189,7 +189,9 @@ void SoundMixer::PlaySoundEffect(int index, float distance, int timesToRepeat)
 	sfxVolume = (int)(volumeRatio * maxHearingRadius);
 	Mix_Volume(currentChannelIndex, sfxVolume);
 
-	Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], timesToRepeat);
+	printf("Channel: %d\n",Mix_PlayChannel(currentChannelIndex, sfxFilesList[index], timesToRepeat));
 	currentChannelIndex++;
+	if (currentChannelIndex > 63)
+		currentChannelIndex = 0;
 }
 
