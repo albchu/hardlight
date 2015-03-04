@@ -135,7 +135,7 @@ void SoundMixer::CloseMixer()
 
 int SoundMixer::PlayMusic(std::string key)
 {
-	int errorCode;
+	int errorCode = -1;
 	
 	Mix_VolumeMusic(musicVolume);
 	//If there is no music playing 
@@ -165,7 +165,7 @@ int SoundMixer::PlayMusic(std::string key)
 
 int SoundMixer::PlayMusic(std::string key, int volume)
 {
-	int errorCode;
+	int errorCode = -1;
 	
 	Mix_VolumeMusic(volume);
 	//If there is no music playing 
