@@ -17,12 +17,6 @@ HardLight::HardLight()
 	window = NULL;
 	glcontext = NULL;
 
-	gFoundation = NULL;
-	gConnection = NULL;
-	gPhysics = NULL;
-	gDispatcher = NULL;
-	gScene = NULL;
-
 	msPhysics = SDL_GetTicks();
 	msGraphics = msPhysics;
 	msMax = config->GetInteger("physics", "msMax", 100);

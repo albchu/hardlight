@@ -10,18 +10,20 @@ void HardLight::OnCleanup()
 		aBike->getVehicle4W()->free();
 
 		aBike->getBatchQuery()->release();
-		aBike->getVehicleSceneQueryData()->free(gAllocator);
+		aBike->getVehicleSceneQueryData()->free(pxAgent->get_allocator());
 	}
 
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
-	if (gScene != NULL) gScene->release();
-	if (gDispatcher != NULL) gDispatcher->release();
+	pxAgent->cleanup();
+	//if (gScene != NULL) gScene->release();
+	//if (gDispatcher != NULL) gDispatcher->release();
 	PxCloseExtensions();
-	PxProfileZoneManager* profileZoneManager = gPhysics->getProfileZoneManager();
-	if (gConnection != NULL) gConnection->release();
-	if (gPhysics != NULL) gPhysics->release();
-	if (gFoundation != NULL) gFoundation->release();
+	//PxProfileZoneManager* profileZoneManager = pxAgent->get_physics()->getProfileZoneManager()->release();
+	//profileZoneManager->release();
+	//if (gConnection != NULL) gConnection->release();
+	//if (gPhysics != NULL) gPhysics->release();
+	//if (gFoundation != NULL) gFoundation->release();
 
 	if (glcontext != NULL) SDL_GL_DeleteContext(glcontext);
 	if (window != NULL) SDL_DestroyWindow(window);

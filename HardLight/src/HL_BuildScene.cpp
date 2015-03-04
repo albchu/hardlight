@@ -2,16 +2,16 @@
 
 bool HardLight::BuildScene()
 {
-	skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
+	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);
 
-	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the friction table for each combination of tire and surface type.
 	gFrictionPairs = createFrictionPairs(gMaterial);
 
 	//Create a plane to drive on.
-	PxRigidStatic* groundPlane = PxCreatePlane(*gPhysics, PxPlane(0,1,0,0), *gMaterial);
+	PxRigidStatic* groundPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0,1,0,0), *gMaterial);
 
 	//Get the plane shape so we can set query and simulation filter data.
 	PxShape* shapes[1];
@@ -28,7 +28,7 @@ bool HardLight::BuildScene()
 	simFilterData.word1 = COLLISION_FLAG_GROUND_AGAINST;
 	shapes[0]->setSimulationFilterData(simFilterData);
 
-	gScene->addActor(*groundPlane);
+	pxAgent->get_scene()->addActor(*groundPlane);
 	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile3.tga");
 	world.add_entity(ground);
 
@@ -38,39 +38,39 @@ bool HardLight::BuildScene()
 	simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
 	float size = (float)config->GetReal("scene", "size", 1000.0);
 
-	PxRigidStatic* wallPlane = PxCreatePlane(*gPhysics, PxPlane(1.0f,0.0f,0.0f,size), *gMaterial);
+	PxRigidStatic* wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(1.0f,0.0f,0.0f,size), *gMaterial);
 	wallPlane->getShapes(shapes, 1);
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
-	gScene->addActor(*wallPlane);
+	pxAgent->get_scene()->addActor(*wallPlane);
 	Wall* wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
-	wallPlane = PxCreatePlane(*gPhysics, PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
 	wallPlane->getShapes(shapes, 1);
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
-	gScene->addActor(*wallPlane);
+	pxAgent->get_scene()->addActor(*wallPlane);
 	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
-	wallPlane = PxCreatePlane(*gPhysics, PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
 	wallPlane->getShapes(shapes, 1);
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
-	gScene->addActor(*wallPlane);
+	pxAgent->get_scene()->addActor(*wallPlane);
 	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
-	wallPlane = PxCreatePlane(*gPhysics, PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
 	wallPlane->getShapes(shapes, 1);
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
-	gScene->addActor(*wallPlane);
+	pxAgent->get_scene()->addActor(*wallPlane);
 	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
 	world.add_entity(wall);
 
-	CreateVehicle vehicleCreator = CreateVehicle(config, gScene, gPhysics, gAllocator, gFoundation);
+	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent->get_scene(), pxAgent->get_physics(), pxAgent->get_allocator(), pxAgent->get_foundation());
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
 	{

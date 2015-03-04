@@ -77,18 +77,7 @@ private:
 	
 	vector<SDL_GameController*> controllers;
 
-	// physx objects
-	PxDefaultAllocator gAllocator;
-	PxDefaultErrorCallback gErrorCallback;
-	PxFoundation* gFoundation;
-	PxPhysics* gPhysics;
-	PxDefaultCpuDispatcher*	gDispatcher;
-	PxScene* gScene;
-	
-	PxVisualDebuggerConnection*gConnection;
-	
-	
-	//PxSimulationFilterShader gDefaultFilterShader;
+	Physx_Agent* pxAgent;
 
 	// Implements PxSimulationEventCallback
 	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
@@ -99,7 +88,6 @@ private:
 
 	// scene specific functions
 	void initOpenGL(Scene);
-
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -118,24 +106,14 @@ private:
 
 	World world;
 	float size;
-	
-	//vehicles
-	//VehicleSceneQueryData* gVehicleSceneQueryData;
-	//PxBatchQuery* gBatchQuery;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
-	//PxVehicleDrive4W* gVehicle4W;
-	//PxRigidActor* vehicle;
-	//bool gIsVehicleInAir;
-	//PxVehicleDrive4WRawInputData gVehicleInputData;
-	//tail
+
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
-	//Bike* bike;
 	Bikes* bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
-//	vector<Controller*> controllableBikes;
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
