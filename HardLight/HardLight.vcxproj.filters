@@ -167,9 +167,6 @@
     <ClInclude Include="include\SoundMixer.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="include\MeshData.h" />
-    <ClInclude Include="include\MeshMap.h" />
-    <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\Vehicle\Bikes.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
@@ -203,6 +200,15 @@
     </ClInclude>
     <ClInclude Include="include\Wall.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshData.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderTools.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
