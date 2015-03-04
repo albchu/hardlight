@@ -45,7 +45,7 @@ void HardLight::OnLoop()
 		if (!bikesToKill[j]->invincible) {
 			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
 			bikes->kill_bike(bikesToKill[j]);
-			sfxMix.PlaySoundEffect(1);
+			sfxMix.PlaySoundEffect("sfxExplosion");
 		}
 	}
 	bikesToKill.clear();

@@ -106,7 +106,7 @@ bool HardLight::BuildScene()
 		}
 	}
 
-	sfxMix.PlayMusic(0);
+	sfxMix.PlayMusic("musicOverworld");
 
 	return true;
 }
