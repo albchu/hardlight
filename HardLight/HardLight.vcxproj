@@ -111,7 +111,6 @@
     <ClCompile Include="src\HL_OnLoop.cpp" />
     <ClCompile Include="src\HL_OnRender.cpp" />
     <ClCompile Include="src\Image.cpp" />
-    <ClCompile Include="src\MenuScene.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
@@ -141,7 +140,6 @@
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
     <ClInclude Include="include\Image.h" />
-    <ClInclude Include="include\MenuScene.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
@@ -175,7 +173,9 @@
     <None Include="config.ini" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="GameOver.txt" />
     <Text Include="MainMenu.txt" />
+    <Text Include="Paused.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -38,7 +38,7 @@ private:
 	std::string							sfxItemUsedFile;
 
 	int musicVolume;
-	int sfxVolume;
+	double sfxVolume;
 
 	int numChannels;
 	int currentChannelIndex;
