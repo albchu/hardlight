@@ -3,7 +3,15 @@
 
 #include <glm/glm.hpp>		// Used for vec3
 #include <PxPhysicsAPI.h>
+#include <iostream>
+#include "../inih\cpp\INIReader.h"
 
+#include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
+#include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
+#include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
+#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
+
+using namespace std;
 using namespace glm;
 using namespace physx;
 
@@ -11,6 +19,15 @@ using namespace physx;
 class Physx_Agent
 {
 public:
+	Physx_Agent(INIReader* new_config, PxFoundation* gFoundation, PxDefaultCpuDispatcher* gDispatcher);
 	static vec3 toVec3(PxVec3);
+	PxPhysics* get_physics();
+	PxScene* get_scene();
+	void cleanup();
+
+private:
+	PxScene* gScene;
+	PxPhysics* gPhysics;
+	INIReader* config;
 };
 #endif

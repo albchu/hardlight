@@ -22,7 +22,7 @@ void HardLight::OnRender()
 	//vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
 	//vec3 major = oldPos -dis;
 	//Scale = sqrt(major.x*major.x+major.z*major.z);
-	skybox->set_actor(gPhysics->createRigidStatic(newPos));
+	skybox->set_actor(pxAgent->get_physics()->createRigidStatic(newPos));
 	//if(Scale > 0.5)
 	//{ // size of slices
 	//	newPos.p.x = (newPos.p.x+oldPos.x)/2.0f;

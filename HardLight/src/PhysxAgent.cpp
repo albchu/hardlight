@@ -1,6 +1,86 @@
 #include "PhysxAgent.h"
+PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+{
+	// let triggers through
+	if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+	{
+		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+		return PxFilterFlag::eDEFAULT;
+	}
+
+	if( (0 == (filterData0.word0 & filterData1.word1)) && (0 == (filterData1.word0 & filterData0.word1)) )
+		return PxFilterFlag::eSUPPRESS;
+
+	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+
+	if (((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_OBSTACLE))
+		|| ((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+		|| ((filterData0.word0 & COLLISION_FLAG_OBSTACLE) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+		)
+	{
+		pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	}
+
+	return PxFilterFlag::eDEFAULT;
+}
+
+
+
+Physx_Agent::Physx_Agent(INIReader* new_config, PxFoundation* gFoundation, PxDefaultCpuDispatcher* gDispatcher)
+{
+	config = new_config;
+
+	// Initialize the physx physics
+	PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
+
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
+	if(gPhysics == NULL)
+		cerr << "Could not initialize physx physics" << endl;
+
+	// Initialize the physx scene
+	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
+	sceneDesc.cpuDispatcher = gDispatcher;
+	sceneDesc.gravity = PxVec3(
+		(float)config->GetReal("gravity", "x", 0.0),
+		(float)config->GetReal("gravity", "y", 0.0),
+		(float)config->GetReal("gravity", "z", 0.0)
+		);
+	sceneDesc.filterShader = gFilterShader;
+	//sceneDesc.simulationEventCallback = this;
+
+	gScene = gPhysics->createScene(sceneDesc);
+	if(!gScene)
+		cerr << "Could not initialize physx scene" << endl;
+
+
+}
+
+void Physx_Agent::cleanup()
+{
+	if (gScene != NULL) gScene->release();
+	//if (gDispatcher != NULL) gDispatcher->release();
+	//PxCloseExtensions();
+	//if (gConnection != NULL) gConnection->release();
+
+	if (gPhysics != NULL) gPhysics->release();
+	//if (gFoundation != NULL) gFoundation->release();
+}
+
+PxPhysics* Physx_Agent::get_physics()
+{
+	return gPhysics;
+}
+
+PxScene* Physx_Agent::get_scene()
+{
+	return gScene;
+}
+
 
 vec3 Physx_Agent::toVec3(PxVec3 pxvec3)
 {
 	return vec3(pxvec3.x, pxvec3.y, pxvec3.z);
 }
+

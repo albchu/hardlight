@@ -7,32 +7,32 @@ int getNbCores()
 	return 4;
 }
 
-PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
-							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
-							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
-{
-	// let triggers through
-	if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
-	{
-		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
-		return PxFilterFlag::eDEFAULT;
-	}
-
-	if( (0 == (filterData0.word0 & filterData1.word1)) && (0 == (filterData1.word0 & filterData0.word1)) )
-		return PxFilterFlag::eSUPPRESS;
-
-	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
-
-	if (((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_OBSTACLE))
-		|| ((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
-		|| ((filterData0.word0 & COLLISION_FLAG_OBSTACLE) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
-		)
-	{
-		pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
-	}
-
-	return PxFilterFlag::eDEFAULT;
-}
+//PxFilterFlags gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+//							PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+//							PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+//{
+//	// let triggers through
+//	if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+//	{
+//		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+//		return PxFilterFlag::eDEFAULT;
+//	}
+//
+//	if( (0 == (filterData0.word0 & filterData1.word1)) && (0 == (filterData1.word0 & filterData0.word1)) )
+//		return PxFilterFlag::eSUPPRESS;
+//
+//	pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+//
+//	if (((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_OBSTACLE))
+//		|| ((filterData0.word0 & COLLISION_FLAG_CHASSIS) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+//		|| ((filterData0.word0 & COLLISION_FLAG_OBSTACLE) && (filterData1.word0 & COLLISION_FLAG_CHASSIS))
+//		)
+//	{
+//		pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+//	}
+//
+//	return PxFilterFlag::eDEFAULT;
+//}
 
 
 // initializes openGL
@@ -116,29 +116,13 @@ bool HardLight::OnInit()
 		}
 	}
 
+
+
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
 	if(!gFoundation)
 		return false;
 
-	PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
-
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
-	if(gPhysics == NULL)
-		return false;
-	if(!PxInitExtensions(*gPhysics))
-		return false;
-
-	if(!PxInitVehicleSDK(*gPhysics))
-		return false;
-	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
-	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
-
-	if(gPhysics->getPvdConnectionManager())
-	{
-		gPhysics->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
-		gConnection = PxVisualDebuggerExt::createConnection(gPhysics->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
-	}
-
+	
 	PxU32 numWorkers = PxMax(PxI32(getNbCores()), 0);
 	if (numWorkers == 0)
 		return false;
@@ -146,20 +130,43 @@ bool HardLight::OnInit()
 	gDispatcher = PxDefaultCpuDispatcherCreate(numWorkers);
 	if (!gDispatcher)
 		return false;
-	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
-	sceneDesc.cpuDispatcher = gDispatcher;
-	sceneDesc.gravity = PxVec3(
-		(float)config->GetReal("gravity", "x", 0.0),
-		(float)config->GetReal("gravity", "y", 0.0),
-		(float)config->GetReal("gravity", "z", 0.0)
-		);
-	//sceneDesc.filterShader = VehicleFilterShader;
-	sceneDesc.filterShader = gFilterShader;
-	sceneDesc.simulationEventCallback = this;
 
-	gScene = gPhysics->createScene(sceneDesc);
-	if(!gScene)
+		//Initialize physx agent to govern all shared physx objects
+	pxAgent = new Physx_Agent(config,gFoundation,gDispatcher );
+
+	//PxProfileZoneManager* profileZoneManager = &PxProfileZoneManager::createProfileZoneManager(gFoundation);
+
+	//gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, profileZoneManager);
+	//if(gPhysics == NULL)
+	//	return false;
+	if(!PxInitExtensions(*pxAgent->get_physics()))
 		return false;
+
+	if(!PxInitVehicleSDK(*pxAgent->get_physics()))
+		return false;
+	PxVehicleSetBasisVectors(PxVec3(0,1,0), PxVec3(0,0,1));
+	PxVehicleSetUpdateMode(PxVehicleUpdateMode::eVELOCITY_CHANGE);
+
+	if(pxAgent->get_physics()->getPvdConnectionManager())
+	{
+		pxAgent->get_physics()->getVisualDebugger()->setVisualDebuggerFlag(PxVisualDebuggerFlag::eTRANSMIT_CONTACTS, true);
+		gConnection = PxVisualDebuggerExt::createConnection(pxAgent->get_physics()->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
+	}
+
+	//PxSceneDesc sceneDesc(pxAgent->get_physics()->getTolerancesScale());
+	//sceneDesc.cpuDispatcher = gDispatcher;
+	//sceneDesc.gravity = PxVec3(
+	//	(float)config->GetReal("gravity", "x", 0.0),
+	//	(float)config->GetReal("gravity", "y", 0.0),
+	//	(float)config->GetReal("gravity", "z", 0.0)
+	//	);
+	//sceneDesc.filterShader = VehicleFilterShader;
+	//sceneDesc.filterShader = gFilterShader;
+	//sceneDesc.simulationEventCallback = this;
+
+	//gScene = gPhysics->createScene(sceneDesc);
+	//if(!gScene)
+	//	return false;
 
 
 	// GLEW Library Initialization
@@ -182,6 +189,8 @@ bool HardLight::OnInit()
 
 	// Init AI system to govern bots
 	overMind = new AI(bikes);
+
+
 
 	return true;
 }

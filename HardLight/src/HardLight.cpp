@@ -19,9 +19,9 @@ HardLight::HardLight()
 
 	gFoundation = NULL;
 	gConnection = NULL;
-	gPhysics = NULL;
+	//gPhysics = NULL;
 	gDispatcher = NULL;
-	gScene = NULL;
+	//gScene = NULL;
 
 	msPhysics = SDL_GetTicks();
 	msGraphics = msPhysics;

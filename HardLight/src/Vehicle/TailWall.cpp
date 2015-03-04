@@ -33,6 +33,24 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 			PxRigidActor* segment_actor = gPhysics->createRigidStatic(getTailTransform());
 			TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, "../data/Textures/LightTrail.tga");
 			segments.insert(segments.begin(), segment);
+
+			// Set up sim data for tail segment
+
+			//PxFilterData simFilterData;
+			////simFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
+			//simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
+			//simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
+
+			//cout << segment_actor->getNbShapes() << endl;
+			//PxShape* shapes[1];
+			//segment_actor->getShapes(shapes, 1);
+
+			//for (PxShape* shape : segment_actor->getShapes())
+			//{
+			//	//shape->setQueryFilterData(qryFilterData);
+			//	shape->setSimulationFilterData(simFilterData);
+			//}
+
 		}
 		if(distance >= min_segment_allowance)
 		{

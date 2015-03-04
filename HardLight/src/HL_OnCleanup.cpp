@@ -15,12 +15,14 @@ void HardLight::OnCleanup()
 
 	gFrictionPairs->release();
 	PxCloseVehicleSDK();
-	if (gScene != NULL) gScene->release();
+	pxAgent->cleanup();
+	//if (gScene != NULL) gScene->release();
 	if (gDispatcher != NULL) gDispatcher->release();
 	PxCloseExtensions();
-	PxProfileZoneManager* profileZoneManager = gPhysics->getProfileZoneManager();
+	//PxProfileZoneManager* profileZoneManager = pxAgent->get_physics()->getProfileZoneManager()->release();
+	//profileZoneManager->release();
 	if (gConnection != NULL) gConnection->release();
-	if (gPhysics != NULL) gPhysics->release();
+	//if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();
 
 	if (glcontext != NULL) SDL_GL_DeleteContext(glcontext);

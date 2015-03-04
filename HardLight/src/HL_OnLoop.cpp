@@ -43,7 +43,7 @@ void HardLight::OnLoop()
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
 		if (!bikesToKill[j]->invincible) {
-			gScene->removeActor(*bikesToKill[j]->get_actor(), false);
+			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
 			bikes->kill_bike(bikesToKill[j]);
 			sfxMix.PlaySoundEffect("sfxExplosion");
 		}
@@ -67,7 +67,7 @@ void HardLight::OnLoop()
 		PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
 		//Vehicle update.
-		const PxVec3 grav = gScene->getGravity();
+		const PxVec3 grav = pxAgent->get_scene()->getGravity();
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
@@ -81,14 +81,14 @@ void HardLight::OnLoop()
 	// Tail creation
 	for(TailWall* tail_wall : bikes->get_all_tails())
 	{
-		tail_wall->update(gScene, gPhysics);
+		tail_wall->update(pxAgent->get_scene(), pxAgent->get_physics());
 	}
 
 	//Scene update.
-	gScene->simulate(timestep);
+	pxAgent->get_scene()->simulate(timestep);
 	msPhysics = msCurrent;
 
-	gScene->fetchResults(true);
+	pxAgent->get_scene()->fetchResults(true);
 }
 
 //==============================================================================
