@@ -109,6 +109,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 				sfxMix.PlaySoundEffect(3);
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
+				scene = MENU;
 				sfxMix.PlaySoundEffect(4);
 				break;
 			case SDL_CONTROLLER_BUTTON_BACK:

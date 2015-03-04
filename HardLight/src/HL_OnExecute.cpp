@@ -18,8 +18,10 @@ int HardLight::OnExecute()
 			OnEvent(&Event);
 		}
 
-		OnLoop();
-		OnRender();
+		if(scene == GAME) {
+			OnLoop();
+			OnRender();
+		}
 	}
 
 	OnCleanup();

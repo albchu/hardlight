@@ -58,9 +58,7 @@ using namespace glm;
 
 enum Scene {
 	MENU,
-	PAUSE,
-	GAME,
-	GAME_OVER
+	GAME
 };
 
 //==============================================================================
@@ -98,6 +96,7 @@ private:
 	virtual void onWake(PxActor**, PxU32) {}
 	virtual void onSleep(PxActor**, PxU32) {}
 
+	// scene specific functions
 	void initOpenGL(Scene);
 
 
