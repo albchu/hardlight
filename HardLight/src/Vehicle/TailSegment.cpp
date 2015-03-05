@@ -11,7 +11,6 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 	type = TAIL_SEGMENT;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
-	//start = this->get_location();
 	mesh_data = new MeshData();
 	generate_wall_mesh();
 
@@ -53,11 +52,6 @@ void TailSegment::generate_wall_mesh()
 	mesh_data->addVertex(end_top_left);			// Index: 6
 	mesh_data->addVertex(end_top_right);		// Index: 7
 
-	//mesh_data->addVertex(start);
-	//mesh_data->addVertex(end);
-	//mesh_data->addVertex(start_top);
-	//mesh_data->addVertex(end_top);
-
 	mesh_data->addTexture(vec2(0.0f, 0.0f));
 	mesh_data->addTexture(vec2(1.0f, 0.0f));
 	mesh_data->addTexture(vec2(0.0f, 1.0f));
@@ -78,7 +72,6 @@ void TailSegment::generate_wall_mesh()
 	// Top face
 	mesh_data->addFace(vec3(2,3,6)); mesh_data->addFaceTexture(vec3(0,2,1)); mesh_data->addFaceNormal(vec3(2,2,2));
 	mesh_data->addFace(vec3(7,6,3)); mesh_data->addFaceTexture(vec3(0,2,1)); mesh_data->addFaceNormal(vec3(2,2,2));
-
 
 	mesh_data->order_arrays();
 }

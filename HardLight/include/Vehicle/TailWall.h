@@ -6,6 +6,7 @@
 #include "Vehicle/TailSegment.h"
 #include <vector>
 #include "Rendering/TextureMap.h"
+#include "PhysxAgent.h"
 
 class TailWall : public Entity
 {
@@ -24,7 +25,7 @@ public:
 	TailWall(Bike*);
 
 	// This call will maintain the tail segments 
-	void update(PxScene* gScene, PxPhysics* gPhysics);
+	void update(Physx_Agent*);
 
 	// Needs to be overwritten so we can render the segments correctly
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);

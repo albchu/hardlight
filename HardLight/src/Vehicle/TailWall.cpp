@@ -13,7 +13,7 @@ TailWall::TailWall(Bike* new_bike)
 
 }
 
-void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
+void TailWall::update(Physx_Agent* pxAgent)
 {
 	vec3 new_position = getTailPosition();
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
@@ -28,12 +28,15 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 	float distance = glm::distance(new_position, last_position);
 	if(distance >= min_segment_allowance && distance <= max_segment_allowance )
 	{
-		PxRigidActor* segment_actor = gPhysics->createRigidStatic(getTailTransform());
+		PxRigidActor* segment_actor = pxAgent->get_physics()->createRigidStatic(getTailTransform());
 		TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, TextureMap::Instance()->getTexture("../data/Textures/LightTrail.tga"));
 		segments.insert(segments.begin(), segment);
 
-		// Set up sim data for tail segment
+		//// Cook the wall mesh generated for this segment
+		//vector<vec3> mesh = *segment->get_mesh_data()->getVertices();
 
+
+		//// Set up sim data for tail segment
 		//PxFilterData simFilterData;
 		////simFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
 		//simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
