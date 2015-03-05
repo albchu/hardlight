@@ -5,15 +5,15 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 {
 	start = new_start;
 	end = new_end;
+
 	height = 2.0f;
 	type = TAIL_SEGMENT;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
+	//start = this->get_location();
 	mesh_data = new MeshData();
 	generate_wall_mesh();
 
-	//mesh_data = new MeshData();
-	//mesh_data->setVertices(mesh);
 	texture = new_texture;
 	init_opengl();
 	deleted = false;
@@ -22,8 +22,6 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 // Generates a renderable mesh using the starting and ending positions
 void TailSegment::generate_wall_mesh()
 {
-	delete(mesh_data);
-	mesh_data = new MeshData();
 	vec3 tail_vector = normalize(end - start); // Get a vector from the start of the tail seg to the end
 	vec3 global_up = vec3(0,1,0);
 	vec3 perp_vector = normalize(cross(tail_vector, global_up));    // Get perpendicular vector for calculating wideness of wall
@@ -56,18 +54,18 @@ void TailSegment::generate_wall_mesh()
 mat4 TailSegment::get_model_matrix()
 {
 	mat4 model_matrix = mat4(1.0);
-	/*PxTransform gPose = actor->getGlobalPose();
+	//PxTransform gPose = actor->getGlobalPose();
 
-	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	//model_matrix = translate(model_matrix, vec3(0, -1, 0));
 
-	PxReal rads;
-	PxVec3 axis;
-	gPose.q.toRadiansAndUnitAxis(rads, axis);
+	//PxReal rads;
+	//PxVec3 axis;
+	//gPose.q.toRadiansAndUnitAxis(rads, axis);
 
-	//model_matrix = scale(model_matrix, vec3(2,1,0.5));
-	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));       // Flip the model to get the correct physx bike lean
-	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-	*/
+	////model_matrix = scale(model_matrix, vec3(2,1,0.5));
+	//model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));       // Flip the model to get the correct physx bike lean
+	//model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
+	
 	return model_matrix;
 }
 
