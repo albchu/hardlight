@@ -90,6 +90,10 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSim
 	if(!gScene)
 		cerr << "Could not initialize physx scene" << endl;
 
+	//Initialize the physx cooking
+	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
+	if(!gCooking)
+		cerr << "Could not initialize physx cooking" << endl;
 
 }
 
@@ -138,5 +142,10 @@ PxDefaultAllocator Physx_Agent::get_allocator()
 PxDefaultErrorCallback Physx_Agent::get_error_callback()
 {
 	return gErrorCallback;
+}
+
+PxCooking* Physx_Agent::get_cooking()
+{
+	return gCooking;
 }
 

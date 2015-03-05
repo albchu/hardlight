@@ -70,7 +70,7 @@ bool HardLight::BuildScene()
 	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
-	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent->get_scene(), pxAgent->get_physics(), pxAgent->get_allocator(), pxAgent->get_foundation());
+	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
 	{

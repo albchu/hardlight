@@ -10,6 +10,8 @@
 
 #include "Bike.h"
 #include "../inih\cpp\INIReader.h"
+#include "MeshMap.h"
+#include "PhysxAgent.h"
 
 using namespace std;
 
@@ -17,16 +19,12 @@ class CreateVehicle
 {
 
 public:
-	CreateVehicle(INIReader* new_config, PxScene* new_gScene, PxPhysics* new_gPhysics, PxDefaultAllocator new_gAllocator, PxFoundation* new_gFoundation);
+	CreateVehicle(INIReader* new_config, Physx_Agent* new_pxAgent);
 	bool Create(Bike* &bike, PxVec3 init_position);
 
 private:
 	INIReader* config;
-	PxScene* gScene;
-	PxPhysics* gPhysics;
-	PxDefaultAllocator gAllocator;
-	PxCooking* gCooking;
-	PxFoundation* gFoundation;
+	Physx_Agent* pxAgent;
 	// PxActor is handled by Entity parent class of Bike
 };
 #endif

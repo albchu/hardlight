@@ -83,7 +83,7 @@ void HardLight::OnLoop()
 	// Tail creation
 	for(TailWall* tail_wall : bikes->get_all_tails())
 	{
-		tail_wall->update(pxAgent->get_scene(), pxAgent->get_physics());
+		tail_wall->update(pxAgent);
 	}
 
 	//Scene update.

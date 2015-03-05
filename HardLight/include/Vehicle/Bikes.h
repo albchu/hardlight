@@ -20,7 +20,7 @@ using namespace std;
 class Bikes
 {
 public:
-	Bikes(World* new_world);
+	Bikes(World* new_world, INIReader* new_config);
 	void add_bot_bike(Bike* bike);
 	void add_player_bike(Bike* bike, SDL_GameController* controller);
 	vector<Bike*> get_all_bikes();
@@ -39,6 +39,7 @@ private:
 	vector<Controller*> controlled_bikes;
 	vector<TailWall*> tail_walls;
 	World* world;
+	INIReader* config;
 };
 
 #endif

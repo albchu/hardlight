@@ -101,7 +101,7 @@ bool HardLight::OnInit()
 	if (!sfxMix.InitializeMixer(config))
 		cerr << "Could not initialize sound mixer" << endl;
 
-	bikes = new Bikes(&world);
+	bikes = new Bikes(&world, config);
 
 	// Init AI system to govern bots
 	overMind = new AI(bikes);
