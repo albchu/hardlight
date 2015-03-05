@@ -2,8 +2,8 @@
 
 TailWall::TailWall(Bike* new_bike)
 {
-	max_length = 60;
-	min_segment_allowance = 0.005f;
+	max_length = 15;
+	min_segment_allowance = 1.5f;
 	max_segment_allowance = 1000.0f;
 	tail_offset_scalar = 4;
 	bike = new_bike;
@@ -21,11 +21,16 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 		// Reshuffle segments
 		TailSegment* segment = segments[segments.size()-1];
 		segments.pop_back();
-		segments.insert(segments.begin(), segment);
-		segment->get_actor()->setGlobalPose(getTailTransform());
+		//segments.insert(segments.begin(), segment);
+		//segment->get_actor()->setGlobalPose(getTailTransform());
+		//
+		//segment->set_end(segment->get_start());
+		//segment->set_start(new_position);
+		//
+		//segment->generate_wall_mesh();
 	}
-	else	// Create a new wall segment
-	{
+	//else	// Create a new wall segment
+	//{
 		// Check that the wall segment is at least a certain length
 		float distance = glm::distance(new_position, last_position);
 		if(distance >= min_segment_allowance && distance <= max_segment_allowance )
@@ -51,7 +56,7 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 			//	shape->setSimulationFilterData(simFilterData);
 			//}
 
-		}
+		//}
 		if(distance >= min_segment_allowance)
 		{
 			last_position = new_position;	// Update last set position for next wall segment

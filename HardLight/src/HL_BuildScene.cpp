@@ -78,9 +78,6 @@ bool HardLight::BuildScene()
 		if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
 			return false;
 
-		
-		//TailWall* tail_wall = new TailWall(new_bike);
-		//world.add_entity(tail_wall);
 		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
 		bikes->add_bot_bike(new_bike);
 
@@ -92,11 +89,6 @@ bool HardLight::BuildScene()
 			Bike* new_bike = new Bike();
 			if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
 				return false;
-			//world.add_entity(new_bike);
-
-			//TailWall* tail_wall = new TailWall(new_bike);
-			//world.add_entity(tail_wall);
-		
 		
 			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 			if (controllers.size() > 0)

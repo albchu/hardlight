@@ -24,12 +24,12 @@ private:
 public:
 	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, GLuint new_texture);
 	void generate_wall_mesh();
-	//void CreateTail(vec3 topLeft, vec3 topRight, float height);
-	//TailSegment();
 	virtual mat4 get_model_matrix();
-	//TailSegment(PxRigidActor* actor, MeshData* meshdata, const char* texture):Entity(actor, meshdata, texture){};
-	//mat4 get_model_matrix();
-	//void setScale(float size);
+
+	void set_start(vec3 new_start);
+	void set_end(vec3 new_end);
+	vec3 get_start();
+	vec3 get_end();
 };
 
 #endif
