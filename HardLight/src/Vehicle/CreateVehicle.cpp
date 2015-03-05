@@ -1,14 +1,10 @@
-//==============================================================================
-#include "HardLight.h"
-#include "MeshMap.h"
+#include "Vehicle/CreateVehicle.h"
 
-CreateVehicle::CreateVehicle(INIReader* new_config, PxScene* new_gScene, PxPhysics* new_gPhysics, PxDefaultAllocator new_gAllocator, PxFoundation* new_gFoundation)
+CreateVehicle::CreateVehicle(INIReader* new_config, Physx_Agent* new_pxAgent)
 {
 	config = new_config;
-	gScene = new_gScene;
-	gPhysics = new_gPhysics;
-	gFoundation = new_gFoundation;
-	gCooking = 	PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
+	pxAgent = new_pxAgent;
+	
 }
 
 //==============================================================================
@@ -56,17 +52,17 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 //==============================================================================
 bool CreateVehicle::Create(Bike* &bike, PxVec3 init_position)
 {
-	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 	//Create the batched scene queries for the suspension raycasts.
-	bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gAllocator));
-	bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), gScene));
+	bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, pxAgent->get_allocator()));
+	bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), pxAgent->get_scene()));
 	
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
-	bike->setVehicle4W(createVehicle4W(vehicleDesc, gPhysics, gCooking, config));
+	bike->setVehicle4W(createVehicle4W(vehicleDesc, pxAgent->get_physics(), pxAgent->get_cooking(), config));
 	PxTransform startTransform(init_position, PxQuat(PxIdentity));
 	bike->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
-	gScene->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
+	pxAgent->get_scene()->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
 
 	//bike = new Bike(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
 	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());

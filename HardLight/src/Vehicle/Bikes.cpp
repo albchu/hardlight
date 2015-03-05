@@ -1,9 +1,10 @@
 #include "Vehicle/Bikes.h"
 
 
-Bikes::Bikes(World* new_world)
+Bikes::Bikes(World* new_world, INIReader* new_config)
 {
 	srand (time(NULL));
+	config = new_config;
 	world = new_world;
 }
 
@@ -27,7 +28,7 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 // Adds a tail wall to the world and the tail walls vector
 void Bikes::add_tail(Bike* bike)
 {
-	TailWall* tail_wall = new TailWall(bike);
+	TailWall* tail_wall = new TailWall(bike, config);
 	tail_walls.push_back(tail_wall);
 	world->add_entity(tail_wall);
 }

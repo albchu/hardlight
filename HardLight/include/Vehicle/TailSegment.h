@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include <PxPhysicsAPI.h>
 #include <glm\gtx\rotate_vector.hpp>
+#include "Rendering/TextureMap.h"
 
 using namespace glm;
 using namespace std;
@@ -22,7 +23,7 @@ private:
 	vector<vec3> mesh;
 
 public:
-	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, GLuint new_texture);
+	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char * texturePath, INIReader* config);
 	void generate_wall_mesh();
 	virtual mat4 get_model_matrix();
 

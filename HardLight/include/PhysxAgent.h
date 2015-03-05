@@ -32,6 +32,7 @@ public:
 		PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize);
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
+	PxCooking* get_cooking();
 
 
 private:
@@ -43,5 +44,6 @@ private:
 	PxDefaultAllocator gAllocator;
 	PxDefaultErrorCallback gErrorCallback;
 	PxVisualDebuggerConnection* gConnection;
+	PxCooking* gCooking;
 };
 #endif

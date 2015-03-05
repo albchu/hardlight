@@ -5,7 +5,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/TailSegment.h"
 #include <vector>
-#include "Rendering/TextureMap.h"
+
 #include "PhysxAgent.h"
 
 class TailWall : public Entity
@@ -20,9 +20,10 @@ private:
 	Bike* bike;		// Reference to its bike
 	PxTransform gPose;
 	float tail_offset_scalar;
+	INIReader* config;
 
 public:
-	TailWall(Bike*);
+	TailWall(Bike*, INIReader*);
 
 	// This call will maintain the tail segments 
 	void update(Physx_Agent*);

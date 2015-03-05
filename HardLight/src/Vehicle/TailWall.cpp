@@ -1,18 +1,20 @@
 #include "Vehicle/TailWall.h"
+#include "../inih/cpp/INIReader.h"
+#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
 
-TailWall::TailWall(Bike* new_bike)
+TailWall::TailWall(Bike* new_bike, INIReader* new_config)
 {
-	max_length = 15;
-	min_segment_allowance = 1.5f;
-	max_segment_allowance = 1000.0f;
-	tail_offset_scalar = 3;
+	config = new_config;		// Needed to be passed into tail segments
+	max_length = config->GetReal("tail", "maxLength", 30);
+	min_segment_allowance = config->GetReal("tail", "minSegmentSize", 0.5);
+	max_segment_allowance = config->GetReal("tail", "maxSegmentSize", 100);
+	tail_offset_scalar = config->GetReal("tail", "offset", 4);
 	bike = new_bike;
 	//gPose = bike->get_actor()->getGlobalPose();
 	//last_position = vec3(gPose.p.x, gPose.p.y, gPose.p.z);
 	last_position = getTailPosition();
 
 }
-
 void TailWall::update(Physx_Agent* pxAgent)
 {
 	vec3 new_position = getTailPosition();
@@ -25,35 +27,32 @@ void TailWall::update(Physx_Agent* pxAgent)
 		segments.pop_back();
 	}
 	// Create a new wall segment if the wall segment is at least a certain length
-	float distance = glm::distance(new_position, last_position);
-	if(distance >= min_segment_allowance && distance <= max_segment_allowance )
+	float length = glm::distance(new_position, last_position);
+	if(length >= min_segment_allowance && length <= max_segment_allowance )
 	{
 		PxRigidActor* segment_actor = pxAgent->get_physics()->createRigidStatic(getTailTransform());
-		TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, TextureMap::Instance()->getTexture("../data/Textures/LightTrail.tga"));
+		TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, "../data/Textures/LightTrail.tga", config);
 		segments.insert(segments.begin(), segment);
+		float width = config->GetReal("tail", "width", 100);
+		float height = config->GetReal("tail", "height", 100);
+		// Cook the wall mesh generated for this segment
+		PxConvexMesh* chassisConvexMesh = createChassisMesh(PxVec3(width, height, length), *pxAgent->get_physics(), *pxAgent->get_cooking());
+		PxMaterial* wall_material = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
+		PxShape* shape = segment->get_actor()->createShape(PxConvexMeshGeometry(chassisConvexMesh), *wall_material);
+		
+		//attachShape(*shape);
+		//shape->release();
 
-		//// Cook the wall mesh generated for this segment
-		//vector<vec3> mesh = *segment->get_mesh_data()->getVertices();
-
-
-		//// Set up sim data for tail segment
-		//PxFilterData simFilterData;
-		////simFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
-		//simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
-		//simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
-
-		//cout << segment_actor->getNbShapes() << endl;
-		//PxShape* shapes[1];
-		//segment_actor->getShapes(shapes, 1);
-
-		//for (PxShape* shape : segment_actor->getShapes())
-		//{
-		//	//shape->setQueryFilterData(qryFilterData);
-		//	shape->setSimulationFilterData(simFilterData);
-		//}
-
-		//}
-		if(distance >= min_segment_allowance)
+		// Set up sim data for tail segment
+		PxFilterData simFilterData;
+		PxFilterData qryFilterData;
+		qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
+		simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
+		simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
+		shape->setQueryFilterData(qryFilterData);
+		shape->setSimulationFilterData(simFilterData);
+		pxAgent->get_scene()->addActor(*segment->get_actor());
+		if(length >= min_segment_allowance)
 		{
 			last_position = new_position;	// Update last set position for next wall segment
 		}

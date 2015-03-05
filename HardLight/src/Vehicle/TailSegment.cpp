@@ -1,20 +1,20 @@
 #include "Vehicle/TailSegment.h"
 
 // Takes two positions, start (closer to bike), and end (farther from bike)
-TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, GLuint new_texture)
+TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char * texturePath, INIReader* config)
 {
 	start = new_start;
 	end = new_end;
 
-	width = 0.25f;
-	height = 2.0f;
+	width = config->GetReal("tail", "width", 100);
+	height = config->GetReal("tail", "height", 100);
 	type = TAIL_SEGMENT;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = new MeshData();
 	generate_wall_mesh();
 
-	texture = new_texture;
+	texture = TextureMap::Instance()->getTexture("../data/Textures/LightTrail.tga");
 	init_opengl();
 	deleted = false;
 }
