@@ -22,7 +22,7 @@ private:
 	vector<vec3> mesh;
 
 public:
-	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char* texture_file_path);
+	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, GLuint new_texture);
 	void generate_wall_mesh();
 	//void CreateTail(vec3 topLeft, vec3 topRight, float height);
 	//TailSegment();

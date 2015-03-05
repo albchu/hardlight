@@ -6,12 +6,12 @@
 Wall::Wall() {
 }
 	
-Wall::Wall(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path) {
+Wall::Wall(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture) {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_tga_texture(texture_file_path);
+	texture = new_texture;
 	init_opengl();
 }
 	

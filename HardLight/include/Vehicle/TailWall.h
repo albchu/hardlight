@@ -5,6 +5,7 @@
 #include "Vehicle/Bike.h"
 #include "Vehicle/TailSegment.h"
 #include <vector>
+#include "Rendering/TextureMap.h"
 
 class TailWall : public Entity
 {

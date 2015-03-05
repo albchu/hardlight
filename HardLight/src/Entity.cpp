@@ -1,13 +1,13 @@
 #include "Entity.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path)
+Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture)
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_tga_texture(texture_file_path);
+	texture = new_texture;
 	init_opengl();
 	deleted = false;
 }

@@ -47,7 +47,7 @@ protected:
 	bool deleted;
 
 public:
-	Entity(PxRigidActor*, MeshData*, const char*);
+	Entity(PxRigidActor*, MeshData*, GLuint);
 	Entity();
 	virtual ~Entity();
 
