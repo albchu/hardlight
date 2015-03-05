@@ -7,6 +7,7 @@
 class Scene {
 private:
 	vector<Element> elements;
+	SDL_renderer;
 
 public:
 	void addElement(Element);

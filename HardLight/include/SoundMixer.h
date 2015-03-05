@@ -55,9 +55,6 @@ public:
 	int		PlayMusic(std::string key, int volume);									// Play music at preset volume
 	int		PlaySoundEffect(std::string key);
 	int		PlaySoundEffect(std::string key, float distance, int timesToRepeat);	// Play sound effect based on distance from listener
-
-	void	UpdateVolume(int previousChannelIndex, float distance);					// Adjust currently playing sfx based on new distance from listener
-
 };
 
 #endif
