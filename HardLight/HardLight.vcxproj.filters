@@ -114,9 +114,6 @@
     <ClCompile Include="src\Wall.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="src\Scene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Element.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -131,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="src\Rendering\TextureMap.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +228,6 @@
     <ClInclude Include="include\ShaderTools.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="include\Scene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="include\Button.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="include\Rendering\TextureMap.h">
       <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUI.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
