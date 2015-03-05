@@ -29,7 +29,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setSimulationFilterData(simFilterData);
 
 	pxAgent->get_scene()->addActor(*groundPlane);
-	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/TronTile3.tga");
+	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile3.tga"));
 	world.add_entity(ground);
 
 	//walls
@@ -43,7 +43,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	pxAgent->get_scene()->addActor(*wallPlane);
-	Wall* wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
+	Wall* wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
@@ -51,7 +51,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
@@ -59,7 +59,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
 	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
@@ -67,7 +67,7 @@ bool HardLight::BuildScene()
 	shapes[0]->setQueryFilterData(qryFilterData);
 	shapes[0]->setSimulationFilterData(simFilterData);
 	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), "../data/Textures/TronTile2.tga");
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent->get_scene(), pxAgent->get_physics(), pxAgent->get_allocator(), pxAgent->get_foundation());

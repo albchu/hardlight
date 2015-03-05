@@ -31,7 +31,7 @@ void TailWall::update(PxScene* gScene, PxPhysics* gPhysics)
 		if(distance >= min_segment_allowance && distance <= max_segment_allowance )
 		{
 			PxRigidActor* segment_actor = gPhysics->createRigidStatic(getTailTransform());
-			TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, "../data/Textures/LightTrail.tga");
+			TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, TextureMap::Instance()->getTexture("../data/Textures/LightTrail.tga"));
 			segments.insert(segments.begin(), segment);
 
 			// Set up sim data for tail segment

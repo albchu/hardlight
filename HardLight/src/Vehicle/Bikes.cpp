@@ -19,7 +19,7 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 	int someInt = getRandInt(1,5);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
-	bike->set_texture(load_tga_texture(randTexture));
+	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
 	player_bikes.push_back(bike);
 	add_tail(bike);
 }
@@ -39,7 +39,7 @@ void Bikes::add_bot_bike(Bike* bike)
 	int someInt = getRandInt(1,5);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
-	bike->set_texture(load_tga_texture(randTexture));
+	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
 	Controller * controlled = new Bot_Controller(bike);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);

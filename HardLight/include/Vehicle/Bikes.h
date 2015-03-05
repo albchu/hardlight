@@ -9,6 +9,7 @@
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
 #include "Common.h"
+#include "Rendering/TextureMap.h"
 
 #include <vector>
 #include <SDL.h>
