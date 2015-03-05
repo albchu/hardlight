@@ -215,16 +215,22 @@ int SoundMixer::PlaySoundEffect(std::string key)
 
 int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepeat)
 {
+	if (distance > maxHearingRadius) return -1;
 	int previousChannelIndex = currentChannelIndex;
 	// Calculate volume of sound effect based on distance from entity
-	float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
+	float volumeRatio = (distance/maxHearingRadius);
+	volumeRatio = 1 - volumeRatio;
+	volumeRatio *= volumeRatio;
 	sfxVolume = (int)(volumeRatio * 128.0f);
+	//float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
+	//sfxVolume = (int)(volumeRatio * 50.0f);
 	/*float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
 	sfxVolume = (int)(volumeRatio * maxHearingRadius);*/
 	Mix_Volume(currentChannelIndex, (int)sfxVolume);
-
-	//printf("volumeRatio: %f\n", volumeRatio);
-	//printf("sfxVolume: %f\n", sfxVolume);
+	
+	printf("distance: %f\n", distance);
+	printf("volumeRatio: %f\n", volumeRatio);
+	printf("sfxVolume: %f\n", sfxVolume);
 	
 
 	// Play the sound effect on the first avaliable channel

@@ -38,17 +38,18 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 //==============================================================================
 void HardLight::OnLoop()
 {
-
-
+	float closestExplosion = FLT_MAX;
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
 		if (!bikesToKill[j]->invincible) {
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
 			bikes->kill_bike(bikesToKill[j]);
 			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-				sfxMix.PlaySoundEffect("sfxExplosion", bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]), 0);
+				closestExplosion = glm::min(closestExplosion, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
 		}
 	}
+	if (closestExplosion < FLT_MAX)
+		sfxMix.PlaySoundEffect("sfxExplosion", closestExplosion, 0);
 	bikesToKill.clear();
 
 	Uint32 msCurrent = SDL_GetTicks();
