@@ -1,7 +1,7 @@
 #include "Vehicle/TailSegment.h"
 
 // Takes two positions, start (closer to bike), and end (farther from bike)
-TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char* texture_file_path)
+TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, GLuint new_texture)
 {
 	start = new_start;
 	end = new_end;
@@ -13,7 +13,7 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 	
 	//mesh_data = new MeshData();
 	//mesh_data->setVertices(mesh);
-	texture = load_tga_texture(texture_file_path);
+	texture = new_texture;
 	init_opengl();
 	deleted = false;
 }

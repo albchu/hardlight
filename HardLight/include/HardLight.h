@@ -34,6 +34,8 @@
 #include "Vehicle/TailSegment.h"
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
+#include "Rendering/TextureMap.h"
+
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 
