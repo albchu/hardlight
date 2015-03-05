@@ -25,7 +25,7 @@ HardLight::HardLight()
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
 
-	srand (time(NULL));
+	srand ((unsigned int)time(NULL));
 	//bike->setInAir(true);
 }
 //==============================================================================

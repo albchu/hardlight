@@ -74,6 +74,7 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSim
 		gConnection = PxVisualDebuggerExt::createConnection(gPhysics->getPvdConnectionManager(), "127.0.0.1", 5425, 10, PxVisualDebuggerConnectionFlag::eDEBUG);
 	}
 
+	gCooking = PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, PxCookingParams(PxTolerancesScale()));
 
 	// Initialize the physx scene
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());

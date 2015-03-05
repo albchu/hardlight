@@ -3,7 +3,7 @@
 
 Bikes::Bikes(World* new_world)
 {
-	srand (time(NULL));
+	srand ((unsigned int)time(NULL));
 	world = new_world;
 }
 
