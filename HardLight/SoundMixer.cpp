@@ -222,16 +222,12 @@ int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepe
 	volumeRatio = 1 - volumeRatio;
 	volumeRatio *= volumeRatio;
 	sfxVolume = (int)(volumeRatio * 128.0f);
-	//float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
-	//sfxVolume = (int)(volumeRatio * 50.0f);
-	/*float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
-	sfxVolume = (int)(volumeRatio * maxHearingRadius);*/
 	Mix_Volume(currentChannelIndex, (int)sfxVolume);
-	
+	/*
 	printf("distance: %f\n", distance);
 	printf("volumeRatio: %f\n", volumeRatio);
 	printf("sfxVolume: %f\n", sfxVolume);
-	
+	*/
 
 	// Play the sound effect on the first avaliable channel
 	int errorCode = Mix_PlayChannel(currentChannelIndex, sfxFilesList[key], timesToRepeat);
@@ -247,13 +243,3 @@ int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepe
 	// Return the channel the sound was played on
 	return previousChannelIndex;
 }
-
-void SoundMixer::UpdateVolume(int previousChannelIndex, float distance)
-{
-	float volumeRatio = 1.0f / ( 1.0f + abs(distance/maxHearingRadius) );
-	sfxVolume = (int)(volumeRatio * 128);
-	/*float volumeRatio = maxHearingRadius - distance / maxHearingRadius;
-	sfxVolume = (int)(volumeRatio * maxHearingRadius);*/
-	Mix_Volume(previousChannelIndex, (int)sfxVolume);
-}
-

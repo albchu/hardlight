@@ -22,7 +22,6 @@ private:
 
 public:
 	TailWall(Bike*);
-	//TailSegment* addSegment(TailSegment*);
 
 	// This call will maintain the tail segments 
 	void update(PxScene* gScene, PxPhysics* gPhysics);

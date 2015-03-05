@@ -19,45 +19,7 @@ void HardLight::OnRender()
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
 
-	//vec3 dis = vec3(newPos.p.x,newPos.p.y,newPos.p.z);
-	//vec3 major = oldPos -dis;
-	//Scale = sqrt(major.x*major.x+major.z*major.z);
 	skybox->set_actor(pxAgent->get_physics()->createRigidStatic(newPos));
-	//if(Scale > 0.5)
-	//{ // size of slices
-	//	newPos.p.x = (newPos.p.x+oldPos.x)/2.0f;
-	//	newPos.p.y = (newPos.p.y+oldPos.y)/2.0f;
-	//	newPos.p.z = (newPos.p.z+oldPos.z)/2.0f;
-	//	oldPos = dis;
-	//	if(playerTail.size() < 100){
-
-	//		PxRigidActor * tailActor = gPhysics->createRigidStatic(PxTransform(newPos.p.x, newPos.p.y, newPos.p.z));
-	//		/*PxCreateStatic(gPhysics, PxTransform(), 
-	//		PxShape* shapes[1];
-	//		tailActor->getShapes(shapes, 1);
-	//		PxFilterData qryFilterData;
-	//		qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
-	//		PxFilterData simFilterData;
-	//		simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
-	//		simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
-	//		for (PxShape* shape : shapes)
-	//		{
-	//			shape->setQueryFilterData(qryFilterData);
-	//			shape->setSimulationFilterData(simFilterData);
-	//		}
-	//		gScene->addActor(*tailActor);*/
-	//		TailSegment* Wall = new TailSegment(tailActor,MeshMap::Instance()->getEntityMesh("Wall.obj"),"../data/Textures/LightTrail.tga");
-	//		playerTail.push_back(Wall);
-	//		Wall->setScale(Scale);
-	//		world.add_entity(Wall);
-
-	//	}else
-	//	{
-	//		playerTail[i]->get_actor()->setGlobalPose(newPos);
-	//		playerTail[i]->setScale(Scale);
-	//		i = (i+1)%playerTail.size();
-	//	}
-	//}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
