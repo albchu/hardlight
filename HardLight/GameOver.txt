@@ -1,18 +1,18 @@
 [images]
 numberOfImages = 3
-image1 = data\Images\GameOverTitle.png
+image1 = ..\data\Images\GameOverTitle.png
 x1 = 125.0
 y1 = 100.0
-image2 = data\Images\TryAgain.png
+image2 = ..\data\Images\TryAgain.png
 x2 = 570.0
 y2 = 325.0
-image3 = data\Images\Quit.png
+image3 = ..\data\Images\Quit.png
 x3 = 570.0
 y3 = 425.0
 
 [buttons]
 numberOfButtons = 2
-imageNum = 2
-action = game
-imageNum = 3
-action = quit
+imageNum1 = 2
+action1 = start
+imageNum2 = 3
+action2 = quit
