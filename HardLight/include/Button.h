@@ -9,7 +9,12 @@ private:
 
 public:
 	Button();
+	Button(const char*);
 	~Button();
+
+	void setAction(Action);
+
+	Action getAction();
 };
 
 #endif
