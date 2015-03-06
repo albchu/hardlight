@@ -90,6 +90,10 @@ bool HardLight::OnInit()
 	if (glewInit() != GLEW_OK)
 		cerr << "Could not make initialize glew" << endl;
 
+	scene = GAME;
+	gui = GUI(window);
+	gui.loadMenu("MainMenu.txt");
+
 	initOpenGL(scene);
 
 	// Print OpenGL information

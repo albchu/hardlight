@@ -109,7 +109,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 				sfxMix.PlaySoundEffect("sfxItemPickUp");
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
-				scene = MENU;
+				scene = PAUSE;
+				gui.loadMenu("../Paused.txt");
 				sfxMix.PlaySoundEffect("sfxItemUsed");
 				break;
 			case SDL_CONTROLLER_BUTTON_BACK:
