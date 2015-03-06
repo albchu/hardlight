@@ -100,6 +100,13 @@ void Bike::set_actor(PxRigidActor* new_actor)
 
 void Bike::adaptiveSteering(int analogStickInput)
 {
-	inputData.setAnalogSteer((analogStickInput)/(-32768.0f));//the axis are inverted on the controller
+	//float currentSpeed = 0.0f; // Maybe custom type, int, double
+	//// Get bikes current speed
+	//// Get max speed
+	//// currentSpeed /= maxSpeed
+	//currentSpeed = 1 - currentSpeed; // (1-x)
+	//currentSpeed = pow(currentSpeed, 3.0f); // (1-x)^3
+	//inputData.setAnalogSteer((currentSpeed)*(analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
+	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 
 }
