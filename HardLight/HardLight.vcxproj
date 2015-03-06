@@ -117,6 +117,7 @@
     <ClCompile Include="src\ParsedFile.cpp" />
     <ClCompile Include="src\PhysxAgent.cpp" />
     <ClCompile Include="src\Pickup.cpp" />
+    <ClCompile Include="src\Powerup.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
@@ -147,6 +148,8 @@
     <ClInclude Include="include\ParsedFile.h" />
     <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\Pickup.h" />
+    <ClInclude Include="include\Powerup.h" />
+    <ClInclude Include="include\PowerupTypes.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\ShaderTools.h" />
