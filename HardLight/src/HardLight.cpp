@@ -10,7 +10,6 @@ HardLight::HardLight()
 		exit(EXIT_FAILURE);
     }
 	running = true;
-	scene = GAME;
 
 	window_width = config->GetInteger("window", "width", 800);
 	window_height = config->GetInteger("window", "height", 600);
@@ -25,7 +24,7 @@ HardLight::HardLight()
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
 
-	srand (time(NULL));
+	srand ((int)time(NULL));
 	//bike->setInAir(true);
 }
 //==============================================================================

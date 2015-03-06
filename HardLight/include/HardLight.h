@@ -35,6 +35,7 @@
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
+#include "GUI.h"
 
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
@@ -60,7 +61,9 @@ using namespace glm;
 #pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
 
 enum Scene {
-	MENU,
+	MAIN,
+	PAUSE,
+	GAME_OVER,
 	GAME
 };
 
@@ -71,6 +74,7 @@ private:
 	INIReader* config;
 	bool running;
 	Scene scene;
+	GUI gui;
 
 	int window_width;
 	int window_height;
