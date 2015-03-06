@@ -204,7 +204,10 @@ int SoundMixer::PlaySoundEffect(std::string key)
 		printf("Channel: %d\n", errorCode);
 		return errorCode;
 	}
-	currentChannelIndex++;
+	do
+	{
+		currentChannelIndex++;
+	} while (Mix_Playing(currentChannelIndex) == 1);
 	if (currentChannelIndex > 63)
 		currentChannelIndex = 0;
 
