@@ -197,8 +197,7 @@ int SoundMixer::PlayMusic(std::string key, int volume)
 int SoundMixer::PlaySoundEffect(std::string key)
 {
 	int previousChannelIndex = currentChannelIndex;
-	Mix_Volume(currentChannelIndex, 128
-		);
+	Mix_Volume(currentChannelIndex, 128);
 	int errorCode = Mix_PlayChannel(-1, sfxFilesList[key], 0);
 	if( errorCode == -1)
 	{
@@ -236,7 +235,10 @@ int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepe
 		printf("Channel: %d\n", errorCode);
 		return errorCode;
 	}
-	currentChannelIndex++;
+	do
+	{
+		currentChannelIndex++;
+	} while (Mix_Playing(currentChannelIndex) == 1);
 	if (currentChannelIndex > 63)
 		currentChannelIndex = 0;
 
