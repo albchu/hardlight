@@ -1,6 +1,17 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
+/*
+ * GUI Class
+ *
+ * Purpose:
+ *	- read menu descriptions
+ *  - store elements of GUI
+ *  - render elements
+ *
+ * Available menus: GameOver.txt, MainMenu.txt, Paused.txt
+ */
+
 #include <vector>
 #include "Element.h"
 #include "Image.h"
@@ -11,12 +22,13 @@
 class GUI {
 private:
 	int numOfImages, numOfButtons;
-	std::vector<Element> elements;
-	SDL_Surface* imagePlane;
+	std::vector<Image> images;
+	std::vector<Button> buttons;
 	SDL_Renderer* renderer;
 	INIReader*    loader;
 
-	void addElement(Element);
+	void addImage(Image);
+	void addButton(Button);
 
 public:
 	GUI();
@@ -24,7 +36,8 @@ public:
 	~GUI();
 
 	void loadMenu(const char*);
-	void render();
+	void render(int winWidth, int winHeight, SDL_Window*);
+	bool onGUIEvent(SDL_Event*);
 };
 
 #endif
