@@ -10,6 +10,7 @@ private:
 
 public:
 	Image();
+	Image(const char*);
 	~Image();
 
 };
