@@ -26,7 +26,7 @@ mat4 Bike::get_model_matrix()
 	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
 	//model_matrix = rotate(model_matrix, rads * (axis.y), vec3(0, 1, 0));
 	//model_matrix = rotate(model_matrix, (rads * normalize(axis.z)) * -5.0f, vec3(0, 0, 1));
-	
+
 	//model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
 
 	return model_matrix;
@@ -96,4 +96,10 @@ void Bike::set_actor(PxRigidActor* new_actor)
 	actor = new_actor;
 	PxTransform gPose = actor->getGlobalPose();
 	//tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z), this);	// Initialize the tail object as soon as an actor is set for the bike;
+}
+
+void Bike::adaptiveSteering(int analogStickInput)
+{
+	inputData.setAnalogSteer((analogStickInput)/(-32768.0f));//the axis are inverted on the controller
+
 }

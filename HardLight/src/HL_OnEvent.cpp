@@ -128,8 +128,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
 			int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
 			if (LeftX < -deadZone || LeftX > deadZone){
-				bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
-
+				//bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f)); //the axis are inverted on the controller
+				bike->adaptiveSteering(LeftX); //the axis are inverted on the controller
 			}else{
 				bike->getInputData().setAnalogSteer(0.0f);
 			}

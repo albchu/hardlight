@@ -40,6 +40,7 @@ public:
 	void setInAir(bool);
 	virtual void set_actor(PxRigidActor*);
 	//TailWall* get_tail_wall();
+	void adaptiveSteering(int analogStickInput);
 
 private:
 	PxVehicleDrive4W* vehicle4W;
