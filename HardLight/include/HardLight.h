@@ -36,10 +36,10 @@
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
 #include "GUI.h"
-
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
-
+#include "Powerup.h"
+#include "Pickup.h"
 
 using namespace physx;
 using namespace glm;
@@ -123,6 +123,8 @@ private:
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
+
+	Pickup* pickup;
 
 public:
 	HardLight();

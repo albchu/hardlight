@@ -32,6 +32,7 @@ public:
 	PxBatchQuery* getBatchQuery();
 	bool isInAir();
 	bool invincible;
+	bool hasPowerup;
 
 	void setVehicle4W(PxVehicleDrive4W*);
 	void setInputData(PxVehicleDrive4WRawInputData);
@@ -40,6 +41,7 @@ public:
 	void setInAir(bool);
 	virtual void set_actor(PxRigidActor*);
 	//TailWall* get_tail_wall();
+	void adaptiveSteering(int analogStickInput);
 
 private:
 	PxVehicleDrive4W* vehicle4W;

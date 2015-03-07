@@ -71,6 +71,7 @@ public:
 	void			set_texture(GLuint);
 	
 	int				get_type();
+	void			set_type(EntityTypes type);
 	void			release();
 
 	bool			is_deleted();

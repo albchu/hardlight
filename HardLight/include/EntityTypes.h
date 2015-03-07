@@ -5,5 +5,6 @@ enum EntityTypes
 	NONRENDERABLE,
 	SKYBOX,
 	TAIL_SEGMENT,
-	PICKUP
+	PICKUP,
+	FLOOR
 };

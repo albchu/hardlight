@@ -7,6 +7,7 @@ Bike::Bike()
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
 	invincible = false;
 	deleted = false;
+	hasPowerup = false;
 }
 
 Bike::~Bike() {
@@ -26,7 +27,7 @@ mat4 Bike::get_model_matrix()
 	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
 	//model_matrix = rotate(model_matrix, rads * (axis.y), vec3(0, 1, 0));
 	//model_matrix = rotate(model_matrix, (rads * normalize(axis.z)) * -5.0f, vec3(0, 0, 1));
-	
+
 	//model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
 
 	return model_matrix;
@@ -96,4 +97,17 @@ void Bike::set_actor(PxRigidActor* new_actor)
 	actor = new_actor;
 	PxTransform gPose = actor->getGlobalPose();
 	//tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z), this);	// Initialize the tail object as soon as an actor is set for the bike;
+}
+
+void Bike::adaptiveSteering(int analogStickInput)
+{
+	//float currentSpeed = 0.0f; // Maybe custom type, int, double
+	//// Get bikes current speed
+	//// Get max speed
+	//// currentSpeed /= maxSpeed
+	//currentSpeed = 1 - currentSpeed; // (1-x)
+	//currentSpeed = pow(currentSpeed, 3.0f); // (1-x)^3
+	//inputData.setAnalogSteer((currentSpeed)*(analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
+	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
+
 }

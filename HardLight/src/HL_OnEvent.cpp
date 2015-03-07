@@ -97,10 +97,10 @@ void HardLight::OnEvent(SDL_Event* Event)
 			switch (Event->cbutton.button)
 			{
 			case SDL_CONTROLLER_BUTTON_A: // A button
-				sfxMix.PlaySoundEffect("sfxExplosion", 50.0f, 0);
+				sfxMix.PlaySoundEffect("sfxExplosion", 10.0f, 0);
 				break;
 			case SDL_CONTROLLER_BUTTON_B: // B button
-				sfxMix.PlaySoundEffect("sfxExplosion", 90.0f, 0);
+				sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
 				break;
 			case SDL_CONTROLLER_BUTTON_X: // X button
 				sfxMix.PlaySoundEffect("sfxIntro");
@@ -128,8 +128,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
 			int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
 			if (LeftX < -deadZone || LeftX > deadZone){
-				bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f));//the axis are inverted on the controller
-
+				//bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f)); //the axis are inverted on the controller
+				bike->adaptiveSteering(LeftX); //the axis are inverted on the controller
 			}else{
 				bike->getInputData().setAnalogSteer(0.0f);
 			}

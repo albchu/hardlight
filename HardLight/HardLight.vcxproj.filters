@@ -132,6 +132,9 @@
     <ClCompile Include="src\GUI.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Powerup.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -245,6 +248,12 @@
     </ClInclude>
     <ClInclude Include="include\GUI.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Powerup.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupTypes.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
