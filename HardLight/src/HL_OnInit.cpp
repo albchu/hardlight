@@ -92,7 +92,7 @@ bool HardLight::OnInit()
 
 	scene = GAME;
 	gui = GUI(window);
-	gui.loadMenu("MainMenu.txt");
+	gui.loadMenu("MainMenu.txt", pxAgent->get_physics());
 
 	initOpenGL(scene);
 

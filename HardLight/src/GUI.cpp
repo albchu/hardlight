@@ -9,7 +9,7 @@ GUI::GUI() {
 }
 
 GUI::GUI(SDL_Window* window) {
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	win_copy = window;
 }
 
 GUI::~GUI() {
@@ -25,11 +25,14 @@ void GUI::addButton(Button b) {
 	buttons.push_back(b);
 }
 
-void GUI::loadMenu(const char * menuPath) {
+void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	string imagePath;
 	Image image;
 	Button button;
+	int w, h;
 	double x, y;
+
+	SDL_GetWindowSize(win_copy, &w, &h);
 
 	loader = new INIReader(menuPath);
 	if (loader->ParseError() < 0) {
@@ -46,22 +49,26 @@ void GUI::loadMenu(const char * menuPath) {
 		imagePath = loader->Get("images", string("image") + to_string(i+1), "");
 		x = loader->GetReal("images", string("x") + to_string(i+1), 0.0f);
 		y = loader->GetReal("images", string("y") + to_string(i+1), 0.0f);
+
 		image = Image(imagePath.c_str());
 		image.setPos(vec2(x, y));
 		image.setSize(vec2(image.getSurface()->w, image.getSurface()->h));
+		image.init_texture();
+		image.init_model(win_copy);
+		image.set_actor(physics->createRigidStatic(PxTransform(PxVec3(x/w, y/h, 100.0f))));
 
 		addImage(image);
 	}
 
 	// load buttons
 	for(int i = 0; i < numOfButtons; i++) {
-		int imgPos;
+		int imgNum;
 		string action;
 
-		imgPos = loader->GetInteger("buttons", string("imageNum") + to_string(i+1), 1);
+		imgNum = loader->GetInteger("buttons", string("imageNum") + to_string(i+1), 1);
 		action = loader->Get("buttons", string("action") + to_string(i+1), "");
 		
-		button = Button(images[imgPos - 1].getPath().c_str());
+		button = Button(images[imgNum - 1].getPath().c_str());
 		
 		if(action.compare("start") == 0) {
 			button.setAction(START);
@@ -70,93 +77,39 @@ void GUI::loadMenu(const char * menuPath) {
 			button.setAction(QUIT);
 		}
 
+		button.init_texture();
+		button.init_model(win_copy);
+		button.set_actor(physics->createRigidStatic(PxTransform(PxVec3(images[imgNum - 1].getPos().x/w, images[imgNum - 1].getPos().y/h, 100.0f))));
+
 		addButton(button);
 	}
 }
 
-void GUI::render(int winWidth, int winHeight, SDL_Window* window) {
+void GUI::render() {
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(90.0f, winWidth/winHeight, 0.0f, 100.0f);
+	//mat4 projection = perspective(60.0f, (float)winWidth/(float)winHeight, 0.0f, 100.0f);
+	mat4 projection = ortho(-1.0f, 1.0f, -1.0f, 1.0f, 5.0f, 100.0f);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(0.0f, 0.0f, 0.0f, winWidth/2.0f, winHeight/2.0f, 100.0f, 0.0f, 1.0f, 0.0f);
+	mat4 modelView = lookAt(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 100.0f), vec3(0.0f, 1.0f, 0.0f));
+
+	vec3 light = vec3(0.0f, 0.0f, 0.0f);
 
 	for(Image i : images) {
 
-		GLfloat x = i.getPos().x;
-		GLfloat y = i.getPos().y;
-		GLfloat w = i.getSize().x;
-		GLfloat h = i.getSize().y;
-
-		glBindTexture(GL_TEXTURE_2D, i.getTextureID());
-
-		glBegin(GL_TRIANGLES);
-
-		//first triangle
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(x, y, 100.0f);
-
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(x + w, y, 100.0f);
-
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(x + w, y + h, 100.0f);
-
-		// second triangle
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(x, y, 100.0f);
-
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(x, y + h, 100.0f);
-
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(x + w, y + h, 100.0f);
-
-		glEnd();
-
+		modelView = i.get_model_matrix();
+		i.render(projection, modelView, light);
 	}
 
 	for(Button b : buttons) {
 
-		GLfloat x = b.getPos().x;
-		GLfloat y = b.getPos().y;
-		GLfloat w = b.getSize().x;
-		GLfloat h = b.getSize().y;
-
-		glBindTexture(GL_TEXTURE_2D, b.getTextureID());
-
-		glBegin(GL_TRIANGLES);
-
-		//first triangle
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(x, y, 100.0f);
-
-		glTexCoord2f(1.0f, 1.0f);
-		glVertex3f(x + w, y, 100.0f);
-
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(x + w, y + h, 100.0f);
-
-		// second triangle
-		glTexCoord2f(0.0f, 1.0f);
-		glVertex3f(x, y, 100.0f);
-
-		glTexCoord2f(0.0f, 0.0f);
-		glVertex3f(x, y + h, 100.0f);
-
-		glTexCoord2f(1.0f, 0.0f);
-		glVertex3f(x + w, y + h, 100.0f);
-
-		glEnd();
+		modelView = b.get_model_matrix();
+		b.render(projection, modelView, light);
 	}
 
-	SDL_GL_SwapWindow(window);
+	SDL_GL_SwapWindow(win_copy);
 }
 
 bool GUI::onGUIEvent(SDL_Event* event) {

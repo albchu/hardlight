@@ -260,9 +260,6 @@
     <Filter Include="HardLight">
       <UniqueIdentifier>{834a1969-b312-40cf-bc74-4afd760c0d6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="INIReader">
-      <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PhysX">
       <UniqueIdentifier>{924186b8-7d0c-48b6-8938-fc51e1d8656a}</UniqueIdentifier>
     </Filter>
@@ -289,6 +286,9 @@
     </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{42000ad5-4317-40a1-ba07-2ce504975fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INIReader">
+      <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

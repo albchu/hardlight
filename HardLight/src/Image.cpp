@@ -1,5 +1,4 @@
 
-#include "Element.h"
 #include "Image.h"
 
 Image::Image() : Element() {

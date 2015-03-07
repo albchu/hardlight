@@ -31,7 +31,7 @@ int HardLight::OnExecute()
 				running = gui.onGUIEvent(&Event);
 			}
 
-			gui.render(window_width, window_height, window);
+			gui.render();
 
 		}
 	}
