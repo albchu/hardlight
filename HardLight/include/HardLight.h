@@ -125,6 +125,7 @@ private:
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
 	Pickup* pickup;
+	Powerup* powerup;
 
 public:
 	HardLight();

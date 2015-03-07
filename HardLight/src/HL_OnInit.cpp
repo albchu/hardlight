@@ -109,6 +109,10 @@ bool HardLight::OnInit()
 
 	// Init AI system to govern bots
 	overMind = new AI(bikes);
+	
+	// Init Powerup object for testing powerup functionality temporarily
+	powerup = new Powerup(NULL, bikes);
+	
 
 	return true;
 }
