@@ -1,12 +1,4 @@
 //taken from http://www.opengl-tutorial.org/
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <stdlib.h>
-#include <GL/glew.h>
 
 #include "ShaderTools.h"
 
