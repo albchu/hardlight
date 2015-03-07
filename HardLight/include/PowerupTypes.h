@@ -2,5 +2,6 @@ enum PowerupTypes
 {
 	EXTENDTAIL,
 	JUMP,
-	INVINCIBLE
+	INVINCIBLE,
+	PowerupTypes_SIZE
 };
