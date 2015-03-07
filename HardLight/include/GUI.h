@@ -13,19 +13,21 @@
  */
 
 #include <vector>
+#include <PxPhysicsAPI.h>
 #include "Element.h"
 #include "Image.h"
 #include "Button.h"
 #include "../inih\cpp\INIReader.h"
 #include "glm/gtx/string_cast.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 class GUI {
 private:
 	int numOfImages, numOfButtons;
 	std::vector<Image> images;
 	std::vector<Button> buttons;
-	SDL_Renderer* renderer;
-	INIReader*    loader;
+	SDL_Window* win_copy;
+	INIReader* loader;
 
 	void addImage(Image);
 	void addButton(Button);
@@ -35,8 +37,8 @@ public:
 	GUI(SDL_Window*);
 	~GUI();
 
-	void loadMenu(const char*);
-	void render(int winWidth, int winHeight, SDL_Window*);
+	void loadMenu(const char*, PxPhysics*);
+	void render();
 	bool onGUIEvent(SDL_Event*);
 };
 
