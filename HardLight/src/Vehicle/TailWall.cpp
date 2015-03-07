@@ -93,3 +93,13 @@ void TailWall::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
 		segment->render(projection_matrix, view_matrix, lightPos);
 	}
 }
+
+Bike* TailWall::getBike()
+{
+	return bike;
+}
+
+void TailWall::extend_max_length()
+{
+	max_length += max_length;
+}

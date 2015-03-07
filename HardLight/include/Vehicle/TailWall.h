@@ -32,6 +32,8 @@ public:
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 	PxTransform getTailTransform();
 	vec3 getTailPosition();
+	Bike* getBike();
+	void extend_max_length();
 };
 
 #endif
