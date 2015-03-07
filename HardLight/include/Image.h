@@ -1,7 +1,6 @@
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
 
-#include <SDL.h>
 #include "Element.h"
 
 
