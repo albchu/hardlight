@@ -30,6 +30,7 @@ bool HardLight::BuildScene()
 
 	pxAgent->get_scene()->addActor(*groundPlane);
 	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile3.tga"));
+	ground->set_type(FLOOR);
 	world.add_entity(ground);
 
 	//walls
