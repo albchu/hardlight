@@ -8,24 +8,6 @@
     <ClCompile Include="inih\cpp\INIReader.cpp">
       <Filter>INIReader</Filter>
     </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
-    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
-      <Filter>PhysX</Filter>
-    </ClCompile>
     <ClCompile Include="SkyBox.cpp">
       <Filter>World</Filter>
     </ClCompile>
@@ -138,6 +120,24 @@
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicle4WCreate.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleCreate.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleFilterShader.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleNoDriveCreate.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleRaycast.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
+    <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
+      <Filter>PhysXSnippets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -145,27 +145,6 @@
     </ClInclude>
     <ClInclude Include="inih\cpp\INIReader.h">
       <Filter>INIReader</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h">
-      <Filter>PhysX</Filter>
-    </ClInclude>
-    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
-      <Filter>PhysX</Filter>
     </ClInclude>
     <ClInclude Include="include\HardLight.h">
       <Filter>HardLight</Filter>
@@ -261,6 +240,27 @@
     <ClInclude Include="SceneTypes.h">
       <Filter>HardLight</Filter>
     </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleProfiler.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleRaycast.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleTireFriction.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
+    <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
+      <Filter>PhysXSnippets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
@@ -295,6 +295,9 @@
     </Filter>
     <Filter Include="INIReader">
       <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PhysXSnippets">
+      <UniqueIdentifier>{515289e6-95d2-4976-bd1a-7e206555da2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

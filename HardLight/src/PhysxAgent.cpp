@@ -99,11 +99,12 @@ PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimul
 
 void PhysxAgent::cleanup()
 {
+	PxCloseExtensions();
+	PxCloseVehicleSDK();
+	if (gCooking != NULL) gCooking->release();
 	if (gScene != NULL) gScene->release();
 	if (gDispatcher != NULL) gDispatcher->release();
-	//PxCloseExtensions();
 	if (gConnection != NULL) gConnection->release();
-
 	if (gPhysics != NULL) gPhysics->release();
 	if (gFoundation != NULL) gFoundation->release();
 }

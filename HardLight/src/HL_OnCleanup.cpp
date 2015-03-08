@@ -14,9 +14,7 @@ void HardLight::OnCleanup()
 	}
 
 	gFrictionPairs->release();
-	PxCloseVehicleSDK();
 	pxAgent->cleanup();
-	PxCloseExtensions();
 
 	if (glcontext != NULL) SDL_GL_DeleteContext(glcontext);
 	if (window != NULL) SDL_DestroyWindow(window);
