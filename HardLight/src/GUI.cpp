@@ -29,10 +29,7 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	string imagePath;
 	Image image;
 	Button button;
-	int w, h;
 	double x, y;
-
-	SDL_GetWindowSize(win_copy, &w, &h);
 
 	loader = new INIReader(menuPath);
 	if (loader->ParseError() < 0) {
@@ -47,15 +44,16 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	for(int i = 0; i < numOfImages; i++) {
 
 		imagePath = loader->Get("images", string("image") + to_string(i+1), "");
-		x = loader->GetReal("images", string("x") + to_string(i+1), 0.0f);
-		y = loader->GetReal("images", string("y") + to_string(i+1), 0.0f);
+		x = clamp(loader->GetReal("images", string("x") + to_string(i+1), 0.0f), (double)0.0f, (double)1.0f);
+		y = clamp(loader->GetReal("images", string("y") + to_string(i+1), 0.0f), (double)0.0f, (double)1.0f);
 
 		image = Image(imagePath.c_str());
 		image.setPos(vec2(x, y));
-		image.setSize(vec2(image.getSurface()->w, image.getSurface()->h));
+		image.setSize(vec2(clamp(image.getSurface()->w, 0, 1), clamp(image.getSurface()->h, 0, 1)));
 		image.init_texture();
 		image.init_model(win_copy);
-		image.set_actor(physics->createRigidStatic(PxTransform(PxVec3(x/w, y/h, 100.0f))));
+		image.set_actor(physics->createRigidStatic(PxTransform(x, y, 0.5f)));
+		image.init_opengl();
 
 		addImage(image);
 	}
@@ -77,9 +75,15 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 			button.setAction(QUIT);
 		}
 
+		x = clamp(images[imgNum - 1].getPos().x, 0.0f, 1.0f);
+		y = clamp(images[imgNum - 1].getPos().y, 0.0f, 1.0f);
+
+		button.setPos(vec2(x, y));
+		button.setSize(vec2(clamp(images[imgNum - 1].getSurface()->w, 0, 1), clamp(images[imgNum - 1].getSurface()->h, 0, 1)));
 		button.init_texture();
 		button.init_model(win_copy);
-		button.set_actor(physics->createRigidStatic(PxTransform(PxVec3(images[imgNum - 1].getPos().x/w, images[imgNum - 1].getPos().y/h, 100.0f))));
+		button.set_actor(physics->createRigidStatic(PxTransform(x, y, 0.5f)));
+		button.init_opengl();
 
 		addButton(button);
 	}
@@ -87,38 +91,38 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 
 void GUI::render() {
 
-	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	//mat4 projection = perspective(60.0f, (float)winWidth/(float)winHeight, 0.0f, 100.0f);
-	mat4 projection = ortho(-1.0f, 1.0f, -1.0f, 1.0f, 5.0f, 100.0f);
+	mat4 projection = ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
+	mat4 view = lookAt(vec3(0.5f, 0.0f, -1.0f), vec3(0.5f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f));
 
-	mat4 modelView = lookAt(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 100.0f), vec3(0.0f, 1.0f, 0.0f));
-
-	vec3 light = vec3(0.0f, 0.0f, 0.0f);
+	vec3 light = vec3(0.5f, 1.0f, 0.0f);
 
 	for(Image i : images) {
 
-		modelView = i.get_model_matrix();
-		i.render(projection, modelView, light);
+		i.render(projection, view, light);
 	}
 
 	for(Button b : buttons) {
 
-		modelView = b.get_model_matrix();
-		b.render(projection, modelView, light);
+		b.render(projection, view, light);
 	}
 
 	SDL_GL_SwapWindow(win_copy);
 }
 
-bool GUI::onGUIEvent(SDL_Event* event) {
+bool GUI::onGUIEvent(SDL_Event* event, Scene* currentScene) {
 
 	switch(event->type) {
 	case SDL_QUIT:
 		return false;
-	case SDL_MOUSEBUTTONDOWN:
-
+	case SDL_CONTROLLERBUTTONDOWN:
+		switch(event->cbutton.button) {
+		case SDL_CONTROLLER_BUTTON_START:
+			*currentScene = GAME;
+			break;
+		}
 		break;
 	}
 
