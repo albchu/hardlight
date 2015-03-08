@@ -4,7 +4,10 @@
 #include <glm/glm.hpp>		// Used for vec3
 #include <PxPhysicsAPI.h>
 #include <iostream>
+#include <vector>
 #include "../inih\cpp\INIReader.h"
+#include "MeshData.h"
+#include "EntityTypes.h"
 
 #include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
 #include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
@@ -33,7 +36,7 @@ public:
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
 	PxCooking* get_cooking();
-
+	PxRigidActor* create_static_mesh(MeshData*, PxTransform, EntityTypes);
 
 private:
 	PxScene* gScene;

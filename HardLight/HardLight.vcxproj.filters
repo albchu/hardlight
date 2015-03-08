@@ -135,6 +135,9 @@
     <ClCompile Include="src\Powerup.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="src\PhysX\PA_MeshCreation.cpp">
+      <Filter>PhysX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
