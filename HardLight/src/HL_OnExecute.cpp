@@ -28,7 +28,7 @@ int HardLight::OnExecute()
 
 			while(SDL_PollEvent(&Event))
 			{
-				running = gui.onGUIEvent(&Event);
+				running = gui.onGUIEvent(&Event, &scene);
 			}
 
 			gui.render();

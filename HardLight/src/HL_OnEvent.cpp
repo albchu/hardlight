@@ -53,6 +53,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDLK_RIGHT:
 				bike->getInputData().setAnalogSteer(-1.0f);
 				break;
+			case SDLK_KP_ENTER:
+				scene = PAUSE;
+				gui.loadMenu("Paused.txt", pxAgent->get_physics());
 			} // end key_down
 			break;
 

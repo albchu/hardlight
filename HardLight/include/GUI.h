@@ -14,6 +14,7 @@
 
 #include <vector>
 #include <PxPhysicsAPI.h>
+#include "SceneTypes.h"
 #include "Element.h"
 #include "Image.h"
 #include "Button.h"
@@ -39,7 +40,7 @@ public:
 
 	void loadMenu(const char*, PxPhysics*);
 	void render();
-	bool onGUIEvent(SDL_Event*);
+	bool onGUIEvent(SDL_Event*, Scene*);
 };
 
 #endif

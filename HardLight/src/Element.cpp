@@ -6,6 +6,8 @@ Element::Element() {
 
 Element::Element(const char* texturePath) {
 
+	draw_mode = GL_TRIANGLES;
+
 	if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
 		fprintf(stderr, "Couldn't initialize image loader.\n");
 		exit(EXIT_FAILURE);
@@ -63,15 +65,12 @@ void Element::init_texture() {
 
 void Element::init_model(SDL_Window* window) {
 	MeshData temp;
-	int windowWidth;
-	int windowHeight;
-	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
-	double x = pos.x/windowWidth;
-	double y = pos.y/windowHeight;
-	double z = 0.0f;
-	double w = size.x/windowWidth;
-	double h = size.y/windowHeight;
+	double x = pos.x;
+	double y = pos.y;
+	double z = 0.5f;
+	double w = size.x;
+	double h = size.y;
 
 	vec3 normal(0.0f, 0.0f, -1.0f);
 	
