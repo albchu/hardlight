@@ -36,6 +36,7 @@
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
 #include "GUI.h"
+#include "../SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup.h"
@@ -59,13 +60,6 @@ using namespace glm;
 #pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
 #pragma comment(lib, "PhysXProfileSDKDEBUG.lib")
 #pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
-
-enum Scene {
-	MAIN,
-	PAUSE,
-	GAME_OVER,
-	GAME
-};
 
 //==============================================================================
 class HardLight : public PxSimulationEventCallback
