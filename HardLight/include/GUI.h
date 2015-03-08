@@ -14,7 +14,7 @@
 
 #include <vector>
 #include <PxPhysicsAPI.h>
-#include "../SceneTypes.h"
+#include "SceneTypes.h"
 #include "Element.h"
 #include "Image.h"
 #include "Button.h"

@@ -36,7 +36,7 @@
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
 #include "GUI.h"
-#include "../SceneTypes.h"
+#include "SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup.h"
