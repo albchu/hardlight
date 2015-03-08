@@ -111,8 +111,7 @@ bool HardLight::OnInit()
 	overMind = new AI(bikes);
 	
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup = new Powerup(NULL, bikes);
-	
+	powerup = new Powerup(NULL, bikes, config);	
 
 	return true;
 }
