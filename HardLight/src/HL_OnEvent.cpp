@@ -98,19 +98,30 @@ void HardLight::OnEvent(SDL_Event* Event)
 			{
 			case SDL_CONTROLLER_BUTTON_A: // A button
 				//sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
-				powerup->setBike(bikes->get_player_bikes()[0]);
-				powerup->setPowerType(EXTENDTAIL);
-				powerup->usePowerup();
-				sfxMix.PlaySoundEffect("sfxItemUsed");
+				powerup->setPowerType(JUMP);
+				if(powerup->usePowerup() == 1)
+					sfxMix.PlaySoundEffect("sfxItemUsed");
+				else
+					sfxMix.PlaySoundEffect("sfxIntro");
 				break;
 			case SDL_CONTROLLER_BUTTON_B: // B button
 				sfxMix.PlaySoundEffect("sfxExplosion", 10.0f, 0);
 				break;
 			case SDL_CONTROLLER_BUTTON_X: // X button
-				sfxMix.PlaySoundEffect("sfxIntro");
+				//sfxMix.PlaySoundEffect("sfxIntro");
+				powerup->setPowerType(EXTENDTAIL);
+				if(powerup->usePowerup() == 1)
+					sfxMix.PlaySoundEffect("sfxItemUsed");
+				else
+					sfxMix.PlaySoundEffect("sfxIntro");
 				break;
 			case SDL_CONTROLLER_BUTTON_Y: // Y button
-				sfxMix.PlaySoundEffect("sfxItemPickUp");
+				//sfxMix.PlaySoundEffect("sfxItemPickUp");
+				powerup->setPowerType(INVINCIBLE);
+				if(powerup->usePowerup() == 1)
+					sfxMix.PlaySoundEffect("sfxItemUsed");
+				else
+					sfxMix.PlaySoundEffect("sfxIntro");
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
 				scene = PAUSE;

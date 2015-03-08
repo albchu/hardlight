@@ -101,5 +101,8 @@ bool HardLight::BuildScene()
 
 	sfxMix.PlayMusic("musicOverworld");
 
+	// Init Powerup object for testing powerup functionality temporarily
+	powerup->setBike(bikes->get_player_bikes()[0]);
+
 	return true;
 }

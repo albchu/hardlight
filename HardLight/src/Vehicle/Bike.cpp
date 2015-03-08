@@ -7,7 +7,6 @@ Bike::Bike()
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
 	invincible = false;
 	deleted = false;
-	hasPowerup = false;
 }
 
 Bike::~Bike() {
