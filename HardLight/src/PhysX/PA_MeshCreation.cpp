@@ -1,6 +1,6 @@
 #include "PhysxAgent.h"
 
-PxRigidActor* Physx_Agent::create_static_mesh(MeshData* mesh_data, PxTransform transform, EntityTypes type)
+PxRigidActor* PhysxAgent::create_static_convex_mesh(MeshData* mesh_data, PxTransform transform, EntityTypes type)
 {
 	PxFilterData simFilterData;
 	PxFilterData queryFilterData;

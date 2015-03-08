@@ -1,6 +1,6 @@
 #include "PhysxAgent.h"
 
-PxFilterFlags Physx_Agent::gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
+PxFilterFlags PhysxAgent::gFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0, 
 										 PxFilterObjectAttributes attributes1, PxFilterData filterData1,
 										 PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
@@ -27,12 +27,12 @@ PxFilterFlags Physx_Agent::gFilterShader(PxFilterObjectAttributes attributes0, P
 	return PxFilterFlag::eDEFAULT;
 }
 
-int Physx_Agent::getNbCores()
+int PhysxAgent::getNbCores()
 {
 	return 4;
 }
 
-Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback)
+PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback)
 {
 	config = new_config;
 
@@ -83,7 +83,7 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSim
 		(float)config->GetReal("gravity", "y", 0.0),
 		(float)config->GetReal("gravity", "z", 0.0)
 		);
-	sceneDesc.filterShader = Physx_Agent::gFilterShader;
+	sceneDesc.filterShader = PhysxAgent::gFilterShader;
 	sceneDesc.simulationEventCallback = pxSimulationEventCallback;
 
 	gScene = gPhysics->createScene(sceneDesc);
@@ -97,7 +97,7 @@ Physx_Agent::Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSim
 
 }
 
-void Physx_Agent::cleanup()
+void PhysxAgent::cleanup()
 {
 	if (gScene != NULL) gScene->release();
 	if (gDispatcher != NULL) gDispatcher->release();
@@ -108,43 +108,43 @@ void Physx_Agent::cleanup()
 	if (gFoundation != NULL) gFoundation->release();
 }
 
-PxPhysics* Physx_Agent::get_physics()
+PxPhysics* PhysxAgent::get_physics()
 {
 	return gPhysics;
 }
 
-PxScene* Physx_Agent::get_scene()
+PxScene* PhysxAgent::get_scene()
 {
 	return gScene;
 }
 
-PxFoundation* Physx_Agent::get_foundation()
+PxFoundation* PhysxAgent::get_foundation()
 {
 	return gFoundation;
 }
 
-PxDefaultCpuDispatcher* Physx_Agent::get_dispatcher()
+PxDefaultCpuDispatcher* PhysxAgent::get_dispatcher()
 {
 	return gDispatcher;
 }
 
 
-vec3 Physx_Agent::toVec3(PxVec3 pxvec3)
+vec3 PhysxAgent::toVec3(PxVec3 pxvec3)
 {
 	return vec3(pxvec3.x, pxvec3.y, pxvec3.z);
 }
 
-PxDefaultAllocator Physx_Agent::get_allocator()
+PxDefaultAllocator PhysxAgent::get_allocator()
 {
 	return gAllocator;
 }
 
-PxDefaultErrorCallback Physx_Agent::get_error_callback()
+PxDefaultErrorCallback PhysxAgent::get_error_callback()
 {
 	return gErrorCallback;
 }
 
-PxCooking* Physx_Agent::get_cooking()
+PxCooking* PhysxAgent::get_cooking()
 {
 	return gCooking;
 }

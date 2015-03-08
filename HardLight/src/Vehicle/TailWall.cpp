@@ -5,17 +5,17 @@
 TailWall::TailWall(Bike* new_bike, INIReader* new_config)
 {
 	config = new_config;		// Needed to be passed into tail segments
-	max_length = config->GetReal("tail", "maxLength", 30);
-	min_segment_allowance = config->GetReal("tail", "minSegmentSize", 0.5);
-	max_segment_allowance = config->GetReal("tail", "maxSegmentSize", 100);
-	tail_offset_scalar = config->GetReal("tail", "offset", 4);
+	max_length = config->GetInteger("tail", "maxLength", 30);
+	min_segment_allowance = (float)config->GetReal("tail", "minSegmentSize", 0.5);
+	max_segment_allowance = (float)config->GetReal("tail", "maxSegmentSize", 100);
+	tail_offset_scalar = (float)config->GetReal("tail", "offset", 4);
 	bike = new_bike;
 	//gPose = bike->get_actor()->getGlobalPose();
 	//last_position = vec3(gPose.p.x, gPose.p.y, gPose.p.z);
 	last_position = getTailPosition();
 
 }
-void TailWall::update(Physx_Agent* pxAgent)
+void TailWall::update(PhysxAgent* pxAgent)
 {
 	vec3 new_position = getTailPosition();
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
@@ -33,8 +33,8 @@ void TailWall::update(Physx_Agent* pxAgent)
 		PxRigidActor* segment_actor = pxAgent->get_physics()->createRigidStatic(getTailTransform());
 		TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, "../data/Textures/LightTrail.tga", config);
 		segments.insert(segments.begin(), segment);
-		float width = config->GetReal("tail", "width", 100);
-		float height = config->GetReal("tail", "height", 100);
+		float width = (float)config->GetReal("tail", "width", 100);
+		float height = (float)config->GetReal("tail", "height", 100);
 		// Cook the wall mesh generated for this segment
 		PxConvexMesh* chassisConvexMesh = createChassisMesh(PxVec3(width, height, length), *pxAgent->get_physics(), *pxAgent->get_cooking());
 		PxMaterial* wall_material = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);

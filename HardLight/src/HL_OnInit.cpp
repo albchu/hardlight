@@ -49,14 +49,14 @@ bool HardLight::OnInit()
 	}
 
 	//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config, this);
+	pxAgent = new PhysxAgent(config, this);
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
 	if (glewInit() != GLEW_OK)
 		cerr << "Could not make initialize glew" << endl;
 
-	scene = MAIN;
+	scene = GAME;
 	gui = GUI(window);
 	gui.loadMenu("MainMenu.txt", pxAgent->get_physics());
 

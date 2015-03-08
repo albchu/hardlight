@@ -1,5 +1,5 @@
-#ifndef _PHYSX_AGENT_H_
-#define _PHYSX_AGENT_H_
+#ifndef _PHYSXAGENT_H_
+#define _PHYSXAGENT_H_
 
 #include <glm/glm.hpp>		// Used for vec3
 #include <PxPhysicsAPI.h>
@@ -19,10 +19,10 @@ using namespace glm;
 using namespace physx;
 
 // This class should be the single point of access for all our physx objects and also general useful functions
-class Physx_Agent
+class PhysxAgent
 {
 public:
-	Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
+	PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
 	static vec3 toVec3(PxVec3);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
@@ -36,7 +36,7 @@ public:
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
 	PxCooking* get_cooking();
-	PxRigidActor* create_static_mesh(MeshData*, PxTransform, EntityTypes);
+	PxRigidActor* create_static_convex_mesh(MeshData*, PxTransform, EntityTypes);
 
 private:
 	PxScene* gScene;

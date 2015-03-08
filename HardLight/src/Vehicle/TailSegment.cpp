@@ -6,8 +6,8 @@ TailSegment::TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor,
 	start = new_start;
 	end = new_end;
 
-	width = config->GetReal("tail", "width", 100);
-	height = config->GetReal("tail", "height", 100);
+	width = (float)config->GetReal("tail", "width", 100);
+	height = (float)config->GetReal("tail", "height", 100);
 	type = TAIL_SEGMENT;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;

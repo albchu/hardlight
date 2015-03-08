@@ -191,7 +191,7 @@ vec3 Entity::get_direction_vector()
 	PxQuat q = gPose.q;
 	PxVec3 global_forward = PxVec3(0,0,1);
 	
-	return Physx_Agent::toVec3(q.rotate(global_forward));
+	return PhysxAgent::toVec3(q.rotate(global_forward));
 }
 
 float Entity::get_distance(Entity* other)
