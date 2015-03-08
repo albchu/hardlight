@@ -145,6 +145,7 @@ void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
 
 	// Draw the triangles !
 	glDrawArrays(draw_mode, 0, mesh_data->getVertices()->size());
+	errorReport("glDrawArrays");
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
