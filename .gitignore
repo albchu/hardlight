@@ -38,3 +38,4 @@
 *.vcxproj.user
 *.unsuccessfulbuild
 /HardLight/Debug
+/data
