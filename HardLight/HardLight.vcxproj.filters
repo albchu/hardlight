@@ -32,9 +32,6 @@
     <ClCompile Include="src\HardLight.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
-    <ClCompile Include="src\HL_CreateVehicle.cpp">
-      <Filter>HardLight</Filter>
-    </ClCompile>
     <ClCompile Include="src\HL_OnCleanup.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
@@ -98,11 +95,45 @@
     <ClCompile Include="src\Controls\Controller.cpp">
       <Filter>World\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="TailSegment.cpp">
+    <ClCompile Include="src\HL_OnContact.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\CreateVehicle.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
-    <ClCompile Include="TailWall.cpp">
+    <ClCompile Include="src\PhysxAgent.cpp">
+      <Filter>PhysX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common.cpp" />
+    <ClCompile Include="src\Vehicle\TailSegment.cpp">
       <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\TailWall.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wall.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Element.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pickup.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Rendering\TextureMap.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Powerup.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,9 +188,6 @@
     <ClInclude Include="include\SoundMixer.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="include\MeshData.h" />
-    <ClInclude Include="include\MeshMap.h" />
-    <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\Vehicle\Bikes.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
@@ -178,13 +206,59 @@
     <ClInclude Include="include\Controls\Player_Controller.h">
       <Filter>World\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="include\Vehicle\CreateVehicle.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PhysxAgent.h">
+      <Filter>PhysX</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Common.h" />
+    <ClInclude Include="include\Vehicle\TailSegment.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\TailWall.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Wall.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshData.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderTools.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Element.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Image.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pickup.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\TextureMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUI.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Powerup.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupTypes.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
       <UniqueIdentifier>{834a1969-b312-40cf-bc74-4afd760c0d6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="INIReader">
-      <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
     </Filter>
     <Filter Include="PhysX">
       <UniqueIdentifier>{924186b8-7d0c-48b6-8938-fc51e1d8656a}</UniqueIdentifier>
@@ -210,6 +284,12 @@
     <Filter Include="World\Controls">
       <UniqueIdentifier>{83e7335a-00bc-46dc-8608-7bcb771b8a18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{42000ad5-4317-40a1-ba07-2ce504975fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="INIReader">
+      <UniqueIdentifier>{062dd5b1-9f31-484a-85a7-9dd0d0c18343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini">
@@ -221,5 +301,16 @@
     <None Include="basic_vs.glsl">
       <Filter>Rendering</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="MainMenu.txt">
+      <Filter>Scene</Filter>
+    </Text>
+    <Text Include="GameOver.txt">
+      <Filter>Scene</Filter>
+    </Text>
+    <Text Include="Paused.txt">
+      <Filter>Scene</Filter>
+    </Text>
   </ItemGroup>
 </Project>

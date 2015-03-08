@@ -21,64 +21,76 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 {
 	{
 		6.0f,	//rise rate eANALOG_INPUT_ACCEL
-		6.0f,	//rise rate eANALOG_INPUT_BRAKE		
-		6.0f,	//rise rate eANALOG_INPUT_HANDBRAKE	
-		2.5f,	//rise rate eANALOG_INPUT_STEER_LEFT
-		2.5f,	//rise rate eANALOG_INPUT_STEER_RIGHT
+			6.0f,	//rise rate eANALOG_INPUT_BRAKE		
+			6.0f,	//rise rate eANALOG_INPUT_HANDBRAKE	
+			2.5f,	//rise rate eANALOG_INPUT_STEER_LEFT
+			2.5f,	//rise rate eANALOG_INPUT_STEER_RIGHT
 	},
 	{
 		10.0f,	//fall rate eANALOG_INPUT_ACCEL
-		10.0f,	//fall rate eANALOG_INPUT_BRAKE		
-		10.0f,	//fall rate eANALOG_INPUT_HANDBRAKE	
-		5.0f,	//fall rate eANALOG_INPUT_STEER_LEFT
-		5.0f	//fall rate eANALOG_INPUT_STEER_RIGHT
-	}
+			10.0f,	//fall rate eANALOG_INPUT_BRAKE		
+			10.0f,	//fall rate eANALOG_INPUT_HANDBRAKE	
+			5.0f,	//fall rate eANALOG_INPUT_STEER_LEFT
+			5.0f	//fall rate eANALOG_INPUT_STEER_RIGHT
+		}
 };
 
 //==============================================================================
 void HardLight::OnLoop()
 {
+	float closestExplosion = FLT_MAX;
+	for (unsigned int j = 0; j < bikesToKill.size(); j++)
+	{
+		if (!bikesToKill[j]->invincible) {
+			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
+			bikes->kill_bike(bikesToKill[j]);
+			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
+				closestExplosion = glm::min(closestExplosion, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
+		}
+	}
+	if (closestExplosion < FLT_MAX)
+		sfxMix.PlaySoundEffect("sfxExplosion", closestExplosion, 0);
+	bikesToKill.clear();
+
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
 	Uint32 elapsed = msCurrent - msPhysics;
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
-	Bike* bike = bikes.get_player_bikes()[0];
-	PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
-	//Raycasts.
-	PxVehicleWheels* vehicles[1] = {bike->getVehicle4W()};
-	PxRaycastQueryResult* raycastResults = bike->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
-	const PxU32 raycastResultsSize = bike->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
-	PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
+	for(Bike* bike : bikes->get_all_bikes())
+	{
+		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
-	//Vehicle update.
-	const PxVec3 grav = gScene->getGravity();
-	PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
-	PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
-	PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
+		//Raycasts.
+		PxVehicleWheels* vehicles[1] = {bike->getVehicle4W()};
+		PxRaycastQueryResult* raycastResults = bike->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
+		const PxU32 raycastResultsSize = bike->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
+		PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
-	//Work out if the vehicle is in the air.
-	//bike->setInAir(false);//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
-	//gIsVehicleInAir = false;//gVehicle4W->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir(vehicleQueryResults[0]);
-	//controller->forward();
+		//Vehicle update.
+		const PxVec3 grav = pxAgent->get_scene()->getGravity();
+		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
+		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
+		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
+
+	}
+
+	// Move Bot Bikes
+	overMind->update_bikes();
+	overMind->move_bikes();
+
+	// Tail creation
+	for(TailWall* tail_wall : bikes->get_all_tails())
+	{
+		tail_wall->update(pxAgent);
+	}
 
 	//Scene update.
-	gScene->simulate(timestep);
+	pxAgent->get_scene()->simulate(timestep);
 	msPhysics = msCurrent;
 
-	// tail creation
-
-
-
-
-
-	
-
-	while(!gScene->fetchResults() )
-	{
-		
-	}
+	pxAgent->get_scene()->fetchResults(true);
 }
 
 //==============================================================================

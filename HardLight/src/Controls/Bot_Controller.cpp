@@ -1,12 +1,9 @@
-#ifndef _BOT_CONTROLLER_H
-#define _BOT_CONTROLLER_H
-#include "Controls/Controller.h"
+#include "Controls/Bot_Controller.h"
 
-class Bot_Controller : public Controller
+Bot_Controller::Bot_Controller(Bike* new_bike)
 {
-public:
-
-private:
-
-};
-#endif
+	cout << "Bot controller has been set!" << endl;
+	bike = new_bike;
+	bike->getVehicle4W()->mDriveDynData.setUseAutoGears(true);
+	top_acceleration = 0.75;
+}

@@ -25,8 +25,9 @@ mat4 SkyBox::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	float skyboxSize = 3000.0f;
 
-	model_matrix = scale(model_matrix, vec3(3000.0, 3000.0, 3000.0));
+	model_matrix = scale(model_matrix, vec3(skyboxSize, skyboxSize, skyboxSize));
 
 	return model_matrix;
 }

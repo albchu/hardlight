@@ -23,7 +23,6 @@ private:
 
 public:
 	static MeshMap* Instance();		// Singleton pattern
-
 	
 	MeshData* getEntityMesh(string);
 	void setEntityMesh(string, MeshData);

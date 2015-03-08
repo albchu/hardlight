@@ -7,11 +7,13 @@
 #include <vector>
 #include <GL/glew.h>
 #include <PxPhysicsAPI.h>
+#include <cmath>
 
 #include "ShaderTools.h"
 #include "MeshData.h"
 #include "EntityTypes.h"
 #include "MeshMap.h"
+#include "PhysxAgent.h"
 
 using namespace glm;
 using namespace std;
@@ -42,21 +44,22 @@ protected:
 	GLuint texture_buffer_id;
 	GLuint light_id;
 	int type;
+	bool deleted;
 
 public:
-	Entity(PxRigidActor*, MeshData*, const char*);
+	Entity(PxRigidActor*, MeshData*, GLuint);
 	Entity();
 	virtual ~Entity();
 
-	virtual void			render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
+	virtual void	render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 
 	void			set_texture_path(const char*);
 
 	void			set_mesh_data(MeshData*);
 	MeshData*		get_mesh_data();
 
-	void			set_actor(PxRigidActor*);
-	PxRigidActor*		get_actor();
+	virtual void	set_actor(PxRigidActor*);
+	PxRigidActor*	get_actor();
 	
 	void			set_draw_mode(GLuint&);
 	GLuint			get_draw_mode();
@@ -68,6 +71,14 @@ public:
 	void			set_texture(GLuint);
 	
 	int				get_type();
+	void			set_type(EntityTypes type);
 	void			release();
+
+	bool			is_deleted();
+	void			set_deleted(bool flag);
+
+	vec3			get_location();
+	vec3			get_direction_vector();
+	float			get_distance(Entity* other);
 };
 #endif

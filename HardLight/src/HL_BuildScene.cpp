@@ -1,101 +1,108 @@
-//==============================================================================
 #include "HardLight.h"
-#include "TailSegment.h"
-#include "MeshMap.h"
-
-//==============================================================================
-
 
 bool HardLight::BuildScene()
 {
-	sfxMix.InitializeMixer(config);
-	sfxMix.PlayMusic(0);
-
-	skybox = new SkyBox(gPhysics->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
+	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);
 
-	//PxMaterial* ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
-	////Create the batched scene queries for the suspension raycasts.
-	//bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, gDefaultAllocator));
-	//bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), gScene));
-	//
-	////Create the friction table for each combination of tire and surface type.
-	//gFrictionPairs = createFrictionPairs(ground_material);
-	//
-	////Create a plane to drive on.
-	//gGroundPlane = createDrivablePlane(ground_material, gPhysics);
-	//gScene->addActor(*gGroundPlane);
-	//Entity* ground = new Entity(gGroundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), "../data/Textures/uvgrid.tga");
-	//world.add_entity(ground);
+	//Create the friction table for each combination of tire and surface type.
+	gFrictionPairs = createFrictionPairs(gMaterial);
 
+	//Create a plane to drive on.
+	PxRigidStatic* groundPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0,1,0,0), *gMaterial);
 
-	//PxMaterial* planeMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.2f);
-	//PxMaterial* cubeMaterial = gPhysics->createMaterial(0.1f, 0.4f, 1.0f);
-	//PxMaterial* sphereMaterial = gPhysics->createMaterial(0.6f, 0.1f, 0.1f);
+	//Get the plane shape so we can set query and simulation filter data.
+	PxShape* shapes[1];
+	groundPlane->getShapes(shapes, 1);
 
-	//// *** Create Ground-Plane *** //
-	//PxTransform pose = PxTransform(PxVec3(0.0f, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(1.0f, 0.0f, 0.0f)));
-	//PxRigidStatic* gGroundPlane = gPhysics->createRigidStatic(pose);
-	//PxShape* shape = gGroundPlane->createShape(PxPlaneGeometry(), *planeMaterial);
-	//gScene->addActor(*gGroundPlane);
+	//Set the query filter data of the ground plane so that the vehicle raycasts can hit the ground.
+	PxFilterData qryFilterData;
+	qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
+	shapes[0]->setQueryFilterData(qryFilterData);
 
-	//vector<vec3> plane_mesh;
-	////plane_mesh.push_back(vec3(0.0f, -10.0f, -10.0f));
-	////plane_mesh.push_back(vec3(0.0f, 10.0f, -10.0f));
-	////plane_mesh.push_back(vec3(0.0f, 10.0f, 10.0f));
-	////plane_mesh.push_back(vec3(0.0f, -10.0f, 10.0f));
-	//plane_mesh.push_back(vec3(-25.0f, 25.0f, -20.0f));
-	//plane_mesh.push_back(vec3(25.0f, 25.0f, -20.0f));
-	//plane_mesh.push_back(vec3(-25.0f, -25.0f, -20.0f));
-	//plane_mesh.push_back(vec3(25.0f, -25.0f, -20.0f));
+	//Set the simulation filter data of the ground plane so that it collides with the chassis of a vehicle but not the wheels.
+	PxFilterData simFilterData;
+	simFilterData.word0 = COLLISION_FLAG_GROUND;
+	simFilterData.word1 = COLLISION_FLAG_GROUND_AGAINST;
+	shapes[0]->setSimulationFilterData(simFilterData);
 
-	//world.add_entity(gGroundPlane, plane_mesh);
-	
+	pxAgent->get_scene()->addActor(*groundPlane);
+	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile3.tga"));
+	ground->set_type(FLOOR);
+	world.add_entity(ground);
 
-	//world.add_entity(*plane, Mesh::createPlaneMesh());
-	//
-	//// *** Create Wall-Planes *** //
-	//PxTransform leftPose = PxTransform(PxVec3(0.0f, 0.0f, size), PxQuat(PxHalfPi, PxVec3(0.0f, 1.0f, 0.0f)));
-	//PxRigidStatic* leftPlane = gPhysics->createRigidStatic(leftPose);
-	//PxShape* leftShape = leftPlane->createShape(PxPlaneGeometry(), *planeMaterial);
-	//gScene->addActor(*leftPlane);
-	////world.add_entity(*leftPlane, Mesh::createPlaneMesh());
+	//walls
+	qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
+	simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
+	simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
+	float size = (float)config->GetReal("scene", "size", 1000.0);
 
-	//PxTransform rightPose = PxTransform(PxVec3(-size, 0.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(1.0f, 0.0f, 0.0f)));
-	//PxRigidStatic* rightPlane = gPhysics->createRigidStatic(rightPose);
-	//PxShape* rightShape = rightPlane->createShape(PxPlaneGeometry(), *planeMaterial);
-	//gScene->addActor(*rightPlane);
-	////world.add_entity(*rightPlane, Mesh::createPlaneMesh());
+	PxRigidStatic* wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(1.0f,0.0f,0.0f,size), *gMaterial);
+	wallPlane->getShapes(shapes, 1);
+	shapes[0]->setQueryFilterData(qryFilterData);
+	shapes[0]->setSimulationFilterData(simFilterData);
+	pxAgent->get_scene()->addActor(*wallPlane);
+	Wall* wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
+	world.add_entity(wall);
 
-	//PxTransform leftPose2 = PxTransform(PxVec3(0.0f, 0.0f, -size), PxQuat(PxHalfPi, PxVec3(0.0f, -1.0f, 0.0f)));
-	//PxRigidStatic* leftPlane2 = gPhysics->createRigidStatic(leftPose2);
-	//PxShape* leftShape2 = leftPlane2->createShape(PxPlaneGeometry(), *planeMaterial);
-	//gScene->addActor(*leftPlane2);
-	////world.add_entity(*leftPlane2, Mesh::createPlaneMesh());
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
+	wallPlane->getShapes(shapes, 1);
+	shapes[0]->setQueryFilterData(qryFilterData);
+	shapes[0]->setSimulationFilterData(simFilterData);
+	pxAgent->get_scene()->addActor(*wallPlane);
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
+	world.add_entity(wall);
 
-	//PxTransform rightPose2 = PxTransform(PxVec3(size, 0.0f, 0.0f), PxQuat(PxPi, PxVec3(0.0f, 1.0f, 0.0f)));
-	//PxRigidStatic* rightPlane2 = gPhysics->createRigidStatic(rightPose2);
-	//PxShape* rightShape2 = rightPlane2->createShape(PxPlaneGeometry(), *planeMaterial);
-	//gScene->addActor(*rightPlane2);
-	////world.add_entity(*rightPlane2, Mesh::createPlaneMesh());
-	//
-	//// Initialize Sphere Actor
-	//PxReal sphereDensity = 2.0f;
-	//PxTransform sphereTransform(PxVec3(0.0f, 4.0f, 0.0f));
-	//PxSphereGeometry sphereGeometry(0.7f);
-	//for (int i=0; i<nbObjects; i++)
-	//{
-	//	sphereTransform.p  = PxVec3(0.0f,4.0f+4*i,0.0f);
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
+	wallPlane->getShapes(shapes, 1);
+	shapes[0]->setQueryFilterData(qryFilterData);
+	shapes[0]->setSimulationFilterData(simFilterData);
+	pxAgent->get_scene()->addActor(*wallPlane);
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
+	world.add_entity(wall);
 
-	//	PxRigidDynamic *sphereActor = PxCreateDynamic(*gPhysics, sphereTransform, sphereGeometry, *sphereMaterial, sphereDensity);
-	//	if (!sphereActor) return false;
+	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
+	wallPlane->getShapes(shapes, 1);
+	shapes[0]->setQueryFilterData(qryFilterData);
+	shapes[0]->setSimulationFilterData(simFilterData);
+	pxAgent->get_scene()->addActor(*wallPlane);
+	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
+	world.add_entity(wall);
 
-	//	sphereActor->setAngularDamping((PxReal)0.2);
-	//	sphereActor->setLinearDamping((PxReal)0.01);
-	//	sphereActor->setMass((PxReal)(1.0+(i/4.0)));
-	//	gScene->addActor(*sphereActor);
-	//	//world.add_entity(*sphereActor);
-	//}
+	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
+
+	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
+	{
+		Bike* new_bike = new Bike();
+		if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+			return false;
+
+		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
+		bikes->add_bot_bike(new_bike);
+
+	}
+	if(bikes->get_player_bikes().size() < 1) {
+		for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
+		{
+
+			Bike* new_bike = new Bike();
+			if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
+				return false;
+		
+			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
+			if (controllers.size() > 0)
+				bikes->add_player_bike(new_bike, controllers[i]);
+			else
+				bikes->add_player_bike(new_bike, NULL);
+		}
+	}
+
+	sfxMix.PlayMusic("musicOverworld");
+
+	// Init Powerup object for testing powerup functionality temporarily
+	powerup->setBike(bikes->get_player_bikes()[0]);
+
 	return true;
 }

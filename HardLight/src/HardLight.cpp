@@ -16,11 +16,6 @@ HardLight::HardLight()
 	window = NULL;
 	glcontext = NULL;
 
-	gScene = NULL;
-	gPhysics = NULL;
-	gFoundation = NULL;
-	gDefaultFilterShader = PxDefaultSimulationFilterShader;
-
 	msPhysics = SDL_GetTicks();
 	msGraphics = msPhysics;
 	msMax = config->GetInteger("physics", "msMax", 100);
@@ -29,6 +24,7 @@ HardLight::HardLight()
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
 
+	srand ((int)time(NULL));
 	//bike->setInAir(true);
 }
 //==============================================================================

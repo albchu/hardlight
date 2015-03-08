@@ -1,14 +1,15 @@
 #include "Entity.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path)
+Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture)
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_tga_texture(texture_file_path);
+	texture = new_texture;
 	init_opengl();
+	deleted = false;
 }
 
 Entity::Entity()
@@ -16,6 +17,7 @@ Entity::Entity()
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = new MeshData();
+	deleted = false;
 }
 
 Entity::~Entity() {
@@ -73,8 +75,9 @@ mat4 Entity::get_model_matrix()
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	
-	model_matrix = scale(model_matrix, vec3(8.5, 8.5, 8.5));
+	float scaleFactor = 3.0f;
+
+	model_matrix = scale(model_matrix, vec3(scaleFactor, scaleFactor, scaleFactor));
 
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
 
@@ -83,8 +86,6 @@ mat4 Entity::get_model_matrix()
 
 void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)
 {
-
-
 	// Use our shader
 	glUseProgram(program_id);
 
@@ -156,12 +157,43 @@ MeshData*	Entity::get_mesh_data()					{ return mesh_data; }
 void Entity::set_draw_mode(GLuint& new_draw_mode)	{ draw_mode = new_draw_mode; }
 GLuint Entity::get_draw_mode()						{ return draw_mode; }
 
-void Entity::set_actor(PxRigidActor* new_actor)	{ actor = new_actor; }
-PxRigidActor* Entity::get_actor()				{ return actor; }
-int Entity::get_type()				{ return type; }
+void Entity::set_actor(PxRigidActor* new_actor)		{ actor = new_actor; }
+PxRigidActor* Entity::get_actor()					{ return actor; }
+int Entity::get_type()								{ return type; }
+void Entity::set_type(EntityTypes type)				{ this->type = type; }
 
-void Entity::set_texture(GLuint new_texture)	{ texture = new_texture; }
+void Entity::set_texture(GLuint new_texture)		{ texture = new_texture; }
 
 void Entity::release(){
 	actor->release();
+}
+
+void Entity::set_deleted(bool flag)
+{
+	deleted = flag;
+}
+
+bool Entity::is_deleted()
+{
+	return deleted;
+}
+
+vec3 Entity::get_location()
+{
+	PxTransform gPose = actor->getGlobalPose();
+	return vec3(gPose.p.x, gPose.p.y, gPose.p.z);
+}
+
+vec3 Entity::get_direction_vector()
+{
+	PxTransform gPose = actor->getGlobalPose();
+	PxQuat q = gPose.q;
+	PxVec3 global_forward = PxVec3(0,0,1);
+	
+	return Physx_Agent::toVec3(q.rotate(global_forward));
+}
+
+float Entity::get_distance(Entity* other)
+{
+	return (this->actor->getGlobalPose().p - other->actor->getGlobalPose().p).magnitude();
 }

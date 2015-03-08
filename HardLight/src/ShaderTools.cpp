@@ -1,12 +1,4 @@
 //taken from http://www.opengl-tutorial.org/
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <stdlib.h>
-#include <GL/glew.h>
 
 #include "ShaderTools.h"
 
@@ -131,7 +123,7 @@ GLuint load_tga_texture(const char * imagepath) {
 	int mode, total;
 	FILE* file;
 
-	file = fopen(imagepath, "rb");
+	fopen_s(&file, imagepath, "rb");
 	if(file == NULL) {
 		fprintf(stderr, "Couldn't open %s.\n", imagepath);
 		return -1;

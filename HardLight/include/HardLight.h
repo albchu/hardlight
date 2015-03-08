@@ -15,23 +15,31 @@
 
 #include <PxPhysicsAPI.h>
 
-
-
 #include <glm/gtx/string_cast.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "objParser.h"
 #include "World.h"
+#include "AI/AI.h"
 #include "Controls/Controller.h"
 #include "Controls/Player_Controller.h"
+#include "Controls/Bot_Controller.h"
 #include "Entity.h"
 #include "Vehicle/Bike.h"
 #include "Vehicle/Bikes.h"
 #include "SkyBox.h"
-#include "TailSegment.h"
+#include "Wall.h"
+#include "Common.h"
+#include "Vehicle/TailSegment.h"
+#include "Vehicle/TailWall.h"
+#include "MeshMap.h"
+#include "Rendering/TextureMap.h"
+#include "GUI.h"
 #include "SoundMixer.h"
-
+#include "Vehicle/CreateVehicle.h"
+#include "Powerup.h"
+#include "Pickup.h"
 
 using namespace physx;
 using namespace glm;
@@ -39,6 +47,7 @@ using namespace glm;
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
+#pragma comment(lib, "SDL2_image.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 
@@ -48,29 +57,43 @@ using namespace glm;
 #pragma comment(lib, "PxTaskDEBUG.lib")
 #pragma comment(lib, "PhysX3VehicleDEBUG.lib")
 #pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
+#pragma comment(lib, "PhysXProfileSDKDEBUG.lib")
+#pragma comment(lib, "PhysXVisualDebuggerSDKDEBUG.lib")
+
+enum Scene {
+	MAIN,
+	PAUSE,
+	GAME_OVER,
+	GAME
+};
 
 //==============================================================================
-class HardLight
+class HardLight : public PxSimulationEventCallback
 {
 private:
 	INIReader* config;
 	bool running;
+	Scene scene;
+	GUI gui;
 
 	int window_width;
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
 	
-	Controller* controller;	//ThiS SI ALBERTS CODE ITS TEMP 
 	vector<SDL_GameController*> controllers;
 
-	PxScene* gScene;
-	PxFoundation* gFoundation;
-	PxPhysics* gPhysics;
-	PxCooking* gCooking;
-	PxDefaultErrorCallback gDefaultErrorCallback;
-	PxDefaultAllocator gDefaultAllocator;
-	PxSimulationFilterShader gDefaultFilterShader;
+	Physx_Agent* pxAgent;
+
+	// Implements PxSimulationEventCallback
+	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
+	virtual void onTrigger(PxTriggerPair*, PxU32) {}
+	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
+	virtual void onWake(PxActor**, PxU32) {}
+	virtual void onSleep(PxActor**, PxU32) {}
+
+	// scene specific functions
+	void initOpenGL(Scene);
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -88,25 +111,21 @@ private:
 	float cam_rotate;
 
 	World world;
-	
-	//vehicles
-	//VehicleSceneQueryData* gVehicleSceneQueryData;
-	//PxBatchQuery* gBatchQuery;
+	float size;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
-	PxRigidStatic* gGroundPlane;
-	//PxVehicleDrive4W* gVehicle4W;
-	//PxRigidActor* vehicle;
-	//bool gIsVehicleInAir;
-	//PxVehicleDrive4WRawInputData gVehicleInputData;
-	//tail
+
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
-	//Bike* bike;
-	Bikes bikes;		// Holds arrays of all bikes on the scene
+	Bikes* bikes;		// Holds arrays of all bikes on the scene
+	vector<Bike*> bikesToKill;
+	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
+
+	Pickup* pickup;
+	Powerup* powerup;
 
 public:
 	HardLight();
@@ -117,8 +136,6 @@ public:
 	bool OnInit();
 
 	bool BuildScene();
-
-	bool CreateVehicle(Bike* &bike, PxVec3 init_position);
 
 	void OnEvent(SDL_Event* Event);
 

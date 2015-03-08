@@ -1,0 +1,21 @@
+[images]
+numberOfImages = 4
+image1 = ..\data\Images\HardLightTitle.tga
+x1 = 250.0
+y1 = 100.0
+image2 = ..\data\Images\MainMenuTitle.tga
+x2 = 450.0
+y2 = 360.0
+image3 = ..\data\Images\Start.tga
+x3 = 470.0
+y3 = 450.0
+image4 = ..\data\Images\Quit.tga
+x4 = 470.0
+y4 = 540.0
+
+[buttons]
+numberOfButtons = 2
+imageNum1 = 3
+action1 = start
+imageNum2 = 4
+action2 = quit

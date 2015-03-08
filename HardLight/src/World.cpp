@@ -21,7 +21,7 @@ void World::clear()
 
 void World::remove(Entity* entity)
 {
-	for(int i = 0; i < entities.size();i++){
+	for(unsigned int i = 0; i < entities.size(); i++){
 		if(entities[i] == entity){
 			entities.erase(entities.begin()+i);
 			entity->release();
