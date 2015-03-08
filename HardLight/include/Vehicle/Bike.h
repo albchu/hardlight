@@ -32,7 +32,6 @@ public:
 	PxBatchQuery* getBatchQuery();
 	bool isInAir();
 	bool invincible;
-	bool hasPowerup;
 
 	void setVehicle4W(PxVehicleDrive4W*);
 	void setInputData(PxVehicleDrive4WRawInputData);

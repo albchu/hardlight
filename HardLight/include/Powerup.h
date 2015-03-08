@@ -6,29 +6,33 @@
 #include "Vehicle\Bikes.h"
 #include "Vehicle\TailWall.h"
 
+#include "../inih\cpp\INIReader.h"
+
 class Powerup
 {
 public:
 	Powerup();
-	Powerup(Bike* bike, Bikes* bikes);
+	Powerup(Bike* bike, Bikes* bikes, INIReader* config);
 	~Powerup();
 
 	Bike* getBike();
 	Bikes* getBikes();
+	INIReader* getINIReader();
 	PowerupTypes getPowerType();
 
 	void setBike(Bike* bike);
 	void setBikes(Bikes* bikes);
+	void setINIReader(INIReader* config);
 	void setPowerType(PowerupTypes powType);
 
 	void choosePowerup(); // determine the type of powerup the Powerup object will be
-	void choosePowerup(PowerupTypes powType);
-	void allocatePowerup(); // assign a powerup to a bike
-	void usePowerup(); // tell bike to use a powerup (generic version)
+	int usePowerup(); // tell bike to use a powerup (generic version)
 
 private:
 	Bike* bike;
 	Bikes* bikes;
+
+	INIReader* config;
 
 	PowerupTypes powType;
 
