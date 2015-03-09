@@ -7,6 +7,8 @@ Bike::Bike()
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
 	invincible = false;
 	deleted = false;
+	previousAnalogStickInput = 0;
+	steeringParameter = 0.0f;
 }
 
 Bike::~Bike() {
@@ -100,15 +102,71 @@ void Bike::set_actor(PxRigidActor* new_actor)
 
 void Bike::adaptiveSteering(int analogStickInput)
 {
-	//float currentSpeed = 0.0f; // Maybe custom type, int, double
-	//// Get bikes current speed
+	//cout << "========INPUT========" << endl;
+	//cout << "analogStickInput" << analogStickInput << endl;
+	//cout << "previousAnalogStickInput" << previousAnalogStickInput << endl;
+	//int direction = 0;
+	//int difference = analogStickInput - previousAnalogStickInput;
+	//cout << "difference" << difference << endl;
+	//if(difference != 0)
+	//{
+	//	if(difference > 0)
+	//	{
+	//		direction = 1;
+	//	}
+	//	else
+	//	{
+	//		direction = -1;
+	//	}
+	//}
+	//else
+	//{
+	//	direction = 0;
+	//}
+	//
+	//steeringParameter = steeringParameter + (float)direction * 0.01f;
+	//if(abs(steeringParameter) > 1.0f)
+	//{
+	//	if(direction > 0)
+	//	{
+	//		steeringParameter = 1.0f;
+	//	}
+	//	else
+	//	{
+	//		steeringParameter = -1.0f;
+	//	}
+	//}
+	//cout << steeringParameter << endl;
+	//inputData.setAnalogSteer(-steeringParameter);
+
+
+	//cout << "direction" << direction << endl;
+	//if(abs(difference) > 2048) 
+	//{
+	//	previousAnalogStickInput = previousAnalogStickInput+direction*1028;
+	//}
+	//else
+	//	previousAnalogStickInput = analogStickInput;
+	//cout << "previousAnalogStickInput" << previousAnalogStickInput << endl;
+	//cout << (previousAnalogStickInput)/(-32768.0f) << endl;
+
+
+	////float currentSpeed = 0.0f; // Maybe custom type, int, double
+	////// Get bikes current speed
 	//PxVec3 temp = vehicle4W->getRigidDynamicActor()->getLinearVelocity();
-	//std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
+	////std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
+	//float currentSpeed = temp.magnitude();
+	//printf("Speed: %f\n", currentSpeed);
 	//// Get max speed
+	//float maxSpeed = 75.0f;
+	//if(currentSpeed > maxSpeed)
+	//	currentSpeed = maxSpeed;
 	//// currentSpeed /= maxSpeed
-	//currentSpeed = 1 - currentSpeed; // (1-x)
+	//currentSpeed /= maxSpeed;
+	//currentSpeed = 1.0f - currentSpeed / 2.0f; // (1-x)
 	//currentSpeed = pow(currentSpeed, 3.0f); // (1-x)^3
 	//inputData.setAnalogSteer((currentSpeed)*(analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
+	
 	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 
 }

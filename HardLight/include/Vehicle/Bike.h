@@ -48,6 +48,8 @@ private:
 	VehicleSceneQueryData* vehicleSceneQueryData;
 	PxBatchQuery* batchQuery;
 	bool inAir;
+	int previousAnalogStickInput;
+	float steeringParameter;
 	//TailWall* tail_wall;
 	// PxActor is handled by Entity parent class of Bike
 };

@@ -73,11 +73,16 @@ void Powerup::useJump()
 	//negation = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();
 	//negation = -negation;
 	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
+	//std::cout << "Torque neutralized" << std::endl;
+	bike->adaptiveSteering(0.0);
+	bike->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,100.0,0.0),PxForceMode::eIMPULSE);
+	bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(PxVec3(0.0,0.0,0.0),PxForceMode::eVELOCITY_CHANGE);
+	bike->getVehicle4W()->getRigidDynamicActor()->clearTorque();
 	bike->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,(float)config->GetReal("powerup","powerupJumpForce",0.0),0.0),PxForceMode::eIMPULSE);
-	PxVec3 negation = PxVec3(0.0,0.0,0.0);
-	bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
-	PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();
-	std::cout << "Angular Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
+	//PxVec3 negation = PxVec3(0.0,0.0,0.0);
+	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
+	//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();
+	//std::cout << "Angular Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
 	//bike = NULL;
 	return;
 }
