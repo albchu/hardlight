@@ -2,13 +2,6 @@
 #include "Menu.h"
 
 
-//Menu::Menu() {
-//	type = UNDECLARED;
-//	draw_mode = GL_TRIANGLES;
-//	mesh_data = new MeshData();
-//	renderable = false;
-//}
-
 Menu::Menu(PxRigidActor* init_actor, Bike* new_bike) {
 	type = MENU_PANEL;
 	draw_mode = GL_TRIANGLES;
@@ -19,7 +12,7 @@ Menu::Menu(PxRigidActor* init_actor, Bike* new_bike) {
 	init_opengl();
 	renderable = false;
 
-	menu_offset_scalar = 6.0f;
+	menu_offset_scalar = 9.0f;
 
 	// Set the position of the panel to the bike's location
 	actor->setGlobalPose(bike->get_actor()->getGlobalPose());
@@ -41,7 +34,7 @@ PxTransform Menu::getMenuTransform()
 	location = location - (direction * vec3(menu_offset_scalar,menu_offset_scalar,menu_offset_scalar));
 
 	// Offset the physx actor for the tail so it doesnt start in the exact same spot as its bike
-	PxTransform bikeTransform = PxTransform(location.x, location.y + 5, location.z, bike->get_actor()->getGlobalPose().q);
+	PxTransform bikeTransform = PxTransform(location.x, location.y + 8, location.z, bike->get_actor()->getGlobalPose().q);
 
 	return bikeTransform;
 }

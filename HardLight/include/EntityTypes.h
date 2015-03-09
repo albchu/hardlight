@@ -3,15 +3,21 @@
 
 enum EntityTypes
 {
-	GROUND		= 1 << 0,
-	WHEEL		= 1 << 1,
-	BIKE		= 1 << 2,
-	WALL		= 1 << 3,
-	UNDECLARED	= 1 << 4,
-	SKYBOX		= 1 << 5,
-	PICKUP		= 1 << 6,
-	FLOOR		= 1 << 7,
-	MENU_PANEL	= 1 << 8
+	GROUND,
+	WHEEL,
+	BIKE,
+	WALL,
+	UNDECLARED,
+	SKYBOX,
+	PICKUP,
+	FLOOR,
+	MENU_PANEL,
+};
+
+enum BikeSubTypes
+{
+BOT_BIKE,
+PLAYER_BIKE
 };
 
 #endif
