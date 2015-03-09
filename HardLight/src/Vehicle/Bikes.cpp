@@ -3,7 +3,7 @@
 
 Bikes::Bikes(World* new_world, INIReader* new_config)
 {
-	srand (time(NULL));
+	srand ((unsigned int)time(NULL));
 	config = new_config;
 	world = new_world;
 }

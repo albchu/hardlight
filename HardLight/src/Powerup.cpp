@@ -81,4 +81,3 @@ void Powerup::useInvincible()
 	//bike = NULL;
 	return;
 }
-

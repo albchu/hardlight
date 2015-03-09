@@ -19,12 +19,12 @@ class CreateVehicle
 {
 
 public:
-	CreateVehicle(INIReader* new_config, Physx_Agent* new_pxAgent);
+	CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent);
 	bool Create(Bike* &bike, PxVec3 init_position);
 
 private:
 	INIReader* config;
-	Physx_Agent* pxAgent;
+	PhysxAgent* pxAgent;
 	// PxActor is handled by Entity parent class of Bike
 };
 #endif

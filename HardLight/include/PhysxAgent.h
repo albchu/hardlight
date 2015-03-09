@@ -1,10 +1,14 @@
-#ifndef _PHYSX_AGENT_H_
-#define _PHYSX_AGENT_H_
+#ifndef _PHYSXAGENT_H_
+#define _PHYSXAGENT_H_
 
 #include <glm/glm.hpp>		// Used for vec3
 #include <PxPhysicsAPI.h>
 #include <iostream>
+#include <vector>
 #include "../inih\cpp\INIReader.h"
+#include "MeshData.h"
+#include "MeshMap.h"
+#include "EntityTypes.h"
 
 #include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
 #include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
@@ -16,10 +20,10 @@ using namespace glm;
 using namespace physx;
 
 // This class should be the single point of access for all our physx objects and also general useful functions
-class Physx_Agent
+class PhysxAgent
 {
 public:
-	Physx_Agent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
+	PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
 	static vec3 toVec3(PxVec3);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
@@ -33,7 +37,11 @@ public:
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
 	PxCooking* get_cooking();
+	PxConvexMesh* create_convex_mesh(vector<vec3> vertices);
+	PxRigidActor* create_static_convex_mesh(MeshData*, PxTransform, EntityTypes);
+	PxRigidStatic* create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height);
 
+	static PxQuat PxLookAt(vec3 direction, vec3 up);
 
 private:
 	PxScene* gScene;
@@ -45,5 +53,8 @@ private:
 	PxDefaultErrorCallback gErrorCallback;
 	PxVisualDebuggerConnection* gConnection;
 	PxCooking* gCooking;
+
+	PxConvexMesh* tail_mesh;
+	PxMaterial* tail_material;
 };
 #endif

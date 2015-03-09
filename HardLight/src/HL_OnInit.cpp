@@ -3,6 +3,7 @@
 
 //==============================================================================
 
+
 //==============================================================================
 bool HardLight::OnInit()
 {
@@ -49,7 +50,7 @@ bool HardLight::OnInit()
 	}
 
 	//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config, this);
+	pxAgent = new PhysxAgent(config, this);
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile
@@ -69,7 +70,6 @@ bool HardLight::OnInit()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
-
 
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
@@ -97,7 +97,8 @@ bool HardLight::OnInit()
 	overMind = new AI(bikes);
 	
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup = new Powerup(NULL, bikes, config);	
+	powerup = new Powerup(NULL, bikes, config);
+	
 
 	return true;
 }

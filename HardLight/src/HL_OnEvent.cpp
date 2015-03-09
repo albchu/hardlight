@@ -53,6 +53,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDLK_RIGHT:
 				bike->getInputData().setAnalogSteer(-1.0f);
 				break;
+			case SDLK_SPACE:
+				scene = PAUSE;
+				gui.loadMenu("Paused.txt", pxAgent->get_physics());
 			} // end key_down
 			break;
 
@@ -125,7 +128,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
 				scene = PAUSE;
-				gui.loadMenu("Paused.txt", pxAgent->get_physics());
+				gui.loadMenu("../Paused.txt", pxAgent->get_physics());
 				sfxMix.PlaySoundEffect("sfxItemUsed");
 				break;
 			case SDL_CONTROLLER_BUTTON_BACK:

@@ -67,6 +67,7 @@ public:
 	// Does all required calculations on a model matrix based
 	virtual mat4	get_model_matrix();
 	void			init_opengl();
+	void			init_opengl(GLuint init_program_id);
 
 	void			set_texture(GLuint);
 	
@@ -79,6 +80,7 @@ public:
 
 	vec3			get_location();
 	vec3			get_direction_vector();
+	vec3			get_up_vector();
 	float			get_distance(Entity* other);
 };
 #endif

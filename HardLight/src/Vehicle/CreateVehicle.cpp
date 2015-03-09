@@ -1,6 +1,6 @@
 #include "Vehicle/CreateVehicle.h"
 
-CreateVehicle::CreateVehicle(INIReader* new_config, Physx_Agent* new_pxAgent)
+CreateVehicle::CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent)
 {
 	config = new_config;
 	pxAgent = new_pxAgent;
@@ -60,7 +60,7 @@ bool CreateVehicle::Create(Bike* &bike, PxVec3 init_position)
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
 	bike->setVehicle4W(createVehicle4W(vehicleDesc, pxAgent->get_physics(), pxAgent->get_cooking(), config));
-	PxTransform startTransform(init_position, PxQuat(PxIdentity));
+	PxTransform startTransform(init_position, PhysxAgent::PxLookAt(normalize(vec3(-init_position.x, -init_position.y, -init_position.z)), vec3(0.0f,1.0f,0.0f)));
 	bike->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
 	pxAgent->get_scene()->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
 
