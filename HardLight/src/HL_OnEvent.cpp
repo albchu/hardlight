@@ -73,8 +73,10 @@ void HardLight::OnEvent(SDL_Event* Event)
 				bike->getInputData().setAnalogSteer(-1.0f);
 				break;
 			case SDLK_SPACE:
-				//scene = PAUSE;
-				//gui.loadMenu("Paused.txt", pxAgent->get_physics());
+				if(scene == PAUSE)
+					scene = GAME;
+				else if(scene == GAME)
+					scene = PAUSE;
 				menu->toggle_renderable();	// Toggle menu panel from being rendered
 				break;
 
@@ -149,8 +151,10 @@ void HardLight::OnEvent(SDL_Event* Event)
 					sfxMix.PlaySoundEffect("sfxIntro");
 				break;
 			case SDL_CONTROLLER_BUTTON_START: // START button
-				//scene = PAUSE;
-				//gui.loadMenu("Paused.ini", pxAgent->get_physics());
+				if(scene == PAUSE)
+					scene = GAME;
+				else if(scene == GAME)
+					scene = PAUSE;
 
 				for(Bike* i : bikes->get_player_bikes()) {
 					menu->toggle_renderable();
@@ -158,17 +162,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 				sfxMix.PlaySoundEffect("sfxItemUsed");
 				break;
-			//case SDL_CONTROLLER_BUTTON_BACK:
-			//	for(Bike* bike : bikes->get_all_bikes()) {
-			//		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
-			//		bikes->kill_bike(bike);
-			//	}
-			//	bikes->clear_controllers();
-			//	world.clear();
-			//	bikes = new Bikes(&world, config);
-			//	overMind = new AI(bikes);
-			//	BuildScene();
-			//	break;
 			}
 			break;
 
