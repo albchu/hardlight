@@ -6,11 +6,8 @@ Element::Element() {
 
 Element::Element(const char* texturePath) {
 
-	draw_mode = GL_TRIANGLES;
-
 	if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
-		fprintf(stderr, "Couldn't initialize image loader.\n");
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "Couldn't initialize image loader.\n%s\n", SDL_GetError());
 	}
 
 	this->texturePath = std::string(texturePath);
@@ -18,7 +15,6 @@ Element::Element(const char* texturePath) {
 	texture = IMG_Load(texturePath);
 	if(texture == NULL) {
 		fprintf(stderr, "%s\n", SDL_GetError());
-		exit(EXIT_FAILURE);
 	}
 }
 
@@ -63,41 +59,43 @@ void Element::init_texture() {
 	errorReport("glTexParameteri");
 }
 
-void Element::init_model(SDL_Window* window) {
-	MeshData temp;
+void Element::init_model() {
+	mesh_data = new MeshData();
 
-	double x = pos.x;
-	double y = pos.y;
-	double z = 0.5f;
-	double w = size.x;
-	double h = size.y;
+	double x = 0.0f;
+	double y = 0.0f;
+	double z = 0.0f;
+	double w = 0.5f;
+	double h = 0.5f;
 
 	vec3 normal(0.0f, 0.0f, -1.0f);
-	
-	vec3 v1(x, y, z);
-	vec3 v2(x + w, y, z);
-	vec3 v3(x + w, y + h, z);
-	vec3 v4(x, y + h, z);
+
+	vec3 v1(x - w, y + h, z);
+	vec3 v2(x + w, y + h, z);
+	vec3 v3(x + w, y - h, z);
+	vec3 v4(x - w, y - h, z);
 
 	vec2 t1(0.0f, 1.0f);
 	vec2 t2(1.0f, 1.0f);
 	vec2 t3(1.0f, 0.0f);
 	vec2 t4(0.0f, 0.0f);
 
-	for(int i = 0; i < 4; i++)
-		temp.addNormal(normal);
+	for(int i= 0; i < 4; i++)
+		mesh_data->addNormal(normal);
 
-	temp.addVertex(v1);
-	temp.addVertex(v2);
-	temp.addVertex(v3);
-	temp.addVertex(v4);
+	mesh_data->addVertex(v1);
+	mesh_data->addVertex(v2);
+	mesh_data->addVertex(v3);
+	mesh_data->addVertex(v1);
+	mesh_data->addVertex(v3);
+	mesh_data->addVertex(v4);
 
-	temp.addTexture(t1);
-	temp.addTexture(t2);
-	temp.addTexture(t3);
-	temp.addTexture(t4);
-
-	mesh_data = &temp;
+	mesh_data->addTexture(t1);
+	mesh_data->addTexture(t2);
+	mesh_data->addTexture(t3);
+	mesh_data->addTexture(t1);
+	mesh_data->addTexture(t3);
+	mesh_data->addTexture(t4);
 
 }
 
@@ -117,6 +115,9 @@ mat4 Element::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+
+	model_matrix = scale(model_matrix, vec3(size.x, size.y, 0.0f));
+	model_matrix = translate(model_matrix, vec3(pos.x + (size.x/2.0f), pos.y + (size.y/2.0f), 100.0f));
 
 	return model_matrix;
 }
