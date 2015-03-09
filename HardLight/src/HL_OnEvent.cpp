@@ -157,6 +157,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			}else if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
 				bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 				bike->getInputData().setAnalogAccel((SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
+				PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity();
+				std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
 			}else{
 				bike->getInputData().setAnalogAccel(0.0f);
 			}

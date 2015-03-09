@@ -102,6 +102,8 @@ void Bike::adaptiveSteering(int analogStickInput)
 {
 	//float currentSpeed = 0.0f; // Maybe custom type, int, double
 	//// Get bikes current speed
+	PxVec3 temp = vehicle4W->getRigidDynamicActor()->getLinearVelocity();
+	std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
 	//// Get max speed
 	//// currentSpeed /= maxSpeed
 	//currentSpeed = 1 - currentSpeed; // (1-x)
