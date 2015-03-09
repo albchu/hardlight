@@ -1,15 +1,15 @@
 [images]
 numberOfImages = 4
-image1 = ..\data\Images\HardLightTitle.tga
+image1 = ..\data\Images\HardLightTitle.png
 x1 = 250.0
 y1 = 100.0
-image2 = ..\data\Images\MainMenuTitle.tga
+image2 = ..\data\Images\MainMenuTitle.png
 x2 = 450.0
 y2 = 360.0
-image3 = ..\data\Images\Start.tga
+image3 = ..\data\Images\Start.png
 x3 = 470.0
 y3 = 450.0
-image4 = ..\data\Images\Quit.tga
+image4 = ..\data\Images\Quit.png
 x4 = 470.0
 y4 = 540.0
 
