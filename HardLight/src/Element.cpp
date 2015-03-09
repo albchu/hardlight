@@ -6,7 +6,10 @@ Element::Element() {
 
 Element::Element(const char* texturePath) {
 
-	if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+	texture_id = load_tga_texture(texturePath);
+
+
+	/*if(!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
 		fprintf(stderr, "Couldn't initialize image loader.\n%s\n", SDL_GetError());
 	}
 
@@ -15,7 +18,7 @@ Element::Element(const char* texturePath) {
 	texture = IMG_Load(texturePath);
 	if(texture == NULL) {
 		fprintf(stderr, "%s\n", SDL_GetError());
-	}
+	}*/
 }
 
 Element::~Element() {

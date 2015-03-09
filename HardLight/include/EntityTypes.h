@@ -10,7 +10,14 @@ enum EntityTypes
 	UNDECLARED	= 1 << 4,
 	SKYBOX		= 1 << 5,
 	PICKUP		= 1 << 6,
-	FLOOR		= 1 << 7
+	FLOOR		= 1 << 7,
+	MENU_PANEL		= 1 << 8
+};
+
+enum BikeSubTypes
+{
+BOT_BIKE,
+PLAYER_BIKE
 };
 
 #endif

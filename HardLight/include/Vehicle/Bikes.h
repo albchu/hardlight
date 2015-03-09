@@ -32,6 +32,7 @@ public:
 	void kill_bike(Bike* bike);
 	void add_tail(Bike* bike);
 	void clear_controllers();
+	void extend_tail(Bike* bike);
 
 private:
 	vector<Bike*> player_bikes;

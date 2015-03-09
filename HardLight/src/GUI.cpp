@@ -48,8 +48,8 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 
 		image = Image(imagePath.c_str());
 		image.setPos(vec2(x, y));
-		image.setSize(vec2(image.getSurface()->w, image.getSurface()->h));
-		image.init_texture();
+		//image.setSize(vec2(image.getSurface()->w, image.getSurface()->h));
+		//image.init_texture();
 		image.init_model();
 		image.set_actor(physics->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)));
 		image.init_opengl();
@@ -78,8 +78,8 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 		y = images[imgNum - 1].getPos().y;
 
 		button.setPos(vec2(x, y));
-		button.setSize(vec2(button.getSurface()->w, button.getSurface()->h));
-		button.init_texture();
+		//button.setSize(vec2(button.getSurface()->w, button.getSurface()->h));
+		//button.init_texture();
 		button.init_model();
 		button.set_actor(physics->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)));
 		button.init_opengl();
