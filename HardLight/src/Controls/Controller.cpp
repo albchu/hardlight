@@ -17,16 +17,16 @@ void Controller::backwards()
 void Controller::steer(Bike * abike, PxReal steer)
 {
 	// Clamp the steer 
-	if(steer < -1.0)
-		steer = -1.0;
-	if(steer > 1.0)
-		steer = 1.0;
+	if(steer < -1.0f)
+		steer = -1.0f;
+	if(steer > 1.0f)
+		steer = 1.0f;
 	abike->getInputData().setAnalogSteer(steer);
 }
 
 void Controller::left()
 {
-	cout <<"boobies"<<endl;
+	
 }
 
 void Controller::right()

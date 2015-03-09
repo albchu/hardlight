@@ -119,3 +119,15 @@ vector<TailWall*> Bikes::get_all_tails()
 {
 	return tail_walls;
 }
+
+void Bikes::extend_tail(Bike* bike)
+{
+	for (unsigned int i = 0; i < tail_walls.size(); i++)
+	{
+		if (tail_walls[i]->getBike() == bike)
+		{
+			tail_walls[i]->extend_max_length();
+			return;
+		}
+	}
+}

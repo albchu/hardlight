@@ -46,12 +46,36 @@ void AI::update_bikes()
 					}
 				}
 			}
+			float dot1 = directionX.x*target_location.x + directionX.z*target_location.z;
+			float det1 = directionX.x*target_location.z - directionX.z*target_location.x;
+			float angle = -atan2(det1, dot1);
+
 			// Go to target location
 			controllableX->set_motion(&Controller::forward);
 			controllableX->set_steering(&Controller::steer);
-			float position = (target_location.x-positionX.x)*(directionX.z-positionX.y) - (target_location.x-positionX.y)*(directionX.x-positionX.x);
 			//cout << "steer degrees: " << position << endl;
-			controllableX->set_direction(position);
+			controllableX->set_direction(angle/PxPi);
+		}
+	}
+}
+
+void AI::update_bikes(vec3 pickup)
+{
+	for(unsigned int i = 0; i < bikes->get_controlled_bikes().size(); i++)
+	{
+		Controller* controllableX = bikes->get_controlled_bikes()[i];
+		if(!controllableX->get_bike()->is_deleted())
+		{
+			vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
+			vec3 current_postion = controllableX->get_bike()->get_location();
+			vec3 desired_direction = normalize(pickup - current_postion);
+			float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
+			float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
+			float angle = -atan2(det1, dot1);
+			// Go to target location
+			controllableX->set_motion(&Controller::forward);
+			controllableX->set_steering(&Controller::steer);
+			controllableX->set_direction(angle/PxPi);
 		}
 	}
 }
