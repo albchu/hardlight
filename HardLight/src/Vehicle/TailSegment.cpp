@@ -11,7 +11,7 @@ TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, flo
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
 	texture = TextureMap::Instance()->getTexture(texturePath);
 	init_opengl(init_program_id);
-	deleted = false;
+	renderable = true;
 }
 
 mat4 TailSegment::get_model_matrix()

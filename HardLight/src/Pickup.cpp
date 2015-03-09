@@ -5,7 +5,7 @@ Pickup::Pickup()
 	type = PICKUP;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
-	deleted = false;
+	renderable = true;
 	texture = TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga");
 
 
@@ -19,7 +19,7 @@ Pickup::Pickup(World* world, INIReader* config, PhysxAgent* pxAgent)
 	type = PICKUP;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
-	deleted = false;
+	renderable = true;
 	texture = TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga");
 
 	this->world = world;

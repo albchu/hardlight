@@ -6,7 +6,7 @@ Bike::Bike()
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
 	invincible = false;
-	deleted = false;
+	renderable = true;
 }
 
 Bike::~Bike() {

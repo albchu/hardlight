@@ -44,7 +44,7 @@ protected:
 	GLuint texture_buffer_id;
 	GLuint light_id;
 	int type;
-	bool deleted;
+	bool renderable;
 
 public:
 	Entity(PxRigidActor*, MeshData*, GLuint);
@@ -75,8 +75,9 @@ public:
 	void			set_type(EntityTypes type);
 	void			release();
 
-	bool			is_deleted();
-	void			set_deleted(bool flag);
+	void			toggle_renderable();
+	bool			is_renderable();
+	void			set_renderable(bool flag);
 
 	vec3			get_location();
 	vec3			get_direction_vector();

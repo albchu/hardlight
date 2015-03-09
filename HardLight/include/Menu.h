@@ -9,11 +9,12 @@
 class Menu : public Entity {
 private:
 	Bike* bike;
+	float menu_offset_scalar;
 public:
 	Menu();
 	Menu(PxRigidActor* init_actor, Bike* new_bike);
 	~Menu();
-
+	PxTransform getMenuTransform();
 	virtual mat4 get_model_matrix();
 };
 

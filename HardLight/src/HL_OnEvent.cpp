@@ -56,7 +56,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDLK_SPACE:
 				//scene = PAUSE;
 				//gui.loadMenu("Paused.txt", pxAgent->get_physics());
-				menu->set_deleted(!menu->is_deleted());	// Toggle menu panel from being rendered
+				menu->toggle_renderable();	// Toggle menu panel from being rendered
 				break;
 
 			} // end key_down
@@ -134,7 +134,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 				//gui.loadMenu("Paused.ini", pxAgent->get_physics());
 
 				for(Bike* i : bikes->get_player_bikes()) {
-					menu->set_deleted(!menu->is_deleted());
+					menu->toggle_renderable();
 				}
 
 				sfxMix.PlaySoundEffect("sfxItemUsed");
