@@ -114,6 +114,8 @@ private:
 	vector<TailSegment*> playerTail;
 	Bikes* bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
+	vector<Bike*> hit_pickup;
+	vector<PxRigidActor*> pickup_hit;
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files

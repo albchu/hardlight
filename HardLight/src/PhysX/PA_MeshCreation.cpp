@@ -157,7 +157,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	return actor;
 }
 
-PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up)
+PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFactors)
 {
 	if (pickup_mesh == NULL)
 	{
@@ -174,8 +174,10 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up)
 	queryFilterData.word1 = driveable(type);
 
 	PxTransform transform(PxVec3(location.x, location.y, location.z));
+	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
+
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
-	PxShape* shape = actor->createShape(PxConvexMeshGeometry(pickup_mesh), *pickup_material);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(pickup_mesh, scale), *pickup_material);
 	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
 	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	shape->setQueryFilterData(queryFilterData);

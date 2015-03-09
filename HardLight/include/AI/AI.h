@@ -10,6 +10,7 @@ class AI
 public:
 	AI(Bikes* new_bikes);
 	void update_bikes();
+	void update_bikes(vec3 pickup);
 	void move_bikes();
 
 

@@ -52,6 +52,20 @@ void HardLight::OnLoop()
 		sfxMix.PlaySoundEffect("sfxExplosion", closestExplosion, 0);
 	bikesToKill.clear();
 
+	for (unsigned int i = 0; i < hit_pickup.size(); i++)
+	{
+		PxRigidActor* pickup_actor = pickup_hit[i];
+		Bike* bike = hit_pickup[i];
+		bikes->extend_tail(bike);
+	}
+
+	if (hit_pickup.size() > 0)
+	{
+		hit_pickup.clear();
+		pickup_hit.clear();
+		pickup->respawn();
+	}
+
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
 	Uint32 elapsed = msCurrent - msPhysics;
@@ -77,7 +91,7 @@ void HardLight::OnLoop()
 	}
 
 	// Move Bot Bikes
-	overMind->update_bikes();
+	overMind->update_bikes(pickup->get_location());
 	overMind->move_bikes();
 
 	// Tail creation

@@ -129,7 +129,7 @@ bool HardLight::BuildScene()
 
 	}
 
-	Pickup* pickup = new Pickup(&world, config, pxAgent);
+	pickup = new Pickup(config, pxAgent, size);
 	world.add_entity(pickup);
 
 	sfxMix.PlayMusic("musicOverworld");

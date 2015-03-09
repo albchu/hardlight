@@ -16,7 +16,6 @@ TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, flo
 
 mat4 TailSegment::get_model_matrix()
 {
-	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	PxReal rads;
 	PxVec3 axis;
