@@ -9,7 +9,7 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_te
 	mesh_data = init_mesh_data;
 	texture = new_texture;
 	init_opengl();
-	deleted = false;
+	renderable = true;
 }
 
 Entity::Entity()
@@ -17,7 +17,7 @@ Entity::Entity()
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	//mesh_data = new MeshData();
-	deleted = false;
+	renderable = true;
 }
 
 Entity::~Entity()
@@ -179,14 +179,19 @@ void Entity::release(){
 	actor->release();
 }
 
-void Entity::set_deleted(bool flag)
+void Entity::set_renderable(bool flag)
 {
-	deleted = flag;
+	renderable = flag;
 }
 
-bool Entity::is_deleted()
+void Entity::toggle_renderable()
 {
-	return deleted;
+	renderable = !renderable;
+}
+
+bool Entity::is_renderable()
+{
+	return renderable;
 }
 
 vec3 Entity::get_location()

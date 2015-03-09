@@ -2,11 +2,11 @@
 
 Bike::Bike()
 {
-	type = BIKE;
+	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
 	invincible = false;
-	deleted = false;
+	renderable = true;
 	previousAnalogStickInput = 0;
 	steeringParameter = 0.0f;
 }
@@ -169,4 +169,6 @@ void Bike::adaptiveSteering(int analogStickInput)
 	
 	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 
-}
+
+BikeSubTypes Bike::get_subtype()								{ return subtype; }
+void Bike::set_subtype(BikeSubTypes new_subtype)				{ subtype = new_subtype; }

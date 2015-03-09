@@ -21,6 +21,7 @@ void Bikes::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	bike->set_subtype(PLAYER_BIKE);
 	player_bikes.push_back(bike);
 	add_tail(bike);
 }
@@ -41,6 +42,7 @@ void Bikes::add_bot_bike(Bike* bike)
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	bike->set_subtype(BOT_BIKE);
 	Controller * controlled = new Bot_Controller(bike);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(bike);
@@ -91,16 +93,7 @@ Bike* Bikes::get_bike(PxRigidActor* actor)
 
 void Bikes::kill_bike(Bike* bike)
 {
-	bike->set_deleted(true);
-	
-	for (unsigned int i = 0; i < tail_walls.size(); i++)
-	{
-		if (tail_walls[i]->getBike() == bike)
-		{
-			tail_walls[i]->set_max_length(0);
-		}
-	}
-
+	bike->set_renderable(false);
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i] == bike)
@@ -120,7 +113,6 @@ void Bikes::kill_bike(Bike* bike)
 			return;
 		}
 	}
-
 }
 
 vector<TailWall*> Bikes::get_all_tails()

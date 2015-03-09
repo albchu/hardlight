@@ -35,12 +35,14 @@
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
+#include "Menu.h"
 #include "GUI.h"
 #include "SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup.h"
 #include "Pickup.h"
+#include "Menu.h"
 
 using namespace physx;
 using namespace glm;
@@ -109,6 +111,7 @@ private:
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 
+	Menu* menu;		// Currently this is a hardcoded value appended to the first bike at all times. we dont like this. Albert is to blame. 
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;

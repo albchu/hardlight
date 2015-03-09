@@ -41,12 +41,15 @@ public:
 	virtual void set_actor(PxRigidActor*);
 	//TailWall* get_tail_wall();
 	void adaptiveSteering(int analogStickInput);
+	BikeSubTypes get_subtype();
+	void set_subtype(BikeSubTypes subtype);
 
 private:
 	PxVehicleDrive4W* vehicle4W;
 	PxVehicleDrive4WRawInputData inputData;
 	VehicleSceneQueryData* vehicleSceneQueryData;
 	PxBatchQuery* batchQuery;
+	BikeSubTypes subtype;
 	bool inAir;
 	int previousAnalogStickInput;
 	float steeringParameter;

@@ -46,7 +46,9 @@ void HardLight::OnLoop()
 			bikes->kill_bike(bikesToKill[j]);
 			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
 				closestExplosion = glm::min(closestExplosion, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
+
 		}
+
 	}
 	if (closestExplosion < FLT_MAX)
 		sfxMix.PlaySoundEffect("sfxExplosion", closestExplosion, 0);
@@ -99,6 +101,28 @@ void HardLight::OnLoop()
 	{
 		tail_wall->update(pxAgent);
 	}
+
+	// Check win/loss condition
+	if(bikes->get_all_bikes().size() == 1)
+	{
+		Bike* aBike = bikes->get_all_bikes()[0];
+		if(aBike->get_subtype() == PLAYER_BIKE)
+		{
+			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
+		}
+		if(aBike->get_subtype() == BOT_BIKE)
+		{
+			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+		}
+
+		menu->set_renderable(true);
+	}
+	else if (bikes->get_player_bikes().size() == 0)
+	{
+		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+		menu->set_renderable(true);
+	}
+
 
 	//Scene update.
 	pxAgent->get_scene()->simulate(timestep);

@@ -14,9 +14,9 @@ Pickup::Pickup(INIReader* config, PhysxAgent* pxAgent, float init_arena_size)
 	type = PICKUP;
 	draw_mode = GL_TRIANGLES;
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
+	renderable = true;
 	texture = TextureMap::Instance()->getTexture("../data/Textures/LightTrail3.tga");
 	init_opengl();
-	deleted = false;
 
 	scaleFactors = vec3(10.0f, 10.0f, 10.0f);
 

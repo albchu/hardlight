@@ -111,6 +111,7 @@
     <ClCompile Include="src\HL_OnLoop.cpp" />
     <ClCompile Include="src\HL_OnRender.cpp" />
     <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
     <ClInclude Include="include\Image.h" />
+    <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
