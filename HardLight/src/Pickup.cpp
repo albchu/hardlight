@@ -18,7 +18,7 @@ Pickup::Pickup(World* world, Pickup* pickup, INIReader* config)
 	this->world = world;
 	this->pickup = pickup;
 	maxPickups = config->GetInteger("pickup", "maxPickups", 1);
-	heightOffFloor = config->GetReal("pickup", "heightOffFloor", 5.0f);
+	heightOffFloor = (float)config->GetReal("pickup", "heightOffFloor", 5.0f);
 
 	glm::vec3 point;
 	glm::vec3 normal;

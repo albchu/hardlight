@@ -30,7 +30,7 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	Image image;
 	Button button;
 	int w, h;
-	double x, y;
+	float x, y;
 
 	SDL_GetWindowSize(win_copy, &w, &h);
 
@@ -47,8 +47,8 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	for(int i = 0; i < numOfImages; i++) {
 
 		imagePath = loader->Get("images", string("image") + to_string(i+1), "");
-		x = clamp(loader->GetReal("images", string("x") + to_string(i+1), 0.0f), (double)0.0f, (double)1.0f);
-		y = clamp(loader->GetReal("images", string("y") + to_string(i+1), 0.0f), (double)0.0f, (double)1.0f);
+		x = clamp((float)loader->GetReal("images", string("x") + to_string(i+1), 0.0f), 0.0f, 1.0f);
+		y = clamp((float)loader->GetReal("images", string("y") + to_string(i+1), 0.0f), 0.0f, 1.0f);
 
 		image = Image(imagePath.c_str());
 		image.setPos(vec2(x, y));
