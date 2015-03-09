@@ -2,13 +2,16 @@
 #define _MENU_H_
 
 #include "Entity.h"
+#include <glm\gtx\rotate_vector.hpp>
+#include "Rendering\TextureMap.h"
+#include "Vehicle/Bike.h"
 
 class Menu : public Entity {
 private:
-	
+	Bike* bike;
 public:
 	Menu();
-	Menu(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture);
+	Menu(PxRigidActor* init_actor, Bike* new_bike);
 	~Menu();
 
 	virtual mat4 get_model_matrix();

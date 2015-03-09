@@ -101,6 +101,12 @@ bool HardLight::BuildScene()
 			}
 
 			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
+
+
+			// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
+			menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_bike);
+			world.add_entity(menu);
+
 			if (controllers.size() > 0)
 				bikes->add_player_bike(new_bike, controllers[i]);
 			else
@@ -114,15 +120,15 @@ bool HardLight::BuildScene()
 		int position = bikes->get_player_bikes().size() + i;
 
 		if (position < start_locations.size())
-			{
-				if(!vehicleCreator.Create(new_bike, start_locations[position]))
-					return false;
-			}
-			else
-			{
-				if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
-					return false;
-			}
+		{
+			if(!vehicleCreator.Create(new_bike, start_locations[position]))
+				return false;
+		}
+		else
+		{
+			if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+				return false;
+		}
 
 		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
 		bikes->add_bot_bike(new_bike);

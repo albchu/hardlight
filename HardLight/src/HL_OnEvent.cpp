@@ -56,6 +56,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			case SDLK_SPACE:
 				//scene = PAUSE;
 				//gui.loadMenu("Paused.txt", pxAgent->get_physics());
+				menu->set_deleted(!menu->is_deleted());	// Toggle menu panel from being rendered
 				break;
 
 			} // end key_down
@@ -133,8 +134,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 				//gui.loadMenu("Paused.ini", pxAgent->get_physics());
 
 				for(Bike* i : bikes->get_player_bikes()) {
-					menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/images/HardLightTitle.tga"));
-					world.add_entity(menu);
+					menu->set_deleted(!menu->is_deleted());
 				}
 
 				sfxMix.PlaySoundEffect("sfxItemUsed");

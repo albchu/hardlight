@@ -1,22 +1,23 @@
 
 #include "Menu.h"
-#include <glm\gtx\rotate_vector.hpp>
 
-Menu::Menu() {
-	type = UNDECLARED;
-	draw_mode = GL_TRIANGLES;
-	mesh_data = new MeshData();
-	deleted = false;
-}
 
-Menu::Menu(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture) {
-	type = UNDECLARED;
+//Menu::Menu() {
+//	type = UNDECLARED;
+//	draw_mode = GL_TRIANGLES;
+//	mesh_data = new MeshData();
+//	deleted = false;
+//}
+
+Menu::Menu(PxRigidActor* init_actor, Bike* new_bike) {
+	type = MENU_PANEL;
 	draw_mode = GL_TRIANGLES;
+	bike = new_bike;
 	actor = init_actor;
-	mesh_data = init_mesh_data;
-	texture = new_texture;
+	mesh_data = MeshMap::Instance()->getEntityMesh("plane.obj");
+	texture = TextureMap::Instance()->getTexture("../data/images/HardLightTitle.tga");
 	init_opengl();
-	deleted = false;
+	deleted = true;
 }
 
 Menu::~Menu() {
