@@ -255,6 +255,9 @@
     <ClInclude Include="include\PowerupTypes.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="SceneTypes.h">
+      <Filter>HardLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
