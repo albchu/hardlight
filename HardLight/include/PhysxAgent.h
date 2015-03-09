@@ -40,6 +40,7 @@ public:
 	PxConvexMesh* create_convex_mesh(vector<vec3> vertices);
 	PxRigidActor* create_static_convex_mesh(MeshData*, PxTransform, EntityTypes);
 	PxRigidStatic* create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height);
+	PxRigidStatic* create_pickup(vec3 location, vec3 up);
 
 	static PxQuat PxLookAt(vec3 direction, vec3 up);
 

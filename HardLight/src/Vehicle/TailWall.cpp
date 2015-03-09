@@ -21,11 +21,6 @@ TailWall::TailWall(Bike* new_bike, INIReader* new_config)
 }
 void TailWall::update(PhysxAgent* pxAgent)
 {
-	vec3 new_position = getTailPosition();
-	float length = glm::distance(new_position, last_position);
-	if (length < min_segment_allowance)
-		return;
-
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
 	while (segments.size() > max_length)
 	{
@@ -37,6 +32,12 @@ void TailWall::update(PhysxAgent* pxAgent)
 		actor->release();
 		delete segment;
 	}
+	
+	vec3 new_position = getTailPosition();
+	float length = glm::distance(new_position, last_position);
+	if (length < min_segment_allowance)
+		return;
+
 	if (max_length > 0)
 	{
 		PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, bike->get_up_vector(), width, height);

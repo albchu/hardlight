@@ -25,12 +25,9 @@ static PxU32 collides_with(EntityTypes type)
 		return BIKE;
 		break;
 	case BIKE:
-		return WALL | BIKE | GROUND | TAIL_SEGMENT | PICKUP;
+		return WALL | BIKE | GROUND | PICKUP;
 		break;
 	case GROUND:
-		return BIKE;
-		break;
-	case TAIL_SEGMENT:
 		return BIKE;
 		break;
 	case PICKUP:
@@ -153,6 +150,25 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh, scale), *tail_material);
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up)
+{
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::PICKUP;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word1 = driveable(type);
+
+	PxTransform transform(PxVec3(location.x, location.y, location.z));
+	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh), *tail_material);
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));

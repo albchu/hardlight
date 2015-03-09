@@ -9,9 +9,8 @@ enum EntityTypes
 	WALL		= 1 << 3,
 	UNDECLARED	= 1 << 4,
 	SKYBOX		= 1 << 5,
-	TAIL_SEGMENT= 1 << 6,
-	PICKUP		= 1 << 7,
-	FLOOR		= 1 << 8
+	PICKUP		= 1 << 6,
+	FLOOR		= 1 << 7
 };
 
 #endif
