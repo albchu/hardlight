@@ -8,7 +8,7 @@ AI::AI(Bikes* new_bikes)
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
-	for(int i = 0; i < bikes->get_controlled_bikes().size(); i++)
+	for(unsigned int i = 0; i < bikes->get_controlled_bikes().size(); i++)
 	{
 
 		Controller* controllableX = bikes->get_controlled_bikes()[i];
@@ -19,7 +19,7 @@ void AI::update_bikes()
 			vec3 positionX = controllableX->get_bike()->get_location();
 			float shortest_distance = NULL;
 			vec3 target_location = directionX;	// If no better direction is found, the bike will continue going straight forward
-			for(int j = 0; j < bikes->get_controlled_bikes().size(); j++)	// Try and find a better target location to go to
+			for(unsigned int j = 0; j < bikes->get_controlled_bikes().size(); j++)	// Try and find a better target location to go to
 			{
 				Controller* controllableY = bikes->get_controlled_bikes()[j];
 				// Allow all vehicles to see each other

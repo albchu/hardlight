@@ -16,21 +16,32 @@ Entity::Entity()
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
-	mesh_data = new MeshData();
+	//mesh_data = new MeshData();
 	deleted = false;
 }
 
-Entity::~Entity() {
+Entity::~Entity()
+{
+	glDeleteBuffers(1, &normal_buffer_id);
+	glDeleteBuffers(1, &texture_buffer_id);
+	glDeleteBuffers(1, &vertex_buffer_id);
+	glDeleteVertexArrays(1, &vertex_array_id);
+}
+
+void Entity::init_opengl()
+{
+	// Create and compile our GLSL program from the shaders
+	program_id = LoadShaders("basic_vs.glsl", "basic_fs.glsl");
+	init_opengl(program_id);
 }
 
 // Holds all the preamble required to render a proper opengl object later on
-void Entity::init_opengl()
+void Entity::init_opengl(GLuint init_program_id)
 {
 	glGenVertexArrays(1, &vertex_array_id);
 	glBindVertexArray(vertex_array_id);
 
-	// Create and compile our GLSL program from the shaders
-	program_id = LoadShaders("basic_vs.glsl", "basic_fs.glsl");
+	program_id = init_program_id;
 
 	// Get a handle for our "MVP" uniform
 	mvp_matrix_id = glGetUniformLocation(program_id, "MVP");
@@ -190,7 +201,17 @@ vec3 Entity::get_direction_vector()
 	PxQuat q = gPose.q;
 	PxVec3 global_forward = PxVec3(0,0,1);
 	
-	return Physx_Agent::toVec3(q.rotate(global_forward));
+	return normalize(PhysxAgent::toVec3(q.rotate(global_forward)));
+}
+
+// base off gravity
+vec3 Entity::get_up_vector()
+{
+	PxTransform gPose = actor->getGlobalPose();
+	PxQuat q = gPose.q;
+	PxVec3 global_up = PxVec3(0,1,0);
+	
+	return normalize(PhysxAgent::toVec3(global_up));
 }
 
 float Entity::get_distance(Entity* other)

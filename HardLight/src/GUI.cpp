@@ -29,7 +29,7 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	string imagePath;
 	Image image;
 	Button button;
-	double x, y;
+	float x, y;
 
 	loader = new INIReader(menuPath);
 	if (loader->ParseError() < 0) {

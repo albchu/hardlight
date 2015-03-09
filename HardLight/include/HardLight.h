@@ -77,7 +77,7 @@ private:
 	
 	vector<SDL_GameController*> controllers;
 
-	Physx_Agent* pxAgent;
+	PhysxAgent* pxAgent;
 
 	// Implements PxSimulationEventCallback
 	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
