@@ -127,3 +127,10 @@ vector<TailWall*> Bikes::get_all_tails()
 {
 	return tail_walls;
 }
+
+void Bikes::clear_controllers() {
+	for(Controller* controller : controlled_bikes) {
+		delete controller;
+	}
+	controlled_bikes.clear();
+}

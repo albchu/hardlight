@@ -53,6 +53,9 @@ void AI::update_bikes()
 			//cout << "steer degrees: " << position << endl;
 			controllableX->set_direction(position);
 		}
+		else {
+			bikes->kill_bike(controllableX->get_bike());
+		}
 	}
 }
 
