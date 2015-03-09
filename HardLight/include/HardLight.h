@@ -35,6 +35,7 @@
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
+#include "Menu.h"
 #include "GUI.h"
 #include "SceneTypes.h"
 #include "SoundMixer.h"
@@ -109,6 +110,7 @@ private:
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 
+	Menu* menu;
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;

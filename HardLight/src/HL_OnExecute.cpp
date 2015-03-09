@@ -26,12 +26,12 @@ int HardLight::OnExecute()
 		}
 		else {
 
-			while(SDL_PollEvent(&Event))
-			{
-				running = gui.onGUIEvent(&Event, &scene);
-			}
+			//while(SDL_PollEvent(&Event))
+			//{
+			//	running = gui.onGUIEvent(&Event, &scene);
+			//}
 
-			gui.render();
+			//gui.render();
 
 		}
 	}

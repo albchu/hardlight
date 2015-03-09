@@ -57,9 +57,9 @@ bool HardLight::OnInit()
 	if (glewInit() != GLEW_OK)
 		cerr << "Could not make initialize glew" << endl;
 
-	scene = MAIN;
-	gui = GUI(window);
-	gui.loadMenu("MainMenu.ini", pxAgent->get_physics());
+	scene = GAME;
+	//gui = GUI(window);
+	//gui.loadMenu("MainMenu.ini", pxAgent->get_physics());
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
