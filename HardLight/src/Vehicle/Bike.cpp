@@ -168,7 +168,7 @@ void Bike::adaptiveSteering(int analogStickInput)
 	//inputData.setAnalogSteer((currentSpeed)*(analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 	
 	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
-
+}
 
 BikeSubTypes Bike::get_subtype()								{ return subtype; }
 void Bike::set_subtype(BikeSubTypes new_subtype)				{ subtype = new_subtype; }
