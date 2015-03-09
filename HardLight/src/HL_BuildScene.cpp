@@ -128,6 +128,10 @@ bool HardLight::BuildScene()
 		bikes->add_bot_bike(new_bike);
 
 	}
+
+	Pickup* pickup = new Pickup(&world, config, pxAgent);
+	world.add_entity(pickup);
+
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init Powerup object for testing powerup functionality temporarily

@@ -14,14 +14,13 @@ class Pickup : public Entity
 {
 public:
 	Pickup();
-	Pickup(World* world, Pickup* pickup, INIReader* config);
+	Pickup(World* world, INIReader* config, PhysxAgent* pxAgent);
 	~Pickup();
 
 	bool placePickup();
 	Powerup* givePowerup();
 private:
 	World *world;
-	Pickup *pickup;
 
 	int maxPickups;
 	float heightOffFloor;

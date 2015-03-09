@@ -4,25 +4,30 @@ Pickup::Pickup()
 {
 	type = PICKUP;
 	draw_mode = GL_TRIANGLES;
-	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightPickup.obj");
+	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
 	deleted = false;
+	texture = TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga");
+
 
 	world = NULL;
-	pickup = NULL;
 	maxPickups = 0;
 	heightOffFloor = 0.0f;
 }
 
-Pickup::Pickup(World* world, Pickup* pickup, INIReader* config)
+Pickup::Pickup(World* world, INIReader* config, PhysxAgent* pxAgent)
 {
+	type = PICKUP;
+	draw_mode = GL_TRIANGLES;
+	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
+	deleted = false;
+	texture = TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga");
+
 	this->world = world;
-	this->pickup = pickup;
 	maxPickups = config->GetInteger("pickup", "maxPickups", 1);
 	heightOffFloor = (float)config->GetReal("pickup", "heightOffFloor", 5.0f);
 
 	glm::vec3 point;
 	glm::vec3 normal;
-	MeshData* meshdata;
 	vector<Entity*> entities = world->getEntities();
 	int pointIndex;
 
@@ -31,13 +36,13 @@ Pickup::Pickup(World* world, Pickup* pickup, INIReader* config)
 	{
 		if(entities[i]->get_type() == FLOOR)
 		{
-			meshdata = entities[i]->get_mesh_data();
+			mesh_data = entities[i]->get_mesh_data();
 		}
 
-		pointIndex = rand() % meshdata->getVertices()->size(); // Pick a random index, which points to a vertex in m_vertices
+		pointIndex = rand() % mesh_data->getVertices()->size(); // Pick a random index, which points to a vertex in m_vertices
 	}
-	point = meshdata->getVertex(pointIndex); // get the randomly selected vertex
-	normal = meshdata->getNormal(pointIndex); // get the normal that corresponds to the randomly seleced vertex
+	point = mesh_data->getVertex(pointIndex); // get the randomly selected vertex
+	normal = mesh_data->getNormal(pointIndex); // get the normal that corresponds to the randomly seleced vertex
 
 
 	point = heightOffFloor*normal + point; // vector equation of a line (Line-plane intersection)
@@ -45,6 +50,7 @@ Pickup::Pickup(World* world, Pickup* pickup, INIReader* config)
 	// Generate powerup with random powerup type
 
 	// Create physx actor and model centered at 'point'
+	actor = pxAgent->create_pickup(vec3(0.0,0.0,0.0), vec3(0.0,1.0,0.0));
 }
 
 
