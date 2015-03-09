@@ -53,5 +53,6 @@ private:
 	PxCooking* gCooking;
 
 	PxConvexMesh* tail_mesh;
+	PxMaterial* tail_material;
 };
 #endif

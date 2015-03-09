@@ -60,7 +60,7 @@ static quat RotationBetweenVectors(vec3 start, vec3 dest)
 			rotationAxis = cross(vec3(1.0f, 0.0f, 0.0f), start);
 
 		rotationAxis = normalize(rotationAxis);
-		return angleAxis(180.0f, rotationAxis);
+		return angleAxis(PxPi, rotationAxis);
 	}
 
 	rotationAxis = cross(start, dest);
@@ -110,6 +110,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	{
 		MeshData* tail_data = MeshMap::Instance()->getEntityMesh("tail.obj");
 		tail_mesh = create_convex_mesh(*tail_data->getVertices());
+		tail_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	}
 	vec3 direction = normalize(old_location - new_location); // from new to old
 	float distance = glm::distance(old_location, new_location);
@@ -144,10 +145,8 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	PxFilterData queryFilterData;
 	queryFilterData.word1 = driveable(type);
 
-	PxMaterial* gMaterial = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
-	PxConvexMeshGeometry geometry(tail_mesh, scale);
-	PxShape* shape = actor->createShape(geometry, *gMaterial);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh, scale), *tail_material);
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));

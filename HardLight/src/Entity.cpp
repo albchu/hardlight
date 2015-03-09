@@ -16,13 +16,16 @@ Entity::Entity()
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
-	mesh_data = new MeshData();
+	//mesh_data = new MeshData();
 	deleted = false;
 }
 
 Entity::~Entity()
 {
-	
+	glDeleteBuffers(1, &normal_buffer_id);
+	glDeleteBuffers(1, &texture_buffer_id);
+	glDeleteBuffers(1, &vertex_buffer_id);
+	glDeleteVertexArrays(1, &vertex_array_id);
 }
 
 void Entity::init_opengl()

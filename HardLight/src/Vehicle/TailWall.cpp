@@ -27,7 +27,7 @@ void TailWall::update(PhysxAgent* pxAgent)
 		return;
 
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
-	if(segments.size() >= max_length)
+	while (segments.size() >= max_length)
 	{
 		// Reshuffle segments
 		TailSegment* segment = segments[segments.size()-1];
