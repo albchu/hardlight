@@ -9,7 +9,7 @@ TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, flo
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
-	texture = TextureMap::Instance()->getTexture("../data/Textures/LightTrail.tga");
+	texture = TextureMap::Instance()->getTexture(texturePath);
 	init_opengl(init_program_id);
 	deleted = false;
 }

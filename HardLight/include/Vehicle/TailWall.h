@@ -37,6 +37,7 @@ public:
 	vec3 getTailPosition();
 	Bike* getBike();
 	void extend_max_length();
+	void set_max_length(int new_length);
 };
 
 #endif

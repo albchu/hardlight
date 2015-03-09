@@ -124,6 +124,7 @@ PxConvexMesh* PhysxAgent::create_convex_mesh(vector<vec3> vertices)
 
 PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height)
 {
+	float save_y = new_location.y;
 	old_location.y = 0.0f;
 	new_location.y = 0.0f;
 	if (tail_mesh == NULL)
@@ -140,7 +141,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 		distance = 0.001f;
 	}
 
-	PxTransform transform(PxVec3(new_location.x, new_location.y, new_location.z), PxLookAt(direction, up));
+	PxTransform transform(PxVec3(new_location.x, save_y, new_location.z), PxLookAt(direction, up));
 	PxMeshScale scale(PxVec3(width, height, distance), PxQuat(PxIdentity));
 
 	PxFilterData simFilterData;

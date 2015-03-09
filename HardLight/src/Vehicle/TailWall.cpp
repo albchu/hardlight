@@ -27,7 +27,7 @@ void TailWall::update(PhysxAgent* pxAgent)
 		return;
 
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
-	while (segments.size() >= max_length)
+	while (segments.size() > max_length)
 	{
 		// Reshuffle segments
 		TailSegment* segment = segments[segments.size()-1];
@@ -37,12 +37,14 @@ void TailWall::update(PhysxAgent* pxAgent)
 		actor->release();
 		delete segment;
 	}
+	if (max_length > 0)
+	{
+		PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, bike->get_up_vector(), width, height);
+		TailSegment* segment = new TailSegment(segment_actor, "../data/Textures/LightTrail.tga", width, height, length, program_id);
+		segments.insert(segments.begin(), segment);
 
-	PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, bike->get_up_vector(), width, height);
-	TailSegment* segment = new TailSegment(segment_actor, "../data/Textures/LightTrail.tga", width, height, length, program_id);
-	segments.insert(segments.begin(), segment);
-
-	last_position = new_position;	// Update last set position for next wall segment
+		last_position = new_position;	// Update last set position for next wall segment
+	}
 }
 
 // Returns the pxTransform of the tail with appropriate physx transform offsets
@@ -88,4 +90,9 @@ Bike* TailWall::getBike()
 void TailWall::extend_max_length()
 {
 	max_length += extend_length;
+}
+
+void TailWall::set_max_length(int new_length)
+{
+	max_length = new_length;
 }
