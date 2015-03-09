@@ -209,7 +209,7 @@ vec3 Entity::get_up_vector()
 {
 	PxTransform gPose = actor->getGlobalPose();
 	PxQuat q = gPose.q;
-	PxVec3 global_up = PxVec3(0,1,0);
+	PxVec3 global_up = PxVec3(0.0f,1.0f,0.0f);
 	
 	return normalize(PhysxAgent::toVec3(global_up));
 }

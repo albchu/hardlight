@@ -76,6 +76,26 @@ static quat RotationBetweenVectors(vec3 start, vec3 dest)
 		);
 }
 
+// http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
+PxQuat PhysxAgent::PxLookAt(vec3 direction, vec3 up)
+{
+	// Find the rotation between the front of the object (that we assume towards +Z, 
+	// but this depends on your model) and the desired direction 
+	quat rot1 = RotationBetweenVectors(vec3(0.0f, 0.0f, 1.0f), direction);
+	// Recompute desiredUp so that it's perpendicular to the direction
+	// You can skip that part if you really want to force desiredUp
+	vec3 right = cross(direction, up);
+	up = cross(right, direction);
+
+	// Because of the 1rst rotation, the up is probably completely screwed up. 
+	// Find the rotation between the "up" of the rotated object, and the desired up
+	vec3 newUp = rot1 * up;
+	quat rot2 = RotationBetweenVectors(newUp, up);
+
+	quat targetOrientation = rot2 * rot1; // remember, in reverse order
+	return PxQuat(targetOrientation.x, targetOrientation.y, targetOrientation.z, targetOrientation.w);
+}
+
 PxConvexMesh* PhysxAgent::create_convex_mesh(vector<vec3> vertices)
 {
 	vector<PxVec3> vs;
@@ -113,29 +133,14 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 		tail_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	}
 	vec3 direction = normalize(old_location - new_location); // from new to old
-	float distance = glm::distance(old_location, new_location);
+	float distance = glm::distance(vec3(old_location.x, 0.0f, old_location.z), vec3(new_location.x, 0.0f, new_location.z));
 	if (distance < 0.001f)
 	{
 		direction = vec3(0.0f, 0.0f, 1.0f);
 		distance = 0.001f;
 	}
 
-	// Find the rotation between the front of the object (that we assume towards +Z, 
-	// but this depends on your model) and the desired direction 
-	quat rot1 = RotationBetweenVectors(vec3(0.0f, 0.0f, 1.0f), direction);
-	// Recompute desiredUp so that it's perpendicular to the direction
-	// You can skip that part if you really want to force desiredUp
-	vec3 right = cross(direction, up);
-	up = cross(right, direction);
-
-	// Because of the 1rst rotation, the up is probably completely screwed up. 
-	// Find the rotation between the "up" of the rotated object, and the desired up
-	vec3 newUp = rot1 * vec3(0.0f, 1.0f, 0.0f);
-	quat rot2 = RotationBetweenVectors(newUp, up);
-
-	quat targetOrientation = rot2 * rot1; // remember, in reverse order
-
-	PxTransform transform(PxVec3(new_location.x, new_location.y, new_location.z), PxQuat(targetOrientation.x, targetOrientation.y, targetOrientation.z, targetOrientation.w));
+	PxTransform transform(PxVec3(new_location.x, new_location.y, new_location.z), PxLookAt(direction, up));
 	PxMeshScale scale(PxVec3(width, height, distance), PxQuat(PxIdentity));
 
 	PxFilterData simFilterData;

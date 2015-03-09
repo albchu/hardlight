@@ -73,24 +73,33 @@ bool HardLight::BuildScene()
 
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 
-	for (int i=0; i < config->GetInteger("game", "numBots", 0) ; i++)
-	{
-		Bike* new_bike = new Bike();
-		if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
-			return false;
+	vector<PxVec3> start_locations;
+	float offset = size-10.0f;
+	float height = 5.0f;
+	start_locations.push_back(PxVec3(offset, height, offset));
+	start_locations.push_back(PxVec3(-offset, height, -offset));
+	start_locations.push_back(PxVec3(-offset, height, offset));
+	start_locations.push_back(PxVec3(offset, height, -offset));
+	start_locations.push_back(PxVec3(offset, height, 0.0f));
+	start_locations.push_back(PxVec3(-offset, height, 0.0f));
+	start_locations.push_back(PxVec3(0.0f, height, offset));
+	start_locations.push_back(PxVec3(0.0f, height, -offset));
 
-		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
-		bikes->add_bot_bike(new_bike);
-
-	}
 	if(bikes->get_player_bikes().size() < 1) {
-		for (int i = 0 ; i < config->GetInteger("game", "numPlayers", 1) ; i++)
+		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 		{
-
 			Bike* new_bike = new Bike();
-			if(!vehicleCreator.Create(new_bike, PxVec3(0,5,0)))
-				return false;
-		
+			if (i < start_locations.size())
+			{
+				if(!vehicleCreator.Create(new_bike, start_locations[i]))
+					return false;
+			}
+			else
+			{
+				if(!vehicleCreator.Create(new_bike, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
+					return false;
+			}
+
 			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 			if (controllers.size() > 0)
 				bikes->add_player_bike(new_bike, controllers[i]);
@@ -99,6 +108,26 @@ bool HardLight::BuildScene()
 		}
 	}
 
+	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
+	{
+		Bike* new_bike = new Bike();
+		int position = bikes->get_player_bikes().size() + i;
+
+		if (position < start_locations.size())
+			{
+				if(!vehicleCreator.Create(new_bike, start_locations[position]))
+					return false;
+			}
+			else
+			{
+				if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+					return false;
+			}
+
+		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
+		bikes->add_bot_bike(new_bike);
+
+	}
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init Powerup object for testing powerup functionality temporarily

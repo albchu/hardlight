@@ -33,6 +33,8 @@
 #include "SnippetVehicleFilterShader.h"
 #include "SnippetVehicleTireFriction.h"
 #include "PxPhysicsAPI.h"
+#include <vector>
+#include "MeshMap.h"
 
 using namespace physx;
 
@@ -81,6 +83,16 @@ static PxConvexMesh* createConvexMesh(const PxVec3* verts, const PxU32 numVerts,
 
 PxConvexMesh* createChassisMesh(const PxVec3 dims, PxPhysics& physics, PxCooking& cooking)
 {
+	/*
+	vector<vec3> vertices = *MeshMap::Instance()->getEntityMesh("HardLightBike2.obj")->getVertices();
+	vector<PxVec3> vs;
+	for(unsigned int i=0; i<vertices.size(); i++)
+	{
+		vs.push_back(PxVec3(vertices[i].x, vertices[i].y+2.0f, vertices[i].z));
+	}
+
+	return createConvexMesh(vs.data(), vs.size(), physics, cooking);
+	*/
 	const PxF32 x = dims.x*0.5f;
 	const PxF32 y = dims.y*0.5f;
 	const PxF32 z = dims.z*0.5f;
