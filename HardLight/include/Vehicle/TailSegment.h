@@ -14,23 +14,14 @@ using namespace std;
 class TailSegment: public Entity
 {
 private:
-	//float tailScale;
-	//PxActor* actor;
-	vec3 start;
-	vec3 end;
 	float width;	// How wide the segment will be
 	float height;	// How high the segment will be
-	vector<vec3> mesh;
+	float length;
 
 public:
-	TailSegment(vec3 new_start, vec3 new_end, PxRigidActor* init_actor, const char * texturePath, INIReader* config);
+	TailSegment(PxRigidActor* init_actor, const char * texturePath, float init_width, float init_height, float init_length, GLuint init_program_id);
 	void generate_wall_mesh();
 	virtual mat4 get_model_matrix();
-
-	void set_start(vec3 new_start);
-	void set_end(vec3 new_end);
-	vec3 get_start();
-	vec3 get_end();
 };
 
 #endif

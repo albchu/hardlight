@@ -138,6 +138,9 @@
     <ClCompile Include="SnippetVehicleCommon\SnippetVehicleTireFriction.cpp">
       <Filter>PhysXSnippets</Filter>
     </ClCompile>
+    <ClCompile Include="src\PhysX\PA_FilterShader.cpp">
+      <Filter>PhysX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">

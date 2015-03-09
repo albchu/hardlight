@@ -13,6 +13,7 @@ class TailWall : public Entity
 private:
 	//vector<TailSegment*> bikeWall;
 	unsigned int max_length;		// This value will hold exactly how many tail segments will be allowed 
+	unsigned int extend_length;		// This value will hold exactly how many segments will be added when pickup is acquired
 	vector<TailSegment*> segments;
 	vec3 last_position;	//The previous start of a tailsegment
 	float min_segment_allowance;	// This variable determines how far a bike must move before we should create a new wall segment
@@ -21,6 +22,8 @@ private:
 	PxTransform gPose;
 	float tail_offset_scalar;
 	INIReader* config;
+	float width;
+	float height;
 
 public:
 	TailWall(Bike*, INIReader*);

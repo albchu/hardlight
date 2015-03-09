@@ -7,6 +7,7 @@
 #include <vector>
 #include "../inih\cpp\INIReader.h"
 #include "MeshData.h"
+#include "MeshMap.h"
 #include "EntityTypes.h"
 
 #include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
@@ -36,7 +37,9 @@ public:
 	PxDefaultAllocator get_allocator();
 	PxDefaultErrorCallback get_error_callback();
 	PxCooking* get_cooking();
+	PxConvexMesh* create_convex_mesh(vector<vec3> vertices);
 	PxRigidActor* create_static_convex_mesh(MeshData*, PxTransform, EntityTypes);
+	PxRigidStatic* create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height);
 
 private:
 	PxScene* gScene;
@@ -48,5 +51,7 @@ private:
 	PxDefaultErrorCallback gErrorCallback;
 	PxVisualDebuggerConnection* gConnection;
 	PxCooking* gCooking;
+
+	PxConvexMesh* tail_mesh;
 };
 #endif
