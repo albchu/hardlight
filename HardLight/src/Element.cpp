@@ -60,7 +60,7 @@ void Element::init_texture() {
 }
 
 void Element::init_model() {
-	MeshData temp;
+	mesh_data = new MeshData();
 
 	double x = 0.0f;
 	double y = 0.0f;
