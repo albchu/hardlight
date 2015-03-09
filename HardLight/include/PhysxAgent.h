@@ -54,8 +54,10 @@ private:
 	PxDefaultErrorCallback gErrorCallback;
 	PxVisualDebuggerConnection* gConnection;
 	PxCooking* gCooking;
-
+	
 	PxConvexMesh* tail_mesh;
 	PxMaterial* tail_material;
+	PxConvexMesh* pickup_mesh;
+	PxMaterial* pickup_material;
 };
 #endif

@@ -81,7 +81,7 @@ private:
 
 	// Implements PxSimulationEventCallback
 	virtual void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
-	virtual void onTrigger(PxTriggerPair*, PxU32) {}
+	virtual void onTrigger(PxTriggerPair*, PxU32);
 	virtual void onConstraintBreak(PxConstraintInfo*, PxU32) {}
 	virtual void onWake(PxActor**, PxU32) {}
 	virtual void onSleep(PxActor**, PxU32) {}
