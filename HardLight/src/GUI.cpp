@@ -90,6 +90,7 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 
 		addButton(button);
 	}
+
 }
 
 void GUI::render() {
@@ -124,6 +125,9 @@ bool GUI::onGUIEvent(SDL_Event* event, Scene* scene) {
 	case SDL_KEYDOWN:
 		switch(event->key.keysym.sym) {
 		case SDLK_KP_ENTER:
+			*scene = GAME;
+			break;
+		case SDLK_SPACE:
 			*scene = GAME;
 			break;
 		}
