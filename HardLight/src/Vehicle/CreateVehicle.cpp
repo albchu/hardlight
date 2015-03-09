@@ -1,6 +1,6 @@
 #include "Vehicle/CreateVehicle.h"
 
-CreateVehicle::CreateVehicle(INIReader* new_config, Physx_Agent* new_pxAgent)
+CreateVehicle::CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent)
 {
 	config = new_config;
 	pxAgent = new_pxAgent;

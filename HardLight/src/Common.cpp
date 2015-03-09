@@ -1,6 +1,6 @@
 #include "Common.h"
 
-float Common::FORTY_FIVE_DEGREES_RADS = 0.785398163;
+float Common::FORTY_FIVE_DEGREES_RADS = 0.785398163f;
 
 float Common::getRandFloat(float low, float high)
 {

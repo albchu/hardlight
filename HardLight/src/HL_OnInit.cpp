@@ -83,7 +83,7 @@ bool HardLight::OnInit()
 	}
 
 	//Initialize physx agent to govern all shared physx objects
-	pxAgent = new Physx_Agent(config, this);
+	pxAgent = new PhysxAgent(config, this);
 
 	// GLEW Library Initialization
 	glewExperimental=true; // Needed in Core Profile

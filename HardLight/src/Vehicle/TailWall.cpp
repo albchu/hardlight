@@ -5,58 +5,44 @@
 TailWall::TailWall(Bike* new_bike, INIReader* new_config)
 {
 	config = new_config;		// Needed to be passed into tail segments
-	max_length = config->GetReal("tail", "maxLength", 30);
-	min_segment_allowance = config->GetReal("tail", "minSegmentSize", 0.5);
-	max_segment_allowance = config->GetReal("tail", "maxSegmentSize", 100);
-	tail_offset_scalar = config->GetReal("tail", "offset", 4);
+	max_length = config->GetInteger("tail", "maxLength", 30);
+	extend_length = config->GetInteger("tail", "extend_length", 10);
+	min_segment_allowance = (float)config->GetReal("tail", "minSegmentSize", 0.5);
+	max_segment_allowance = (float)config->GetReal("tail", "maxSegmentSize", 100);
+	tail_offset_scalar = (float)config->GetReal("tail", "offset", 4);
 	bike = new_bike;
-	//gPose = bike->get_actor()->getGlobalPose();
-	//last_position = vec3(gPose.p.x, gPose.p.y, gPose.p.z);
 	last_position = getTailPosition();
+	width = (float)config->GetReal("tail", "width", 1);
+	height = (float)config->GetReal("tail", "height", 1);
+
+	// Create and compile our GLSL program from the shaders
+	program_id = LoadShaders("basic_vs.glsl", "basic_fs.glsl");
 
 }
-void TailWall::update(Physx_Agent* pxAgent)
+void TailWall::update(PhysxAgent* pxAgent)
 {
 	vec3 new_position = getTailPosition();
+	float length = glm::distance(new_position, last_position);
+	if (length < min_segment_allowance)
+		return;
+
 	// Check the size of the tail list whether to add a new segment or reshuffle segments
-	if(segments.size() >= max_length)
+	while (segments.size() >= max_length)
 	{
 		// Reshuffle segments
 		TailSegment* segment = segments[segments.size()-1];
-		segment->get_actor()->release();
 		segments.pop_back();
+		PxRigidActor* actor = segment->get_actor();
+		pxAgent->get_scene()->removeActor(*actor);
+		actor->release();
+		delete segment;
 	}
-	// Create a new wall segment if the wall segment is at least a certain length
-	float length = glm::distance(new_position, last_position);
-	if(length >= min_segment_allowance && length <= max_segment_allowance )
-	{
-		PxRigidActor* segment_actor = pxAgent->get_physics()->createRigidStatic(getTailTransform());
-		TailSegment* segment = new TailSegment(new_position, last_position, segment_actor, "../data/Textures/LightTrail.tga", config);
-		segments.insert(segments.begin(), segment);
-		float width = config->GetReal("tail", "width", 100);
-		float height = config->GetReal("tail", "height", 100);
-		// Cook the wall mesh generated for this segment
-		PxConvexMesh* chassisConvexMesh = createChassisMesh(PxVec3(width, height, length), *pxAgent->get_physics(), *pxAgent->get_cooking());
-		PxMaterial* wall_material = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
-		PxShape* shape = segment->get_actor()->createShape(PxConvexMeshGeometry(chassisConvexMesh), *wall_material);
-		
-		//attachShape(*shape);
-		//shape->release();
 
-		// Set up sim data for tail segment
-		PxFilterData simFilterData;
-		PxFilterData qryFilterData;
-		qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
-		simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
-		simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
-		shape->setQueryFilterData(qryFilterData);
-		shape->setSimulationFilterData(simFilterData);
-		pxAgent->get_scene()->addActor(*segment->get_actor());
-		if(length >= min_segment_allowance)
-		{
-			last_position = new_position;	// Update last set position for next wall segment
-		}
-	}
+	PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, bike->get_up_vector(), width, height);
+	TailSegment* segment = new TailSegment(segment_actor, "../data/Textures/LightTrail.tga", width, height, length, program_id);
+	segments.insert(segments.begin(), segment);
+
+	last_position = new_position;	// Update last set position for next wall segment
 }
 
 // Returns the pxTransform of the tail with appropriate physx transform offsets
@@ -101,5 +87,5 @@ Bike* TailWall::getBike()
 
 void TailWall::extend_max_length()
 {
-	max_length += max_length;
+	max_length += extend_length;
 }
