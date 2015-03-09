@@ -35,7 +35,7 @@ public:
 	string getPath();
 	GLuint getTextureID();
 	void init_texture();
-	void init_model(SDL_Window*);
+	void init_model();
 	void setPos(vec2);
 	void setSize(vec2);
 	void setSize(double, double);
