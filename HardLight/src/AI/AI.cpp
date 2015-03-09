@@ -12,7 +12,7 @@ void AI::update_bikes()
 	{
 
 		Controller* controllableX = bikes->get_controlled_bikes()[i];
-		if(!controllableX->get_bike()->is_renderable())
+		if(controllableX->get_bike()->is_renderable())
 		{
 
 			vec3 directionX = controllableX->get_bike()->get_direction_vector();
@@ -23,7 +23,7 @@ void AI::update_bikes()
 			{
 				Controller* controllableY = bikes->get_controlled_bikes()[j];
 				// Allow all vehicles to see each other
-				if(!controllableY->get_bike()->is_renderable() && i != j)	// Only perform calculation if both bikes arnt deleted and arnt the same bike
+				if(controllableY->get_bike()->is_renderable() && i != j)	// Only perform calculation if both bikes arnt deleted and arnt the same bike
 				{
 					vec3 directionY = controllableX->get_bike()->get_direction_vector();
 					vec3 positionY = controllableX->get_bike()->get_location();
@@ -64,7 +64,7 @@ void AI::update_bikes(vec3 pickup)
 	for(unsigned int i = 0; i < bikes->get_controlled_bikes().size(); i++)
 	{
 		Controller* controllableX = bikes->get_controlled_bikes()[i];
-		if(!controllableX->get_bike()->is_deleted())
+		if(controllableX->get_bike()->is_renderable())
 		{
 			vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
 			vec3 current_postion = controllableX->get_bike()->get_location();
@@ -84,7 +84,7 @@ void AI::move_bikes()
 {
 	for(Controller* controllable: bikes->get_controlled_bikes())
 	{
-		if(!controllable->get_bike()->is_renderable())
+		if(controllable->get_bike()->is_renderable())
 		{
 			controllable->execute_motion();
 			controllable->execute_steering();
