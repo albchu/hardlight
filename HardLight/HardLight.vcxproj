@@ -179,11 +179,9 @@
     <None Include="basic_fs.glsl" />
     <None Include="basic_vs.glsl" />
     <None Include="config.ini" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="GameOver.txt" />
-    <Text Include="MainMenu.txt" />
-    <Text Include="Paused.txt" />
+    <None Include="GameOver.ini" />
+    <None Include="MainMenu.ini" />
+    <None Include="Paused.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

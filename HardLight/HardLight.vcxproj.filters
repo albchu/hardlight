@@ -313,16 +313,14 @@
     <None Include="basic_vs.glsl">
       <Filter>Rendering</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="MainMenu.txt">
+    <None Include="GameOver.ini">
       <Filter>Scene</Filter>
-    </Text>
-    <Text Include="GameOver.txt">
+    </None>
+    <None Include="MainMenu.ini">
       <Filter>Scene</Filter>
-    </Text>
-    <Text Include="Paused.txt">
+    </None>
+    <None Include="Paused.ini">
       <Filter>Scene</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
