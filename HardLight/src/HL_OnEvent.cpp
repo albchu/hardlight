@@ -9,6 +9,25 @@ void HardLight::OnEvent(SDL_Event* Event)
 	if (Event->type == SDL_QUIT)
 		running = false;
 
+	if(Event->type == SDL_CONTROLLERBUTTONDOWN) {
+		if(Event->cbutton.button == SDL_CONTROLLER_BUTTON_BACK) {
+			for(Bike* bike : bikes->get_all_bikes()) {
+				pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
+				bikes->kill_bike(bike);
+			}
+			bikes->clear_controllers();
+			//for(Entity* entity : world.getEntities()) {
+			//	pxAgent->get_scene()->removeActor(entity
+			//}
+			pxAgent->cleanup();
+			pxAgent = new PhysxAgent(config, this);
+			world.clear();
+			bikes = new Bikes(&world, config);
+			overMind = new AI(bikes);
+			BuildScene();
+		}
+	}
+
 	if (bikes->get_player_bikes().size() > 0)
 	{
 		Bike* bike = bikes->get_player_bikes()[0];
@@ -139,13 +158,17 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 				sfxMix.PlaySoundEffect("sfxItemUsed");
 				break;
-			case SDL_CONTROLLER_BUTTON_BACK:
-				for(Bike* bike : bikes->get_bot_bikes()) {
-					pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
-					bikes->kill_bike(bike);
-				}
-				BuildScene();
-				break;
+			//case SDL_CONTROLLER_BUTTON_BACK:
+			//	for(Bike* bike : bikes->get_all_bikes()) {
+			//		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
+			//		bikes->kill_bike(bike);
+			//	}
+			//	bikes->clear_controllers();
+			//	world.clear();
+			//	bikes = new Bikes(&world, config);
+			//	overMind = new AI(bikes);
+			//	BuildScene();
+			//	break;
 			}
 			break;
 

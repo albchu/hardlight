@@ -31,6 +31,7 @@ public:
 	Bike* get_bike(PxRigidActor* actor);
 	void kill_bike(Bike* bike);
 	void add_tail(Bike* bike);
+	void clear_controllers();
 	void extend_tail(Bike* bike);
 
 private:

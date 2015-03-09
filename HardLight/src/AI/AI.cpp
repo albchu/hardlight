@@ -77,6 +77,9 @@ void AI::update_bikes(vec3 pickup)
 			controllableX->set_steering(&Controller::steer);
 			controllableX->set_direction(angle/PxPi);
 		}
+		else {
+			bikes->kill_bike(controllableX->get_bike());
+		}
 	}
 }
 

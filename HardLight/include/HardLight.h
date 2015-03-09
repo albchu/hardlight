@@ -90,6 +90,7 @@ private:
 
 	// scene specific functions
 	void initOpenGL(Scene);
+	bool spawnBikes();
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
