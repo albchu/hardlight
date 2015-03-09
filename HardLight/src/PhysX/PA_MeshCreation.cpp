@@ -159,6 +159,13 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 
 PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up)
 {
+	if (pickup_mesh == NULL)
+	{
+		MeshData* pickup_data = MeshMap::Instance()->getEntityMesh("tail.obj");
+		pickup_mesh = create_convex_mesh(*pickup_data->getVertices());
+		pickup_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+
 	PxFilterData simFilterData;
 	EntityTypes type = EntityTypes::PICKUP;
 	simFilterData.word0 = type;
@@ -168,7 +175,9 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up)
 
 	PxTransform transform(PxVec3(location.x, location.y, location.z));
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
-	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh), *tail_material);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(pickup_mesh), *pickup_material);
+	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));
