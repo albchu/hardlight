@@ -19,7 +19,9 @@ int HardLight::OnExecute()
 			OnEvent(&Event);
 		}
 
-		OnLoop();
+		if(scene != PAUSE) {
+			OnLoop();
+		}
 		OnRender();
 	}
 
