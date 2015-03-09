@@ -92,6 +92,15 @@ Bike* Bikes::get_bike(PxRigidActor* actor)
 void Bikes::kill_bike(Bike* bike)
 {
 	bike->set_deleted(true);
+	
+	for (unsigned int i = 0; i < tail_walls.size(); i++)
+	{
+		if (tail_walls[i]->getBike() == bike)
+		{
+			tail_walls[i]->set_max_length(0);
+		}
+	}
+
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i] == bike)
@@ -111,6 +120,7 @@ void Bikes::kill_bike(Bike* bike)
 			return;
 		}
 	}
+
 }
 
 vector<TailWall*> Bikes::get_all_tails()
