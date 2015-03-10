@@ -59,6 +59,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 				scene = PAUSE;
 			menu->toggle_renderable();	// Toggle menu panel from being rendered
 			break;
+		case SDLK_r:
+			reset();
+			break;
 
 		} // end key_down
 		break;
@@ -110,17 +113,17 @@ void HardLight::OnEvent(SDL_Event* Event)
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			powerup->setPowerType(EXTENDTAIL);
 			if(powerup->usePowerup() == 1);
-				//sfxMix.PlaySoundEffect("sfxItemUsed");
+			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
-				//sfxMix.PlaySoundEffect("sfxIntro");
+			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_Y: // Y button
 			//sfxMix.PlaySoundEffect("sfxItemPickUp");
 			powerup->setPowerType(INVINCIBLE);
 			if(powerup->usePowerup() == 1);
-				//sfxMix.PlaySoundEffect("sfxItemUsed");
+			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
-				//sfxMix.PlaySoundEffect("sfxIntro");
+			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			if(scene == PAUSE)
@@ -134,19 +137,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			sfxMix.PlaySoundEffect("sfxPause");
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
-			if(scene == PAUSE)
-				scene = GAME;
-			for(Bike* bike : bikes->get_all_bikes()) {
-				pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
-				bikes->kill_bike(bike);
-			}
-			bikes->clear_controllers();
-			pxAgent->cleanup();
-			pxAgent = new PhysxAgent(config, this);
-			world.clear();
-			bikes = new Bikes(&world, config);
-			overMind = new AI(bikes);
-			BuildScene();
+			reset();
 			break;
 		}
 		break; // end SDL_CONTROLLERBUTTONDOWN
@@ -162,8 +153,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
 		}
 		/*if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-			if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
+		if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+		if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
 		}else*/ if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
 			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 			float accel = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
@@ -190,6 +181,23 @@ void HardLight::OnEvent(SDL_Event* Event)
 		}
 		break;
 	} // end type
+}
+
+void HardLight::reset()
+{
+	if(scene == PAUSE)
+		scene = GAME;
+	for(Bike* bike : bikes->get_all_bikes()) {
+		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
+		bikes->kill_bike(bike);
+	}
+	bikes->clear_controllers();
+	pxAgent->cleanup();
+	pxAgent = new PhysxAgent(config, this);
+	world.clear();
+	bikes = new Bikes(&world, config);
+	overMind = new AI(bikes);
+	BuildScene();
 }
 
 //==============================================================================
