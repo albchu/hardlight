@@ -43,10 +43,9 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->invincible) {
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
-			bikes->kill_bike(bikesToKill[j]);
 			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
 				closestExplosion = glm::min(closestExplosion, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
-
+			bikes->kill_bike(bikesToKill[j]);
 		}
 
 	}
