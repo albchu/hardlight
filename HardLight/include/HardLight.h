@@ -43,6 +43,7 @@
 #include "Powerup.h"
 #include "Pickup.h"
 #include "Menu.h"
+#include "Rendering/Viewports.h"
 
 using namespace physx;
 using namespace glm;
@@ -67,6 +68,7 @@ using namespace glm;
 class HardLight : public PxSimulationEventCallback
 {
 private:
+	vector<Viewports::Viewport> viewports;
 	INIReader* config;
 	bool running;
 	Scene scene;
@@ -144,6 +146,8 @@ public:
 	void OnRender();
 
 	void OnCleanup();
+
+	void reset();
 };
 
 //==============================================================================
