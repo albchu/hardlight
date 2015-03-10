@@ -144,13 +144,13 @@
     <ClCompile Include="src\Rendering\Viewports.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vehicle\newBike.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
     <ClCompile Include="src\Vehicle\BikeManager.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
     <ClCompile Include="src\Vehicle\Chassis.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Bike.cpp">
       <Filter>World\Vehicle</Filter>
     </ClCompile>
   </ItemGroup>
@@ -279,13 +279,13 @@
     <ClInclude Include="include\Rendering\Viewports.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="include\Vehicle\newBike.h">
-      <Filter>World\Vehicle</Filter>
-    </ClInclude>
     <ClInclude Include="include\Vehicle\BikeManager.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="include\Vehicle\Chassis.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Bike.h">
       <Filter>World\Vehicle</Filter>
     </ClInclude>
   </ItemGroup>

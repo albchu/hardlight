@@ -16,12 +16,18 @@ int getRandInt(int low, int high)
 // Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
 void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_controller)
 {
+	//Bike* new_bike = new Bike(chassis, PLAYER_BIKE);
+	//world->add_entity(new_bike);
+	//new_bike->set_subtype(PLAYER_BIKE);
+
 	world->add_entity(chassis);
 	int someInt = getRandInt(1,4);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	chassis->set_subtype(PLAYER_BIKE);
+	//chassis->set_subtype(PLAYER_BIKE);
+	Controller * controlled = new Player_Controller(chassis, sdl_controller);
+	//controlled_bikes.push_back(controlled);
 	player_bikes.push_back(chassis);
 	add_tail(chassis);
 }
@@ -42,7 +48,7 @@ void BikeManager::add_bot_bike(Chassis* chassis)
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	chassis->set_subtype(BOT_BIKE);
+	//chassis->set_subtype(BOT_BIKE);
 	Controller * controlled = new Bot_Controller(chassis);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(chassis);

@@ -22,12 +22,12 @@
 using namespace glm;
 using namespace std;
 
-class newBike : public Entity
+class Bike : public Entity
 {
 
 public:
-	newBike(Chassis* new_chassis);
-	~newBike();
+	Bike(Chassis* init_chassis, BikeSubTypes init_subtype);
+	~Bike();
 
 	BikeSubTypes get_subtype();
 	void set_subtype(BikeSubTypes subtype);

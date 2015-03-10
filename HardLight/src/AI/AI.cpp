@@ -12,7 +12,7 @@ void AI::update_bikes()
 	{
 
 		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
-		if(controllableX->get_bike()->is_renderable())
+		if(controllableX->get_bike()->is_renderable() && controllableX->get_bike()->get_subtype() == BOT_BIKE)
 		{
 
 			vec3 directionX = controllableX->get_bike()->get_direction_vector();
@@ -64,7 +64,7 @@ void AI::update_bikes(vec3 pickup)
 	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
 	{
 		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
-		if(controllableX->get_bike()->is_renderable())
+		if(controllableX->get_bike()->is_renderable() && controllableX->get_bike()->get_subtype() == BOT_BIKE)
 		{
 			vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
 			vec3 current_postion = controllableX->get_bike()->get_location();
