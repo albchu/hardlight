@@ -22,11 +22,17 @@ public:
 	void set_steering(Callback);
 	void set_direction(PxReal);
 	PxReal get_direction();
+	void set_acceleration(PxReal);
+	PxReal get_acceleration();
+	PxReal get_max_acceleration();
+	PxReal get_min_acceleration();
 	//void set_bike(Chassis* new_bike);
 protected:
 	Chassis* bike;
 	PxReal direction;
-	PxReal top_acceleration;
+	PxReal max_acceleration;
+	PxReal min_acceleration;
+	PxReal acceleration;
 	Callback steeringMethod;
 	Callback motionMethod;
 };

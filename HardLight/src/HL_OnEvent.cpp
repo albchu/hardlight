@@ -143,28 +143,28 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break; // end SDL_CONTROLLERBUTTONDOWN
 
 	case SDL_CONTROLLERAXISMOTION:
-		int LeftX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTX);
+		//int LeftX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTX);
 		int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
 		int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
-		if (LeftX < -deadZone || LeftX > deadZone){
-			//bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f)); //the axis are inverted on the controller
-			if (bike != NULL) bike->adaptiveSteering(LeftX); //the axis are inverted on the controller
-		}else{
-			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
-		}
-		/*if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
-		if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-		if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
-		}else*/ if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			float accel = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
-			if (accel < minAccel) accel = minAccel;
-			if (bike != NULL) bike->getInputData().setAnalogAccel(accel);
-			//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity();
-			//std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
-		}else{
-			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
-		}
+		//if (LeftX < -deadZone || LeftX > deadZone){
+		//	//bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f)); //the axis are inverted on the controller
+		//	if (bike != NULL) bike->adaptiveSteering(LeftX); //the axis are inverted on the controller
+		//}else{
+		//	if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
+		//}
+		///*if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
+		//if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+		//if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
+		//}else*/ if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
+		//	if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+		//	float accel = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
+		//	if (accel < minAccel) accel = minAccel;
+		//	if (bike != NULL) bike->getInputData().setAnalogAccel(accel);
+		//	//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity();
+		//	//std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
+		//}else{
+		//	if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
+		//}
 		if(RightX < -deadZone){
 			left =(RightX)/(-32768.0f);
 		}else if(RightX > deadZone){

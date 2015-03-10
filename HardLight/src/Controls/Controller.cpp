@@ -11,7 +11,7 @@ void Controller::forward(Chassis * abike, PxReal acceleration)
 void Controller::backwards()
 {
 	bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-	bike->getInputData().setAnalogAccel(top_acceleration);
+	bike->getInputData().setAnalogAccel(acceleration);
 }
 
 void Controller::steer(Chassis * abike, PxReal steer)
@@ -54,7 +54,9 @@ void Controller::execute_steering()
 void Controller::execute_motion()
 {
 	Controller controller = Controller();
-	(controller.*motionMethod)(bike, top_acceleration);
+	cout << "Using player accelleration to : " << acceleration << endl;
+
+	(controller.*motionMethod)(bike, acceleration);
 }
 
 void Controller::set_motion(Callback next_motion)
@@ -75,4 +77,27 @@ void Controller::set_direction(PxReal new_direction)
 PxReal Controller::get_direction()
 {
 	return direction;
+}
+
+void Controller::set_acceleration(PxReal new_acceleration)
+{
+
+	acceleration = new_acceleration;
+	cout << "Setting player accelleration to : " << acceleration << endl;
+
+}
+
+PxReal Controller::get_acceleration()
+{
+	return acceleration;
+}
+
+PxReal Controller::get_max_acceleration()
+{
+	return max_acceleration;
+}
+
+PxReal Controller::get_min_acceleration()
+{
+	return min_acceleration;
 }

@@ -25,9 +25,9 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	//chassis->set_subtype(PLAYER_BIKE);
+	chassis->set_subtype(PLAYER_BIKE);
 	Controller * controlled = new Player_Controller(chassis, sdl_controller);
-	//controlled_bikes.push_back(controlled);
+	controlled_bikes.push_back(controlled);
 	player_bikes.push_back(chassis);
 	add_tail(chassis);
 }
@@ -48,7 +48,7 @@ void BikeManager::add_bot_bike(Chassis* chassis)
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	//chassis->set_subtype(BOT_BIKE);
+	chassis->set_subtype(BOT_BIKE);
 	Controller * controlled = new Bot_Controller(chassis);
 	controlled_bikes.push_back(controlled);
 	bot_bikes.push_back(chassis);

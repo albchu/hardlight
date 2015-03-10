@@ -64,22 +64,30 @@ void AI::update_bikes(vec3 pickup)
 	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
 	{
 		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
-		if(controllableX->get_bike()->is_renderable() && controllableX->get_bike()->get_subtype() == BOT_BIKE)
+		if(controllableX->get_bike()->is_renderable())
 		{
-			vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
-			vec3 current_postion = controllableX->get_bike()->get_location();
-			vec3 desired_direction = normalize(pickup - current_postion);
-			float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
-			float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
-			float angle = -atan2(det1, dot1);
-			// Go to target location
-			controllableX->set_motion(&Controller::forward);
-			controllableX->set_steering(&Controller::steer);
-			controllableX->set_direction(angle/PxPi);
+			if(controllableX->get_bike()->get_subtype() == BOT_BIKE)
+			{
+				vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
+				vec3 current_postion = controllableX->get_bike()->get_location();
+				vec3 desired_direction = normalize(pickup - current_postion);
+				float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
+				float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
+				float angle = -atan2(det1, dot1);
+				// Go to target location
+				controllableX->set_motion(&Controller::forward);
+				controllableX->set_steering(&Controller::steer);
+				controllableX->set_direction(angle/PxPi);
+				controllableX->set_acceleration(controllableX->get_max_acceleration());
+			}
+			else if(controllableX->get_bike()->get_subtype() == PLAYER_BIKE)
+			{
+				((Player_Controller*)controllableX)->update();
+			}
 		}
-		else {
-			bike_manager->kill_bike(controllableX->get_bike());
-		}
+		//else {
+		//	bike_manager->kill_bike(controllableX->get_bike());
+		//}
 	}
 }
 
