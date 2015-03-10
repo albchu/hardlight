@@ -29,9 +29,9 @@ bool HardLight::OnInit()
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_BLUE_SIZE,	    8);
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_ALPHA_SIZE,	8);
 
-	//SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
 
-	//SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  2);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  4);
 
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;

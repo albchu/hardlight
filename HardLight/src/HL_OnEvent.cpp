@@ -136,6 +136,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			sfxMix.PlaySoundEffect("sfxItemUsed");
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
+			if(scene == PAUSE)
+				scene = GAME;
 			for(Bike* bike : bikes->get_all_bikes()) {
 				pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
 				bikes->kill_bike(bike);
