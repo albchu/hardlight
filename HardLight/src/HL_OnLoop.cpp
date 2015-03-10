@@ -57,7 +57,7 @@ void HardLight::OnLoop()
 	for (unsigned int i = 0; i < hit_pickup.size(); i++)
 	{
 		PxRigidActor* pickup_actor = pickup_hit[i];
-		Bike* bike = hit_pickup[i];
+		Chassis* bike = hit_pickup[i];
 		bike_manager->extend_tail(bike);
 		for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
 			closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
@@ -76,7 +76,7 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	for(Bike* bike : bike_manager->get_all_bikes())
+	for(Chassis* bike : bike_manager->get_all_bikes())
 	{
 		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
@@ -109,7 +109,7 @@ void HardLight::OnLoop()
 	{
 		if(bike_manager->get_all_bikes().size() == 1)
 		{
-			Bike* aBike = bike_manager->get_all_bikes()[0];
+			Chassis* aBike = bike_manager->get_all_bikes()[0];
 			if(aBike->get_subtype() == PLAYER_BIKE)
 			{
 				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));

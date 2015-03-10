@@ -14,7 +14,7 @@ int getRandInt(int low, int high)
 }
 
 // Creates a player bike, loads it onto the world and adds it to the player bike_manager vector
-void BikeManager::add_player_bike(Bike* bike, SDL_GameController* sdl_controller)
+void BikeManager::add_player_bike(Chassis* bike, SDL_GameController* sdl_controller)
 {
 	world->add_entity(bike);
 	int someInt = getRandInt(1,4);
@@ -27,7 +27,7 @@ void BikeManager::add_player_bike(Bike* bike, SDL_GameController* sdl_controller
 }
 
 // Adds a tail wall to the world and the tail walls vector
-void BikeManager::add_tail(Bike* bike)
+void BikeManager::add_tail(Chassis* bike)
 {
 	TailWall* tail_wall = new TailWall(bike, config);
 	tail_walls.push_back(tail_wall);
@@ -35,7 +35,7 @@ void BikeManager::add_tail(Bike* bike)
 }
 
 // Creates a bot bike, loads it onto the world and adds it to the bot bike_manager vector
-void BikeManager::add_bot_bike(Bike* bike)
+void BikeManager::add_bot_bike(Chassis* bike)
 {
 	world->add_entity(bike);
 	int someInt = getRandInt(1,4);
@@ -49,9 +49,9 @@ void BikeManager::add_bot_bike(Bike* bike)
 	add_tail(bike);
 }
 
-vector<Bike*> BikeManager::get_all_bikes()
+vector<Chassis*> BikeManager::get_all_bikes()
 {
-	vector<Bike*> all_bikes;
+	vector<Chassis*> all_bikes;
 	all_bikes.reserve( player_bikes.size() + bot_bikes.size() ); // preallocate memory
 	all_bikes.insert( all_bikes.end(), player_bikes.begin(), player_bikes.end() );
 	all_bikes.insert( all_bikes.end(), bot_bikes.begin(), bot_bikes.end() );
@@ -59,12 +59,12 @@ vector<Bike*> BikeManager::get_all_bikes()
 	return all_bikes;
 }
 
-vector<Bike*> BikeManager::get_player_bikes()
+vector<Chassis*> BikeManager::get_player_bikes()
 {
 	return player_bikes;
 }
 
-vector<Bike*> BikeManager::get_bot_bikes()
+vector<Chassis*> BikeManager::get_bot_bikes()
 {
 	return bot_bikes;
 }
@@ -74,7 +74,7 @@ vector<Controller*> BikeManager::get_controlled_bikes()
 	return controlled_bikes;
 }
 
-Bike* BikeManager::get_bike(PxRigidActor* actor)
+Chassis* BikeManager::get_bike(PxRigidActor* actor)
 {
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
@@ -91,7 +91,7 @@ Bike* BikeManager::get_bike(PxRigidActor* actor)
 	return NULL;
 }
 
-void BikeManager::kill_bike(Bike* bike)
+void BikeManager::kill_bike(Chassis* bike)
 {
 	bike->set_renderable(false);
 	for (unsigned int i = 0; i < tail_walls.size(); i++)
@@ -135,7 +135,7 @@ void BikeManager::clear_controllers() {
 	controlled_bikes.clear();
 }
 
-void BikeManager::extend_tail(Bike* bike)
+void BikeManager::extend_tail(Chassis* bike)
 {
 	for (unsigned int i = 0; i < tail_walls.size(); i++)
 	{

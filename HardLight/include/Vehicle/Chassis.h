@@ -18,12 +18,12 @@
 using namespace glm;
 using namespace std;
 
-class Bike : public Entity
+class Chassis : public Entity
 {
 
 public:
-	Bike();
-	~Bike();
+	Chassis();
+	~Chassis();
 	virtual mat4 get_model_matrix();
 
 	PxVehicleDrive4W* getVehicle4W();
@@ -54,6 +54,6 @@ private:
 	int previousAnalogStickInput;
 	float steeringParameter;
 	//TailWall* tail_wall;
-	// PxActor is handled by Entity parent class of Bike
+	// PxActor is handled by Entity parent class of Chassis
 };
 #endif

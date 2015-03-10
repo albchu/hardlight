@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include <glm\gtx\rotate_vector.hpp>
 #include "Rendering\TextureMap.h"
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 
 class Camera : public Entity {
 private:

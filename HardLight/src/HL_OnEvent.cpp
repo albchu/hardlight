@@ -7,7 +7,7 @@ const float minAccel = 0.8f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
-	Bike* bike = NULL;
+	Chassis* bike = NULL;
 	if (bike_manager->get_player_bikes().size() > 0)
 		bike = bike_manager->get_player_bikes()[0];
 
@@ -131,7 +131,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			else if(scene == GAME)
 				scene = PAUSE;
 
-			for(Bike* i : bike_manager->get_player_bikes()) {
+			for(Chassis* i : bike_manager->get_player_bikes()) {
 				menu->toggle_renderable();
 			}
 			sfxMix.PlaySoundEffect("sfxPause");
@@ -187,7 +187,7 @@ void HardLight::reset()
 {
 	if(scene == PAUSE)
 		scene = GAME;
-	for(Bike* bike : bike_manager->get_all_bikes()) {
+	for(Chassis* bike : bike_manager->get_all_bikes()) {
 		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}

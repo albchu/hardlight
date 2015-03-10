@@ -8,7 +8,7 @@
 #include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
 #include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
 
-#include "Bike.h"
+#include "Chassis.h"
 #include "../inih\cpp\INIReader.h"
 #include "MeshMap.h"
 #include "PhysxAgent.h"
@@ -20,11 +20,11 @@ class CreateVehicle
 
 public:
 	CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent);
-	bool Create(Bike* &bike, PxVec3 init_position);
+	bool Create(Chassis* &bike, PxVec3 init_position);
 
 private:
 	INIReader* config;
 	PhysxAgent* pxAgent;
-	// PxActor is handled by Entity parent class of Bike
+	// PxActor is handled by Entity parent class of Chassis
 };
 #endif

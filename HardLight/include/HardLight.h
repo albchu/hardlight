@@ -26,7 +26,7 @@
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
 #include "Entity.h"
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 #include "Vehicle/BikeManager.h"
 #include "SkyBox.h"
 #include "Wall.h"
@@ -119,8 +119,8 @@ private:
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
 	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
-	vector<Bike*> bikesToKill;
-	vector<Bike*> hit_pickup;
+	vector<Chassis*> bikesToKill;
+	vector<Chassis*> hit_pickup;
 	vector<PxRigidActor*> pickup_hit;
 	AI* overMind;
 

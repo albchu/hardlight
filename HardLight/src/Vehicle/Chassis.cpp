@@ -1,6 +1,6 @@
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 
-Bike::Bike()
+Chassis::Chassis()
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
@@ -11,10 +11,10 @@ Bike::Bike()
 	steeringParameter = 0.0f;
 }
 
-Bike::~Bike() {
+Chassis::~Chassis() {
 }
 
-mat4 Bike::get_model_matrix()
+mat4 Chassis::get_model_matrix()
 {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
@@ -22,7 +22,7 @@ mat4 Bike::get_model_matrix()
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	//cout << "Bike location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
+	//cout << "Chassis location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
 	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
 	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
@@ -34,73 +34,73 @@ mat4 Bike::get_model_matrix()
 	return model_matrix;
 }
 
-PxVehicleDrive4W* Bike::getVehicle4W()
+PxVehicleDrive4W* Chassis::getVehicle4W()
 {
 	return vehicle4W;
 }
 
-PxVehicleDrive4WRawInputData& Bike::getInputData()
+PxVehicleDrive4WRawInputData& Chassis::getInputData()
 {
 	return inputData;
 }
 
-VehicleSceneQueryData* Bike::getVehicleSceneQueryData()
+VehicleSceneQueryData* Chassis::getVehicleSceneQueryData()
 {
 	return vehicleSceneQueryData;
 }
 
-PxBatchQuery* Bike::getBatchQuery()
+PxBatchQuery* Chassis::getBatchQuery()
 {
 	return batchQuery;
 }
 
-bool Bike::isInAir()
+bool Chassis::isInAir()
 {
 	return inAir;
 }
 
-void Bike::setVehicle4W(PxVehicleDrive4W* new_vehicle4W)
+void Chassis::setVehicle4W(PxVehicleDrive4W* new_vehicle4W)
 {
 	vehicle4W = new_vehicle4W;
 }
 
 
-void Bike::setInputData(PxVehicleDrive4WRawInputData new_inputData)
+void Chassis::setInputData(PxVehicleDrive4WRawInputData new_inputData)
 {
 	inputData = new_inputData;
 }
 
 
-void Bike::setVehicleSceneQueryData(VehicleSceneQueryData* new_vehicleSceneQueryData)
+void Chassis::setVehicleSceneQueryData(VehicleSceneQueryData* new_vehicleSceneQueryData)
 {
 	vehicleSceneQueryData = new_vehicleSceneQueryData;
 }
 
 
-void Bike::setBatchQuery(PxBatchQuery* new_batchQuery)
+void Chassis::setBatchQuery(PxBatchQuery* new_batchQuery)
 {
 	batchQuery = new_batchQuery;
 }
 
 
-void Bike::setInAir(bool new_inAir)
+void Chassis::setInAir(bool new_inAir)
 {
 	inAir = new_inAir;
 }
 
-//TailWall* Bike::get_tail_wall()
+//TailWall* Chassis::get_tail_wall()
 //{
 //	return tail_wall;
 //}
 
-void Bike::set_actor(PxRigidActor* new_actor)
+void Chassis::set_actor(PxRigidActor* new_actor)
 {
 	actor = new_actor;
 	PxTransform gPose = actor->getGlobalPose();
 	//tail_wall = new TailWall(vec3(gPose.p.x, gPose.p.y, gPose.p.z), this);	// Initialize the tail object as soon as an actor is set for the bike;
 }
 
-void Bike::adaptiveSteering(int analogStickInput)
+void Chassis::adaptiveSteering(int analogStickInput)
 {
 	//cout << "========INPUT========" << endl;
 	//cout << "analogStickInput" << analogStickInput << endl;
@@ -170,5 +170,5 @@ void Bike::adaptiveSteering(int analogStickInput)
 	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 }
 
-BikeSubTypes Bike::get_subtype()								{ return subtype; }
-void Bike::set_subtype(BikeSubTypes new_subtype)				{ subtype = new_subtype; }
+BikeSubTypes Chassis::get_subtype()								{ return subtype; }
+void Chassis::set_subtype(BikeSubTypes new_subtype)				{ subtype = new_subtype; }

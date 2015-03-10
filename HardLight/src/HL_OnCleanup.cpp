@@ -4,7 +4,7 @@
 //==============================================================================
 void HardLight::OnCleanup()
 {
-	for(Bike* aBike : bike_manager->get_all_bikes())
+	for(Chassis* aBike : bike_manager->get_all_bikes())
 	{
 		aBike->getVehicle4W()->getRigidDynamicActor()->release();
 		aBike->getVehicle4W()->free();

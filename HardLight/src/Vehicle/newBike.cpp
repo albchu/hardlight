@@ -1,6 +1,6 @@
 #include "Vehicle/newBike.h"
 
-newBike::newBike(Bike* new_chassis)
+newBike::newBike(Chassis* new_chassis)
 {
 	chassis = new_chassis;
 }

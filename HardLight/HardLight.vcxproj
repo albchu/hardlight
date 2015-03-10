@@ -127,7 +127,7 @@
     <ClCompile Include="src\Rendering\Viewports.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
-    <ClCompile Include="src\Vehicle\Bike.cpp" />
+    <ClCompile Include="src\Vehicle\Chassis.cpp" />
     <ClCompile Include="src\Vehicle\BikeManager.cpp" />
     <ClCompile Include="src\Vehicle\CreateVehicle.cpp" />
     <ClCompile Include="src\Vehicle\newBike.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
-    <ClInclude Include="include\Vehicle\Bike.h" />
+    <ClInclude Include="include\Vehicle\Chassis.h" />
     <ClInclude Include="include\Vehicle\BikeManager.h" />
     <ClInclude Include="include\Vehicle\CreateVehicle.h" />
     <ClInclude Include="include\Vehicle\newBike.h" />

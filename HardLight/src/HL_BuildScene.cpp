@@ -19,7 +19,7 @@ bool HardLight::spawnBikes() {
 	if(bike_manager->get_player_bikes().size() < 1) {
 		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 		{
-			Bike* new_bike = new Bike();
+			Chassis* new_bike = new Chassis();
 			if (i < start_locations.size())
 			{
 				if(!vehicleCreator.Create(new_bike, start_locations[i]))
@@ -41,7 +41,7 @@ bool HardLight::spawnBikes() {
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
 	{
-		Bike* new_bike = new Bike();
+		Chassis* new_bike = new Chassis();
 		int position = bike_manager->get_player_bikes().size() + i;
 
 		if (position < start_locations.size())
@@ -151,7 +151,7 @@ bool HardLight::BuildScene()
 	if(bike_manager->get_player_bikes().size() < 1) {
 		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 		{
-			Bike* new_bike = new Bike();
+			Chassis* new_bike = new Chassis();
 			if (i < start_locations.size())
 			{
 				if(!vehicleCreator.Create(new_bike, start_locations[i]))
@@ -179,7 +179,7 @@ bool HardLight::BuildScene()
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
 	{
-		Bike* new_bike = new Bike();
+		Chassis* new_bike = new Chassis();
 		int position = bike_manager->get_player_bikes().size() + i;
 
 		if (position < start_locations.size())

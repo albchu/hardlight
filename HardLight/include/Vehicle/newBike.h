@@ -5,7 +5,7 @@
 
 #include "Entity.h"
 //#include "TailWall.h"
-#include "Bike.h"
+#include "Chassis.h"
 #include "Controls/Controller.h"
 #include "Camera.h"
 //#include <PxPhysicsAPI.h>
@@ -26,7 +26,7 @@ class newBike : public Entity
 {
 
 public:
-	newBike(Bike* new_chassis);
+	newBike(Chassis* new_chassis);
 	~newBike();
 
 	BikeSubTypes get_subtype();
@@ -35,7 +35,7 @@ public:
 
 private:
 	Controller* controller;
-	Bike* chassis;
+	Chassis* chassis;
 	Entity* front_tire;
 	Entity* back_tire;
 	Entity* tail_dispenser;

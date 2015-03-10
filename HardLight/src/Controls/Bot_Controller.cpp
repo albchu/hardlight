@@ -1,6 +1,6 @@
 #include "Controls/Bot_Controller.h"
 
-Bot_Controller::Bot_Controller(Bike* new_bike)
+Bot_Controller::Bot_Controller(Chassis* new_bike)
 {
 	cout << "Bot controller has been set!" << endl;
 	bike = new_bike;

@@ -2,7 +2,7 @@
 #include "../inih/cpp/INIReader.h"
 #include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
 
-TailWall::TailWall(Bike* new_bike, INIReader* new_config)
+TailWall::TailWall(Chassis* new_bike, INIReader* new_config)
 {
 	config = new_config;		// Needed to be passed into tail segments
 	max_length = config->GetInteger("tail", "maxLength", 30);
@@ -83,7 +83,7 @@ void TailWall::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
 	}
 }
 
-Bike* TailWall::getBike()
+Chassis* TailWall::getBike()
 {
 	return bike;
 }

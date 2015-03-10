@@ -12,10 +12,10 @@ void HardLight::OnRender()
 	if (msCurrent - msGraphics < 1000 / 60) return;
 	msGraphics = msCurrent;
 
-	//Bike* bike = bike_manager->get_player_bikes()[0];
+	//Chassis* bike = bike_manager->get_player_bikes()[0];
 	if (bike_manager->get_player_bikes().size() > 0)
 	{
-		Bike* bike = bike_manager->get_player_bikes()[0];
+		Chassis* bike = bike_manager->get_player_bikes()[0];
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
 

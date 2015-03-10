@@ -2,7 +2,7 @@
 
 Controller::Controller(){}
 
-void Controller::forward(Bike * abike, PxReal acceleration)
+void Controller::forward(Chassis * abike, PxReal acceleration)
 {
 	abike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 	abike->getInputData().setAnalogAccel(acceleration);
@@ -14,7 +14,7 @@ void Controller::backwards()
 	bike->getInputData().setAnalogAccel(top_acceleration);
 }
 
-void Controller::steer(Bike * abike, PxReal steer)
+void Controller::steer(Chassis * abike, PxReal steer)
 {
 	// Clamp the steer 
 	if(steer < -1.0f)
@@ -34,12 +34,12 @@ void Controller::right()
 
 }
 
-//void Controller::set_bike(Bike* new_bike)
+//void Controller::set_bike(Chassis* new_bike)
 //{
 //	bike = new_bike;
 //}
 
-Bike* Controller::get_bike()
+Chassis* Controller::get_bike()
 {
 	return bike;
 }
