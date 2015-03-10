@@ -10,11 +10,19 @@ bool HardLight::OnInit()
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 4);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16);
+	
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
+
+	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1) < 0) {
+		fprintf(stderr, "%s\n", SDL_GetError());
+	}
+	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
+		fprintf(stderr, "%s\n", SDL_GetError());
+	}
+	
+	
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);
@@ -29,9 +37,9 @@ bool HardLight::OnInit()
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_BLUE_SIZE,	    8);
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_ALPHA_SIZE,	8);
 
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
+	//SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS,  1);
 
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  4);
+	//SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES,  4);
 
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
