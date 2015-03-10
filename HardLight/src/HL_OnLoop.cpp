@@ -112,6 +112,7 @@ void HardLight::OnLoop()
 		if(aBike->get_subtype() == PLAYER_BIKE)
 		{
 			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
+			scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
 		}
 		if(aBike->get_subtype() == BOT_BIKE)
 		{

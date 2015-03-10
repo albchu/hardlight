@@ -11,13 +11,14 @@ enum EntityTypes
 	SKYBOX		= 1 << 5,
 	PICKUP		= 1 << 6,
 	FLOOR		= 1 << 7,
-	MENU_PANEL		= 1 << 8
+	MENU_PANEL	= 1 << 8,
+	CAMERA		= 1 << 9
 };
 
 enum BikeSubTypes
 {
-BOT_BIKE,
-PLAYER_BIKE
+	BOT_BIKE,
+	PLAYER_BIKE
 };
 
 #endif

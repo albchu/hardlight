@@ -8,7 +8,7 @@ Menu::Menu(PxRigidActor* init_actor, Bike* new_bike) {
 	bike = new_bike;
 	actor = init_actor;
 	mesh_data = MeshMap::Instance()->getEntityMesh("menuPanel.obj");
-	texture = TextureMap::Instance()->getTexture("../data/images/HardLightTitle.tga");
+	texture = TextureMap::Instance()->getTexture("../data/images/PausedTitle.tga");
 	init_opengl();
 	renderable = false;
 
