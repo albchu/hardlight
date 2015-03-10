@@ -3,6 +3,7 @@
 //==============================================================================
 
 const int deadZone = 8000;
+const float minAccel = 0.8f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
@@ -42,7 +43,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
 			break;
 		case SDLK_DOWN:
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+			//if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
 			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
 			break;
 		case SDLK_LEFT:
@@ -81,7 +82,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			speed /= fast;
 			break;
 		case SDLK_UP:
-			if (bike != NULL) bike->getInputData().setAnalogAccel(0.0f);
+			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 			break;
 		case SDLK_DOWN:
 			if (bike != NULL) bike->getInputData().setAnalogAccel(0.0f);
@@ -104,9 +105,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 				sfxMix.PlaySoundEffect("sfxItemUsed");
 			else
 				sfxMix.PlaySoundEffect("sfxIntro");
-			break;
-		case SDL_CONTROLLER_BUTTON_B: // B button
-			sfxMix.PlaySoundEffect("sfxExplosion", 10.0f, 0);
 			break;
 		case SDL_CONTROLLER_BUTTON_X: // X button
 			//sfxMix.PlaySoundEffect("sfxIntro");
@@ -164,16 +162,18 @@ void HardLight::OnEvent(SDL_Event* Event)
 		}else{
 			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
 		}
-		if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
+		/*if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
 			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
 			if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
-		}else if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
+		}else*/ if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
 			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			if (bike != NULL) bike->getInputData().setAnalogAccel((SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f));
+			float accel = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
+			if (accel < minAccel) accel = minAccel;
+			if (bike != NULL) bike->getInputData().setAnalogAccel(accel);
 			//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity();
 			//std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
 		}else{
-			if (bike != NULL) bike->getInputData().setAnalogAccel(0.0f);
+			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 		}
 		if(RightX < -deadZone){
 			left =(RightX)/(-32768.0f);
