@@ -43,9 +43,9 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->invincible) {
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
-			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-				closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
-			bikes->kill_bike(bikesToKill[j]);
+			for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
+				closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(bikesToKill[j]));
+			bike_manager->kill_bike(bikesToKill[j]);
 		}
 
 	}
@@ -58,9 +58,9 @@ void HardLight::OnLoop()
 	{
 		PxRigidActor* pickup_actor = pickup_hit[i];
 		Bike* bike = hit_pickup[i];
-		bikes->extend_tail(bike);
-		for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-			closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(pickup));
+		bike_manager->extend_tail(bike);
+		for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
+			closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
 	}
 	if (hit_pickup.size() > 0)
 	{
@@ -76,7 +76,7 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	for(Bike* bike : bikes->get_all_bikes())
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
 		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
 
@@ -99,7 +99,7 @@ void HardLight::OnLoop()
 	overMind->move_bikes();
 
 	// Tail creation
-	for(TailWall* tail_wall : bikes->get_all_tails())
+	for(TailWall* tail_wall : bike_manager->get_all_tails())
 	{
 		tail_wall->update(pxAgent);
 	}
@@ -107,9 +107,9 @@ void HardLight::OnLoop()
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
-		if(bikes->get_all_bikes().size() == 1)
+		if(bike_manager->get_all_bikes().size() == 1)
 		{
-			Bike* aBike = bikes->get_all_bikes()[0];
+			Bike* aBike = bike_manager->get_all_bikes()[0];
 			if(aBike->get_subtype() == PLAYER_BIKE)
 			{
 				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
@@ -122,7 +122,7 @@ void HardLight::OnLoop()
 
 			menu->set_renderable(true);
 		}
-		else if (bikes->get_player_bikes().size() == 0)
+		else if (bike_manager->get_player_bikes().size() == 0)
 		{
 			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
 			menu->set_renderable(true);

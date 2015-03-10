@@ -118,7 +118,7 @@ private:
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
-	BikeManager* bikes;		// Holds arrays of all bikes on the scene
+	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
 	vector<Bike*> bikesToKill;
 	vector<Bike*> hit_pickup;
 	vector<PxRigidActor*> pickup_hit;

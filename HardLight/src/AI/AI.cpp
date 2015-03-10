@@ -2,16 +2,16 @@
 
 AI::AI(BikeManager* new_bikes)
 {
-	bikes = new_bikes;
+	bike_manager = new_bikes;
 }
 
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
-	for(unsigned int i = 0; i < bikes->get_controlled_bikes().size(); i++)
+	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
 	{
 
-		Controller* controllableX = bikes->get_controlled_bikes()[i];
+		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
 		if(controllableX->get_bike()->is_renderable())
 		{
 
@@ -19,11 +19,11 @@ void AI::update_bikes()
 			vec3 positionX = controllableX->get_bike()->get_location();
 			float shortest_distance = NULL;
 			vec3 target_location = directionX;	// If no better direction is found, the bike will continue going straight forward
-			for(unsigned int j = 0; j < bikes->get_controlled_bikes().size(); j++)	// Try and find a better target location to go to
+			for(unsigned int j = 0; j < bike_manager->get_controlled_bikes().size(); j++)	// Try and find a better target location to go to
 			{
-				Controller* controllableY = bikes->get_controlled_bikes()[j];
+				Controller* controllableY = bike_manager->get_controlled_bikes()[j];
 				// Allow all vehicles to see each other
-				if(controllableY->get_bike()->is_renderable() && i != j)	// Only perform calculation if both bikes arnt deleted and arnt the same bike
+				if(controllableY->get_bike()->is_renderable() && i != j)	// Only perform calculation if both bike_manager arnt deleted and arnt the same bike
 				{
 					vec3 directionY = controllableX->get_bike()->get_direction_vector();
 					vec3 positionY = controllableX->get_bike()->get_location();
@@ -34,10 +34,10 @@ void AI::update_bikes()
 					//Determine whether this point is in the view of bikeX
 					float angle = glm::angle(xy_direction, directionX);
 
-					// Only determine distance between the bikes if bikeX can see bikeY
+					// Only determine distance between the bike_manager if bikeX can see bikeY
 					if(angle < Common::FORTY_FIVE_DEGREES_RADS)
 					{
-						float XY_distance = glm::distance(positionY, positionX); // Find distance between the two bikes
+						float XY_distance = glm::distance(positionY, positionX); // Find distance between the two bike_manager
 						if(shortest_distance == NULL || XY_distance < shortest_distance)
 						{
 							shortest_distance = XY_distance;
@@ -61,9 +61,9 @@ void AI::update_bikes()
 
 void AI::update_bikes(vec3 pickup)
 {
-	for(unsigned int i = 0; i < bikes->get_controlled_bikes().size(); i++)
+	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
 	{
-		Controller* controllableX = bikes->get_controlled_bikes()[i];
+		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
 		if(controllableX->get_bike()->is_renderable())
 		{
 			vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
@@ -78,14 +78,14 @@ void AI::update_bikes(vec3 pickup)
 			controllableX->set_direction(angle/PxPi);
 		}
 		else {
-			bikes->kill_bike(controllableX->get_bike());
+			bike_manager->kill_bike(controllableX->get_bike());
 		}
 	}
 }
 
 void AI::move_bikes()
 {
-	for(Controller* controllable: bikes->get_controlled_bikes())
+	for(Controller* controllable: bike_manager->get_controlled_bikes())
 	{
 		if(controllable->get_bike()->is_renderable())
 		{

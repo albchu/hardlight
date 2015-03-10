@@ -92,13 +92,13 @@ bool HardLight::OnInit()
 	if (!sfxMix.InitializeMixer(config))
 		cerr << "Could not initialize sound mixer" << endl;
 
-	bikes = new BikeManager(&world, config);
+	bike_manager = new BikeManager(&world, config);
 
 	// Init AI system to govern bots
-	overMind = new AI(bikes);
+	overMind = new AI(bike_manager);
 	
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup = new Powerup(NULL, bikes, config);
+	powerup = new Powerup(NULL, bike_manager, config);
 
 	// Initialize viewport info
 	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);

@@ -16,7 +16,7 @@ bool HardLight::spawnBikes() {
 	start_locations.push_back(PxVec3(0.0f, height, offset));
 	start_locations.push_back(PxVec3(0.0f, height, -offset));
 
-	if(bikes->get_player_bikes().size() < 1) {
+	if(bike_manager->get_player_bikes().size() < 1) {
 		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 		{
 			Bike* new_bike = new Bike();
@@ -33,16 +33,16 @@ bool HardLight::spawnBikes() {
 
 			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
 			if (controllers.size() > 0)
-				bikes->add_player_bike(new_bike, controllers[i]);
+				bike_manager->add_player_bike(new_bike, controllers[i]);
 			else
-				bikes->add_player_bike(new_bike, NULL);
+				bike_manager->add_player_bike(new_bike, NULL);
 		}
 	}
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
 	{
 		Bike* new_bike = new Bike();
-		int position = bikes->get_player_bikes().size() + i;
+		int position = bike_manager->get_player_bikes().size() + i;
 
 		if (position < start_locations.size())
 			{
@@ -56,7 +56,7 @@ bool HardLight::spawnBikes() {
 			}
 
 		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
-		bikes->add_bot_bike(new_bike);
+		bike_manager->add_bot_bike(new_bike);
 
 	}
 
@@ -148,7 +148,7 @@ bool HardLight::BuildScene()
 	start_locations.push_back(PxVec3(0.0f, height, offset));
 	start_locations.push_back(PxVec3(0.0f, height, -offset));
 
-	if(bikes->get_player_bikes().size() < 1) {
+	if(bike_manager->get_player_bikes().size() < 1) {
 		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 		{
 			Bike* new_bike = new Bike();
@@ -171,16 +171,16 @@ bool HardLight::BuildScene()
 			world.add_entity(menu);
 
 			if (controllers.size() > 0)
-				bikes->add_player_bike(new_bike, controllers[i]);
+				bike_manager->add_player_bike(new_bike, controllers[i]);
 			else
-				bikes->add_player_bike(new_bike, NULL);
+				bike_manager->add_player_bike(new_bike, NULL);
 		}
 	}
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
 	{
 		Bike* new_bike = new Bike();
-		int position = bikes->get_player_bikes().size() + i;
+		int position = bike_manager->get_player_bikes().size() + i;
 
 		if (position < start_locations.size())
 		{
@@ -194,7 +194,7 @@ bool HardLight::BuildScene()
 		}
 
 		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
-		bikes->add_bot_bike(new_bike);
+		bike_manager->add_bot_bike(new_bike);
 
 	}
 
@@ -204,7 +204,7 @@ bool HardLight::BuildScene()
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup->setBike(bikes->get_player_bikes()[0]);
+	powerup->setBike(bike_manager->get_player_bikes()[0]);
 
 	return true;
 }

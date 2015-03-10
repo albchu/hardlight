@@ -15,7 +15,7 @@ public:
 
 
 private:
-	BikeManager* bikes;
+	BikeManager* bike_manager;
 
 };
 #endif

@@ -152,7 +152,7 @@ void Bike::adaptiveSteering(int analogStickInput)
 
 
 	////float currentSpeed = 0.0f; // Maybe custom type, int, double
-	////// Get bikes current speed
+	////// Get bike_manager current speed
 	//PxVec3 temp = vehicle4W->getRigidDynamicActor()->getLinearVelocity();
 	////std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
 	//float currentSpeed = temp.magnitude();

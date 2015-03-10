@@ -12,7 +12,7 @@ class Powerup
 {
 public:
 	Powerup();
-	Powerup(Bike* bike, BikeManager* bikes, INIReader* config);
+	Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config);
 	~Powerup();
 
 	Bike* getBike();
@@ -21,7 +21,7 @@ public:
 	PowerupTypes getPowerType();
 
 	void setBike(Bike* bike);
-	void setBikes(BikeManager* bikes);
+	void setBikes(BikeManager* bike_manager);
 	void setINIReader(INIReader* config);
 	void setPowerType(PowerupTypes powType);
 
@@ -30,7 +30,7 @@ public:
 
 private:
 	Bike* bike;
-	BikeManager* bikes;
+	BikeManager* bike_manager;
 
 	INIReader* config;
 
