@@ -134,14 +134,13 @@ void HardLight::OnEvent(SDL_Event* Event)
 			sfxMix.PlaySoundEffect("sfxItemUsed");
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
+			if(scene == PAUSE)
+				scene = GAME;
 			for(Bike* bike : bikes->get_all_bikes()) {
 				pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
 				bikes->kill_bike(bike);
 			}
 			bikes->clear_controllers();
-			//for(Entity* entity : world.getEntities()) {
-			//	pxAgent->get_scene()->removeActor(entity
-			//}
 			pxAgent->cleanup();
 			pxAgent = new PhysxAgent(config, this);
 			world.clear();
