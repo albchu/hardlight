@@ -45,10 +45,14 @@ void HardLight::OnRender()
 	camera_position += v_pos;
 	mat4 view_matrix = lookAt(camera_position, v_pos + vec3(0,5,0), up);
 
-	for(unsigned int i = 0; i < world.getEntities().size(); i++)
+	for(Viewports::Viewport viewport: viewports)
 	{
-		if(world.getEntities()[i]->is_renderable())
-			world.getEntities()[i]->render(projection_matrix, view_matrix, light);
+		glViewport(viewport.x, viewport.y, viewport.width, viewport.height );
+		for(unsigned int i = 0; i < world.getEntities().size(); i++)
+		{
+			if(world.getEntities()[i]->is_renderable())
+				world.getEntities()[i]->render(projection_matrix, view_matrix, light);
+		}
 	}
 
 	SDL_GL_SwapWindow(window);

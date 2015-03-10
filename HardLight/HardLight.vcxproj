@@ -124,6 +124,7 @@
     <ClCompile Include="src\Powerup.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
+    <ClCompile Include="src\Rendering\Viewports.cpp" />
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="include\PowerupTypes.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
+    <ClInclude Include="include\Rendering\Viewports.h" />
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />

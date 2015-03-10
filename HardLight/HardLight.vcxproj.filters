@@ -147,6 +147,9 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rendering\Viewports.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -275,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="include\Camera.h">
       <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\Viewports.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

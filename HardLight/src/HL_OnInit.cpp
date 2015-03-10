@@ -36,6 +36,7 @@ bool HardLight::OnInit()
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
 
+
 	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
 
@@ -98,8 +99,13 @@ bool HardLight::OnInit()
 	
 	// Init Powerup object for testing powerup functionality temporarily
 	powerup = new Powerup(NULL, bikes, config);
-	
 
+	// Initialize viewport info
+	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);
+	
+		//glViewport(0,0, window_width, window_height / 2.f );
+		//glViewport(0,window_height / 2.f, window_width, window_height / 2.f );
+//	glViewport(0,0,window_width, window_height);
 	return true;
 }
 
