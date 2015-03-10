@@ -13,40 +13,40 @@ int getRandInt(int low, int high)
 	return rand() % high + low;
 }
 
-// Creates a player bike, loads it onto the world and adds it to the player bike_manager vector
-void BikeManager::add_player_bike(Chassis* bike, SDL_GameController* sdl_controller)
+// Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
+void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_controller)
 {
-	world->add_entity(bike);
+	world->add_entity(chassis);
 	int someInt = getRandInt(1,4);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
-	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	bike->set_subtype(PLAYER_BIKE);
-	player_bikes.push_back(bike);
-	add_tail(bike);
+	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	chassis->set_subtype(PLAYER_BIKE);
+	player_bikes.push_back(chassis);
+	add_tail(chassis);
 }
 
 // Adds a tail wall to the world and the tail walls vector
-void BikeManager::add_tail(Chassis* bike)
+void BikeManager::add_tail(Chassis* chassis)
 {
-	TailWall* tail_wall = new TailWall(bike, config);
+	TailWall* tail_wall = new TailWall(chassis, config);
 	tail_walls.push_back(tail_wall);
 	world->add_entity(tail_wall);
 }
 
-// Creates a bot bike, loads it onto the world and adds it to the bot bike_manager vector
-void BikeManager::add_bot_bike(Chassis* bike)
+// Creates a bot chassis, loads it onto the world and adds it to the bot bike_manager vector
+void BikeManager::add_bot_bike(Chassis* chassis)
 {
-	world->add_entity(bike);
+	world->add_entity(chassis);
 	int someInt = getRandInt(1,4);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
-	bike->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	bike->set_subtype(BOT_BIKE);
-	Controller * controlled = new Bot_Controller(bike);
+	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	chassis->set_subtype(BOT_BIKE);
+	Controller * controlled = new Bot_Controller(chassis);
 	controlled_bikes.push_back(controlled);
-	bot_bikes.push_back(bike);
-	add_tail(bike);
+	bot_bikes.push_back(chassis);
+	add_tail(chassis);
 }
 
 vector<Chassis*> BikeManager::get_all_bikes()
@@ -91,12 +91,12 @@ Chassis* BikeManager::get_bike(PxRigidActor* actor)
 	return NULL;
 }
 
-void BikeManager::kill_bike(Chassis* bike)
+void BikeManager::kill_bike(Chassis* chassis)
 {
-	bike->set_renderable(false);
+	chassis->set_renderable(false);
 	for (unsigned int i = 0; i < tail_walls.size(); i++)
 	{
-		if (tail_walls[i]->getBike() == bike)
+		if (tail_walls[i]->getBike() == chassis)
 		{
 			tail_walls[i]->set_max_length(0);
 		}
@@ -104,7 +104,7 @@ void BikeManager::kill_bike(Chassis* bike)
 
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
-		if (player_bikes[i] == bike)
+		if (player_bikes[i] == chassis)
 		{
 			dead_bikes.push_back(player_bikes[i]);
 			player_bikes.erase(player_bikes.begin()+i);
@@ -114,7 +114,7 @@ void BikeManager::kill_bike(Chassis* bike)
 
 	for (unsigned int i = 0; i < bot_bikes.size(); i++)
 	{
-		if (bot_bikes[i] == bike)
+		if (bot_bikes[i] == chassis)
 		{
 			dead_bikes.push_back(bot_bikes[i]);
 			bot_bikes.erase(bot_bikes.begin()+i);
@@ -135,11 +135,11 @@ void BikeManager::clear_controllers() {
 	controlled_bikes.clear();
 }
 
-void BikeManager::extend_tail(Chassis* bike)
+void BikeManager::extend_tail(Chassis* chassis)
 {
 	for (unsigned int i = 0; i < tail_walls.size(); i++)
 	{
-		if (tail_walls[i]->getBike() == bike)
+		if (tail_walls[i]->getBike() == chassis)
 		{
 			tail_walls[i]->extend_max_length();
 			return;
