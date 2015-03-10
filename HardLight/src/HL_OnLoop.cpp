@@ -105,27 +105,29 @@ void HardLight::OnLoop()
 	}
 
 	// Check win/loss condition
-	if(bikes->get_all_bikes().size() == 1)
+	if(!config->GetBoolean("game", "debugMode", false))
 	{
-		Bike* aBike = bikes->get_all_bikes()[0];
-		if(aBike->get_subtype() == PLAYER_BIKE)
+		if(bikes->get_all_bikes().size() == 1)
 		{
-			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
-			scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
+			Bike* aBike = bikes->get_all_bikes()[0];
+			if(aBike->get_subtype() == PLAYER_BIKE)
+			{
+				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
+				scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
+			}
+			if(aBike->get_subtype() == BOT_BIKE)
+			{
+				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+			}
+
+			menu->set_renderable(true);
 		}
-		if(aBike->get_subtype() == BOT_BIKE)
+		else if (bikes->get_player_bikes().size() == 0)
 		{
 			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+			menu->set_renderable(true);
 		}
-
-		menu->set_renderable(true);
 	}
-	else if (bikes->get_player_bikes().size() == 0)
-	{
-		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-		menu->set_renderable(true);
-	}
-
 
 	//Scene update.
 	pxAgent->get_scene()->simulate(timestep);
