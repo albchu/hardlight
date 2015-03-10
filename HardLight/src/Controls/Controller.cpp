@@ -54,8 +54,6 @@ void Controller::execute_steering()
 void Controller::execute_motion()
 {
 	Controller controller = Controller();
-	cout << "Using player accelleration to : " << acceleration << endl;
-
 	(controller.*motionMethod)(bike, acceleration);
 }
 
@@ -83,8 +81,6 @@ void Controller::set_acceleration(PxReal new_acceleration)
 {
 
 	acceleration = new_acceleration;
-	cout << "Setting player accelleration to : " << acceleration << endl;
-
 }
 
 PxReal Controller::get_acceleration()

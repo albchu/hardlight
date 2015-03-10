@@ -44,6 +44,7 @@
 #include "Pickup.h"
 #include "Menu.h"
 #include "Rendering/Viewports.h"
+#include "KeyMappings.h"
 
 using namespace physx;
 using namespace glm;
@@ -69,6 +70,7 @@ class HardLight : public PxSimulationEventCallback
 {
 private:
 	vector<Viewports::Viewport> viewports;
+	vector<KeyMapping> keyMappings;		// Holds an array of keyboard commands for a particular bike
 	INIReader* config;
 	bool running;
 	Scene scene;

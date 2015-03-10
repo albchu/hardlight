@@ -103,6 +103,9 @@ bool HardLight::OnInit()
 	// Initialize viewport info
 	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);
 	
+	// Initialize keyboard player control info
+	keyMappings = KeyMappings::generate_keyMappings();
+	
 		//glViewport(0,0, window_width, window_height / 2.f );
 		//glViewport(0,window_height / 2.f, window_width, window_height / 2.f );
 //	glViewport(0,0,window_width, window_height);

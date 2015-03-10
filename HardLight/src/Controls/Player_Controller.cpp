@@ -13,6 +13,13 @@ Player_Controller::Player_Controller(Chassis* new_bike, SDL_GameController* new_
 // Get all controller input and set the proper callbacks
 void Player_Controller::update()
 {
+	if(sdl_controller != NULL)
+		update_controller();
+}
+
+// Get all controller input and set the proper callbacks
+void Player_Controller::update_controller()
+{
 	int LeftX = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_LEFTX);
 	int RightX = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	int RightY = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_RIGHTY);

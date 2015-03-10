@@ -9,6 +9,7 @@ class Player_Controller : public Controller
 public:
 	Player_Controller(Chassis* bike, SDL_GameController* controller);
 	void update();
+	void update_controller();
 	//void forward();
 
 private:
