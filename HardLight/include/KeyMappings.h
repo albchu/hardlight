@@ -14,6 +14,7 @@ struct KeyMapping
 	SDL_Keycode right;
 	SDL_Keycode camera_right;
 	SDL_Keycode camera_left;
+	SDL_Keycode use_powerup;
 };
 
 class KeyMappings

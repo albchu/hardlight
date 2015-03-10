@@ -1,9 +1,16 @@
 #include "AI/AI.h"
 
-AI::AI(BikeManager* new_bikes)
+
+AI::AI(BikeManager* init_manager)
 {
-	bike_manager = new_bikes;
+	bike_manager = init_manager;
+	//	keyMappings = init_keyMappings;
 }
+
+//void AI::notify(SDL_Keycode key)
+//{
+//	keyPresses.push_back(key);
+//}
 
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
@@ -82,20 +89,23 @@ void AI::update_bikes(vec3 pickup)
 			}
 			else if(controllableX->get_bike()->get_subtype() == PLAYER_BIKE)
 			{
-				((Player_Controller*)controllableX)->update();
+				update_player((Player_Controller*)controllableX);
 			}
 		}
 		//else {
 		//	bike_manager->kill_bike(controllableX->get_bike());
 		//}
 	}
+
+	//// Clear notify list
+	//keyPresses.clear();
 }
 
 void AI::move_bikes()
 {
 	for(Controller* controllable: bike_manager->get_controlled_bikes())
 	{
-		if(controllable->get_bike()->is_renderable())
+		if(controllable->get_bike()->is_renderable() && controllable->callbacks_set())
 		{
 			controllable->execute_motion();
 			controllable->execute_steering();
@@ -103,3 +113,76 @@ void AI::move_bikes()
 	}
 }
 
+
+// Get all input for the player and perform based on that. Optimization: Only fallback to keyboard input if there is no controller given
+void AI::update_player(Player_Controller* player)
+{
+	if(player->get_controller() != NULL)
+		update_controller(player);
+
+}
+
+// Get all controller input and set the proper callbacks
+void AI::update_controller(Player_Controller* player)
+{
+	int LeftX = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_LEFTX);
+	int RightX = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_RIGHTX);
+	int RightY = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_RIGHTY);
+	float accel = player->get_min_acceleration(); // Default acceleration to minimum if non is given
+	PxReal steer = 0.0;
+
+	if (LeftX < -(player->get_dead_zone()) || LeftX > player->get_dead_zone())
+	{
+		steer = (LeftX)/(-32768.0f); //the axis are inverted on the controller
+	}
+
+	if(SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0)
+	{
+		accel = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
+		// Cap the speed into a specific range
+		if (accel < player->get_min_acceleration())
+			accel = player->get_min_acceleration();
+		if (accel > player->get_max_acceleration())
+			accel = player->get_max_acceleration();
+	}
+	player->set_motion(&Controller::forward);
+	player->set_steering(&Controller::steer);
+	player->set_direction(steer);
+	player->set_acceleration(accel);
+}
+
+// Commands feel delayed, abandoning this approach
+//void AI::update_keyboard(Player_Controller* player)
+//{
+//	KeyMapping mapping = player->get_key_controls();
+//	//float accel = player->get_min_acceleration(); // Default acceleration to minimum if non is given
+//	//PxReal steer = 0.0;
+//
+//	for(SDL_Keycode keyPressed: keyPresses)
+//	{
+//		if(keyPressed == mapping.forward)
+//			player->set_acceleration(player->get_max_acceleration());
+//
+//		else if(keyPressed == mapping.backward)
+//			player->set_acceleration(player->get_min_acceleration());
+//
+//		else if(keyPressed == mapping.left)
+//			player->set_direction(1.0);
+//
+//		else if(keyPressed == mapping.right)
+//			player->set_direction(-1.0);
+//		//if(keyPressed == mapping.camera_left)
+//
+//		//if(keyPressed == mapping.camera_right)
+//
+//		//if(keyPressed == mapping.use_powerup)
+//
+//	}
+//	//cout << "Acceleration: " << accel << endl;
+//	//cout << "Steer: " << get_direction() << endl;
+//
+//	player->set_motion(&Controller::forward);
+//	player->set_steering(&Controller::steer);
+//	//player->set_direction(steer);
+//	//player->set_acceleration(accel);
+//}

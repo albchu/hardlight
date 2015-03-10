@@ -16,6 +16,7 @@ vector<KeyMapping> KeyMappings::generate_keyMappings()
 	player1.right = SDLK_d;
 	player1.camera_right = SDLK_q;
 	player1.camera_left = SDLK_e;
+	player1.use_powerup = SDLK_f;
 	
 	//Player 2
 	player2.forward = SDLK_UP;
@@ -24,6 +25,7 @@ vector<KeyMapping> KeyMappings::generate_keyMappings()
 	player2.right = SDLK_RIGHT;
 	player2.camera_right = SDLK_RSHIFT;
 	player2.camera_left = SDLK_RCTRL;
+	player2.use_powerup = SDLK_DELETE;
 		
 	//Player 3
 	player3.forward = SDLK_u;
@@ -32,6 +34,7 @@ vector<KeyMapping> KeyMappings::generate_keyMappings()
 	player3.right = SDLK_k;
 	player3.camera_right = SDLK_y;
 	player3.camera_left = SDLK_i;
+	player3.use_powerup = SDLK_l;
 		
 	//Player 4	Makes sense on numpad
 	player4.forward = SDLK_5;
@@ -40,6 +43,7 @@ vector<KeyMapping> KeyMappings::generate_keyMappings()
 	player4.right = SDLK_3;
 	player4.camera_right = SDLK_4;
 	player4.camera_left = SDLK_6;
+	player4.use_powerup = SDLK_0;
 
 	keymappings.push_back(player1);
 	keymappings.push_back(player2);

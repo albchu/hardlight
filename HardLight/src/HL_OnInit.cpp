@@ -94,21 +94,18 @@ bool HardLight::OnInit()
 
 	bike_manager = new BikeManager(&world, config);
 
-	// Init AI system to govern bots
-	overMind = new AI(bike_manager);
-	
 	// Init Powerup object for testing powerup functionality temporarily
 	powerup = new Powerup(NULL, bike_manager, config);
 
 	// Initialize viewport info
 	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);
-	
+
 	// Initialize keyboard player control info
 	keyMappings = KeyMappings::generate_keyMappings();
-	
-		//glViewport(0,0, window_width, window_height / 2.f );
-		//glViewport(0,window_height / 2.f, window_width, window_height / 2.f );
-//	glViewport(0,0,window_width, window_height);
+
+	// Init AI system to govern bots
+	overMind = new AI(bike_manager);//, keyMappings);
+
 	return true;
 }
 

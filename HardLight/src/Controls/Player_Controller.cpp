@@ -2,48 +2,45 @@
 
 Player_Controller::Player_Controller(Chassis* new_bike, SDL_GameController* new_sdl_controller)
 {
-	cout << "Player controller has been set!" << endl;
+	init_values();
 	bike = new_bike;
 	sdl_controller = new_sdl_controller;
+}
+
+Player_Controller::Player_Controller(Chassis* new_bike, KeyMapping init_keys)
+{
+	init_values();
+	bike = new_bike;
+	key_controls = init_keys;
+}
+
+void Player_Controller::init_values()
+{
+	cout << "Player controller has been set!" << endl;
+
+	sdl_controller = NULL;
+
 	max_acceleration = 1.0;
 	min_acceleration = 0.5;
+	acceleration = min_acceleration;
+	direction = 0.0;
 	deadZone = 8000;
+	steeringMethod = NULL;
+	motionMethod = NULL;
 }
 
-// Get all controller input and set the proper callbacks
-void Player_Controller::update()
+SDL_GameController* Player_Controller::get_controller()
 {
-	if(sdl_controller != NULL)
-		update_controller();
+	return sdl_controller;
 }
 
-// Get all controller input and set the proper callbacks
-void Player_Controller::update_controller()
+int Player_Controller::get_dead_zone()
 {
-	int LeftX = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_LEFTX);
-	int RightX = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_RIGHTX);
-	int RightY = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_RIGHTY);
-	float accel = get_min_acceleration(); // Default acceleration to minimum if non is given
-	PxReal steer = 0.0;
+	return deadZone;
+}
 
-	if (LeftX < -deadZone || LeftX > deadZone)
-	{
-		steer = (LeftX)/(-32768.0f); //the axis are inverted on the controller
-	}
-
-	if(SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0)
-	{
-		accel = SDL_GameControllerGetAxis(sdl_controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
-		// Cap the speed into a specific range
-		if (accel < get_min_acceleration())
-			accel = get_min_acceleration();
-		if (accel > get_max_acceleration())
-			accel = get_max_acceleration();
-	}
-	this->set_motion(&Controller::forward);
-	this->set_steering(&Controller::steer);
-	this->set_direction(steer);
-	this->set_acceleration(accel);
-
+KeyMapping Player_Controller::get_key_controls()
+{
+	return key_controls;
 }
 

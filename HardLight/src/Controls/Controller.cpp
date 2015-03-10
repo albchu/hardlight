@@ -34,10 +34,10 @@ void Controller::right()
 
 }
 
-//void Controller::set_bike(Chassis* new_bike)
-//{
-//	bike = new_bike;
-//}
+bool Controller::callbacks_set()
+{
+	return (motionMethod !=NULL && steeringMethod!= NULL);
+}
 
 Chassis* Controller::get_bike()
 {
@@ -48,13 +48,14 @@ void Controller::execute_steering()
 {
 	Controller controller;
 	(controller.*steeringMethod)(bike, direction);
-	direction = 0.0;
+	steeringMethod == NULL;
 }
 
 void Controller::execute_motion()
 {
 	Controller controller = Controller();
 	(controller.*motionMethod)(bike, acceleration);
+	motionMethod = NULL;
 }
 
 void Controller::set_motion(Callback next_motion)

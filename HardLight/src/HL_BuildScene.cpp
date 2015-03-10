@@ -168,9 +168,9 @@ bool HardLight::BuildScene()
 			menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_chassis);
 			world.add_entity(menu);
 
-			if (controllers.size() > 0)
-				bike_manager->add_player_bike(new_chassis, controllers[i]);
-			else
+			//if (controllers.size() > 0)
+			//	bike_manager->add_player_bike(new_chassis, controllers[i]);
+			//else
 				bike_manager->add_player_bike(new_chassis, NULL);
 		}
 	}

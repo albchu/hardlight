@@ -26,6 +26,7 @@ public:
 	PxReal get_acceleration();
 	PxReal get_max_acceleration();
 	PxReal get_min_acceleration();
+	bool callbacks_set();
 	//void set_bike(Chassis* new_bike);
 protected:
 	Chassis* bike;

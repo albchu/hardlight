@@ -18,6 +18,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break;
 
 	case SDL_KEYDOWN:
+		//overMind->notify(Event->key.keysym.sym);
 		switch (Event->key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
@@ -177,7 +178,7 @@ void HardLight::reset()
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
 	bike_manager = new BikeManager(&world, config);
-	overMind = new AI(bike_manager);
+	overMind = new AI(bike_manager);//, keyMappings);
 	BuildScene();
 }
 
