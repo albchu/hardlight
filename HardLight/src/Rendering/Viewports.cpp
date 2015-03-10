@@ -25,7 +25,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 
 			// Top frame
 			viewport1.x = 0;
-			viewport1.y = height/2.0f;
+			viewport1.y = int(height/2);
 			viewport1.width = width;
 			viewport1.height = height/2.0f;
 
@@ -47,13 +47,13 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 
 			// Top left frame
 			viewport1.x = 0;
-			viewport1.y = height/2.0f;
+			viewport1.y = int(height/2);
 			viewport1.width = width/2.0f;
 			viewport1.height = height/2.0f;
 
 			// Top right frame
-			viewport2.x = width/2.0f;
-			viewport2.y = height/2.0f;
+			viewport2.x = int(width/2);
+			viewport2.y = int(height/2);
 			viewport2.width = width/2.0f;
 			viewport2.height = height/2.0f;
 
@@ -77,13 +77,13 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 
 			// Top left frame
 			viewport1.x = 0;
-			viewport1.y = height/2.0f;
+			viewport1.y = int(height/2);
 			viewport1.width = width/2.0f;
 			viewport1.height = height/2.0f;
 
 			// Top right frame
-			viewport2.x = width/2.0f;
-			viewport2.y = height/2.0f;
+			viewport2.x = int(width/2);
+			viewport2.y = int(height/2);
 			viewport2.width = width/2.0f;
 			viewport2.height = height/2.0f;
 
@@ -94,7 +94,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 			viewport3.height = height/2.0f;
 			
 			// Bottom right frame
-			viewport4.x = width/2.0f;
+			viewport4.x = int(width/2);
 			viewport4.y = 0;
 			viewport4.width = width/2.0f;
 			viewport4.height = height/2.0f;
