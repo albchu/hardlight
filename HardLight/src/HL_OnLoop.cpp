@@ -94,7 +94,7 @@ void HardLight::OnLoop()
 
 	}
 
-	// Move Bot Bikes
+	// Move Bot BikeManager
 	overMind->update_bikes(pickup->get_location());
 	overMind->move_bikes();
 

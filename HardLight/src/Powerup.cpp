@@ -8,7 +8,7 @@ Powerup::Powerup()
 	powType = PowerupTypes_SIZE;
 }
 
-Powerup::Powerup(Bike* bike, Bikes* bikes, INIReader* config)
+Powerup::Powerup(Bike* bike, BikeManager* bikes, INIReader* config)
 {
 	this->bike=bike;
 	this->bikes=bikes;
@@ -18,11 +18,11 @@ Powerup::Powerup(Bike* bike, Bikes* bikes, INIReader* config)
 
 Powerup::~Powerup()									{}
 Bike* Powerup::getBike()							{return bike;}
-Bikes* Powerup::getBikes()							{return bikes;}
+BikeManager* Powerup::getBikes()							{return bikes;}
 INIReader* Powerup::getINIReader()					{return config;}
 PowerupTypes Powerup::getPowerType()				{return powType;}
 void Powerup::setBike(Bike* bike)					{this->bike=bike;}
-void Powerup::setBikes(Bikes* bikes)				{this->bikes=bikes;}
+void Powerup::setBikes(BikeManager* bikes)				{this->bikes=bikes;}
 void Powerup::setINIReader(INIReader* config)		{this->config=config;}
 void Powerup::setPowerType(PowerupTypes powType)	{this->powType=powType;}
 

@@ -195,7 +195,7 @@ void HardLight::reset()
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
-	bikes = new Bikes(&world, config);
+	bikes = new BikeManager(&world, config);
 	overMind = new AI(bikes);
 	BuildScene();
 }

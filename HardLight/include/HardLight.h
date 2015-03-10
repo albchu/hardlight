@@ -27,7 +27,7 @@
 #include "Controls/Bot_Controller.h"
 #include "Entity.h"
 #include "Vehicle/Bike.h"
-#include "Vehicle/Bikes.h"
+#include "Vehicle/BikeManager.h"
 #include "SkyBox.h"
 #include "Wall.h"
 #include "Common.h"
@@ -118,7 +118,7 @@ private:
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
-	Bikes* bikes;		// Holds arrays of all bikes on the scene
+	BikeManager* bikes;		// Holds arrays of all bikes on the scene
 	vector<Bike*> bikesToKill;
 	vector<Bike*> hit_pickup;
 	vector<PxRigidActor*> pickup_hit;

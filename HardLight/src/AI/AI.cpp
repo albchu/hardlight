@@ -1,6 +1,6 @@
 #include "AI/AI.h"
 
-AI::AI(Bikes* new_bikes)
+AI::AI(BikeManager* new_bikes)
 {
 	bikes = new_bikes;
 }

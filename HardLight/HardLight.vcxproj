@@ -128,8 +128,9 @@
     <ClCompile Include="src\ShaderTools.cpp" />
     <ClCompile Include="SoundMixer.cpp" />
     <ClCompile Include="src\Vehicle\Bike.cpp" />
-    <ClCompile Include="src\Vehicle\Bikes.cpp" />
+    <ClCompile Include="src\Vehicle\BikeManager.cpp" />
     <ClCompile Include="src\Vehicle\CreateVehicle.cpp" />
+    <ClCompile Include="src\Vehicle\newBike.cpp" />
     <ClCompile Include="src\Vehicle\TailSegment.cpp" />
     <ClCompile Include="src\Vehicle\TailWall.cpp" />
     <ClCompile Include="src\Wall.cpp" />
@@ -164,8 +165,9 @@
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
     <ClInclude Include="include\Vehicle\Bike.h" />
-    <ClInclude Include="include\Vehicle\Bikes.h" />
+    <ClInclude Include="include\Vehicle\BikeManager.h" />
     <ClInclude Include="include\Vehicle\CreateVehicle.h" />
+    <ClInclude Include="include\Vehicle\newBike.h" />
     <ClInclude Include="include\Vehicle\TailSegment.h" />
     <ClInclude Include="include\Vehicle\TailWall.h" />
     <ClInclude Include="include\Wall.h" />

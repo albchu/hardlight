@@ -32,8 +32,7 @@ void HardLight::OnRender()
 	vec3 camera_position(cam_translate);
 	camera_position = rotateY(camera_position, cam_rotate);
 	vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
-	// view_matrix for all entities
-	//PxTransform gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
+
 	PxReal rads;
 	PxVec3 axis;
 	newPos.q.toRadiansAndUnitAxis(rads, axis);

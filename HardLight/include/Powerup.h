@@ -3,7 +3,7 @@
 
 #include "PowerupTypes.h"
 #include "Vehicle\Bike.h"
-#include "Vehicle\Bikes.h"
+#include "Vehicle\BikeManager.h"
 #include "Vehicle\TailWall.h"
 
 #include "../inih\cpp\INIReader.h"
@@ -12,16 +12,16 @@ class Powerup
 {
 public:
 	Powerup();
-	Powerup(Bike* bike, Bikes* bikes, INIReader* config);
+	Powerup(Bike* bike, BikeManager* bikes, INIReader* config);
 	~Powerup();
 
 	Bike* getBike();
-	Bikes* getBikes();
+	BikeManager* getBikes();
 	INIReader* getINIReader();
 	PowerupTypes getPowerType();
 
 	void setBike(Bike* bike);
-	void setBikes(Bikes* bikes);
+	void setBikes(BikeManager* bikes);
 	void setINIReader(INIReader* config);
 	void setPowerType(PowerupTypes powType);
 
@@ -30,7 +30,7 @@ public:
 
 private:
 	Bike* bike;
-	Bikes* bikes;
+	BikeManager* bikes;
 
 	INIReader* config;
 
