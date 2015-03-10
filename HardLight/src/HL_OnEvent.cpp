@@ -109,18 +109,18 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDL_CONTROLLER_BUTTON_X: // X button
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			powerup->setPowerType(EXTENDTAIL);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			if(powerup->usePowerup() == 1);
+				//sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+				//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_Y: // Y button
 			//sfxMix.PlaySoundEffect("sfxItemPickUp");
 			powerup->setPowerType(INVINCIBLE);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			if(powerup->usePowerup() == 1);
+				//sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+				//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			if(scene == PAUSE)
@@ -131,7 +131,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			for(Bike* i : bikes->get_player_bikes()) {
 				menu->toggle_renderable();
 			}
-			sfxMix.PlaySoundEffect("sfxItemUsed");
+			sfxMix.PlaySoundEffect("sfxPause");
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
 			if(scene == PAUSE)
