@@ -38,30 +38,34 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 //==============================================================================
 void HardLight::OnLoop()
 {
-	float closestExplosion = FLT_MAX;
+	float closest_sound = FLT_MAX;
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
 		if (!bikesToKill[j]->invincible) {
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
 			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-				closestExplosion = glm::min(closestExplosion, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
+				closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
 			bikes->kill_bike(bikesToKill[j]);
 		}
 
 	}
-	if (closestExplosion < FLT_MAX)
-		sfxMix.PlaySoundEffect("sfxExplosion", closestExplosion, 0);
+	if (closest_sound < FLT_MAX)
+		sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);
 	bikesToKill.clear();
 
+	closest_sound = FLT_MAX;
 	for (unsigned int i = 0; i < hit_pickup.size(); i++)
 	{
 		PxRigidActor* pickup_actor = pickup_hit[i];
 		Bike* bike = hit_pickup[i];
 		bikes->extend_tail(bike);
+		for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
+			closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(pickup));
 	}
-
 	if (hit_pickup.size() > 0)
 	{
+		if (closest_sound < FLT_MAX)
+			sfxMix.PlaySoundEffect("sfxItemPickup", closest_sound, 0);
 		hit_pickup.clear();
 		pickup_hit.clear();
 		pickup->respawn();
