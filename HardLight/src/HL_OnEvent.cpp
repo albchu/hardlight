@@ -16,9 +16,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 				bikes->kill_bike(bike);
 			}
 			bikes->clear_controllers();
-			//for(Entity* entity : world.getEntities()) {
-			//	pxAgent->get_scene()->removeActor(entity
-			//}
 			pxAgent->cleanup();
 			pxAgent = new PhysxAgent(config, this);
 			world.clear();
