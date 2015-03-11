@@ -54,17 +54,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_RIGHT:
 			if (bike != NULL) bike->getInputData().setAnalogSteer(-1.0f);
 			break;
-		case SDLK_SPACE:
-			if(scene == PAUSE)
-				scene = GAME;
-			else if(scene == GAME)
-				scene = PAUSE;
+		case SDLK_p:
+			toggle_pause();
 			menu->toggle_renderable();	// Toggle menu panel from being rendered
 			break;
 		case SDLK_r:
 			reset();
+			break;		
+		case SDLK_SPACE:
+			powerup->setPowerType(JUMP);
+			if(powerup->usePowerup() == 1)
+				sfxMix.PlaySoundEffect("sfxItemUsed");
+			else
+				sfxMix.PlaySoundEffect("sfxIntro");
 			break;
-
 		} // end key_down
 		break;
 
@@ -128,16 +131,13 @@ void HardLight::OnEvent(SDL_Event* Event)
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
-			if(scene == PAUSE)
-				scene = GAME;
-			else if(scene == GAME)
-				scene = PAUSE;
+			toggle_pause();
 
 			// Toggle the menu for all bikes
 			//for(Bike* i : bike_manager->get_player_bikes()) {
 			//	bike->get_menu()->toggle_renderable();
 			//}
-			sfxMix.PlaySoundEffect("sfxPause");
+
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
 			reset();
@@ -179,9 +179,18 @@ void HardLight::reset()
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
-	bike_manager = new BikeManager(&world, config);
+	bike_manager = new BikeManager(&world, config, pxAgent);
 	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
 	BuildScene();
+}
+
+void HardLight::toggle_pause()
+{
+	sfxMix.PlaySoundEffect("sfxPause");
+	if(scene == PAUSE)
+		scene = GAME;
+	else if(scene == GAME)
+		scene = PAUSE;
 }
 
 //==============================================================================

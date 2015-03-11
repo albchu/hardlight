@@ -81,7 +81,7 @@ bool HardLight::OnInit()
 	if (!sfxMix.InitializeMixer(config))
 		cerr << "Could not initialize sound mixer" << endl;
 
-	bike_manager = new BikeManager(&world, config);
+	bike_manager = new BikeManager(&world, config, pxAgent);
 
 	// Init Powerup object for testing powerup functionality temporarily
 	powerup = new Powerup(NULL, bike_manager, config);

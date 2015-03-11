@@ -1,11 +1,12 @@
 #include "Vehicle/BikeManager.h"
 
 
-BikeManager::BikeManager(World* new_world, INIReader* new_config)
+BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* init_pxAgent)
 {
 	srand ((unsigned int)time(NULL));
 	config = new_config;
 	world = new_world;
+	pxAgent = init_pxAgent;
 }
 
 int getRandInt(int low, int high)
@@ -102,7 +103,8 @@ void BikeManager::kill_bike(Bike* bike)
 
 	// Kill the tail of the bike
 	bike->get_tail()->set_max_length(0);
-
+	bike->get_tail()->update(pxAgent);
+	
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
 		if (player_bikes[i]->get_chassis() == bike->get_chassis())

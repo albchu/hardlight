@@ -21,7 +21,7 @@ using namespace std;
 class BikeManager
 {
 public:
-	BikeManager(World* new_world, INIReader* new_config);
+	BikeManager(World* new_world, INIReader* new_config, PhysxAgent* init_pxAgent);
 	void add_bot_bike(Chassis* bike);
 	void add_player_bike(Chassis* bike, SDL_GameController* controller);
 	void add_player_bike(Chassis* chassis, KeyMapping keymapping);
@@ -38,6 +38,7 @@ private:
 	vector<Bike*> dead_bikes;
 	World* world;
 	INIReader* config;
+	PhysxAgent* pxAgent;
 };
 
 #endif
