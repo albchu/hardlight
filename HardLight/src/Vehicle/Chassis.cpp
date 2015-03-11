@@ -70,7 +70,6 @@ void Chassis::setInputData(PxVehicleDrive4WRawInputData new_inputData)
 	inputData = new_inputData;
 }
 
-
 void Chassis::setVehicleSceneQueryData(VehicleSceneQueryData* new_vehicleSceneQueryData)
 {
 	vehicleSceneQueryData = new_vehicleSceneQueryData;
@@ -91,4 +90,19 @@ void Chassis::setInAir(bool new_inAir)
 void Chassis::set_actor(PxRigidActor* new_actor)
 {
 	actor = new_actor;
+}
+
+bool Chassis::is_invincible()
+{
+	return invincible;
+}
+
+void Chassis::set_invincible(bool new_invincible)
+{
+	invincible = new_invincible;
+}
+
+void Chassis::toggle_invincible()
+{
+	invincible = !invincible;
 }

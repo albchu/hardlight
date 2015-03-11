@@ -41,7 +41,7 @@ void HardLight::OnLoop()
 	float closest_sound = FLT_MAX;
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
-		if (!bikesToKill[j]->get_chassis()->invincible)
+		if (!bikesToKill[j]->get_chassis()->is_invincible())
 		{
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_chassis()->get_actor(), false);
 			for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)

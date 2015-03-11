@@ -46,7 +46,7 @@ int Powerup::usePowerup()
 		this->useJump();
 		break;
 	case INVINCIBLE:
-		this->toggle_invincible();
+		bike->get_chassis()->toggle_invincible();
 		break;
 	}	
 	return 1;
@@ -88,10 +88,3 @@ void Powerup::useJump()
 	return;
 }
 
-void Powerup::toggle_invincible()
-{
-	bike->get_chassis()->invincible = !bike->get_chassis()->invincible;
-	// code to make physx actor ignore collisions
-	//bike = NULL;
-	return;
-}

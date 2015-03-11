@@ -100,7 +100,7 @@ bool HardLight::BuildScene()
 					return false;
 			}
 
-			new_chassis->invincible = config->GetBoolean("game", "playerInvincible", false);
+			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
 
 			// Add a menu to scene CURRENTLY BAD. BLAME ALBERT

@@ -31,7 +31,9 @@ public:
 	VehicleSceneQueryData* getVehicleSceneQueryData();
 	PxBatchQuery* getBatchQuery();
 	bool isInAir();
-	bool invincible;
+	bool is_invincible();
+	void set_invincible(bool);
+	void toggle_invincible();
 
 	void setVehicle4W(PxVehicleDrive4W*);
 	void setInputData(PxVehicleDrive4WRawInputData);
@@ -48,6 +50,7 @@ private:
 	PxBatchQuery* batchQuery;
 	bool inAir;
 	int previousAnalogStickInput;
+	bool invincible;
 	float steeringParameter;
 };
 #endif

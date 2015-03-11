@@ -39,6 +39,5 @@ private:
 	// Specific usePowerup functions
 	void useExtendTail();
 	void useJump();
-	void toggle_invincible();
 };
 #endif
