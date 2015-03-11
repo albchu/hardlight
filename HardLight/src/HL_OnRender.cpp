@@ -15,7 +15,7 @@ void HardLight::OnRender()
 	//Chassis* bike = bike_manager->get_player_bikes()[0];
 	if (bike_manager->get_player_bikes().size() > 0)
 	{
-		Chassis* bike = bike_manager->get_player_bikes()[0];
+		Chassis* bike = bike_manager->get_player_bikes()[0]->get_chassis();
 		newPos = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	}
 

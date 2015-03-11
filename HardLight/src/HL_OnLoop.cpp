@@ -41,7 +41,8 @@ void HardLight::OnLoop()
 	float closest_sound = FLT_MAX;
 	for (unsigned int j = 0; j < bikesToKill.size(); j++)
 	{
-		if (!bikesToKill[j]->invincible) {
+		if (!bikesToKill[j]->get_chassis()->invincible)
+		{
 			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
 			for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
 				closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(bikesToKill[j]));
@@ -76,20 +77,22 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	for(Chassis* bike : bike_manager->get_all_bikes())
+	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
-		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
+		Chassis* chassis = bike->get_chassis();
+		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, chassis->getInputData(), timestep, chassis->isInAir(), *chassis->getVehicle4W());
 
 		//Raycasts.
-		PxVehicleWheels* vehicles[1] = {bike->getVehicle4W()};
-		PxRaycastQueryResult* raycastResults = bike->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
-		const PxU32 raycastResultsSize = bike->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
-		PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
+		PxVehicleWheels* vehicles[1] = {chassis->getVehicle4W()};
+		PxRaycastQueryResult* raycastResults = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
+		const PxU32 raycastResultsSize = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
+		PxVehicleSuspensionRaycasts(chassis->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
 		//Vehicle update.
 		const PxVec3 grav = pxAgent->get_scene()->getGravity();
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
-		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
+		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
 	}

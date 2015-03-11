@@ -28,10 +28,11 @@ class Bike : public Entity
 public:
 	Bike(Chassis* init_chassis, BikeSubTypes init_subtype);
 	~Bike();
-
+		virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
 	void set_subtype(BikeSubTypes subtype);
-	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
+	Chassis* get_chassis();
+
 
 private:
 	Controller* controller;

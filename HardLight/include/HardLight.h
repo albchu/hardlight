@@ -117,7 +117,7 @@ private:
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
 	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
-	vector<Chassis*> bikesToKill;
+	vector<Bike*> bikesToKill;
 	vector<Chassis*> hit_pickup;
 	vector<PxRigidActor*> pickup_hit;
 	AI* overMind;

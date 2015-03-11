@@ -14,6 +14,11 @@ Bike::~Bike()
 
 }
 
+Chassis* Bike::get_chassis()
+{
+	return chassis;
+}
+
 
 BikeSubTypes Bike::get_subtype()
 {
@@ -27,4 +32,5 @@ void Bike::set_subtype(BikeSubTypes new_subtype)
 
 void Bike::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
 {
+	chassis->render(projection_matrix,view_matrix,lightPos);
 }

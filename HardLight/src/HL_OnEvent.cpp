@@ -9,7 +9,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 {
 	Chassis* bike = NULL;
 	if (bike_manager->get_player_bikes().size() > 0)
-		bike = bike_manager->get_player_bikes()[0];
+		bike = bike_manager->get_player_bikes()[0]->get_chassis();
 
 	switch (Event->type)
 	{
@@ -133,9 +133,10 @@ void HardLight::OnEvent(SDL_Event* Event)
 			else if(scene == GAME)
 				scene = PAUSE;
 
-			for(Chassis* i : bike_manager->get_player_bikes()) {
-				menu->toggle_renderable();
-			}
+			// Toggle the menu for all bikes
+			//for(Bike* i : bike_manager->get_player_bikes()) {
+			//	bike->get_menu()->toggle_renderable();
+			//}
 			sfxMix.PlaySoundEffect("sfxPause");
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
@@ -170,8 +171,8 @@ void HardLight::reset()
 {
 	if(scene == PAUSE)
 		scene = GAME;
-	for(Chassis* bike : bike_manager->get_all_bikes()) {
-		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
+	for(Bike* bike : bike_manager->get_all_bikes()) {
+		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}
 	bike_manager->clear_controllers();
