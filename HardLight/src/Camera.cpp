@@ -1,9 +1,9 @@
 #include "Camera.h"
 
-Camera::Camera(PxRigidActor* init_actor, INIReader* init_config, PxRigidActor* init_focalTarget) {
-	type = CAMERA;
-	actor = init_actor;
-	renderable = false;	// NEVER change this to true. Please for the love of god dont do it.
+Camera::Camera( INIReader* init_config, PxRigidActor* init_focalTarget) {
+	//type = CAMERA;
+	//actor = init_actor;
+	//renderable = false;	// NEVER change this to true. Please for the love of god dont do it.
 	config = init_config;
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,

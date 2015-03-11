@@ -107,10 +107,6 @@ private:
 	float left;
 	float right;
 
-	mat4 projection_matrix;
-	vec3 cam_translate;
-	float cam_rotate;
-
 	World world;
 	float size;
 
@@ -130,6 +126,8 @@ private:
 
 	Pickup* pickup;
 	Powerup* powerup;
+
+	Camera* camera; // This should be refactored into the bike object, this is bad coding for testings sake, remove asap Albert
 
 public:
 	HardLight();

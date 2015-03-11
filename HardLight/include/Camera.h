@@ -13,7 +13,8 @@
 
 using namespace glm;
 
-class Camera : public Entity {
+class Camera //: public Entity 
+{
 private:
 	mat4 projection_matrix;
 	mat4 view_matrix;
@@ -26,7 +27,7 @@ private:
 	PxRigidActor* focalTarget;
 
 public:
-	Camera(PxRigidActor* init_actor, INIReader* init_config, PxRigidActor* init_focalTarget);
+	Camera(INIReader* init_config, PxRigidActor* init_focalTarget);
 	void update_translationZ(float translation);
 	void update_rotation(float rads);
 	void update(float translationZ, float rotationRads);
