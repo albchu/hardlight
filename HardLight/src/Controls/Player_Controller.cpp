@@ -19,7 +19,6 @@ void Player_Controller::init_values()
 	cout << "Player controller has been set!" << endl;
 
 	sdl_controller = NULL;
-
 	max_acceleration = 1.0;
 	min_acceleration = 0.5;
 	acceleration = min_acceleration;

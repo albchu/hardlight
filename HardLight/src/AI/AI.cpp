@@ -1,9 +1,10 @@
 #include "AI/AI.h"
 
 
-AI::AI(BikeManager* init_manager)
+AI::AI(BikeManager* init_manager, SoundMixer init_sfxMix)
 {
 	bike_manager = init_manager;
+	sfxMix = init_sfxMix;
 	//	keyMappings = init_keyMappings;
 }
 
@@ -145,6 +146,13 @@ void AI::update_controller(Player_Controller* player)
 		if (accel > player->get_max_acceleration())
 			accel = player->get_max_acceleration();
 	}
+
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_A))
+		sfxMix.PlaySoundEffect("sfxPause");
+	
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
+		sfxMix.PlaySoundEffect("sfxIntro");
+
 	player->set_motion(&Controller::forward);
 	player->set_steering(&Controller::steer);
 	player->set_direction(steer);

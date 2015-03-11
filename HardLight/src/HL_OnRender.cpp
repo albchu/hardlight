@@ -29,10 +29,11 @@ void HardLight::OnRender()
 	if (cam_rotate > PxTwoPi) cam_rotate -= PxTwoPi;
 	if (cam_rotate < 0.0f) cam_rotate += PxTwoPi;
 
-	vec3 camera_position(cam_translate);
+	vec3 camera_position = cam_translate;	// Set the initial camera position
 	camera_position = rotateY(camera_position, cam_rotate);
 	vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
 
+	// This will rotate the camera so that it is always rotating relative to bike
 	PxReal rads;
 	PxVec3 axis;
 	newPos.q.toRadiansAndUnitAxis(rads, axis);
@@ -40,12 +41,14 @@ void HardLight::OnRender()
 
 	vec3 v_pos(newPos.p.x, newPos.p.y, newPos.p.z);
 	vec3 up(0.0f, 1.0f, 0.0f);
-	if (cam_translate.z > 0.0f) up *= -1.0f;
+	//if (cam_translate.z > 0.0f) up *= -1.0f;
 	camera_position += v_pos;
 	mat4 view_matrix = lookAt(camera_position, v_pos + vec3(0,5,0), up);
 
 	for(Viewports::Viewport viewport: viewports)
 	{
+		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices
+
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height );
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{

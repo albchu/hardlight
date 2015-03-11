@@ -104,7 +104,7 @@ bool HardLight::OnInit()
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
-	overMind = new AI(bike_manager);//, keyMappings);
+	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
 
 	return true;
 }
