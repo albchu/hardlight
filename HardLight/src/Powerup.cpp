@@ -8,7 +8,7 @@ Powerup::Powerup()
 	powType = PowerupTypes_SIZE;
 }
 
-Powerup::Powerup(Chassis* bike, BikeManager* bike_manager, INIReader* config)
+Powerup::Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config)
 {
 	this->bike=bike;
 	this->bike_manager=bike_manager;
@@ -17,11 +17,11 @@ Powerup::Powerup(Chassis* bike, BikeManager* bike_manager, INIReader* config)
 }
 
 Powerup::~Powerup()									{}
-Chassis* Powerup::getBike()							{return bike;}
+Bike* Powerup::getBike()							{return bike;}
 BikeManager* Powerup::getBikes()							{return bike_manager;}
 INIReader* Powerup::getINIReader()					{return config;}
 PowerupTypes Powerup::getPowerType()				{return powType;}
-void Powerup::setBike(Chassis* bike)					{this->bike=bike;}
+void Powerup::setBike(Bike* bike)					{this->bike=bike;}
 void Powerup::setBikes(BikeManager* bike_manager)				{this->bike_manager=bike_manager;}
 void Powerup::setINIReader(INIReader* config)		{this->config=config;}
 void Powerup::setPowerType(PowerupTypes powType)	{this->powType=powType;}
@@ -46,7 +46,7 @@ int Powerup::usePowerup()
 		this->useJump();
 		break;
 	case INVINCIBLE:
-		this->useInvincible();
+		this->toggle_invincible();
 		break;
 	}	
 	return 1;
@@ -54,15 +54,16 @@ int Powerup::usePowerup()
 
 void Powerup::useExtendTail()
 {
-	vector<TailWall*> tmpTailWall = bike_manager->get_all_tails();
-	for(unsigned int i = 0; i < tmpTailWall.size(); i++)
-	{
-		if(tmpTailWall[i]->getBike() == bike)
-		{
-			tmpTailWall[i]->extend_max_length();
-			break;
-		}	
-	}
+	//vector<TailWall*> tmpTailWall = bike_manager->get_all_tails();
+	//for(unsigned int i = 0; i < tmpTailWall.size(); i++)
+	//{
+	//	if(tmpTailWall[i]->getBike() == bike)
+	//	{
+	//		tmpTailWall[i]->extend_max_length();
+	//		break;
+	//	}	
+	//}
+	bike->get_tail()->extend_max_length();
 	//bike = NULL;
 	return;
 }
@@ -74,11 +75,11 @@ void Powerup::useJump()
 	//negation = -negation;
 	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
 	//std::cout << "Torque neutralized" << std::endl;
-	bike->adaptiveSteering(0.0);
-	bike->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,100.0,0.0),PxForceMode::eIMPULSE);
-	bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(PxVec3(0.0,0.0,0.0),PxForceMode::eVELOCITY_CHANGE);
-	bike->getVehicle4W()->getRigidDynamicActor()->clearTorque();
-	bike->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,(float)config->GetReal("powerup","powerupJumpForce",0.0),0.0),PxForceMode::eIMPULSE);
+	bike->get_chassis()->adaptiveSteering(0.0);
+	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,100.0,0.0),PxForceMode::eIMPULSE);
+	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(PxVec3(0.0,0.0,0.0),PxForceMode::eVELOCITY_CHANGE);
+	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->clearTorque();
+	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,(float)config->GetReal("powerup","powerupJumpForce",0.0),0.0),PxForceMode::eIMPULSE);
 	//PxVec3 negation = PxVec3(0.0,0.0,0.0);
 	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
 	//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();
@@ -87,9 +88,9 @@ void Powerup::useJump()
 	return;
 }
 
-void Powerup::useInvincible()
+void Powerup::toggle_invincible()
 {
-	bike->invincible = !bike->invincible;
+	bike->get_chassis()->invincible = !bike->get_chassis()->invincible;
 	// code to make physx actor ignore collisions
 	//bike = NULL;
 	return;

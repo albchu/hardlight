@@ -2,7 +2,7 @@
 #define _POWERUP_H
 
 #include "PowerupTypes.h"
-#include "Vehicle\Chassis.h"
+#include "Vehicle\Bike.h"
 #include "Vehicle\BikeManager.h"
 #include "Vehicle\TailWall.h"
 
@@ -12,15 +12,15 @@ class Powerup
 {
 public:
 	Powerup();
-	Powerup(Chassis* bike, BikeManager* bike_manager, INIReader* config);
+	Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config);
 	~Powerup();
 
-	Chassis* getBike();
+	Bike* getBike();
 	BikeManager* getBikes();
 	INIReader* getINIReader();
 	PowerupTypes getPowerType();
 
-	void setBike(Chassis* bike);
+	void setBike(Bike* bike);
 	void setBikes(BikeManager* bike_manager);
 	void setINIReader(INIReader* config);
 	void setPowerType(PowerupTypes powType);
@@ -29,7 +29,7 @@ public:
 	int usePowerup(); // tell bike to use a powerup (generic version)
 
 private:
-	Chassis* bike;
+	Bike* bike;
 	BikeManager* bike_manager;
 
 	INIReader* config;
@@ -39,6 +39,6 @@ private:
 	// Specific usePowerup functions
 	void useExtendTail();
 	void useJump();
-	void useInvincible();
+	void toggle_invincible();
 };
 #endif

@@ -54,15 +54,16 @@ void HardLight::OnLoop()
 		sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);
 	bikesToKill.clear();
 
-	closest_sound = FLT_MAX;
-	for (unsigned int i = 0; i < hit_pickup.size(); i++)
-	{
-		PxRigidActor* pickup_actor = pickup_hit[i];
-		Chassis* bike = hit_pickup[i];
-		bike_manager->extend_tail(bike);
-		for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
-			closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
-	}
+	// Albert disabled this because he has no idea how it works and will refactor it anyways
+	//closest_sound = FLT_MAX;
+	//for (unsigned int i = 0; i < hit_pickup.size(); i++)
+	//{
+	//	PxRigidActor* pickup_actor = pickup_hit[i];
+	//	Chassis* bike = hit_pickup[i];
+	//	bike_manager->extend_tail(bike);
+	//	for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
+	//		closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
+	//}
 	if (hit_pickup.size() > 0)
 	{
 		sfxMix.PlaySoundEffect("sfxIntro", closest_sound, 0);
@@ -102,9 +103,9 @@ void HardLight::OnLoop()
 	overMind->move_bikes();
 
 	// Tail creation
-	for(TailWall* tail_wall : bike_manager->get_all_tails())
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
-		tail_wall->update(pxAgent);
+		bike->get_tail()->update(pxAgent);
 	}
 
 	// Check win/loss condition
