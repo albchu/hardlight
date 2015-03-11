@@ -113,7 +113,7 @@ void AI::move_bikes()
 	}
 }
 
-// Get all input for the player and perform based on that. Optimization: Only fallback to keyboard input if there is no controller given
+// Get all input for the player and perform based on that. Note: Could not do keyboard presses this way
 void AI::update_player(Player_Controller* player)
 {
 	if(player->get_controller() != NULL)

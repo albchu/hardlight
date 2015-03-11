@@ -11,8 +11,6 @@ public:
 	Controller(Chassis* new_bike);
 	void forward(Chassis * abike, PxReal acceleration);
 	void backwards();
-	void left();
-	void right();
 	void steer(Chassis * abike, PxReal steer);
 	Chassis* get_chassis();
 

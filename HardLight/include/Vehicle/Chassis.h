@@ -39,7 +39,6 @@ public:
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
 	virtual void set_actor(PxRigidActor*);
-	//TailWall* get_tail_wall();
 	void adaptiveSteering(int analogStickInput);
 
 private:
@@ -50,7 +49,5 @@ private:
 	bool inAir;
 	int previousAnalogStickInput;
 	float steeringParameter;
-	//TailWall* tail_wall;
-	// PxActor is handled by Entity parent class of Chassis
 };
 #endif

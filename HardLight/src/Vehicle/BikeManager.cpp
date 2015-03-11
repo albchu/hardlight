@@ -48,16 +48,14 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 // Creates a bot chassis, loads it onto the world and adds it to the bot bike_manager vector
 void BikeManager::add_bot_bike(Chassis* chassis)
 {
-	//world->add_entity(chassis);
-	//int someInt = getRandInt(1,4);
-	//string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
-	//char const * randTexture =  randTexturestr.c_str();
-	//chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	//chassis->set_subtype(BOT_BIKE);
-	//Controller * controlled = new Bot_Controller(chassis);
-	//controlled_bikes.push_back(controlled);
-	//bot_bikes.push_back(chassis);
-	//add_tail(chassis);
+	Controller* controller = new Bot_Controller(chassis);
+	Bike* new_bike = new Bike(chassis, BOT_BIKE, config, controller);
+	world->add_entity(new_bike);
+	int someInt = getRandInt(1,4);
+	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
+	char const * randTexture =  randTexturestr.c_str();
+	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	player_bikes.push_back(new_bike);
 }
 
 vector<Bike*> BikeManager::get_all_bikes()
@@ -100,7 +98,7 @@ Bike* BikeManager::get_bike(PxRigidActor* actor)
 
 void BikeManager::kill_bike(Bike* bike)
 {
-	bike->get_chassis()->set_renderable(false);		// Stop the chassis from being rendered
+	bike->set_renderable(false);		// Stop the bike from being rendered
 
 	// Kill the tail of the bike
 	bike->get_tail()->set_max_length(0);

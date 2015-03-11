@@ -75,7 +75,7 @@ void Powerup::useJump()
 	//negation = -negation;
 	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
 	//std::cout << "Torque neutralized" << std::endl;
-	bike->get_chassis()->adaptiveSteering(0.0);
+
 	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,100.0,0.0),PxForceMode::eIMPULSE);
 	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(PxVec3(0.0,0.0,0.0),PxForceMode::eVELOCITY_CHANGE);
 	bike->get_chassis()->getVehicle4W()->getRigidDynamicActor()->clearTorque();

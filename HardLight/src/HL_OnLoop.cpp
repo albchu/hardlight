@@ -43,12 +43,11 @@ void HardLight::OnLoop()
 	{
 		if (!bikesToKill[j]->get_chassis()->invincible)
 		{
-			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
+			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_chassis()->get_actor(), false);
 			for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
-				closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(bikesToKill[j]));
+				closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_chassis()->get_distance(bikesToKill[j]->get_chassis()));
 			bike_manager->kill_bike(bikesToKill[j]);
 		}
-
 	}
 	if (closest_sound < FLT_MAX)
 		sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);

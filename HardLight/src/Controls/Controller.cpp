@@ -24,16 +24,6 @@ void Controller::steer(Chassis * abike, PxReal steer)
 	abike->getInputData().setAnalogSteer(steer);
 }
 
-void Controller::left()
-{
-	
-}
-
-void Controller::right()
-{
-
-}
-
 bool Controller::callbacks_set()
 {
 	return (motionMethod !=NULL && steeringMethod!= NULL);
