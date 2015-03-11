@@ -16,21 +16,14 @@ int getRandInt(int low, int high)
 // Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
 void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_controller)
 {
-	Bike* new_bike = new Bike(chassis, PLAYER_BIKE, config);
+	Controller* controller = new Player_Controller(chassis, sdl_controller);
+	Bike* new_bike = new Bike(chassis, PLAYER_BIKE, config, controller);
 	world->add_entity(new_bike);
-	new_bike->set_subtype(PLAYER_BIKE);
-
-	//world->add_entity(chassis);
 	int someInt = getRandInt(1,4);
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	//chassis->set_subtype(PLAYER_BIKE);
-	Controller * controlled = new Player_Controller(chassis, sdl_controller);
-	////Controller * controlled = new Player_Controller(chassis, sdl_controller);
-	//controlled_bikes.push_back(controlled);
 	player_bikes.push_back(new_bike);
-	//add_tail(chassis);
 }
 
 //// Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
@@ -50,14 +43,6 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 //	//controlled_bikes.push_back(controlled);
 //	player_bikes.push_back(chassis);
 //	add_tail(chassis);
-//}
-
-// Adds a tail wall to the world and the tail walls vector
-//void BikeManager::add_tail(Chassis* chassis)
-//{
-//	TailWall* tail_wall = new TailWall(chassis, config);
-//	tail_walls.push_back(tail_wall);
-//	world->add_entity(tail_wall);
 //}
 
 // Creates a bot chassis, loads it onto the world and adds it to the bot bike_manager vector
@@ -95,11 +80,6 @@ vector<Bike*> BikeManager::get_bot_bikes()
 	return bot_bikes;
 }
 
-vector<Controller*> BikeManager::get_controlled_bikes()
-{
-	return controlled_bikes;
-}
-
 // Searches all bikes for the one with the corresponding chassis actor
 Bike* BikeManager::get_bike(PxRigidActor* actor)
 {
@@ -120,17 +100,10 @@ Bike* BikeManager::get_bike(PxRigidActor* actor)
 
 void BikeManager::kill_bike(Bike* bike)
 {
-	bike->get_chassis()->set_renderable(false);		// Stop the tail from being rendered
+	bike->get_chassis()->set_renderable(false);		// Stop the chassis from being rendered
 
 	// Kill the tail of the bike
 	bike->get_tail()->set_max_length(0);
-	//for (unsigned int i = 0; i < tail_walls.size(); i++)
-	//{
-	//	if (tail_walls[i]->getBike() == bike->get_chassis())
-	//	{
-	//		tail_walls[i]->set_max_length(0);
-	//	}
-	//}
 
 	for (unsigned int i = 0; i < player_bikes.size(); i++)
 	{
@@ -152,27 +125,10 @@ void BikeManager::kill_bike(Bike* bike)
 		}
 	}
 }
-//
-//vector<TailWall*> BikeManager::get_all_tails()
-//{
-//	return tail_walls;
-//}
 
 void BikeManager::clear_controllers() {
-	for(Controller* controller : controlled_bikes) {
-		delete controller;
+	for(Bike* bike : get_all_bikes()) 
+	{
+		delete bike->get_controller();;
 	}
-	controlled_bikes.clear();
 }
-
-//void BikeManager::extend_tail(Chassis* chassis)
-//{
-//	for (unsigned int i = 0; i < tail_walls.size(); i++)
-//	{
-//		if (tail_walls[i]->getBike() == chassis)
-//		{
-//			tail_walls[i]->extend_max_length();
-//			return;
-//		}
-//	}
-//}

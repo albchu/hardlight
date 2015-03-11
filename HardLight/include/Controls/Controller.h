@@ -14,7 +14,7 @@ public:
 	void left();
 	void right();
 	void steer(Chassis * abike, PxReal steer);
-	Chassis* get_bike();
+	Chassis* get_chassis();
 
 	void execute_steering();
 	void execute_motion();
@@ -29,7 +29,7 @@ public:
 	bool callbacks_set();
 	//void set_bike(Chassis* new_bike);
 protected:
-	Chassis* bike;
+	Chassis* chassis;
 	PxReal direction;
 	PxReal max_acceleration;
 	PxReal min_acceleration;

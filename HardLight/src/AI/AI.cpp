@@ -16,25 +16,26 @@ AI::AI(BikeManager* init_manager, SoundMixer init_sfxMix)
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
-	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
+	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
 	{
-
-		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
-		if(controllableX->get_bike()->is_renderable() && controllableX->get_bike()->get_subtype() == BOT_BIKE)
+		Bike* bikeX = bike_manager->get_all_bikes()[i];
+		Controller* controllableX = bikeX->get_controller();
+		if(controllableX->get_chassis()->is_renderable() && bikeX->get_subtype() == BOT_BIKE)
 		{
 
-			vec3 directionX = controllableX->get_bike()->get_direction_vector();
-			vec3 positionX = controllableX->get_bike()->get_location();
+			vec3 directionX = controllableX->get_chassis()->get_direction_vector();
+			vec3 positionX = controllableX->get_chassis()->get_location();
 			float shortest_distance = NULL;
 			vec3 target_location = directionX;	// If no better direction is found, the bike will continue going straight forward
-			for(unsigned int j = 0; j < bike_manager->get_controlled_bikes().size(); j++)	// Try and find a better target location to go to
+			for(unsigned int j = 0; j < bike_manager->get_all_bikes().size(); j++)	// Try and find a better target location to go to
 			{
-				Controller* controllableY = bike_manager->get_controlled_bikes()[j];
+				Bike* bikeY = bike_manager->get_all_bikes()[j];
+				Controller* controllableY = bikeY->get_controller();
 				// Allow all vehicles to see each other
-				if(controllableY->get_bike()->is_renderable() && i != j)	// Only perform calculation if both bike_manager arnt deleted and arnt the same bike
+				if(controllableY->get_chassis()->is_renderable() && i != j)	// Only perform calculation if both bike_manager arnt deleted and arnt the same bike
 				{
-					vec3 directionY = controllableX->get_bike()->get_direction_vector();
-					vec3 positionY = controllableX->get_bike()->get_location();
+					vec3 directionY = controllableX->get_chassis()->get_direction_vector();
+					vec3 positionY = controllableX->get_chassis()->get_location();
 
 					//Find direction vector from bikeX to bikeY
 					vec3 xy_direction = positionY - positionX;
@@ -69,15 +70,16 @@ void AI::update_bikes()
 
 void AI::update_bikes(vec3 pickup)
 {
-	for(unsigned int i = 0; i < bike_manager->get_controlled_bikes().size(); i++)
+	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
 	{
-		Controller* controllableX = bike_manager->get_controlled_bikes()[i];
-		if(controllableX->get_bike()->is_renderable())
+		Bike* bikeX = bike_manager->get_all_bikes()[i];
+		Controller* controllableX = bikeX->get_controller();
+		if(controllableX->get_chassis()->is_renderable())
 		{
-			if(controllableX->get_bike()->get_subtype() == BOT_BIKE)
+			if(bikeX->get_subtype() == BOT_BIKE)
 			{
-				vec3 current_direction = normalize(controllableX->get_bike()->get_direction_vector());
-				vec3 current_postion = controllableX->get_bike()->get_location();
+				vec3 current_direction = normalize(controllableX->get_chassis()->get_direction_vector());
+				vec3 current_postion = controllableX->get_chassis()->get_location();
 				vec3 desired_direction = normalize(pickup - current_postion);
 				float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
 				float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
@@ -88,32 +90,28 @@ void AI::update_bikes(vec3 pickup)
 				controllableX->set_direction(angle/PxPi);
 				controllableX->set_acceleration(controllableX->get_max_acceleration());
 			}
-			else if(controllableX->get_bike()->get_subtype() == PLAYER_BIKE)
+			else if(bikeX->get_subtype() == PLAYER_BIKE)
 			{
 				update_player((Player_Controller*)controllableX);
 			}
 		}
 		//else {
-		//	bike_manager->kill_bike(controllableX->get_bike());
+		//	bike_manager->kill_bike(controllableX->get_chassis());
 		//}
 	}
-
-	//// Clear notify list
-	//keyPresses.clear();
 }
 
 void AI::move_bikes()
 {
-	for(Controller* controllable: bike_manager->get_controlled_bikes())
+	for(Bike* bike: bike_manager->get_all_bikes())
 	{
-		if(controllable->get_bike()->is_renderable() && controllable->callbacks_set())
+		if(bike->get_controller()->get_chassis()->is_renderable() && bike->get_controller()->callbacks_set())
 		{
-			controllable->execute_motion();
-			controllable->execute_steering();
+			bike->get_controller()->execute_motion();
+			bike->get_controller()->execute_steering();
 		}
 	}
 }
-
 
 // Get all input for the player and perform based on that. Optimization: Only fallback to keyboard input if there is no controller given
 void AI::update_player(Player_Controller* player)
@@ -149,7 +147,7 @@ void AI::update_controller(Player_Controller* player)
 
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_A))
 		sfxMix.PlaySoundEffect("sfxPause");
-	
+
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
 		sfxMix.PlaySoundEffect("sfxIntro");
 

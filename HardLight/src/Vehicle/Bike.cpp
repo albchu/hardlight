@@ -1,6 +1,6 @@
 #include "Vehicle/Bike.h"
 
-Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config)
+Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller)
 {
 	config = new_config;
 	chassis = init_chassis;
@@ -11,6 +11,8 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	tailwall = new TailWall(chassis, config);
 
 	// Initialize controller 
+	controller = new_controller;
+
 }
 
 Bike::~Bike()
@@ -33,6 +35,12 @@ BikeSubTypes Bike::get_subtype()
 {
 	return subtype;
 }
+
+Controller* Bike::get_controller()
+{
+	return controller;
+}
+
 
 void Bike::set_subtype(BikeSubTypes new_subtype)
 {

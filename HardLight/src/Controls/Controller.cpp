@@ -10,8 +10,8 @@ void Controller::forward(Chassis * abike, PxReal acceleration)
 
 void Controller::backwards()
 {
-	bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-	bike->getInputData().setAnalogAccel(acceleration);
+	chassis->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
+	chassis->getInputData().setAnalogAccel(acceleration);
 }
 
 void Controller::steer(Chassis * abike, PxReal steer)
@@ -39,22 +39,22 @@ bool Controller::callbacks_set()
 	return (motionMethod !=NULL && steeringMethod!= NULL);
 }
 
-Chassis* Controller::get_bike()
+Chassis* Controller::get_chassis()
 {
-	return bike;
+	return chassis;
 }
 
 void Controller::execute_steering()
 {
 	Controller controller;
-	(controller.*steeringMethod)(bike, direction);
+	(controller.*steeringMethod)(chassis, direction);
 	steeringMethod == NULL;
 }
 
 void Controller::execute_motion()
 {
 	Controller controller = Controller();
-	(controller.*motionMethod)(bike, acceleration);
+	(controller.*motionMethod)(chassis, acceleration);
 	motionMethod = NULL;
 }
 

@@ -6,7 +6,8 @@
 #include "Entity.h"
 //#include "TailWall.h"
 //#include "Chassis.h"
-#include "Controls/Controller.h"
+#include "Controls/Player_Controller.h"
+#include "Controls/Bot_Controller.h"
 #include "Camera.h"
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
@@ -29,13 +30,14 @@ class Bike : public Entity
 {
 
 public:
-	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config);
+	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
 	~Bike();
-		virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
+	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
 	void set_subtype(BikeSubTypes subtype);
 	Chassis* get_chassis();
 	TailWall* get_tail();
+	Controller* get_controller();
 
 private:
 	Controller* controller;

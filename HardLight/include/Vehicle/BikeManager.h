@@ -27,21 +27,15 @@ public:
 	void add_player_bike(Chassis* chassis, KeyMapping keymapping);
 	vector<Bike*> get_all_bikes();
 	vector<Bike*> get_player_bikes();
-	//vector<TailWall*> get_all_tails();
 	vector<Bike*> get_bot_bikes();
-	vector<Controller*> get_controlled_bikes();
 	Bike* get_bike(PxRigidActor* actor);
 	void kill_bike(Bike* bike);
-	//void add_tail(Chassis* bike);
 	void clear_controllers();
-	//void extend_tail(Chassis* bike);
 
 private:
 	vector<Bike*> player_bikes;
 	vector<Bike*> bot_bikes;
 	vector<Bike*> dead_bikes;
-	vector<Controller*> controlled_bikes;
-	//vector<TailWall*> tail_walls;
 	World* world;
 	INIReader* config;
 };

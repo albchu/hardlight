@@ -169,6 +169,3 @@ void Chassis::adaptiveSteering(int analogStickInput)
 	
 	inputData.setAnalogSteer((analogStickInput)/(-32768.0f)); //the axis are inverted on the controller
 }
-
-BikeSubTypes Chassis::get_subtype()								{ return subtype; }
-void Chassis::set_subtype(BikeSubTypes new_subtype)				{ subtype = new_subtype; }

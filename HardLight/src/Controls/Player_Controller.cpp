@@ -1,16 +1,16 @@
 #include "Controls/Player_Controller.h"
 
-Player_Controller::Player_Controller(Chassis* new_bike, SDL_GameController* new_sdl_controller)
+Player_Controller::Player_Controller(Chassis* new_chassis, SDL_GameController* new_sdl_controller)
 {
 	init_values();
-	bike = new_bike;
+	chassis = new_chassis;
 	sdl_controller = new_sdl_controller;
 }
 
-Player_Controller::Player_Controller(Chassis* new_bike, KeyMapping init_keys)
+Player_Controller::Player_Controller(Chassis* new_chassis, KeyMapping init_keys)
 {
 	init_values();
-	bike = new_bike;
+	chassis = new_chassis;
 	key_controls = init_keys;
 }
 
