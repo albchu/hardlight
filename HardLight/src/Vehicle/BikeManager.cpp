@@ -101,29 +101,41 @@ void BikeManager::kill_bike(Bike* bike)
 {
 	bike->set_renderable(false);		// Stop the bike from being rendered
 
+	// Delete chassis px actor
+	pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
+
 	// Kill the tail of the bike
 	bike->get_tail()->set_max_length(0);
 	bike->get_tail()->update(pxAgent);
-	
-	for (unsigned int i = 0; i < player_bikes.size(); i++)
+
+	// Remove the bike in question from its list
+	if(bike->get_subtype() == PLAYER_BIKE)
 	{
-		if (player_bikes[i]->get_chassis() == bike->get_chassis())
+		for (unsigned int i = 0; i < player_bikes.size(); i++)
 		{
-			dead_bikes.push_back(player_bikes[i]);
-			player_bikes.erase(player_bikes.begin()+i);
-			return;
+			if (player_bikes[i]->get_chassis() == bike->get_chassis())
+			{
+				dead_bikes.push_back(player_bikes[i]);
+				player_bikes.erase(player_bikes.begin()+i);
+				return;
+			}
 		}
 	}
 
-	for (unsigned int i = 0; i < bot_bikes.size(); i++)
+	else if(bike->get_subtype() == BOT_BIKE)
 	{
-		if (bot_bikes[i]->get_chassis() == bike->get_chassis())
+		for (unsigned int i = 0; i < bot_bikes.size(); i++)
 		{
-			dead_bikes.push_back(bot_bikes[i]);
-			bot_bikes.erase(bot_bikes.begin()+i);
-			return;
+			if (bot_bikes[i]->get_chassis() == bike->get_chassis())
+			{
+				dead_bikes.push_back(bot_bikes[i]);
+				bot_bikes.erase(bot_bikes.begin()+i);
+				return;
+			}
 		}
 	}
+	cerr << "ERROR: Could not delete bike from world!" << endl;	// If the bike couldnt be deleted, we will fall onto this error message.
+
 }
 
 void BikeManager::clear_controllers() {

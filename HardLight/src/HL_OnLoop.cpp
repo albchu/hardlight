@@ -39,14 +39,15 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 void HardLight::OnLoop()
 {
 	float closest_sound = FLT_MAX;
-	for (unsigned int j = 0; j < bikesToKill.size(); j++)
+
+	// Delete all bikes queued up to be destroyed
+	for (Bike* bikeX : bikesToKill)
 	{
-		if (!bikesToKill[j]->get_chassis()->is_invincible())
+		if (!bikeX->get_chassis()->is_invincible())
 		{
-			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_chassis()->get_actor(), false);
-			for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
-				closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_chassis()->get_distance(bikesToKill[j]->get_chassis()));
-			bike_manager->kill_bike(bikesToKill[j]);
+			for (Bike* bikeY : bike_manager->get_player_bikes())
+				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
+			bike_manager->kill_bike(bikeX);
 		}
 	}
 	if (closest_sound < FLT_MAX)
