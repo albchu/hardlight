@@ -1,6 +1,7 @@
 #include "Rendering/Viewports.h"
 
 // Math is pretty difficult to dynamically calculate this on the fly so we will load based on cases
+// Will not initialize camera object. That will be needed to be created later on
 vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float width, float height)
 {
 	vector<Viewports::Viewport> viewports;

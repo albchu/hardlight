@@ -27,12 +27,12 @@ void HardLight::OnRender()
 	for(Viewports::Viewport viewport: viewports)
 	{
 		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices
-		camera->update((forward-back)*speed, (right-left)*speed);
+		viewport.camera->update((forward-back)*speed, (right-left)*speed);
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height );
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{
 			if(world.getEntities()[i]->is_renderable())
-				world.getEntities()[i]->render(camera->get_projection_matrix(), camera->get_view_matrix(), light);
+				world.getEntities()[i]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), light);
 		}
 	}
 

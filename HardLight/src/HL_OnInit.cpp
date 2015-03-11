@@ -7,6 +7,13 @@
 //==============================================================================
 bool HardLight::OnInit()
 {
+	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
+	if(config->GetInteger("game", "numPlayers", 1) > 4 && config->GetInteger("game", "numPlayers", 1) < 1)
+	{
+		cerr << "Please enter a number between 1-4 in the config.ini for numPlayers" << endl;
+		return false;
+	}
+
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
@@ -59,8 +66,6 @@ bool HardLight::OnInit()
 		cerr << "Could not make initialize glew" << endl;
 
 	scene = GAME;
-	//gui = GUI(window);
-	//gui.loadMenu("MainMenu.ini", pxAgent->get_physics());
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -87,13 +92,13 @@ bool HardLight::OnInit()
 	powerup = new Powerup(NULL, bike_manager, config);
 
 	// Initialize viewport info
-	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);
+	viewports = Viewports::generate_viewports(config->GetInteger("game", "numPlayers", 1), window_width, window_height);
 
 	// Initialize keyboard player control info
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
-	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
+	overMind = new AI(bike_manager, sfxMix);
 
 	return true;
 }

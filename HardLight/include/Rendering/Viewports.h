@@ -4,6 +4,7 @@
 //#include <GL\glew.h>
 #include <vector>
 #include <iostream>
+#include "Camera.h"
 
 using namespace std;
 
@@ -30,6 +31,9 @@ public:
 
 		// An ID to distinguish which camera it is for
 		PlayerID id;
+
+		// The camera for the particular viewport
+		Camera* camera;
 	};
 	static vector<Viewport> generate_viewports(int numViews, float width, float height);
 };

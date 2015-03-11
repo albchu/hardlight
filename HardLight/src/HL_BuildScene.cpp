@@ -85,37 +85,36 @@ bool HardLight::BuildScene()
 	start_locations.push_back(PxVec3(0.0f, height, offset));
 	start_locations.push_back(PxVec3(0.0f, height, -offset));
 
-	if(bike_manager->get_player_bikes().size() < 1) {
-		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
+	for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
+	{
+		Chassis* new_chassis = new Chassis();
+		if (i < start_locations.size())
 		{
-			Chassis* new_chassis = new Chassis();
-			if (i < start_locations.size())
-			{
-				if(!vehicleCreator.Create(new_chassis, start_locations[i]))
-					return false;
-			}
-			else
-			{
-				if(!vehicleCreator.Create(new_chassis, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
-					return false;
-			}
-
-			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
-
-
-			// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
-			menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_chassis);
-			world.add_entity(menu);
-
-			// THIS IS A SHITTY SPOT FOR THIS CODE. ALBERT REMOVE THIS ASAP
-			camera = new Camera(config, new_chassis->get_actor());
-
-			//if (controllers.size() > 0)
-			//	bike_manager->add_player_bike(new_chassis, controllers[i]);
-			//else
-				bike_manager->add_player_bike(new_chassis, NULL);
+			if(!vehicleCreator.Create(new_chassis, start_locations[i]))
+				return false;
 		}
+		else
+		{
+			if(!vehicleCreator.Create(new_chassis, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
+				return false;
+		}
+
+		new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
+
+
+		// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
+		menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_chassis);
+		world.add_entity(menu);
+
+		Camera* aCamera = new Camera(config, new_chassis->get_actor());
+		viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
+
+		if (controllers.size() > 0)
+			bike_manager->add_player_bike(new_chassis, controllers[i]);
+		else
+			bike_manager->add_player_bike(new_chassis, NULL);
 	}
+
 
 	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
 	{

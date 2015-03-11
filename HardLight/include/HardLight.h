@@ -127,7 +127,7 @@ private:
 	Pickup* pickup;
 	Powerup* powerup;
 
-	Camera* camera; // This should be refactored into the bike object, this is bad coding for testings sake, remove asap Albert
+	//vector<Camera*> cameras;
 
 public:
 	HardLight();

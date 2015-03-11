@@ -135,7 +135,6 @@ void BikeManager::kill_bike(Bike* bike)
 		}
 	}
 	cerr << "ERROR: Could not delete bike from world!" << endl;	// If the bike couldnt be deleted, we will fall onto this error message.
-
 }
 
 void BikeManager::clear_controllers() {
