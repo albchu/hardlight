@@ -111,7 +111,9 @@
     <ClCompile Include="src\HL_OnInit.cpp" />
     <ClCompile Include="src\HL_OnLoop.cpp" />
     <ClCompile Include="src\HL_OnRender.cpp" />
+    <ClCompile Include="src\Hold.cpp" />
     <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\Instant.cpp" />
     <ClCompile Include="src\KeyMappings.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
@@ -149,7 +151,9 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
+    <ClInclude Include="include\Hold.h" />
     <ClInclude Include="include\Image.h" />
+    <ClInclude Include="include\Instant.h" />
     <ClInclude Include="include\KeyMappings.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\MeshData.h" />

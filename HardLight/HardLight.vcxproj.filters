@@ -156,6 +156,8 @@
     <ClCompile Include="src\KeyMappings.cpp">
       <Filter>World</Filter>
     </ClCompile>
+    <ClCompile Include="src\Instant.cpp" />
+    <ClCompile Include="src\Hold.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -294,6 +296,8 @@
     <ClInclude Include="include\KeyMappings.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="include\Instant.h" />
+    <ClInclude Include="include\Hold.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">

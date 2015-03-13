@@ -8,6 +8,12 @@
 
 #include "../inih\cpp\INIReader.h"
 
+enum PowerupUsage
+{
+	INSTANT,
+	HOLD
+};
+
 class Powerup
 {
 public:
@@ -29,6 +35,9 @@ public:
 	int usePowerup(); // tell bike to use a powerup (generic version)
 
 private:
+
+protected:
+	PowerupUsage type;
 	Bike* bike;
 	BikeManager* bike_manager;
 
