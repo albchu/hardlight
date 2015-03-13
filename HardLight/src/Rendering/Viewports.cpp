@@ -1,6 +1,7 @@
 #include "Rendering/Viewports.h"
 
 // Math is pretty difficult to dynamically calculate this on the fly so we will load based on cases
+// Will not initialize camera object. That will be needed to be created later on
 vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float width, float height)
 {
 	vector<Viewports::Viewport> viewports;
@@ -15,6 +16,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 			viewport1.y = 0;
 			viewport1.width = width;
 			viewport1.height = height;
+			viewport1.id = PLAYER1;
 			viewports.push_back(viewport1);
 			break;
 		}
@@ -28,12 +30,14 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 			viewport1.y = int(height/2);
 			viewport1.width = width;
 			viewport1.height = height/2.0f;
+			viewport1.id = PLAYER1;
 
 			// Bottom frame
 			viewport2.x = 0;
 			viewport2.y = 0;
 			viewport2.width = width;
 			viewport2.height = height/2.0f;
+			viewport2.id = PLAYER2;
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);
@@ -50,18 +54,21 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 			viewport1.y = int(height/2);
 			viewport1.width = width/2.0f;
 			viewport1.height = height/2.0f;
+			viewport1.id = PLAYER1;
 
 			// Top right frame
 			viewport2.x = int(width/2);
 			viewport2.y = int(height/2);
 			viewport2.width = width/2.0f;
 			viewport2.height = height/2.0f;
+			viewport2.id = PLAYER2;
 
 			// Bottom frame
 			viewport3.x = 0;
 			viewport3.y = 0;
 			viewport3.width = width;
 			viewport3.height = height/2.0f;
+			viewport3.id = PLAYER3;
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);
@@ -80,24 +87,28 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, float wi
 			viewport1.y = int(height/2);
 			viewport1.width = width/2.0f;
 			viewport1.height = height/2.0f;
+			viewport1.id = PLAYER1;
 
 			// Top right frame
 			viewport2.x = int(width/2);
 			viewport2.y = int(height/2);
 			viewport2.width = width/2.0f;
 			viewport2.height = height/2.0f;
+			viewport2.id = PLAYER2;
 
 			// Bottom left frame
 			viewport3.x = 0;
 			viewport3.y = 0;
 			viewport3.width = width/2.0f;
 			viewport3.height = height/2.0f;
+			viewport3.id = PLAYER3;
 			
 			// Bottom right frame
 			viewport4.x = int(width/2);
 			viewport4.y = 0;
 			viewport4.width = width/2.0f;
 			viewport4.height = height/2.0f;
+			viewport4.id = PLAYER4;
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);

@@ -5,7 +5,7 @@
 class Bot_Controller : public Controller
 {
 public:
-	Bot_Controller(Bike* bike);
+	Bot_Controller(Chassis* bike);
 private:
 
 };

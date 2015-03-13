@@ -3,25 +3,31 @@
 
 #include "PowerupTypes.h"
 #include "Vehicle\Bike.h"
-#include "Vehicle\Bikes.h"
+#include "Vehicle\BikeManager.h"
 #include "Vehicle\TailWall.h"
 
 #include "../inih\cpp\INIReader.h"
+
+enum PowerupUsage
+{
+	INSTANT,
+	HOLD
+};
 
 class Powerup
 {
 public:
 	Powerup();
-	Powerup(Bike* bike, Bikes* bikes, INIReader* config);
+	Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config);
 	~Powerup();
 
 	Bike* getBike();
-	Bikes* getBikes();
+	BikeManager* getBikes();
 	INIReader* getINIReader();
 	PowerupTypes getPowerType();
 
 	void setBike(Bike* bike);
-	void setBikes(Bikes* bikes);
+	void setBikes(BikeManager* bike_manager);
 	void setINIReader(INIReader* config);
 	void setPowerType(PowerupTypes powType);
 
@@ -29,8 +35,11 @@ public:
 	int usePowerup(); // tell bike to use a powerup (generic version)
 
 private:
+
+protected:
+	PowerupUsage type;
 	Bike* bike;
-	Bikes* bikes;
+	BikeManager* bike_manager;
 
 	INIReader* config;
 
@@ -39,6 +48,5 @@ private:
 	// Specific usePowerup functions
 	void useExtendTail();
 	void useJump();
-	void useInvincible();
 };
 #endif

@@ -1,19 +1,27 @@
-#ifndef _BIKE_H
-#define _BIKE_H
+#ifndef _NEW_BIKE_H
+#define _NEW_BIKE_H
+
+// This is what i want the new bike to look like but i dont want to make too drastic of changes at one time immediately
 
 #include "Entity.h"
 //#include "TailWall.h"
+//#include "Chassis.h"
+#include "Controls/Player_Controller.h"
+#include "Controls/Bot_Controller.h"
+#include "Camera.h"
+#include "../inih/cpp/INIReader.h"
+#include "Vehicle/TailWall.h"
 
-#include <PxPhysicsAPI.h>
-#include <vehicle/PxVehicleUtil.h>
-#include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
-#include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
-#include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
-#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
-
-#include <glm\gtx\rotate_vector.hpp>
-#include <glm/glm.hpp>		// Used for vec3
-#include "glm/gtx/string_cast.hpp"		// Used for to_string
+//#include <PxPhysicsAPI.h>
+//#include <vehicle/PxVehicleUtil.h>
+//#include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
+//#include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
+//#include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
+//#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
+//
+//#include <glm\gtx\rotate_vector.hpp>
+//#include <glm/glm.hpp>		// Used for vec3
+//#include "glm/gtx/string_cast.hpp"		// Used for to_string
 
 using namespace glm;
 using namespace std;
@@ -22,38 +30,24 @@ class Bike : public Entity
 {
 
 public:
-	Bike();
+	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
 	~Bike();
-	virtual mat4 get_model_matrix();
-
-	PxVehicleDrive4W* getVehicle4W();
-	PxVehicleDrive4WRawInputData& getInputData();
-	VehicleSceneQueryData* getVehicleSceneQueryData();
-	PxBatchQuery* getBatchQuery();
-	bool isInAir();
-	bool invincible;
-
-	void setVehicle4W(PxVehicleDrive4W*);
-	void setInputData(PxVehicleDrive4WRawInputData);
-	void setVehicleSceneQueryData(VehicleSceneQueryData*);
-	void setBatchQuery(PxBatchQuery*);
-	void setInAir(bool);
-	virtual void set_actor(PxRigidActor*);
-	//TailWall* get_tail_wall();
-	void adaptiveSteering(int analogStickInput);
+	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
 	void set_subtype(BikeSubTypes subtype);
+	Chassis* get_chassis();
+	TailWall* get_tail();
+	Controller* get_controller();
 
 private:
-	PxVehicleDrive4W* vehicle4W;
-	PxVehicleDrive4WRawInputData inputData;
-	VehicleSceneQueryData* vehicleSceneQueryData;
-	PxBatchQuery* batchQuery;
+	Controller* controller;
+	Chassis* chassis;
+	Entity* front_tire;
+	Entity* back_tire;
+	Entity* tail_dispenser;
+	Camera* camera; // Note: This field should only be set for player bike_manager
 	BikeSubTypes subtype;
-	bool inAir;
-	int previousAnalogStickInput;
-	float steeringParameter;
-	//TailWall* tail_wall;
-	// PxActor is handled by Entity parent class of Bike
+	TailWall* tailwall;
+	INIReader* config;
 };
 #endif

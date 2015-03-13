@@ -2,7 +2,7 @@
 #define _TAIL_WALL_H
 
 #include "Entity.h"
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 #include "Vehicle/TailSegment.h"
 #include <vector>
 
@@ -18,7 +18,7 @@ private:
 	vec3 last_position;	//The previous start of a tailsegment
 	float min_segment_allowance;	// This variable determines how far a bike must move before we should create a new wall segment
 	float max_segment_allowance;	// This variable determines how far a bike must move before we should create a new wall segment
-	Bike* bike;		// Reference to its bike
+	Chassis* bike;		// Reference to its bike
 	PxTransform gPose;
 	float tail_offset_scalar;
 	INIReader* config;
@@ -26,7 +26,7 @@ private:
 	float height;
 
 public:
-	TailWall(Bike*, INIReader*);
+	TailWall(Chassis*, INIReader*);
 
 	// This call will maintain the tail segments 
 	void update(PhysxAgent*);
@@ -35,7 +35,7 @@ public:
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
 	PxTransform getTailTransform();
 	vec3 getTailPosition();
-	Bike* getBike();
+	Chassis* getBike();
 	void extend_max_length();
 	void set_max_length(int new_length);
 };

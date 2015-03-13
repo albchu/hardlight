@@ -59,12 +59,6 @@
     <ClCompile Include="src\World.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vehicle\Bikes.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Vehicle\Bike.cpp">
-      <Filter>World\Vehicle</Filter>
-    </ClCompile>
     <ClCompile Include="src\AI\AI.cpp">
       <Filter>World\AI</Filter>
     </ClCompile>
@@ -150,6 +144,20 @@
     <ClCompile Include="src\Rendering\Viewports.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\Vehicle\BikeManager.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Chassis.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vehicle\Bike.cpp">
+      <Filter>World\Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KeyMappings.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Instant.cpp" />
+    <ClCompile Include="src\Hold.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -181,12 +189,6 @@
     </ClInclude>
     <ClInclude Include="include\SoundMixer.h">
       <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Vehicle\Bikes.h">
-      <Filter>World\Vehicle</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Vehicle\Bike.h">
-      <Filter>World\Vehicle</Filter>
     </ClInclude>
     <ClInclude Include="include\AI\AI.h">
       <Filter>World\AI</Filter>
@@ -282,6 +284,20 @@
     <ClInclude Include="include\Rendering\Viewports.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="include\Vehicle\BikeManager.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Chassis.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vehicle\Bike.h">
+      <Filter>World\Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KeyMappings.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Instant.h" />
+    <ClInclude Include="include\Hold.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">

@@ -3,7 +3,9 @@
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <glm/glm.hpp>
 using namespace std;
+using namespace glm;
 
 // This class holds the bits and bobs that are useful in alot of places but have no place anywhere
 class Common

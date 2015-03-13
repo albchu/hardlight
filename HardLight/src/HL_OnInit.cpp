@@ -7,6 +7,13 @@
 //==============================================================================
 bool HardLight::OnInit()
 {
+	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
+	if(config->GetInteger("game", "numPlayers", 1) > 4 && config->GetInteger("game", "numPlayers", 1) < 1)
+	{
+		cerr << "Please enter a number between 1-4 in the config.ini for numPlayers" << endl;
+		return false;
+	}
+
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
@@ -67,8 +74,6 @@ bool HardLight::OnInit()
 		cerr << "Could not make initialize glew" << endl;
 
 	scene = GAME;
-	//gui = GUI(window);
-	//gui.loadMenu("MainMenu.ini", pxAgent->get_physics());
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -80,17 +85,6 @@ bool HardLight::OnInit()
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
-	projection_matrix = perspective(
-		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
-		(float)window_width/(float)window_height,
-		0.1f, 10000.0f);
-
-	cam_translate = vec3(
-		(float)config->GetReal("camera", "x", 0.0),
-		(float)config->GetReal("camera", "y", 5.0),
-		(float)config->GetReal("camera", "z", -10.0));
-	cam_rotate = 0.0f;
-
 	// Print OpenGL information
 	std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
@@ -100,20 +94,20 @@ bool HardLight::OnInit()
 	if (!sfxMix.InitializeMixer(config))
 		cerr << "Could not initialize sound mixer" << endl;
 
-	bikes = new Bikes(&world, config);
+	bike_manager = new BikeManager(&world, config, pxAgent);
 
-	// Init AI system to govern bots
-	overMind = new AI(bikes);
-	
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup = new Powerup(NULL, bikes, config);
+	powerup = new Powerup(NULL, bike_manager, config);
 
 	// Initialize viewport info
-	viewports = Viewports::generate_viewports(config->GetInteger("window", "viewports", 1), window_width, window_height);
-	
-		//glViewport(0,0, window_width, window_height / 2.f );
-		//glViewport(0,window_height / 2.f, window_width, window_height / 2.f );
-//	glViewport(0,0,window_width, window_height);
+	viewports = Viewports::generate_viewports(config->GetInteger("game", "numPlayers", 1), window_width, window_height);
+
+	// Initialize keyboard player control info
+	keyMappings = KeyMappings::generate_keyMappings();
+
+	// Init AI system to govern bots
+	overMind = new AI(bike_manager, sfxMix);
+
 	return true;
 }
 

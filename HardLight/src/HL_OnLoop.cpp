@@ -39,29 +39,31 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 void HardLight::OnLoop()
 {
 	float closest_sound = FLT_MAX;
-	for (unsigned int j = 0; j < bikesToKill.size(); j++)
-	{
-		if (!bikesToKill[j]->invincible) {
-			pxAgent->get_scene()->removeActor(*bikesToKill[j]->get_actor(), false);
-			for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-				closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(bikesToKill[j]));
-			bikes->kill_bike(bikesToKill[j]);
-		}
 
+	// Delete all bikes queued up to be destroyed
+	for (Bike* bikeX : bikesToKill)
+	{
+		if (!bikeX->get_chassis()->is_invincible())
+		{
+			for (Bike* bikeY : bike_manager->get_player_bikes())
+				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
+			bike_manager->kill_bike(bikeX);
+		}
 	}
 	if (closest_sound < FLT_MAX)
 		sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);
 	bikesToKill.clear();
 
-	closest_sound = FLT_MAX;
-	for (unsigned int i = 0; i < hit_pickup.size(); i++)
-	{
-		PxRigidActor* pickup_actor = pickup_hit[i];
-		Bike* bike = hit_pickup[i];
-		bikes->extend_tail(bike);
-		for (unsigned int i = 0; i < bikes->get_player_bikes().size(); i++)
-			closest_sound = glm::min(closest_sound, bikes->get_player_bikes()[i]->get_distance(pickup));
-	}
+	// Albert disabled this because he has no idea how it works and will refactor it anyways
+	//closest_sound = FLT_MAX;
+	//for (unsigned int i = 0; i < hit_pickup.size(); i++)
+	//{
+	//	PxRigidActor* pickup_actor = pickup_hit[i];
+	//	Chassis* bike = hit_pickup[i];
+	//	bike_manager->extend_tail(bike);
+	//	for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
+	//		closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
+	//}
 	if (hit_pickup.size() > 0)
 	{
 		sfxMix.PlaySoundEffect("sfxIntro", closest_sound, 0);
@@ -76,57 +78,59 @@ void HardLight::OnLoop()
 	if (elapsed > msMax) elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
 
-	for(Bike* bike : bikes->get_all_bikes())
+	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
-		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, bike->getInputData(), timestep, bike->isInAir(), *bike->getVehicle4W());
+		Chassis* chassis = bike->get_chassis();
+		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, chassis->getInputData(), timestep, chassis->isInAir(), *chassis->getVehicle4W());
 
 		//Raycasts.
-		PxVehicleWheels* vehicles[1] = {bike->getVehicle4W()};
-		PxRaycastQueryResult* raycastResults = bike->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
-		const PxU32 raycastResultsSize = bike->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
-		PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
+		PxVehicleWheels* vehicles[1] = {chassis->getVehicle4W()};
+		PxRaycastQueryResult* raycastResults = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
+		const PxU32 raycastResultsSize = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
+		PxVehicleSuspensionRaycasts(chassis->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
 		//Vehicle update.
 		const PxVec3 grav = pxAgent->get_scene()->getGravity();
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
-		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
+		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
 	}
 
-	// Move Bot Bikes
+	// Move Bot BikeManager
 	overMind->update_bikes(pickup->get_location());
 	overMind->move_bikes();
 
 	// Tail creation
-	for(TailWall* tail_wall : bikes->get_all_tails())
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
-		tail_wall->update(pxAgent);
+		bike->get_tail()->update(pxAgent);
 	}
 
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
-		if(bikes->get_all_bikes().size() == 1)
-		{
-			Bike* aBike = bikes->get_all_bikes()[0];
-			if(aBike->get_subtype() == PLAYER_BIKE)
-			{
-				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
-				scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
-			}
-			if(aBike->get_subtype() == BOT_BIKE)
-			{
-				menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-			}
+		//if(bike_manager->get_all_bikes().size() == 1)
+		//{
+		//	Chassis* aBike = bike_manager->get_all_bikes()[0];
+		//	if(aBike->get_subtype() == PLAYER_BIKE)
+		//	{
+		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
+		//		scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
+		//	}
+		//	if(aBike->get_subtype() == BOT_BIKE)
+		//	{
+		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+		//	}
 
-			menu->set_renderable(true);
-		}
-		else if (bikes->get_player_bikes().size() == 0)
-		{
-			menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-			menu->set_renderable(true);
-		}
+		//	menu->set_renderable(true);
+		//}
+		//else if (bike_manager->get_player_bikes().size() == 0)
+		//{
+		//	menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+		//	menu->set_renderable(true);
+		//}
 	}
 
 	//Scene update.

@@ -10,11 +10,11 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 		if(cp.events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 		{
-			Bike* bike1 = bikes->get_bike(pairHeader.actors[0]);
-			Bike* bike2 = bikes->get_bike(pairHeader.actors[1]);
+			Bike* bike1 = bike_manager->get_bike(pairHeader.actors[0]);
+			Bike* bike2 = bike_manager->get_bike(pairHeader.actors[1]);
 			if (bike1 != NULL)
 			{
-				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())
+				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())	// Only push bike onto bikes to kill vector if it does not already exist
 					bikesToKill.push_back(bike1);
 			}
 			if (bike2 != NULL)
@@ -34,7 +34,7 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		if (pairs[i].flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER))
 			continue;
 
-		Bike* bike = bikes->get_bike(pairs[i].otherActor);
+		Chassis* bike = bike_manager->get_bike(pairs[i].otherActor)->get_chassis();
 		if (bike != NULL)
 		{
 			hit_pickup.push_back(bike);

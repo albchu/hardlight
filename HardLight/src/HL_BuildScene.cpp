@@ -1,68 +1,5 @@
 #include "HardLight.h"
 
-bool HardLight::spawnBikes() {
-	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
-
-	vector<PxVec3> start_locations;
-	size = (float)config->GetReal("scene", "size", 1000.0);
-	float offset = size-10.0f;
-	float height = 5.0f;
-	start_locations.push_back(PxVec3(offset, height, offset));
-	start_locations.push_back(PxVec3(-offset, height, -offset));
-	start_locations.push_back(PxVec3(-offset, height, offset));
-	start_locations.push_back(PxVec3(offset, height, -offset));
-	start_locations.push_back(PxVec3(offset, height, 0.0f));
-	start_locations.push_back(PxVec3(-offset, height, 0.0f));
-	start_locations.push_back(PxVec3(0.0f, height, offset));
-	start_locations.push_back(PxVec3(0.0f, height, -offset));
-
-	if(bikes->get_player_bikes().size() < 1) {
-		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
-		{
-			Bike* new_bike = new Bike();
-			if (i < start_locations.size())
-			{
-				if(!vehicleCreator.Create(new_bike, start_locations[i]))
-					return false;
-			}
-			else
-			{
-				if(!vehicleCreator.Create(new_bike, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
-					return false;
-			}
-
-			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
-			if (controllers.size() > 0)
-				bikes->add_player_bike(new_bike, controllers[i]);
-			else
-				bikes->add_player_bike(new_bike, NULL);
-		}
-	}
-
-	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
-	{
-		Bike* new_bike = new Bike();
-		int position = bikes->get_player_bikes().size() + i;
-
-		if (position < start_locations.size())
-			{
-				if(!vehicleCreator.Create(new_bike, start_locations[position]))
-					return false;
-			}
-			else
-			{
-				if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
-					return false;
-			}
-
-		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
-		bikes->add_bot_bike(new_bike);
-
-	}
-
-	return true;
-}
-
 bool HardLight::BuildScene()
 {
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
@@ -134,7 +71,7 @@ bool HardLight::BuildScene()
 	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
 	world.add_entity(wall);
 
-			CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
+	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 
 	vector<PxVec3> start_locations;
 	float offset = size-10.0f;
@@ -148,53 +85,55 @@ bool HardLight::BuildScene()
 	start_locations.push_back(PxVec3(0.0f, height, offset));
 	start_locations.push_back(PxVec3(0.0f, height, -offset));
 
-	if(bikes->get_player_bikes().size() < 1) {
-		for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
-		{
-			Bike* new_bike = new Bike();
-			if (i < start_locations.size())
-			{
-				if(!vehicleCreator.Create(new_bike, start_locations[i]))
-					return false;
-			}
-			else
-			{
-				if(!vehicleCreator.Create(new_bike, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
-					return false;
-			}
-
-			new_bike->invincible = config->GetBoolean("game", "playerInvincible", false);
-
-
-			// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
-			menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_bike);
-			world.add_entity(menu);
-
-			if (controllers.size() > 0)
-				bikes->add_player_bike(new_bike, controllers[i]);
-			else
-				bikes->add_player_bike(new_bike, NULL);
-		}
-	}
-
-	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
+	for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
 	{
-		Bike* new_bike = new Bike();
-		int position = bikes->get_player_bikes().size() + i;
-
-		if (position < start_locations.size())
+		Chassis* new_chassis = new Chassis();
+		if (i < start_locations.size())
 		{
-			if(!vehicleCreator.Create(new_bike, start_locations[position]))
+			if(!vehicleCreator.Create(new_chassis, start_locations[i]))
 				return false;
 		}
 		else
 		{
-			if(!vehicleCreator.Create(new_bike, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+			if(!vehicleCreator.Create(new_chassis, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
 				return false;
 		}
 
-		PxTransform somepose = new_bike->get_actor()->getGlobalPose();
-		bikes->add_bot_bike(new_bike);
+		new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
+
+
+		// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
+		menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_chassis);
+		world.add_entity(menu);
+
+		Camera* aCamera = new Camera(config, new_chassis->get_actor());
+		viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
+
+		if (controllers.size() > 0)
+			bike_manager->add_player_bike(new_chassis, controllers[i]);
+		else
+			bike_manager->add_player_bike(new_chassis, NULL);
+	}
+
+
+	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
+	{
+		Chassis* new_chassis = new Chassis();
+		int position = bike_manager->get_player_bikes().size() + i;
+
+		if (position < start_locations.size())
+		{
+			if(!vehicleCreator.Create(new_chassis, start_locations[position]))
+				return false;
+		}
+		else
+		{
+			if(!vehicleCreator.Create(new_chassis, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+				return false;
+		}
+
+		//PxTransform somepose = new_chassis->get_actor()->getGlobalPose();
+		bike_manager->add_bot_bike(new_chassis);
 
 	}
 
@@ -204,7 +143,7 @@ bool HardLight::BuildScene()
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup->setBike(bikes->get_player_bikes()[0]);
+	powerup->setBike(bike_manager->get_player_bikes()[0]);
 
 	return true;
 }

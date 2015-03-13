@@ -7,9 +7,9 @@ const float minAccel = 0.8f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
-	Bike* bike = NULL;
-	if (bikes->get_player_bikes().size() > 0)
-		bike = bikes->get_player_bikes()[0];
+	Chassis* bike = NULL;
+	if (bike_manager->get_player_bikes().size() > 0)
+		bike = bike_manager->get_player_bikes()[0]->get_chassis();
 
 	switch (Event->type)
 	{
@@ -18,6 +18,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break;
 
 	case SDL_KEYDOWN:
+		//overMind->notify(Event->key.keysym.sym);
+
 		switch (Event->key.keysym.sym)
 		{
 		case SDLK_ESCAPE:
@@ -52,17 +54,20 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_RIGHT:
 			if (bike != NULL) bike->getInputData().setAnalogSteer(-1.0f);
 			break;
-		case SDLK_SPACE:
-			if(scene == PAUSE)
-				scene = GAME;
-			else if(scene == GAME)
-				scene = PAUSE;
+		case SDLK_p:
+			toggle_pause();
 			menu->toggle_renderable();	// Toggle menu panel from being rendered
 			break;
 		case SDLK_r:
 			reset();
+			break;		
+		case SDLK_SPACE:
+			powerup->setPowerType(JUMP);
+			if(powerup->usePowerup() == 1)
+				sfxMix.PlaySoundEffect("sfxItemUsed");
+			else
+				sfxMix.PlaySoundEffect("sfxIntro");
 			break;
-
 		} // end key_down
 		break;
 
@@ -126,15 +131,13 @@ void HardLight::OnEvent(SDL_Event* Event)
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
-			if(scene == PAUSE)
-				scene = GAME;
-			else if(scene == GAME)
-				scene = PAUSE;
+			toggle_pause();
 
-			for(Bike* i : bikes->get_player_bikes()) {
-				menu->toggle_renderable();
-			}
-			sfxMix.PlaySoundEffect("sfxPause");
+			// Toggle the menu for all bikes
+			//for(Bike* i : bike_manager->get_player_bikes()) {
+			//	bike->get_menu()->toggle_renderable();
+			//}
+
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
 			reset();
@@ -143,28 +146,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 		break; // end SDL_CONTROLLERBUTTONDOWN
 
 	case SDL_CONTROLLERAXISMOTION:
-		int LeftX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTX);
 		int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
 		int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
-		if (LeftX < -deadZone || LeftX > deadZone){
-			//bike->getInputData().setAnalogSteer((LeftX)/(-32768.0f)); //the axis are inverted on the controller
-			if (bike != NULL) bike->adaptiveSteering(LeftX); //the axis are inverted on the controller
-		}else{
-			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
-		}
-		/*if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 0){
-		if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-		if (bike != NULL) bike->getInputData().setAnalogAccel(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERLEFT)/32768.0f);
-		}else*/ if(SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0){
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			float accel = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
-			if (accel < minAccel) accel = minAccel;
-			if (bike != NULL) bike->getInputData().setAnalogAccel(accel);
-			//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity();
-			//std::cout << "Linear Velocity: " << temp.x << " " << temp.y << " " << temp.z << " " << std::endl;
-		}else{
-			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
-		}
+
 		if(RightX < -deadZone){
 			left =(RightX)/(-32768.0f);
 		}else if(RightX > deadZone){
@@ -187,17 +171,26 @@ void HardLight::reset()
 {
 	if(scene == PAUSE)
 		scene = GAME;
-	for(Bike* bike : bikes->get_all_bikes()) {
-		pxAgent->get_scene()->removeActor(*bike->get_actor(), false);
-		bikes->kill_bike(bike);
+	for(Bike* bike : bike_manager->get_all_bikes()) {
+		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
+		bike_manager->kill_bike(bike);
 	}
-	bikes->clear_controllers();
+	bike_manager->clear_controllers();
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
-	bikes = new Bikes(&world, config);
-	overMind = new AI(bikes);
+	bike_manager = new BikeManager(&world, config, pxAgent);
+	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
 	BuildScene();
+}
+
+void HardLight::toggle_pause()
+{
+	sfxMix.PlaySoundEffect("sfxPause");
+	if(scene == PAUSE)
+		scene = GAME;
+	else if(scene == GAME)
+		scene = PAUSE;
 }
 
 //==============================================================================

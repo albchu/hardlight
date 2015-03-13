@@ -5,7 +5,7 @@
 
 #include "Entity.h"
 #include "World.h"
-#include "Vehicle\Bikes.h"
+#include "Vehicle\BikeManager.h"
 #include "Powerup.h"
 
 #include "../inih\cpp\INIReader.h"

@@ -4,7 +4,7 @@
 // This class is the entire world representation. It holds a list of entities with operations on the entities
 #include "Entity.h"
 #include <vector>
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 
 class World
 {

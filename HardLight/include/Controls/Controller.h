@@ -1,20 +1,18 @@
 #ifndef _CONTROLLER_H
 #define _CONTROLLER_H
-#include "Vehicle/Bike.h"
+#include "Vehicle/Chassis.h"
 
 // This class is in charge of moving the bike
 class Controller
 {
 public:
-	typedef void (Controller::*Callback)(Bike*, PxReal);
+	typedef void (Controller::*Callback)(Chassis*, PxReal);
 	Controller();
-	Controller(Bike* new_bike);
-	void forward(Bike * abike, PxReal acceleration);
+	Controller(Chassis* new_bike);
+	void forward(Chassis * abike, PxReal acceleration);
 	void backwards();
-	void left();
-	void right();
-	void steer(Bike * abike, PxReal steer);
-	Bike* get_bike();
+	void steer(Chassis * abike, PxReal steer);
+	Chassis* get_chassis();
 
 	void execute_steering();
 	void execute_motion();
@@ -22,11 +20,18 @@ public:
 	void set_steering(Callback);
 	void set_direction(PxReal);
 	PxReal get_direction();
-	//void set_bike(Bike* new_bike);
+	void set_acceleration(PxReal);
+	PxReal get_acceleration();
+	PxReal get_max_acceleration();
+	PxReal get_min_acceleration();
+	bool callbacks_set();
+	//void set_bike(Chassis* new_bike);
 protected:
-	Bike* bike;
+	Chassis* chassis;
 	PxReal direction;
-	PxReal top_acceleration;
+	PxReal max_acceleration;
+	PxReal min_acceleration;
+	PxReal acceleration;
 	Callback steeringMethod;
 	Callback motionMethod;
 };

@@ -26,8 +26,8 @@
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
 #include "Entity.h"
-#include "Vehicle/Bike.h"
-#include "Vehicle/Bikes.h"
+#include "Vehicle/Chassis.h"
+#include "Vehicle/BikeManager.h"
 #include "SkyBox.h"
 #include "Wall.h"
 #include "Common.h"
@@ -44,6 +44,7 @@
 #include "Pickup.h"
 #include "Menu.h"
 #include "Rendering/Viewports.h"
+#include "KeyMappings.h"
 
 using namespace physx;
 using namespace glm;
@@ -69,6 +70,7 @@ class HardLight : public PxSimulationEventCallback
 {
 private:
 	vector<Viewports::Viewport> viewports;
+	vector<KeyMapping> keyMappings;		// Holds an array of keyboard commands for a particular bike
 	INIReader* config;
 	bool running;
 	Scene scene;
@@ -105,10 +107,6 @@ private:
 	float left;
 	float right;
 
-	mat4 projection_matrix;
-	vec3 cam_translate;
-	float cam_rotate;
-
 	World world;
 	float size;
 
@@ -118,9 +116,9 @@ private:
 	SkyBox* skybox;
 	vec3 oldPos;
 	vector<TailSegment*> playerTail;
-	Bikes* bikes;		// Holds arrays of all bikes on the scene
+	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
 	vector<Bike*> bikesToKill;
-	vector<Bike*> hit_pickup;
+	vector<Chassis*> hit_pickup;
 	vector<PxRigidActor*> pickup_hit;
 	AI* overMind;
 
@@ -128,6 +126,8 @@ private:
 
 	Pickup* pickup;
 	Powerup* powerup;
+
+	//vector<Camera*> cameras;
 
 public:
 	HardLight();
@@ -148,6 +148,8 @@ public:
 	void OnCleanup();
 
 	void reset();
+
+	void toggle_pause();
 };
 
 //==============================================================================

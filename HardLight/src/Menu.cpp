@@ -2,7 +2,7 @@
 #include "Menu.h"
 
 
-Menu::Menu(PxRigidActor* init_actor, Bike* new_bike) {
+Menu::Menu(PxRigidActor* init_actor, Chassis* new_bike) {
 	type = MENU_PANEL;
 	draw_mode = GL_TRIANGLES;
 	bike = new_bike;
