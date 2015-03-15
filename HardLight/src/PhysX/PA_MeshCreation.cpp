@@ -146,7 +146,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	simFilterData.word0 = type;
 	simFilterData.word1 = collides_with(type);
 	PxFilterData queryFilterData;
-	queryFilterData.word1 = driveable(type);
+	queryFilterData.word3 = driveable(type);
 
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh, scale), *tail_material);
@@ -171,7 +171,7 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 	simFilterData.word0 = type;
 	simFilterData.word1 = collides_with(type);
 	PxFilterData queryFilterData;
-	queryFilterData.word1 = driveable(type);
+	queryFilterData.word3 = driveable(type);
 
 	PxTransform transform(PxVec3(location.x, location.y, location.z));
 	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
@@ -180,6 +180,34 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(pickup_mesh, scale), *pickup_material);
 	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
 	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_ground(vec3 scaleFactors)
+{
+	if (ground_mesh == NULL)
+	{
+		MeshData* ground_data = MeshMap::Instance()->getEntityMesh("cube.obj");
+		ground_mesh = create_convex_mesh(*ground_data->getVertices());
+		ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::GROUND;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxTransform transform(PxIdentity);
+	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
+
+	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(ground_mesh, scale), *ground_material);
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));

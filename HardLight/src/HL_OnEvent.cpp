@@ -112,7 +112,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDL_CONTROLLER_BUTTON_X: // X button
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			powerup->setPowerType(EXTENDTAIL);
-			if(powerup->usePowerup() == 1);
+			powerup->usePowerup();
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");
@@ -120,7 +120,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDL_CONTROLLER_BUTTON_Y: // Y button
 			//sfxMix.PlaySoundEffect("sfxItemPickUp");
 			powerup->setPowerType(INVINCIBLE);
-			if(powerup->usePowerup() == 1);
+			powerup->usePowerup();
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");

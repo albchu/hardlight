@@ -111,6 +111,7 @@ private:
 
 	World world;
 	float size;
+	float gravity;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 

@@ -13,6 +13,8 @@ HardLight::HardLight()
 
 	window_width = config->GetInteger("window", "width", 800);
 	window_height = config->GetInteger("window", "height", 600);
+	size = (float)config->GetReal("scene", "size", 300.0);
+	gravity = (float)config->GetReal("scene", "gravity", 9.81);
 	window = NULL;
 	glcontext = NULL;
 

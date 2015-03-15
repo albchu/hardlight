@@ -2,6 +2,7 @@
 #define _ENTITY_H_
 #include <iostream>
 // The class holds information for each entity in our opengl scene
+#include <glm\gtx\rotate_vector.hpp>
 #include <glm/glm.hpp>		// Used for vec3
 #include "glm/gtx/string_cast.hpp"		// Used for to_string
 #include <vector>
@@ -32,6 +33,7 @@ protected:
 	MeshData* mesh_data;
 	PxRigidActor* actor;
 	GLuint texture;
+	vec3 scale_factor;
 
 	GLuint program_id;
 	GLuint vertex_array_id;
@@ -47,7 +49,7 @@ protected:
 	bool renderable;
 
 public:
-	Entity(PxRigidActor*, MeshData*, GLuint);
+	Entity(PxRigidActor*, MeshData*, GLuint, vec3 scale_factor = vec3(1.0f,1.0f,1.0f));
 	Entity();
 	virtual ~Entity();
 

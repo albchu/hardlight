@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture)
+Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture, vec3 init_scale)
 {
 	type = UNDECLARED;
 	draw_mode = GL_TRIANGLES;
@@ -10,6 +10,7 @@ Entity::Entity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_te
 	texture = new_texture;
 	init_opengl();
 	renderable = true;
+	scale_factor = init_scale;
 }
 
 Entity::Entity()
@@ -80,19 +81,16 @@ void Entity::init_opengl(GLuint init_program_id)
 
 mat4 Entity::get_model_matrix()
 {
-	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
-	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	float scaleFactor = 3.0f;
 
-	model_matrix = scale(model_matrix, vec3(scaleFactor, scaleFactor, scaleFactor));
+	mat4 t_matrix = glm::translate(vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+	mat4 r_matrix = glm::rotate(rads, vec3(axis.x, axis.y, axis.z));
+	mat4 s_matrix = glm::scale(scale_factor);
 
-	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-
-	return model_matrix;
+	return t_matrix * r_matrix * s_matrix;
 }
 
 void Entity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light)

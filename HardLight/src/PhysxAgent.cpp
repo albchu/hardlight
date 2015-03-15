@@ -10,6 +10,7 @@ PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimul
 	config = new_config;
 	tail_mesh = NULL;
 	pickup_mesh = NULL;
+	ground_mesh = NULL;
 
 	// Initialize foundation
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);
@@ -53,11 +54,6 @@ PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimul
 	// Initialize the physx scene
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
 	sceneDesc.cpuDispatcher = gDispatcher;
-	sceneDesc.gravity = PxVec3(
-		(float)config->GetReal("gravity", "x", 0.0),
-		(float)config->GetReal("gravity", "y", 0.0),
-		(float)config->GetReal("gravity", "z", 0.0)
-		);
 	sceneDesc.filterShader = PhysxAgent::gFilterShader;
 	sceneDesc.simulationEventCallback = pxSimulationEventCallback;
 

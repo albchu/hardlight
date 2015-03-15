@@ -41,6 +41,7 @@ public:
 	PxRigidActor* create_static_convex_mesh(MeshData*, PxTransform, EntityTypes);
 	PxRigidStatic* create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height);
 	PxRigidStatic* create_pickup(vec3 location, vec3 up, vec3 scaleFactors);
+	PxRigidStatic* create_ground(vec3 scaleFactors);
 
 	static PxQuat PxLookAt(vec3 direction, vec3 up);
 
@@ -59,5 +60,7 @@ private:
 	PxMaterial* tail_material;
 	PxConvexMesh* pickup_mesh;
 	PxMaterial* pickup_material;
+	PxConvexMesh* ground_mesh;
+	PxMaterial* ground_material;
 };
 #endif

@@ -87,7 +87,10 @@ void HardLight::OnLoop()
 		PxVehicleSuspensionRaycasts(bike->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
 		//Vehicle update.
-		const PxVec3 grav = pxAgent->get_scene()->getGravity();
+		//const PxVec3 grav = pxAgent->get_scene()->getGravity();
+		const PxVec3 grav = vehicles[0]->getRigidDynamicActor()->getGlobalPose().p.getNormalized() * -gravity;
+		bike->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
+
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
