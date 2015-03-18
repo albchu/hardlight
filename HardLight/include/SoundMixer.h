@@ -8,6 +8,8 @@
 #include <vector>
 #include <map>
 
+#include <Windows.h>
+
 #include "../inih\cpp\INIReader.h"
 
 
@@ -22,6 +24,7 @@ private:
 	Mix_Chunk							*sfxIntro;
 	Mix_Chunk							*sfxItemPickup;
 	Mix_Chunk							*sfxItemUsed;
+	Mix_Chunk							*randomSoundEffect;
 
 	std::map<std::string, Mix_Music*>	musicFilesList;
 	std::map<std::string, Mix_Chunk*>	sfxFilesList;
@@ -36,6 +39,7 @@ private:
 	std::string							sfxIntroFile;
 	std::string							sfxItemPickupFile;
 	std::string							sfxItemUsedFile;
+	std::string							randomSoundEffectFile;
 
 	int musicVolume;
 	double sfxVolume;
@@ -55,6 +59,7 @@ public:
 	int		PlayMusic(std::string key, int volume);									// Play music at preset volume
 	int		PlaySoundEffect(std::string key);
 	int		PlaySoundEffect(std::string key, float distance, int timesToRepeat);	// Play sound effect based on distance from listener
+	bool	ClipFrom(std::string directory);
 };
 
 #endif
