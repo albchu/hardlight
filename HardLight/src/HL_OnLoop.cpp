@@ -69,7 +69,7 @@ void HardLight::OnLoop()
 		sfxMix.PlaySoundEffect("sfxIntro", closest_sound, 0);
 		hit_pickup.clear();
 		pickup_hit.clear();
-		pickup->respawn();
+		//pickup->respawn();
 	}
 
 	Uint32 msCurrent = SDL_GetTicks();
@@ -99,7 +99,8 @@ void HardLight::OnLoop()
 	}
 
 	// Move Bot BikeManager
-	overMind->update_bikes(pickup->get_location());
+	//overMind->update_bikes(pickup->get_location());
+	overMind->update_bikes(vec3(0,0,0));
 	overMind->move_bikes();
 
 	// Tail creation

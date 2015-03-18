@@ -124,8 +124,8 @@ private:
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
-	Pickup* pickup;
-	Powerup* powerup;
+	//Pickup* pickup;
+	//Powerup* powerup;
 
 	//vector<Camera*> cameras;
 

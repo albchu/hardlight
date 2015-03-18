@@ -4,6 +4,11 @@
 // This is what i want the new bike to look like but i dont want to make too drastic of changes at one time immediately
 
 #include "Entity.h"
+
+//Powerups
+#include "Hold.h"
+#include "Instant.h"
+
 //#include "TailWall.h"
 //#include "Chassis.h"
 #include "Controls/Player_Controller.h"
@@ -38,6 +43,10 @@ public:
 	Chassis* get_chassis();
 	TailWall* get_tail();
 	Controller* get_controller();
+
+	typedef void (Hold::*HoldCallback)(Bike* bike);
+	void set_hold_powerup(HoldCallback powerup);
+	void execute_hold_powerup();
 
 private:
 	Controller* controller;

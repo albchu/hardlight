@@ -163,7 +163,6 @@
     <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\Pickup.h" />
     <ClInclude Include="include\Powerup.h" />
-    <ClInclude Include="include\PowerupTypes.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\Rendering\Viewports.h" />

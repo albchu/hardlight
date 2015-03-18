@@ -1,7 +1,5 @@
 #ifndef _POWERUP_H
 #define _POWERUP_H
-
-#include "PowerupTypes.h"
 #include "Vehicle\Bike.h"
 #include "Vehicle\BikeManager.h"
 #include "Vehicle\TailWall.h"
@@ -24,12 +22,10 @@ public:
 	Bike* getBike();
 	BikeManager* getBikes();
 	INIReader* getINIReader();
-	PowerupTypes getPowerType();
 
 	void setBike(Bike* bike);
 	void setBikes(BikeManager* bike_manager);
 	void setINIReader(INIReader* config);
-	void setPowerType(PowerupTypes powType);
 
 	void choosePowerup(); // determine the type of powerup the Powerup object will be
 	int usePowerup(); // tell bike to use a powerup (generic version)
@@ -43,7 +39,6 @@ protected:
 
 	INIReader* config;
 
-	PowerupTypes powType;
 
 	// Specific usePowerup functions
 	void useExtendTail();

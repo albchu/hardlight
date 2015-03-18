@@ -1,5 +1,6 @@
 #include "Powerup.h"
 
+//This constructor shouldnt be necessary
 Powerup::Powerup()
 {
 	bike = NULL;

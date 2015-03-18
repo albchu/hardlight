@@ -62,11 +62,11 @@ void HardLight::OnEvent(SDL_Event* Event)
 			reset();
 			break;		
 		case SDLK_SPACE:
-			powerup->setPowerType(JUMP);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			//powerup->setPowerType(JUMP);
+			//if(powerup->usePowerup() == 1)
+			//	sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+			//	sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		} // end key_down
 		break;
@@ -108,24 +108,24 @@ void HardLight::OnEvent(SDL_Event* Event)
 		{
 		case SDL_CONTROLLER_BUTTON_A: // A button
 			//sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
-			powerup->setPowerType(JUMP);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			//powerup->setPowerType(JUMP);
+			//if(powerup->usePowerup() == 1)
+			//	sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+			//	sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_X: // X button
 			//sfxMix.PlaySoundEffect("sfxIntro");
-			powerup->setPowerType(EXTENDTAIL);
-			if(powerup->usePowerup() == 1);
+			//powerup->setPowerType(EXTENDTAIL);
+			//if(powerup->usePowerup() == 1);
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_Y: // Y button
 			//sfxMix.PlaySoundEffect("sfxItemPickUp");
-			powerup->setPowerType(INVINCIBLE);
-			if(powerup->usePowerup() == 1);
+			//powerup->setPowerType(INVINCIBLE);
+			//if(powerup->usePowerup() == 1);
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");
