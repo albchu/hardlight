@@ -6,7 +6,7 @@ Powerup::Powerup()
 	bike = NULL;
 	bike_manager = NULL;
 	config = NULL;
-	powType = PowerupTypes_SIZE;
+	//powType = PowerupTypes_SIZE;
 }
 
 Powerup::Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config)
@@ -14,7 +14,7 @@ Powerup::Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config)
 	this->bike=bike;
 	this->bike_manager=bike_manager;
 	this->config=config;
-	powType = PowerupTypes_SIZE;
+	//powType = PowerupTypes_SIZE;
 }
 
 Powerup::~Powerup()									
@@ -37,10 +37,10 @@ INIReader* Powerup::getINIReader()
 	return config;
 }
 
-PowerupTypes Powerup::getPowerType()			
-{
-	return powType;
-}
+//PowerupTypes Powerup::getPowerType()			
+//{
+//	return powType;
+//}
 
 void Powerup::setBike(Bike* bike)					
 {
@@ -57,36 +57,36 @@ void Powerup::setINIReader(INIReader* config)
 	this->config=config;
 }
 
-void Powerup::setPowerType(PowerupTypes powType)	
-{
-	this->powType=powType;
-}
+//void Powerup::setPowerType(PowerupTypes powType)	
+//{
+//	this->powType=powType;
+//}
 
-void Powerup::choosePowerup()
-{
-	powType = (PowerupTypes)(rand() % PowerupTypes_SIZE);
-}
-
-int Powerup::usePowerup()
-{
-	if(bike == NULL || powType == PowerupTypes_SIZE)
-	{
-		return 0;
-	}
-	switch (powType)
-	{
-	case EXTENDTAIL:
-		this->useExtendTail();
-		break;
-	case JUMP:
-		this->useJump();
-		break;
-	case INVINCIBLE:
-		bike->get_chassis()->toggle_invincible();
-		break;
-	}	
-	return 1;
-}
+//void Powerup::choosePowerup()
+//{
+//	powType = (PowerupTypes)(rand() % PowerupTypes_SIZE);
+//}
+//
+//int Powerup::usePowerup()
+//{
+//	if(bike == NULL || powType == PowerupTypes_SIZE)
+//	{
+//		return 0;
+//	}
+//	switch (powType)
+//	{
+//	case EXTENDTAIL:
+//		this->useExtendTail();
+//		break;
+//	case JUMP:
+//		this->useJump();
+//		break;
+//	case INVINCIBLE:
+//		bike->get_chassis()->toggle_invincible();
+//		break;
+//	}	
+//	return 1;
+//}
 
 void Powerup::useExtendTail()
 {
