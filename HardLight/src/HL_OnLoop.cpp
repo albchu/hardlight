@@ -88,8 +88,14 @@ void HardLight::OnLoop()
 
 		//Vehicle update.
 		//const PxVec3 grav = pxAgent->get_scene()->getGravity();
-		const PxVec3 grav = vehicles[0]->getRigidDynamicActor()->getGlobalPose().p.getNormalized() * -gravity;
+		PxVec3 grav = PxVec3(0,1,0) * -gravity;
+		if (map_type == MapTypes::SPHERE)
+			grav = vehicles[0]->getRigidDynamicActor()->getGlobalPose().p.getNormalized() * -gravity;
+		bike->getVehicle4W()->getRigidDynamicActor()->clearForce();
 		bike->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
+		vec3 forward = bike->get_direction_vector();
+		PxVec3 slow = PxVec3(forward.x, forward.y, forward.z) * -20.f;
+		bike->getVehicle4W()->getRigidDynamicActor()->addForce(slow, PxForceMode::eACCELERATION);
 
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, bike->getVehicle4W()->mWheelsSimData.getNbWheels()}};

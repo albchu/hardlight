@@ -32,7 +32,9 @@ void HardLight::OnRender()
 	vec3 camera_position(cam_translate);
 	camera_position = rotateY(camera_position, cam_rotate);
 	//vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
-	vec3 light(normalize(vec3(newPos.p.x, newPos.p.y, newPos.p.z)) * 1000.0f);
+	//vec3 light(normalize(vec3(newPos.p.x, newPos.p.y, newPos.p.z)) * (size + 700.0f));
+	vec3 up = PhysxAgent::toVec3(newPos.q.rotate(PxVec3(0.f,1.f,0.f)));
+	vec3 light(vec3(newPos.p.x, newPos.p.y, newPos.p.z) + (up*700.f));
 	// view_matrix for all entities
 	//PxTransform gPose = bike->getVehicle4W()->getRigidDynamicActor()->getGlobalPose();
 	PxReal rads;
@@ -41,7 +43,7 @@ void HardLight::OnRender()
 	camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
 
 	vec3 v_pos(newPos.p.x, newPos.p.y, newPos.p.z);
-	vec3 up(0.0f, 1.0f, 0.0f);
+	//vec3 up(0.0f, 1.0f, 0.0f);
 	if (cam_translate.z > 0.0f) up *= -1.0f;
 	camera_position += v_pos;
 	mat4 view_matrix = lookAt(camera_position, v_pos + vec3(0,5,0), up);

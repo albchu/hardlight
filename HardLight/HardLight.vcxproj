@@ -148,6 +148,7 @@
     <ClInclude Include="include\EntityTypes.h" />
     <ClInclude Include="include\HardLight.h" />
     <ClInclude Include="include\Image.h" />
+    <ClInclude Include="include\MapTypes.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />

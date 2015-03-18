@@ -44,6 +44,7 @@
 #include "Pickup.h"
 #include "Menu.h"
 #include "Rendering/Viewports.h"
+#include "MapTypes.h"
 
 using namespace physx;
 using namespace glm;
@@ -92,7 +93,6 @@ private:
 
 	// scene specific functions
 	void initOpenGL(Scene);
-	bool spawnBikes();
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;
@@ -112,6 +112,7 @@ private:
 	World world;
 	float size;
 	float gravity;
+	MapTypes map_type;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 

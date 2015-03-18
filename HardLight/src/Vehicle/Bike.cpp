@@ -23,7 +23,7 @@ mat4 Bike::get_model_matrix()
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
 	//cout << "Bike location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
-	model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
+	//model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
 	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
 	//model_matrix = rotate(model_matrix, rads * (axis.y), vec3(0, 1, 0));

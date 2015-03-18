@@ -8,7 +8,7 @@ HardLight::HardLight()
 	if (config->ParseError() < 0) {
 		fprintf(stderr, "Can't load 'config.ini'\n");
 		exit(EXIT_FAILURE);
-    }
+	}
 	running = true;
 
 	window_width = config->GetInteger("window", "width", 800);
@@ -25,6 +25,19 @@ HardLight::HardLight()
 	speed = (float)config->GetReal("controls", "speed", 1.0);
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
+
+	switch (config->GetInteger("scene", "map", 0))
+	{
+	case 0:
+		map_type = MapTypes::PLANE;
+		break;
+	case 1:
+		map_type = MapTypes::SPHERE;
+		break;
+	default:
+		map_type = MapTypes::SPHERE;
+		break;
+	}
 
 	srand ((unsigned int)time(NULL));
 	//bike->setInAir(true);

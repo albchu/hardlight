@@ -42,8 +42,11 @@ public:
 	PxRigidStatic* create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height);
 	PxRigidStatic* create_pickup(vec3 location, vec3 up, vec3 scaleFactors);
 	PxRigidStatic* create_ground(vec3 scaleFactors);
+	PxRigidStatic* create_ground_sphere(float scale_factor);
+	PxRigidStatic* create_ground_plane();
 
 	static PxQuat PxLookAt(vec3 direction, vec3 up);
+	static PxQuat PxLookAt(PxVec3 direction, PxVec3 up);
 
 private:
 	PxScene* gScene;
@@ -62,5 +65,7 @@ private:
 	PxMaterial* pickup_material;
 	PxConvexMesh* ground_mesh;
 	PxMaterial* ground_material;
+	PxConvexMesh* wall_mesh;
+	PxMaterial* wall_material;
 };
 #endif
