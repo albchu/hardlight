@@ -67,6 +67,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			//	sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//	sfxMix.PlaySoundEffect("sfxIntro");
+			bike_manager->get_player_bikes()[0]->execute_hold_powerup();	// TEMP CODE BLAME ALBERT ITS BAD
 			break;
 		} // end key_down
 		break;
