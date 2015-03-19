@@ -38,7 +38,7 @@ void Controller::execute_steering()
 {
 	Controller controller;
 	(controller.*steeringMethod)(chassis, direction);
-	steeringMethod == NULL;
+	steeringMethod = NULL;
 }
 
 void Controller::execute_motion()

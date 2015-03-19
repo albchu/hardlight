@@ -10,135 +10,121 @@ bool HardLight::BuildScene()
 	//Create the friction table for each combination of tire and surface type.
 	gFrictionPairs = createFrictionPairs(gMaterial);
 
-	//Create a plane to drive on.
-	PxRigidStatic* groundPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0,1,0,0), *gMaterial);
-
-	//Get the plane shape so we can set query and simulation filter data.
-	PxShape* shapes[1];
-	groundPlane->getShapes(shapes, 1);
-
-	//Set the query filter data of the ground plane so that the vehicle raycasts can hit the ground.
-	PxFilterData qryFilterData;
-	qryFilterData.word3 = (PxU32)DRIVABLE_SURFACE;
-	shapes[0]->setQueryFilterData(qryFilterData);
-
-	//Set the simulation filter data of the ground plane so that it collides with the chassis of a vehicle but not the wheels.
-	PxFilterData simFilterData;
-	simFilterData.word0 = COLLISION_FLAG_GROUND;
-	simFilterData.word1 = COLLISION_FLAG_GROUND_AGAINST;
-	shapes[0]->setSimulationFilterData(simFilterData);
-
-	pxAgent->get_scene()->addActor(*groundPlane);
-	Entity* ground = new Entity(groundPlane, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile3.tga"));
-	ground->set_type(FLOOR);
-	world.add_entity(ground);
-
-	//walls
-	qryFilterData.word3 = (PxU32)UNDRIVABLE_SURFACE;
-	simFilterData.word0 = COLLISION_FLAG_OBSTACLE;
-	simFilterData.word1 = COLLISION_FLAG_OBSTACLE_AGAINST;
-	float size = (float)config->GetReal("scene", "size", 1000.0);
-
-	PxRigidStatic* wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(1.0f,0.0f,0.0f,size), *gMaterial);
-	wallPlane->getShapes(shapes, 1);
-	shapes[0]->setQueryFilterData(qryFilterData);
-	shapes[0]->setSimulationFilterData(simFilterData);
-	pxAgent->get_scene()->addActor(*wallPlane);
-	Wall* wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
-	world.add_entity(wall);
-
-	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(-1.0f,0.0f,0.0f,size), *gMaterial);
-	wallPlane->getShapes(shapes, 1);
-	shapes[0]->setQueryFilterData(qryFilterData);
-	shapes[0]->setSimulationFilterData(simFilterData);
-	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
-	world.add_entity(wall);
-
-	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,1.0f,size), *gMaterial);
-	wallPlane->getShapes(shapes, 1);
-	shapes[0]->setQueryFilterData(qryFilterData);
-	shapes[0]->setSimulationFilterData(simFilterData);
-	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
-	world.add_entity(wall);
-
-	wallPlane = PxCreatePlane(*pxAgent->get_physics(), PxPlane(0.0f,0.0f,-1.0f,size), *gMaterial);
-	wallPlane->getShapes(shapes, 1);
-	shapes[0]->setQueryFilterData(qryFilterData);
-	shapes[0]->setSimulationFilterData(simFilterData);
-	pxAgent->get_scene()->addActor(*wallPlane);
-	wall = new Wall(wallPlane, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"));
-	world.add_entity(wall);
-
-	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
-
 	vector<PxVec3> start_locations;
-	float offset = size-10.0f;
-	float height = 5.0f;
-	start_locations.push_back(PxVec3(offset, height, offset));
-	start_locations.push_back(PxVec3(-offset, height, -offset));
-	start_locations.push_back(PxVec3(-offset, height, offset));
-	start_locations.push_back(PxVec3(offset, height, -offset));
-	start_locations.push_back(PxVec3(offset, height, 0.0f));
-	start_locations.push_back(PxVec3(-offset, height, 0.0f));
-	start_locations.push_back(PxVec3(0.0f, height, offset));
-	start_locations.push_back(PxVec3(0.0f, height, -offset));
+	vector<PxVec3> start_facing;
+	vector<PxVec3> start_up;
+	float height = 0.f;
+	vec3 scale_factor(size, size, size);
 
-	for (int i = 0; i < config->GetInteger("game", "numPlayers", 1); i++)
+	if (map_type == MapTypes::SPHERE)
 	{
-		Chassis* new_chassis = new Chassis();
-		if (i < start_locations.size())
-		{
-			if(!vehicleCreator.Create(new_chassis, start_locations[i]))
-				return false;
-		}
-		else
-		{
-			if(!vehicleCreator.Create(new_chassis, PxVec3(50.0f, 5.0f, (i%2) ? (10.0f*i) : (-10.0f*i))))
-				return false;
-		}
+		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("sphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(ground);
 
-		new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
+		height = size+30.0f;
+		start_locations.push_back(PxVec3(0.0f, height, 0.0f));
+		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
+		start_locations.push_back(PxVec3(0.0f, -height, 0.0f));
+		start_facing.push_back(PxVec3(-1.f, 0.f, 0.f));
+		start_locations.push_back(PxVec3(height, 0.0f, 0.0f));
+		start_facing.push_back(PxVec3(0.f, -1.f, 0.f));
+		start_locations.push_back(PxVec3(-height, 0.0f, 0.0f));
+		start_facing.push_back(PxVec3(0.f, 1.f, 0.f));
+		start_locations.push_back(PxVec3(0.0f, 0.0f, height));
+		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
+		start_locations.push_back(PxVec3(0.0f, 0.0f, -height));
+		start_facing.push_back(PxVec3(-1.f, 0.f, 0.f));
+		for (unsigned int i=0; i<start_locations.size(); i++)
+			start_up.push_back(start_locations[i].getNormalized());
+	}
+	else if (map_type == MapTypes::PLANE)
+	{
+		PxRigidStatic* actor = pxAgent->create_ground_plane();
+		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(ground);
 
+		//walls
+		PxRigidStatic* wall_actor = pxAgent->create_wall_plane(PxPlane(1.f,0.f,0.f,size));
+		Wall* wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
 
-		// Add a menu to scene CURRENTLY BAD. BLAME ALBERT
-		menu = new Menu(pxAgent->get_physics()->createRigidStatic(PxTransform(0.0f, 0.0f, 0.0f)), new_chassis);
-		world.add_entity(menu);
+		wall_actor = pxAgent->create_wall_plane(PxPlane(-1.f,0.f,0.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
+		
+		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,1.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
 
-		Camera* aCamera = new Camera(config, new_chassis->get_actor());
-		viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
+		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,-1.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
 
-		if (controllers.size() > 0)
-			bike_manager->add_player_bike(new_chassis, controllers[i]);
-		else
-			bike_manager->add_player_bike(new_chassis, NULL);
+		float offset = size-10.0f;
+		height = 5.0f;
+		start_locations.push_back(PxVec3(offset, height, offset));
+		start_facing.push_back(PxVec3(-1.f, 0.f, -1.f));
+		start_locations.push_back(PxVec3(-offset, height, -offset));
+		start_facing.push_back(PxVec3(1.f, 0.f, 1.f));
+		start_locations.push_back(PxVec3(offset, height, -offset));
+		start_facing.push_back(PxVec3(-1.f, 0.f, 1.f));
+		start_locations.push_back(PxVec3(-offset, height, offset));
+		start_facing.push_back(PxVec3(1.f, 0.f, -1.f));
+		start_locations.push_back(PxVec3(offset, height, 0.f));
+		start_facing.push_back(PxVec3(-1.f, 0.f, 0.f));
+		start_locations.push_back(PxVec3(-offset, height, 0.f));
+		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
+		start_locations.push_back(PxVec3(0.f, height, offset));
+		start_facing.push_back(PxVec3(0.f, 0.f, -1.f));
+		start_locations.push_back(PxVec3(0.f, height, -offset));
+		start_facing.push_back(PxVec3(0.f, 0.f, 1.f));
+		for (unsigned int i=0; i<start_locations.size(); i++)
+			start_up.push_back(PxVec3(0.f, 1.f, 0.f));
 	}
 
+	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
+	unsigned int start = 0;
 
-	for (int i=0; i < config->GetInteger("game", "numBots", 0); i++)
+	for (unsigned int i = 0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
 	{
-		Chassis* new_chassis = new Chassis();
-		int position = bike_manager->get_player_bikes().size() + i;
-
-		if (position < start_locations.size())
+		if (start < start_locations.size())
 		{
-			if(!vehicleCreator.Create(new_chassis, start_locations[position]))
+			Chassis* new_chassis = new Chassis();
+			if(!vehicleCreator.Create(new_chassis, start_locations[start], start_facing[start], start_up[start]))
 				return false;
+			start++;
+			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
+
+			Camera* aCamera = new Camera(config, new_chassis->get_actor());
+			viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
+
+			if (controllers.size() > i)
+				bike_manager->add_player_bike(new_chassis, controllers[i]);
+			else
+				bike_manager->add_player_bike(new_chassis, NULL);
 		}
-		else
+	}
+
+	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numBots", 0); i++)
+	{
+		if (start < start_locations.size())
 		{
-			if(!vehicleCreator.Create(new_chassis, PxVec3((i%2) ? (10.0f*i) : (-10.0f*i), 5.0f, 50.0f)))
+			Chassis* new_chassis = new Chassis();
+
+			if(!vehicleCreator.Create(new_chassis, start_locations[start], start_facing[start], start_up[start]))
 				return false;
+			start++;
+			bike_manager->add_bot_bike(new_chassis);
 		}
-
-		//PxTransform somepose = new_chassis->get_actor()->getGlobalPose();
-		bike_manager->add_bot_bike(new_chassis);
-
 	}
 
 	//pickup = new Pickup(config, pxAgent, size);
 	//world.add_entity(pickup);
+	start_locations.clear();
+	start_facing.clear();
+	start_up.clear();
+
 
 	sfxMix.PlayMusic("musicOverworld");
 

@@ -26,8 +26,8 @@ public:
 		int  y;
 
 		// Specify the width and height of the viewport.
-		float  width;
-		float  height;
+		int  width;
+		int  height;
 
 		// An ID to distinguish which camera it is for
 		PlayerID id;
@@ -35,7 +35,7 @@ public:
 		// The camera for the particular viewport
 		Camera* camera;
 	};
-	static vector<Viewport> generate_viewports(int numViews, float width, float height);
+	static vector<Viewport> generate_viewports(int numViews, int width, int height);
 };
 
 #endif

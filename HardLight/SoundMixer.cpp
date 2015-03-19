@@ -39,6 +39,9 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxItemPickupFile = pathToAudioDir + config->Get("sound", "sfxItemPickupFile", errorSound);
 	sfxItemUsedFile = pathToAudioDir + config->Get("sound", "sfxItemUsedFile", errorSound);
 
+	//Set random sound effect to be the error sound initially
+	randomSoundEffectFile = pathToAudioDir + errorSound;
+
 	//Initialize SDL mixer
 	if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) 
 	{ 
@@ -95,6 +98,14 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 		return false;
 	}
 
+	randomSoundEffect = Mix_LoadWAV( sfxItemUsedFile.c_str() );
+	if( randomSoundEffect == NULL)
+	{
+		std::cout << "Failed to load sound effect: " << randomSoundEffectFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		return false;
+	}
+
+
 	// Add pointers to file list
 	musicFilesList["musicOverworld"] = musicOverworld;
 	musicFilesList["musicMenu"] = musicMenu;
@@ -136,7 +147,7 @@ void SoundMixer::CloseMixer()
 int SoundMixer::PlayMusic(std::string key)
 {
 	int errorCode = -1;
-	
+
 	Mix_VolumeMusic(musicVolume);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
@@ -166,7 +177,7 @@ int SoundMixer::PlayMusic(std::string key)
 int SoundMixer::PlayMusic(std::string key, int volume)
 {
 	int errorCode = -1;
-	
+
 	Mix_VolumeMusic(volume);
 	//If there is no music playing 
 	if( Mix_PlayingMusic() == 0 )
@@ -247,4 +258,58 @@ int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepe
 
 	// Return the channel the sound was played on
 	return previousChannelIndex;
+}
+
+bool SoundMixer::ClipFrom(std::string directory)
+{
+	char searchPath[200];
+	wchar_t* wbuff;
+	char* cbuff;
+	std::string path;
+	std::vector<std::string> allDirectoryFiles;
+
+	sprintf_s(searchPath, "%s*.obj", directory);
+	WIN32_FIND_DATA fd;
+
+	int size = MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, NULL, 0);
+	wbuff = new wchar_t[size];
+	MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, wbuff, size);
+
+	// Parse all the files in the directory specified by the function argument
+	HANDLE handle = ::FindFirstFile(wbuff, &fd);
+	std::cout << "Choosing sound effect file from the current folder: " << std::endl;
+	if(handle != INVALID_HANDLE_VALUE) { 
+		do { 
+
+			if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
+
+				size = WideCharToMultiByte(CP_UTF8, 0, fd.cFileName, -1, NULL, 0,  NULL, NULL);
+				cbuff = new char[size];
+				WideCharToMultiByte(CP_UTF8, 0, fd.cFileName, -1, &cbuff[0], size, NULL, NULL);
+
+
+				std::string dirString = std::string(directory);
+				std::string filename = std::string(cbuff);
+
+				// Push back the relative path to the filename to the vector
+				allDirectoryFiles.push_back(dirString + filename);
+				std::cout << filename << std::endl;
+			}
+		}while(::FindNextFile(handle, &fd));
+		::FindClose(handle); 
+	}
+	
+	// Choose file from vector of files
+	path = allDirectoryFiles[rand() % allDirectoryFiles.size()];
+
+	// Load selected file as a SDL_mixer object
+	randomSoundEffect = Mix_LoadWAV( path.c_str() );
+	if( randomSoundEffect == NULL)
+	{
+		std::cout << "Failed to load sound effect: " << path << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		return false;
+	}
+	std::cout << "The selected sound effect is" << path << std::endl;
+
+	return true;
 }
