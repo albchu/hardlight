@@ -5,9 +5,10 @@
 
 #include "Entity.h"
 
-//Powerups
+////Powerups
 #include "Hold.h"
-#include "Instant.h"
+//#include "Instant.h"
+#include "Powerup.h"
 
 //#include "TailWall.h"
 //#include "Chassis.h"
@@ -44,9 +45,9 @@ public:
 	TailWall* get_tail();
 	Controller* get_controller();
 
-	//typedef void (Hold::*HoldCallback)(Bike* bike);
-	//void set_hold_powerup(HoldCallback powerup);
-	//void execute_hold_powerup();
+	typedef void (Hold::*HoldCallback)(Bike* bike);
+	void set_hold_powerup(HoldCallback powerup);
+	void execute_hold_powerup();
 
 private:
 	Controller* controller;

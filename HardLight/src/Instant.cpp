@@ -2,14 +2,14 @@
 
 Instant::Instant()
 {
-	bike = NULL;
-	bike_manager = NULL;
-	config = NULL;
+	//bike = NULL;
+	//bike_manager = NULL;
+	//config = NULL;
 	//powType = PowerupTypes_SIZE;
 	type = INSTANT;
 }
 
-void Instant::extendTail(Bike* bike, INIReader* config)
+void Instant::extendTail(Chassis* chassis, TailWall* tailwall, INIReader* config)
 {
 	//vector<TailWall*> tmpTailWall = bike_manager->get_all_tails();
 	//for(unsigned int i = 0; i < tmpTailWall.size(); i++)
@@ -20,7 +20,7 @@ void Instant::extendTail(Bike* bike, INIReader* config)
 	//		break;
 	//	}	
 	//}
-	bike->get_tail()->extend_max_length();
+	tailwall->extend_max_length();
 	//bike = NULL;
 	return;
 }
