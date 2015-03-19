@@ -6,8 +6,8 @@
 #include "Entity.h"
 
 //Powerups
-//#include "Hold.h"
-//#include "Instant.h"
+#include "Hold.h"
+#include "Instant.h"
 
 //#include "TailWall.h"
 //#include "Chassis.h"
