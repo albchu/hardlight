@@ -94,7 +94,8 @@ void HardLight::OnLoop()
 		bike->getVehicle4W()->getRigidDynamicActor()->clearForce();
 		bike->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
 		vec3 forward = bike->get_direction_vector();
-		PxVec3 slow = PxVec3(forward.x, forward.y, forward.z) * -20.f;
+		PxVec3 slow = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity() * -dampening;
+		//cout << bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity().magnitude() << endl;
 		bike->getVehicle4W()->getRigidDynamicActor()->addForce(slow, PxForceMode::eACCELERATION);
 
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];

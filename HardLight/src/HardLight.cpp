@@ -15,6 +15,7 @@ HardLight::HardLight()
 	window_height = config->GetInteger("window", "height", 600);
 	size = (float)config->GetReal("scene", "size", 300.0);
 	gravity = (float)config->GetReal("scene", "gravity", 9.81);
+	dampening = (float)config->GetReal("bike", "dampening", 0.0);
 	window = NULL;
 	glcontext = NULL;
 

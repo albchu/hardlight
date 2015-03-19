@@ -44,6 +44,7 @@ public:
 	PxRigidStatic* create_ground(vec3 scaleFactors);
 	PxRigidStatic* create_ground_sphere(float scale_factor);
 	PxRigidStatic* create_ground_plane();
+	PxRigidStatic* create_wall_plane(PxPlane plane);
 
 	static PxQuat PxLookAt(vec3 direction, vec3 up);
 	static PxQuat PxLookAt(PxVec3 direction, PxVec3 up);

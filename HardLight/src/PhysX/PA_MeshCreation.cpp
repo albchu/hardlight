@@ -283,6 +283,32 @@ PxRigidStatic* PhysxAgent::create_ground_plane()
 	return actor;
 }
 
+PxRigidStatic* PhysxAgent::create_wall_plane(PxPlane plane)
+{
+	if (wall_mesh == NULL)
+	{
+		MeshData* wall_data = MeshMap::Instance()->getEntityMesh("arenaWall.obj");
+		wall_mesh = create_convex_mesh(*wall_data->getVertices());
+		wall_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::WALL;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxRigidStatic* actor = PxCreatePlane(*gPhysics, plane, *wall_material);
+	PxShape* shapes[1];
+	actor->getShapes(shapes, 1);
+	PxShape* shape = shapes[0];
+
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	gScene->addActor(*actor);
+	return actor;
+}
+
 PxRigidActor* PhysxAgent::create_static_convex_mesh(MeshData* mesh_data, PxTransform transform, EntityTypes type)
 {
 	PxFilterData simFilterData;

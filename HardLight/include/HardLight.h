@@ -112,6 +112,7 @@ private:
 	World world;
 	float size;
 	float gravity;
+	float dampening;
 	MapTypes map_type;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;

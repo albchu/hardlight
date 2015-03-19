@@ -9,8 +9,13 @@ PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimul
 {
 	config = new_config;
 	tail_mesh = NULL;
+	tail_material = NULL;
 	pickup_mesh = NULL;
+	pickup_material = NULL;
 	ground_mesh = NULL;
+	ground_material = NULL;
+	wall_mesh = NULL;
+	wall_material = NULL;
 
 	// Initialize foundation
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);

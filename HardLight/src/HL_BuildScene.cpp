@@ -43,9 +43,26 @@ bool HardLight::BuildScene()
 	}
 	else if (map_type == MapTypes::PLANE)
 	{
-		PxRigidStatic* ground_actor = pxAgent->create_ground_plane();
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		PxRigidStatic* actor = pxAgent->create_ground_plane();
+		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
+
+		//walls
+		PxRigidStatic* wall_actor = pxAgent->create_wall_plane(PxPlane(1.f,0.f,0.f,size));
+		Wall* wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
+
+		wall_actor = pxAgent->create_wall_plane(PxPlane(-1.f,0.f,0.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
+		
+		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,1.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
+
+		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,-1.f,size));
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		world.add_entity(wall);
 
 		float offset = size-10.0f;
 		height = 5.0f;
