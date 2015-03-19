@@ -95,12 +95,11 @@ void HardLight::OnLoop()
 		PxVec3 grav = PxVec3(0,1,0) * -gravity;
 		if (map_type == MapTypes::SPHERE)
 			grav = vehicles[0]->getRigidDynamicActor()->getGlobalPose().p.getNormalized() * -gravity;
-		bike->getVehicle4W()->getRigidDynamicActor()->clearForce();
-		bike->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
-		vec3 forward = bike->get_direction_vector();
-		PxVec3 slow = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity() * -dampening;
+		chassis->getVehicle4W()->getRigidDynamicActor()->clearForce();
+		chassis->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
+		PxVec3 slow = chassis->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity() * -dampening;
 		//cout << bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity().magnitude() << endl;
-		bike->getVehicle4W()->getRigidDynamicActor()->addForce(slow, PxForceMode::eACCELERATION);
+		chassis->getVehicle4W()->getRigidDynamicActor()->addForce(slow, PxForceMode::eACCELERATION);
 
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
@@ -117,7 +116,7 @@ void HardLight::OnLoop()
 	{
 		bike->get_tail()->update(pxAgent);
 	}
-
+	/*
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
@@ -142,7 +141,7 @@ void HardLight::OnLoop()
 		//	menu->set_renderable(true);
 		//}
 	}
-
+	*/
 	//Scene update.
 	pxAgent->get_scene()->simulate(timestep);
 	msPhysics = msCurrent;

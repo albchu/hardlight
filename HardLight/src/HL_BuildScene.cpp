@@ -35,7 +35,7 @@ bool HardLight::BuildScene()
 		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
 		start_locations.push_back(PxVec3(0.0f, 0.0f, -height));
 		start_facing.push_back(PxVec3(-1.f, 0.f, 0.f));
-		for (int i=0; i<start_locations.size(); i++)
+		for (unsigned int i=0; i<start_locations.size(); i++)
 			start_up.push_back(start_locations[i]);
 	}
 	else if (map_type == MapTypes::PLANE)
@@ -79,7 +79,7 @@ bool HardLight::BuildScene()
 		start_facing.push_back(PxVec3(0.f, 0.f, -1.f));
 		start_locations.push_back(PxVec3(0.f, height, -offset));
 		start_facing.push_back(PxVec3(0.f, 0.f, 1.f));
-		for (int i=0; i<start_locations.size(); i++)
+		for (unsigned int i=0; i<start_locations.size(); i++)
 			start_up.push_back(PxVec3(0.f, 1.f, 0.f));
 	}
 
@@ -94,7 +94,7 @@ bool HardLight::BuildScene()
 			if(!vehicleCreator.Create(new_chassis, start_locations[start], start_facing[start], start_up[start]))
 				return false;
 			start++;
-			new_chassis->invincible = config->GetBoolean("game", "playerInvincible", false);
+			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
 			Camera* aCamera = new Camera(config, new_chassis->get_actor());
 			viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
