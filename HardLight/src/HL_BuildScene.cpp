@@ -109,7 +109,7 @@ bool HardLight::BuildScene()
 		Camera* aCamera = new Camera(config, new_chassis->get_actor());
 		viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
 
-		if (controllers.size() > 0)
+		if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
 			bike_manager->add_player_bike(new_chassis, controllers[i]);
 		else
 			bike_manager->add_player_bike(new_chassis, NULL);

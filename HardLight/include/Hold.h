@@ -8,7 +8,7 @@ class Hold : public Powerup
 {
 public:
 	Hold();
-	~Hold();
+	//~Hold();
 	
 	// Powerups
 	void jump(Chassis* chassis, TailWall* tailwall, INIReader* config);

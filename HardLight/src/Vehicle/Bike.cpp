@@ -52,3 +52,14 @@ void Bike::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
 	chassis->render(projection_matrix,view_matrix,lightPos);
 	tailwall->render(projection_matrix,view_matrix,lightPos);
 }
+
+void Bike::set_hold_powerup(HoldCallback new_powerup)
+{
+	powerup = new_powerup;
+}
+
+void Bike::execute_hold_powerup()
+{
+	Hold hold;
+	(hold.*powerup)(chassis, tailwall, config);
+}

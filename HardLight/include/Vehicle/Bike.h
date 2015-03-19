@@ -45,8 +45,8 @@ public:
 	TailWall* get_tail();
 	Controller* get_controller();
 
-	typedef void (Hold::*HoldCallback)(Bike* bike);
-	void set_hold_powerup(HoldCallback powerup);
+	typedef void (Hold::*HoldCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
+	void set_hold_powerup(HoldCallback new_powerup);
 	void execute_hold_powerup();
 
 private:
@@ -59,5 +59,6 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
+	HoldCallback powerup;
 };
 #endif
