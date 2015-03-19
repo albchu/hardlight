@@ -76,6 +76,8 @@ static quat RotationBetweenVectors(vec3 start, vec3 dest)
 // http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
 PxQuat PhysxAgent::PxLookAt(vec3 direction, vec3 up)
 {
+	normalize(direction);
+	normalize(up);
 	// Find the rotation between the front of the object (that we assume towards +Z, 
 	// but this depends on your model) and the desired direction 
 	quat rot1 = RotationBetweenVectors(vec3(0.0f, 0.0f, 1.0f), direction);
@@ -91,6 +93,11 @@ PxQuat PhysxAgent::PxLookAt(vec3 direction, vec3 up)
 
 	quat targetOrientation = rot2 * rot1; // remember, in reverse order
 	return PxQuat(targetOrientation.x, targetOrientation.y, targetOrientation.z, targetOrientation.w);
+}
+
+PxQuat PhysxAgent::PxLookAt(PxVec3 direction, PxVec3 up)
+{
+	return PxLookAt(toVec3(direction), toVec3(up));
 }
 
 PxConvexMesh* PhysxAgent::create_convex_mesh(vector<vec3> vertices)
@@ -146,7 +153,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	simFilterData.word0 = type;
 	simFilterData.word1 = collides_with(type);
 	PxFilterData queryFilterData;
-	queryFilterData.word1 = driveable(type);
+	queryFilterData.word3 = driveable(type);
 
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh, scale), *tail_material);
@@ -171,7 +178,7 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 	simFilterData.word0 = type;
 	simFilterData.word1 = collides_with(type);
 	PxFilterData queryFilterData;
-	queryFilterData.word1 = driveable(type);
+	queryFilterData.word3 = driveable(type);
 
 	PxTransform transform(PxVec3(location.x, location.y, location.z));
 	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
@@ -183,6 +190,121 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_ground(vec3 scaleFactors)
+{
+	if (ground_mesh == NULL)
+	{
+		MeshData* ground_data = MeshMap::Instance()->getEntityMesh("sphere.obj");
+		ground_mesh = create_convex_mesh(*ground_data->getVertices());
+		ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::GROUND;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxTransform transform(PxIdentity);
+	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
+
+	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
+	PxShape* shape = actor->createShape(PxConvexMeshGeometry(ground_mesh, scale), *ground_material);
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_ground_sphere(float scale_factor)
+{
+	if (ground_mesh == NULL)
+	{
+		MeshData* ground_data = MeshMap::Instance()->getEntityMesh("sphere.obj");
+		ground_mesh = create_convex_mesh(*ground_data->getVertices());
+		ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::GROUND;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxTransform transform(PxIdentity);
+	
+	PxRigidStatic* actor = PxCreateStatic(*gPhysics, transform, PxSphereGeometry(scale_factor), *ground_material);
+	PxShape* shapes[1];
+	actor->getShapes(shapes, 1);
+	PxShape* shape = shapes[0];
+	/*
+	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
+	PxShape* shape = actor->createShape(PxSphereGeometry(scale_factor), *ground_material);
+	*/
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_ground_plane()
+{
+	if (ground_mesh == NULL)
+	{
+		MeshData* ground_data = MeshMap::Instance()->getEntityMesh("sphere.obj");
+		ground_mesh = create_convex_mesh(*ground_data->getVertices());
+		ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::GROUND;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxTransform transform(PxVec3(PxIdentity), PxQuat(PxPiDivTwo, PxVec3(0,0,1)));
+
+	PxRigidStatic* actor = PxCreateStatic(*gPhysics, transform, PxPlaneGeometry(), *ground_material);
+	PxShape* shapes[1];
+	actor->getShapes(shapes, 1);
+	PxShape* shape = shapes[0];
+
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
+	shape->setLocalPose(PxTransform(PxIdentity));
+	gScene->addActor(*actor);
+	return actor;
+}
+
+PxRigidStatic* PhysxAgent::create_wall_plane(PxPlane plane)
+{
+	if (wall_mesh == NULL)
+	{
+		MeshData* wall_data = MeshMap::Instance()->getEntityMesh("arenaWall.obj");
+		wall_mesh = create_convex_mesh(*wall_data->getVertices());
+		wall_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+	PxFilterData simFilterData;
+	EntityTypes type = EntityTypes::WALL;
+	simFilterData.word0 = type;
+	simFilterData.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+
+	PxRigidStatic* actor = PxCreatePlane(*gPhysics, plane, *wall_material);
+	PxShape* shapes[1];
+	actor->getShapes(shapes, 1);
+	PxShape* shape = shapes[0];
+
+	shape->setQueryFilterData(queryFilterData);
+	shape->setSimulationFilterData(simFilterData);
 	gScene->addActor(*actor);
 	return actor;
 }

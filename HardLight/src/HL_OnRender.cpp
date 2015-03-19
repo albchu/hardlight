@@ -22,8 +22,10 @@ void HardLight::OnRender()
 	skybox->set_actor(pxAgent->get_physics()->createRigidStatic(newPos));
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
 
+	vec3 up = PhysxAgent::toVec3(newPos.q.rotate(PxVec3(0.f,1.f,0.f)));
+	vec3 light(vec3(newPos.p.x, newPos.p.y, newPos.p.z) + (up*700.f));
+	
 	for(Viewports::Viewport viewport: viewports)
 	{
 		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices

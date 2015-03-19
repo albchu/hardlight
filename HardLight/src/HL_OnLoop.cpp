@@ -91,7 +91,17 @@ void HardLight::OnLoop()
 		PxVehicleSuspensionRaycasts(chassis->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
 		//Vehicle update.
-		const PxVec3 grav = pxAgent->get_scene()->getGravity();
+		//const PxVec3 grav = pxAgent->get_scene()->getGravity();
+		PxVec3 grav = PxVec3(0,1,0) * -gravity;
+		if (map_type == MapTypes::SPHERE)
+			grav = vehicles[0]->getRigidDynamicActor()->getGlobalPose().p.getNormalized() * -gravity;
+		bike->getVehicle4W()->getRigidDynamicActor()->clearForce();
+		bike->getVehicle4W()->getRigidDynamicActor()->addForce(grav, PxForceMode::eACCELERATION);
+		vec3 forward = bike->get_direction_vector();
+		PxVec3 slow = bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity() * -dampening;
+		//cout << bike->getVehicle4W()->getRigidDynamicActor()->getLinearVelocity().magnitude() << endl;
+		bike->getVehicle4W()->getRigidDynamicActor()->addForce(slow, PxForceMode::eACCELERATION);
+
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);

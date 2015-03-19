@@ -298,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="include\Instant.h" />
     <ClInclude Include="include\Hold.h" />
+    <ClInclude Include="include\MapTypes.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">

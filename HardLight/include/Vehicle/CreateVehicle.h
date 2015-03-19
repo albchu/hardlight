@@ -20,7 +20,7 @@ class CreateVehicle
 
 public:
 	CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent);
-	bool Create(Chassis* &bike, PxVec3 init_position);
+	bool Create(Bike* &bike, PxVec3 init_position, PxVec3 init_facing, PxVec3 init_up);
 
 private:
 	INIReader* config;

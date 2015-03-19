@@ -50,7 +50,7 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool CreateVehicle::Create(Chassis* &bike, PxVec3 init_position)
+bool CreateVehicle::Create(Chassis* &bike, PxVec3 init_position, PxVec3 init_facing, PxVec3 init_up)
 {
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 	//Create the batched scene queries for the suspension raycasts.
@@ -60,15 +60,13 @@ bool CreateVehicle::Create(Chassis* &bike, PxVec3 init_position)
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
 	bike->setVehicle4W(createVehicle4W(vehicleDesc, pxAgent->get_physics(), pxAgent->get_cooking(), config));
-	PxTransform startTransform(init_position, PhysxAgent::PxLookAt(normalize(vec3(-init_position.x, -init_position.y, -init_position.z)), vec3(0.0f,1.0f,0.0f)));
+	PxTransform startTransform(init_position, PhysxAgent::PxLookAt(init_facing, init_up));
 	bike->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
 	pxAgent->get_scene()->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
 
 	//bike = new Chassis(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
 	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
 	bike->init_opengl();
-
-	
 
 	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();
 
