@@ -18,22 +18,21 @@ class Camera //: public Entity
 private:
 	mat4 projection_matrix;
 	mat4 view_matrix;
-	INIReader* config;
 	vec3 cam_translate;
 	float cam_rotate;
-	vec3 camera_position;
-	vec3 target_position;
-	vec3 global_up;
+	vec3 cam_postion;
 	PxRigidActor* focalTarget;
+	float light_height;
 
 public:
-	Camera(INIReader* init_config, PxRigidActor* init_focalTarget);
+	Camera(INIReader* config, PxRigidActor* init_focalTarget);
 	void update_translationZ(float translation);
 	void update_rotation(float rads);
 	void update(float translationZ, float rotationRads);
 
 	mat4 get_view_matrix();
 	mat4 get_projection_matrix();
+	vec3 get_light();
 };
 
 #endif

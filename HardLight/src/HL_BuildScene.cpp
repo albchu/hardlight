@@ -22,7 +22,7 @@ bool HardLight::BuildScene()
 		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("sphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
 
-		height = size+5.0f;
+		height = size+30.0f;
 		start_locations.push_back(PxVec3(0.0f, height, 0.0f));
 		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
 		start_locations.push_back(PxVec3(0.0f, -height, 0.0f));
@@ -36,7 +36,7 @@ bool HardLight::BuildScene()
 		start_locations.push_back(PxVec3(0.0f, 0.0f, -height));
 		start_facing.push_back(PxVec3(-1.f, 0.f, 0.f));
 		for (unsigned int i=0; i<start_locations.size(); i++)
-			start_up.push_back(start_locations[i]);
+			start_up.push_back(start_locations[i].getNormalized());
 	}
 	else if (map_type == MapTypes::PLANE)
 	{
@@ -99,7 +99,7 @@ bool HardLight::BuildScene()
 			Camera* aCamera = new Camera(config, new_chassis->get_actor());
 			viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
 
-			if (controllers.size() > 0)
+			if (controllers.size() > i)
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
 				bike_manager->add_player_bike(new_chassis, NULL);
@@ -118,6 +118,10 @@ bool HardLight::BuildScene()
 			bike_manager->add_bot_bike(new_chassis);
 		}
 	}
+
+	start_locations.clear();
+	start_facing.clear();
+	start_up.clear();
 
 	pickup = new Pickup(config, pxAgent, size);
 	world.add_entity(pickup);

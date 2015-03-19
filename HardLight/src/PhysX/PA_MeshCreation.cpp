@@ -76,8 +76,8 @@ static quat RotationBetweenVectors(vec3 start, vec3 dest)
 // http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
 PxQuat PhysxAgent::PxLookAt(vec3 direction, vec3 up)
 {
-	normalize(direction);
-	normalize(up);
+	direction = normalize(direction);
+	up = normalize(up);
 	// Find the rotation between the front of the object (that we assume towards +Z, 
 	// but this depends on your model) and the desired direction 
 	quat rot1 = RotationBetweenVectors(vec3(0.0f, 0.0f, 1.0f), direction);
