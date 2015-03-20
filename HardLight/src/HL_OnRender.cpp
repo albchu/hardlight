@@ -24,6 +24,33 @@ void HardLight::OnRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	vec3 light(newPos.p.x + 00.0f, newPos.p.y + 1000.0f, newPos.p.z + 00.0f);
 
+	int numParticles = pxAgent->get_scene()->getNbActors(PxActorTypeSelectionFlag::ePARTICLE_SYSTEM);
+	vector<PxParticleSystem*> particleActors(numParticles+1);
+	pxAgent->get_scene()->getActors(PxActorTypeSelectionFlag::ePARTICLE_SYSTEM, (PxActor**)&particleActors[0], numParticles);
+
+	for(PxParticleSystem* ps : particleActors) {
+		if(!ps)
+			continue;
+		PxParticleReadData* readParticle = ps->lockParticleReadData();
+		if(readParticle) {
+			PxStrideIterator<const PxParticleFlags> flagIt(readParticle->flagsBuffer);
+			PxStrideIterator<const PxVec3> positionIt(readParticle->positionBuffer);
+			for(unsigned int j = 0 ; j < readParticle->validParticleRange ; ++j, ++flagIt , ++positionIt)
+			{
+				if(*flagIt & PxParticleFlag::eVALID)
+				{
+					const PxVec3& pos = *positionIt;
+					glPointSize(10.0f);
+					glColor4f(1.0f, 0.6f, 0.8f, 1.0f);
+					glBegin(GL_POINTS);
+					glVertex3f(pos.x, pos.y, pos.z);
+					glEnd();
+				}
+			}
+		}
+		readParticle->unlock();//must unlock!
+	}
+
 	for(Viewports::Viewport viewport: viewports)
 	{
 		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices

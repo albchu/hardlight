@@ -96,6 +96,10 @@ private:
 	void initOpenGL(Scene);
 	bool spawnBikes();
 
+	int maxParticles;
+	PxParticleSystem* particleSystem;
+	PxParticleCreationData particleData;
+
 	Uint32 msGraphics;
 	Uint32 msPhysics;
 	Uint32 msMax;
