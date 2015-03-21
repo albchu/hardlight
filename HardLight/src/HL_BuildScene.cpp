@@ -86,7 +86,7 @@ bool HardLight::BuildScene()
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 	unsigned int start = 0;
 
-	for (unsigned int i = 0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
+	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
 	{
 		if (start < start_locations.size())
 		{
@@ -125,8 +125,6 @@ bool HardLight::BuildScene()
 
 	pickup = new Pickup(config, pxAgent, size);
 	world.add_entity(pickup);
-
-	sfxMix.PlayMusic("musicOverworld");
 
 	// Init Powerup object for testing powerup functionality temporarily
 	powerup->setBike(bike_manager->get_player_bikes()[0]);

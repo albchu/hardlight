@@ -23,7 +23,6 @@ class Chassis : public Entity
 
 public:
 	Chassis();
-	~Chassis();
 	virtual mat4 get_model_matrix();
 
 	PxVehicleDrive4W* getVehicle4W();

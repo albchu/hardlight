@@ -15,6 +15,17 @@ Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget)
 	focalTarget = init_focalTarget;		// This is what the camera will be tracking
 
 	light_height = (float)config->GetReal("camera", "light_height", 700.0);
+
+	up = normalize(PhysxAgent::toVec3(focalTarget->getGlobalPose().q.rotate(PxVec3(0,1,0))));
+	forward = normalize(PhysxAgent::toVec3(focalTarget->getGlobalPose().q.rotate(PxVec3(0,0,1))));
+	target = PhysxAgent::toVec3(focalTarget->getGlobalPose().p);
+
+	forward_percent = (float)config->GetReal("camera", "forward_percent", 1.0);
+	up_percent = (float)config->GetReal("camera", "up_percent", 1.0);
+	if (forward_percent > 1.f) forward_percent = 1.f;
+	if (forward_percent < 0.f) forward_percent = 0.f;
+	if (up_percent > 1.f) up_percent = 1.f;
+	if (up_percent < 0.f) up_percent = 0.f;
 }
 
 // Moves the camera forward and back
@@ -38,24 +49,33 @@ void Camera::update(float translationZ, float rotationRads)
 	update_translationZ(translationZ);
 	update_rotation(rotationRads);
 
-	// Set up the camera's position
-	vec3 camera_position = cam_translate;	// Set the initial camera position 
-	camera_position = rotateY(camera_position, cam_rotate); // If there was any rotation, we need to take that into account for position as well
+	vec3 new_target = PhysxAgent::toVec3(focalTarget->getGlobalPose().p);
+	if ((new_target - target).length() > 1.f)
+	{
+		target = new_target;
 
-	// This will rotate the camera so that it is always rotating relative to the focal target
-	PxTransform target_pose = focalTarget->getGlobalPose();
-	PxReal rads;
-	PxVec3 axis;
-	target_pose.q.toRadiansAndUnitAxis(rads, axis);
-	camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
+		PxQuat new_orientation = focalTarget->getGlobalPose().q;
+		up = normalize(up)*(1.f-up_percent) + normalize(PhysxAgent::toVec3(new_orientation.rotate(PxVec3(0,1,0)))) * up_percent;
+		forward = normalize(forward)*(1.f-forward_percent) + normalize(PhysxAgent::toVec3(new_orientation.rotate(PxVec3(0,0,1)))) * forward_percent;
 
-	vec3 target_position = PhysxAgent::toVec3(target_pose.p);
-	camera_position += target_position;
+		// Set up the camera's position
+		vec3 camera_position = cam_translate;	// Set the initial camera position 
+		camera_position = rotateY(camera_position, cam_rotate); // If there was any rotation, we need to take that into account for position as well
 
-	vec3 up = normalize( PhysxAgent::toVec3(target_pose.q.rotate(PxVec3(0,1,0))));
-	//if (cam_translate.z > 0.0f) global_up *= -1.0f;	// If the camera goes too close to the target, flip it 
+		// This will rotate the camera so that it is always rotating relative to the focal target
+		PxQuat orientation = PhysxAgent::PxLookAt(forward, up);
+		PxReal rads;
+		PxVec3 axis;
+		orientation.toRadiansAndUnitAxis(rads, axis);
+		camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
 
-	view_matrix = lookAt(camera_position, target_position + up*5.f, up);
+		camera_position += target;
+
+		up = normalize(PhysxAgent::toVec3(orientation.rotate(PxVec3(0,1,0))));
+		forward = normalize(PhysxAgent::toVec3(orientation.rotate(PxVec3(0,0,1))));
+
+		view_matrix = lookAt(camera_position, target + up*3.f, up);
+	}
 }
 
 mat4 Camera::get_view_matrix()
@@ -70,8 +90,5 @@ mat4 Camera::get_projection_matrix()
 
 vec3 Camera::get_light()
 {
-	PxTransform target_pose = focalTarget->getGlobalPose();
-	vec3 over = PhysxAgent::toVec3(target_pose.p);
-	vec3 up = PhysxAgent::toVec3(target_pose.q.rotate(PxVec3(0,1,0)));
-	return over + (normalize(up) * light_height);
+	return target + (normalize(up) * light_height);
 }
