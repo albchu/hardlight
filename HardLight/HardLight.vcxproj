@@ -125,6 +125,7 @@
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp" />
     <ClCompile Include="src\Pickup.cpp" />
     <ClCompile Include="src\Powerup.cpp" />
+    <ClCompile Include="src\PowerupItem.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
     <ClCompile Include="src\Rendering\Viewports.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\Pickup.h" />
     <ClInclude Include="include\Powerup.h" />
+    <ClInclude Include="include\PowerupItem.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\Rendering\Viewports.h" />

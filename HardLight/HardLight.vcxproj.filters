@@ -158,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="src\Instant.cpp" />
     <ClCompile Include="src\Hold.cpp" />
+    <ClCompile Include="src\PowerupItem.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="include\Instant.h" />
     <ClInclude Include="include\Hold.h" />
+    <ClInclude Include="include\PowerupItem.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="HardLight">
