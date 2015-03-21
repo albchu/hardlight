@@ -20,10 +20,11 @@ private:
 	mat4 view_matrix;
 	vec3 cam_translate;
 	float cam_rotate;
-	vec3 target;
-	vec3 forward;
-	vec3 up;
+	PxTransform target;
+	PxVec3 forward;
+	PxVec3 up;
 	PxRigidActor* focalTarget;
+	float look_above;
 	float light_height;
 	float up_percent;
 	float forward_percent;

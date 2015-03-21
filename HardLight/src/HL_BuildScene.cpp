@@ -22,7 +22,7 @@ bool HardLight::BuildScene()
 		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("sphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
 
-		height = size+30.0f;
+		height = size+5.0f;
 		start_locations.push_back(PxVec3(0.0f, height, 0.0f));
 		start_facing.push_back(PxVec3(1.f, 0.f, 0.f));
 		start_locations.push_back(PxVec3(0.0f, -height, 0.0f));
@@ -52,7 +52,7 @@ bool HardLight::BuildScene()
 		wall_actor = pxAgent->create_wall_plane(PxPlane(-1.f,0.f,0.f,size));
 		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(wall);
-		
+
 		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,1.f,size));
 		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(wall);
@@ -84,38 +84,61 @@ bool HardLight::BuildScene()
 	}
 
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
-	unsigned int start = 0;
+	unsigned int count = 0;
 
 	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
 	{
-		if (start < start_locations.size())
+		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
-			if(!vehicleCreator.Create(new_chassis, start_locations[start], start_facing[start], start_up[start]))
+			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
-			start++;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
-
-			Camera* aCamera = new Camera(config, new_chassis->get_actor());
-			viewports[i].camera = aCamera;	// We will only have numPlayers number of viewports so it stands that we should only initialize the same amount of cameras
 
 			if (controllers.size() > i)
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
 				bike_manager->add_player_bike(new_chassis, NULL);
+
+			if (count < viewports.size())
+			{
+				Camera* aCamera = new Camera(config, new_chassis->get_actor());
+				viewports[count].camera = aCamera;
+			}
+
+			count++;
 		}
 	}
 
 	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numBots", 0); i++)
 	{
-		if (start < start_locations.size())
+		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
 
-			if(!vehicleCreator.Create(new_chassis, start_locations[start], start_facing[start], start_up[start]))
+			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
-			start++;
+
 			bike_manager->add_bot_bike(new_chassis);
+
+			if (count < viewports.size())
+			{
+				Camera* aCamera = new Camera(config, new_chassis->get_actor());
+				viewports[count].camera = aCamera;
+			}
+
+			count++;
+		}
+	}
+
+	if (count < viewports.size())
+	{
+		vector <Bike*> bikes = bike_manager->get_all_bikes();
+
+		for (;count < viewports.size(); count++)
+		{
+			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor());
+			viewports[count].camera = aCamera;
 		}
 	}
 
