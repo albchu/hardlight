@@ -108,9 +108,6 @@
     <ClCompile Include="src\GUI.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Powerup.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
@@ -156,16 +153,20 @@
     <ClCompile Include="src\KeyMappings.cpp">
       <Filter>World</Filter>
     </ClCompile>
-    <ClCompile Include="src\Instant.cpp" />
-    <ClCompile Include="src\Hold.cpp" />
-    <ClCompile Include="src\PowerupManager.cpp">
-      <Filter>World</Filter>
+    <ClCompile Include="src\Hold.cpp">
+      <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\PowerupHoldItem.cpp">
-      <Filter>World</Filter>
+    <ClCompile Include="src\Instant.cpp">
+      <Filter>World\Powerup</Filter>
     </ClCompile>
     <ClCompile Include="src\PowerupInstantItem.cpp">
-      <Filter>World</Filter>
+      <Filter>World\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowerupHoldItem.cpp">
+      <Filter>World\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowerupManager.cpp">
+      <Filter>World\Powerup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +255,6 @@
     <ClInclude Include="include\GUI.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="include\Powerup.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="SceneTypes.h">
       <Filter>HardLight</Filter>
     </ClInclude>
@@ -302,16 +300,23 @@
     <ClInclude Include="include\KeyMappings.h">
       <Filter>World</Filter>
     </ClInclude>
-    <ClInclude Include="include\Instant.h" />
-    <ClInclude Include="include\Hold.h" />
-    <ClInclude Include="include\PowerupManager.h">
-      <Filter>World</Filter>
+    <ClInclude Include="include\Hold.h">
+      <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\PowerupHoldItem.h">
-      <Filter>World</Filter>
+    <ClInclude Include="include\Instant.h">
+      <Filter>World\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupManager.h">
+      <Filter>World\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Powerup.h">
+      <Filter>World\Powerup</Filter>
     </ClInclude>
     <ClInclude Include="include\PowerupInstantItem.h">
-      <Filter>World</Filter>
+      <Filter>World\Powerup</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupHoldItem.h">
+      <Filter>World\Powerup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +355,9 @@
     </Filter>
     <Filter Include="PhysXSnippets">
       <UniqueIdentifier>{515289e6-95d2-4976-bd1a-7e206555da2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World\Powerup">
+      <UniqueIdentifier>{e7460a46-4272-4cd6-8e59-80b6518fb9eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

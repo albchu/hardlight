@@ -6,7 +6,7 @@ Instant::Instant()
 	//bike_manager = NULL;
 	//config = NULL;
 	//powType = PowerupTypes_SIZE;
-	type = INSTANT;
+	//type = INSTANT;
 }
 
 void Instant::extendTail(Chassis* chassis, TailWall* tailwall, INIReader* config)

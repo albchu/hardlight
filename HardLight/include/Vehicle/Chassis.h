@@ -24,7 +24,6 @@ class Chassis : public Entity
 public:
 	Chassis();
 	~Chassis();
-	virtual mat4 get_model_matrix();
 
 	PxVehicleDrive4W* getVehicle4W();
 	PxVehicleDrive4WRawInputData& getInputData();
@@ -40,6 +39,8 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
+
+	virtual mat4 get_model_matrix();
 	virtual void set_actor(PxRigidActor*);
 	void adaptiveSteering(int analogStickInput);
 

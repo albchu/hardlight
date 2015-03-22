@@ -124,7 +124,6 @@
     <ClCompile Include="src\PhysX\PA_FilterShader.cpp" />
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp" />
     <ClCompile Include="src\Pickup.cpp" />
-    <ClCompile Include="src\Powerup.cpp" />
     <ClCompile Include="src\PowerupInstantItem.cpp" />
     <ClCompile Include="src\PowerupHoldItem.cpp" />
     <ClCompile Include="src\PowerupManager.cpp" />

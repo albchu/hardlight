@@ -66,7 +66,7 @@ void HardLight::OnLoop()
 	//}
 	if (hit_pickup.size() > 0)
 	{
-		sfxMix.PlaySoundEffect("sfxIntro", closest_sound, 0);
+		sfxMix.PlaySoundEffect("sfxIntro");//, closest_sound, 0);
 		hit_pickup.clear();
 		pickup_hit.clear();
 		//pickup->respawn();

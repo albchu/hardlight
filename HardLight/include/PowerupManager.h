@@ -8,6 +8,8 @@
 #include "Powerup.h"
 #include "Hold.h"
 #include "Instant.h"
+#include "PowerupHoldItem.h"
+#include "World.h"
 
 using namespace std;
 
@@ -16,14 +18,21 @@ class PowerupManager
 {
 public:
 	//typedef void (Powerup::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
-	PowerupManager();
+	PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent);
 	void spawn_random_powerup();
-	void spawn_random_powerup(PxVec3 position);
+	void spawn_random_powerup(vec3 position);
 	~PowerupManager();
 
 private:
 	vector<Powerup<Hold>::PowerCallback> all_hold_powers;
 	vector<Powerup<Instant>::PowerCallback> all_instant_powers;
+	vector<PowerupHoldItem*> holdEntities;
+	PhysxAgent* pxAgent;
+	World* world;
+	float heightOffFloor;
+	vec3 scaleFactors;
+	float arena_size;
+	int maxPickups;
 };
 
 

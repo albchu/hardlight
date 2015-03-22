@@ -12,6 +12,7 @@ public:
 	PowerupInstantItem(Powerup<Instant>::PowerCallback new_power, PxRigidActor* init_actor);
 	~PowerupInstantItem();
 	Powerup<Instant>::PowerCallback get_powerup();
+	virtual mat4 get_model_matrix();
 
 private:
 	Powerup<Instant>::PowerCallback powerup; // The actual powerup attached to this item

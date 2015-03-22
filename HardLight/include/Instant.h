@@ -3,7 +3,7 @@
 
 #include "Powerup.h"
 
-class Instant : public Powerup<Instant>
+class Instant //: public Powerup<Instant>
 {
 public:
 	Instant();

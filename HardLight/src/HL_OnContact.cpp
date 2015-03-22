@@ -39,6 +39,7 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		{
 			hit_pickup.push_back(bike);
 			pickup_hit.push_back(pairs[i].triggerActor);
+			cout << "Hit triggered" << endl;
 		}
 	}
 }

@@ -100,6 +100,9 @@ bool HardLight::OnInit()
 	// Init AI system to govern bots
 	overMind = new AI(bike_manager, sfxMix);
 
+	// Init powerup manager
+	powerup_manager = new PowerupManager(&world, config, pxAgent);
+
 	return true;
 }
 

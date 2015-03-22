@@ -6,7 +6,7 @@ Hold::Hold()
 	//bike_manager = NULL;
 	//config = NULL;
 //	powType = PowerupTypes_SIZE;
-	type = HOLD;
+	//type = HOLD;
 }
 
 void Hold::jump(Chassis* chassis, TailWall* tailwall, INIReader* config)

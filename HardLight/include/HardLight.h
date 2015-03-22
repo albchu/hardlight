@@ -45,6 +45,7 @@
 #include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
+#include "PowerupManager.h"
 
 using namespace physx;
 using namespace glm;
@@ -123,11 +124,8 @@ private:
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
-
-	//Pickup* pickup;
-	//Powerup* powerup;
-
-	//vector<Camera*> cameras;
+	
+	PowerupManager* powerup_manager;
 
 public:
 	HardLight();
