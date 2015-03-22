@@ -6,7 +6,7 @@ HoldEntity::HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* ini
 	type = WALL;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
-	mesh_data = MeshMap::Instance()->getEntityMesh("HardLightBike2.obj");
+	mesh_data = MeshMap::Instance()->getEntityMesh("powerup_random.obj");
 	texture = TextureMap::Instance()->getTexture("../data/Textures/UVTexture.tga");
 	init_opengl();
 	renderable = true;

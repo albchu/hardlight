@@ -9,7 +9,7 @@
 #include "Powerup.h"
 
 #include "../inih\cpp\INIReader.h"
-
+//DEPRECIATED>> NO LONGER BEING USED
 class Pickup : public Entity
 {
 public:

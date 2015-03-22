@@ -37,7 +37,7 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		Bike* bike = bike_manager->get_bike(pairs[i].otherActor);
 		if (bike != NULL)
 		{
-			powerup_manager->apply_powerup(bike, pairs[i].triggerActor);
+			bikePowerupPairs.push_back(tuple<Bike*,PxRigidActor*>(bike, pairs[i].triggerActor));
 		}
 	}
 }

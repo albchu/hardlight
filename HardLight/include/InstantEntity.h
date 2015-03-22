@@ -12,7 +12,8 @@ public:
 	InstantEntity(Powerup<Instant>::PowerCallback new_power, PxRigidActor* init_actor);
 	~InstantEntity();
 	Powerup<Instant>::PowerCallback get_powerup();
-	virtual mat4 get_model_matrix();
+//	virtual mat4 get_model_matrix();
+	void set_powerup(Powerup<Instant>::PowerCallback new_power);
 
 private:
 	Powerup<Instant>::PowerCallback powerup; // The actual powerup attached to this item

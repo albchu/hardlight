@@ -21,12 +21,16 @@ class PowerupManager
 public:
 	//typedef void (Powerup::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
 	PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent);
-	void spawn_random_powerup();
+	
 	void respawn_powerup(HoldEntity* holdEntity);
 	void respawn_powerup(InstantEntity* instantEntity);
 	void spawn_random_powerup(vec3 position);
+	void spawn_random_powerup();
+	void spawn_hold_powerup(vec3 position);
+	void spawn_instant_powerup(vec3 position);
 	void apply_powerup(Bike* bike, PxRigidActor* powerup_actor);
 	~PowerupManager();
+	float random_float(float low, float high);
 
 private:
 	vector<Powerup<Hold>::PowerCallback> all_hold_powers;
