@@ -1,5 +1,5 @@
-#ifndef _BIKE_H
-#define _BIKE_H
+#ifndef _CHASSIS_H
+#define _CHASSIS_H
 
 #include "Entity.h"
 //#include "TailWall.h"

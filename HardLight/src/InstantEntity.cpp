@@ -1,6 +1,6 @@
-#include "PowerupInstantItem.h"
+#include "InstantEntity.h"
 
-PowerupInstantItem::PowerupInstantItem(Powerup<Instant>::PowerCallback new_power, PxRigidActor* init_actor)
+InstantEntity::InstantEntity(Powerup<Instant>::PowerCallback new_power, PxRigidActor* init_actor)
 {
 	powerup = new_power;
 	type = WALL;
@@ -12,17 +12,17 @@ PowerupInstantItem::PowerupInstantItem(Powerup<Instant>::PowerCallback new_power
 	renderable = true;
 }
 
-PowerupInstantItem::~PowerupInstantItem()
+InstantEntity::~InstantEntity()
 {
 	powerup = NULL;
 }
 
-Powerup<Instant>::PowerCallback PowerupInstantItem::get_powerup()
+Powerup<Instant>::PowerCallback InstantEntity::get_powerup()
 {
 	return powerup;
 }
 
-mat4 PowerupInstantItem::get_model_matrix()
+mat4 InstantEntity::get_model_matrix()
 {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();

@@ -1,6 +1,6 @@
-#include "PowerupHoldItem.h"
+#include "HoldEntity.h"
 
-PowerupHoldItem::PowerupHoldItem(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor)
+HoldEntity::HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor)
 {
 	powerup = new_power;
 	type = WALL;
@@ -12,12 +12,12 @@ PowerupHoldItem::PowerupHoldItem(Powerup<Hold>::PowerCallback new_power, PxRigid
 	renderable = true;
 }
 
-PowerupHoldItem::~PowerupHoldItem()
+HoldEntity::~HoldEntity()
 {
 	powerup = NULL;
 }
 
-Powerup<Hold>::PowerCallback PowerupHoldItem::get_powerup()
+Powerup<Hold>::PowerCallback HoldEntity::get_powerup()
 {
 	return powerup;
 }

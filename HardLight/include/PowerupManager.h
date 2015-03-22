@@ -8,7 +8,7 @@
 #include "Powerup.h"
 #include "Hold.h"
 #include "Instant.h"
-#include "PowerupHoldItem.h"
+#include "HoldEntity.h"
 #include "World.h"
 
 using namespace std;
@@ -26,7 +26,7 @@ public:
 private:
 	vector<Powerup<Hold>::PowerCallback> all_hold_powers;
 	vector<Powerup<Instant>::PowerCallback> all_instant_powers;
-	vector<PowerupHoldItem*> holdEntities;
+	vector<HoldEntity*> holdEntities;
 	PhysxAgent* pxAgent;
 	World* world;
 	float heightOffFloor;

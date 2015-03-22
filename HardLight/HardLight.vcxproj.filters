@@ -159,13 +159,13 @@
     <ClCompile Include="src\Instant.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\PowerupInstantItem.cpp">
-      <Filter>World\Powerup</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PowerupHoldItem.cpp">
-      <Filter>World\Powerup</Filter>
-    </ClCompile>
     <ClCompile Include="src\PowerupManager.cpp">
+      <Filter>World\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HoldEntity.cpp">
+      <Filter>World\Powerup</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InstantEntity.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
   </ItemGroup>
@@ -312,10 +312,10 @@
     <ClInclude Include="include\Powerup.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\PowerupInstantItem.h">
+    <ClInclude Include="include\HoldEntity.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\PowerupHoldItem.h">
+    <ClInclude Include="include\InstantEntity.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
   </ItemGroup>

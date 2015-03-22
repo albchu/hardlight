@@ -35,7 +35,7 @@ void PowerupManager::spawn_random_powerup()
 void PowerupManager::spawn_random_powerup(vec3 position)
 {
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
-	PowerupHoldItem* powerup = new PowerupHoldItem(all_hold_powers[0], actor);
+	HoldEntity* powerup = new HoldEntity(all_hold_powers[0], actor);
 	world->add_entity(powerup);
 	holdEntities.push_back(powerup);
 }

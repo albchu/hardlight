@@ -124,8 +124,8 @@
     <ClCompile Include="src\PhysX\PA_FilterShader.cpp" />
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp" />
     <ClCompile Include="src\Pickup.cpp" />
-    <ClCompile Include="src\PowerupInstantItem.cpp" />
-    <ClCompile Include="src\PowerupHoldItem.cpp" />
+    <ClCompile Include="src\InstantEntity.cpp" />
+    <ClCompile Include="src\HoldEntity.cpp" />
     <ClCompile Include="src\PowerupManager.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
@@ -165,8 +165,8 @@
     <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\Pickup.h" />
     <ClInclude Include="include\Powerup.h" />
-    <ClInclude Include="include\PowerupInstantItem.h" />
-    <ClInclude Include="include\PowerupHoldItem.h" />
+    <ClInclude Include="include\InstantEntity.h" />
+    <ClInclude Include="include\HoldEntity.h" />
     <ClInclude Include="include\PowerupManager.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
