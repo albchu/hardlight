@@ -64,13 +64,14 @@ void HardLight::OnLoop()
 	//	for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
 	//		closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
 	//}
-	if (hit_pickup.size() > 0)
-	{
-		sfxMix.PlaySoundEffect("sfxIntro");//, closest_sound, 0);
-		hit_pickup.clear();
-		pickup_hit.clear();
-		//pickup->respawn();
-	}
+	//if (hit_pickup.size() > 0)
+	//{
+	//	for(PxActor
+	//	sfxMix.PlaySoundEffect("sfxIntro");//, closest_sound, 0);
+	//	hit_pickup.clear();
+	//	pickup_hit.clear();
+	//	//pickup->respawn();
+	//}
 
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;

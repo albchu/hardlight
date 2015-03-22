@@ -14,10 +14,21 @@ HoldEntity::HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* ini
 
 HoldEntity::~HoldEntity()
 {
+	cout << "Hold entity deconstructor" <<endl;
 	powerup = NULL;
+	mesh_data = NULL;
+	texture = NULL;
+	renderable = false;
+	actor->release();
+	
 }
 
 Powerup<Hold>::PowerCallback HoldEntity::get_powerup()
 {
 	return powerup;
+}
+
+void HoldEntity::set_powerup(Powerup<Hold>::PowerCallback new_power)
+{
+	powerup = new_power;
 }

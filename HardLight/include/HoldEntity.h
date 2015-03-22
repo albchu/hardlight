@@ -12,6 +12,7 @@ public:
 	HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor);
 	~HoldEntity();
 	Powerup<Hold>::PowerCallback get_powerup();
+	void set_powerup(Powerup<Hold>::PowerCallback new_power);
 
 private:
 	Powerup<Hold>::PowerCallback powerup; // The actual powerup attached to this item

@@ -7,7 +7,7 @@
 
 #include "../inih\cpp\INIReader.h"
 
-enum PowerupUsage
+enum PowerupType
 {
 	INSTANT,
 	HOLD
@@ -35,7 +35,7 @@ public:
 private:
 
 protected:
-	PowerupUsage type;
+	PowerupType type;
 	//Bike* bike;
 	//BikeManager* bike_manager;
 

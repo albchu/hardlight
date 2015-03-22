@@ -35,7 +35,65 @@ void PowerupManager::spawn_random_powerup()
 void PowerupManager::spawn_random_powerup(vec3 position)
 {
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
+	actor->setName("HOLD");
 	HoldEntity* powerup = new HoldEntity(all_hold_powers[0], actor);
 	world->add_entity(powerup);
 	holdEntities.push_back(powerup);
 }
+
+// Applies the selected powerup to a bike
+void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
+{
+	if(powerup_actor->getName() == "HOLD")
+	{
+		cout << "Applying hold powerup" << endl;
+		HoldEntity* holdEntity = getHoldEntity(powerup_actor);
+
+		// If we find a match, we will apply the powerup
+		if(holdEntity != NULL)
+		{
+			respawn_powerup(holdEntity);
+		}
+	}
+	else if(powerup_actor->getName() == "INSTANT")
+	{
+		cout << "Applying instant powerup" << endl;
+
+	}
+}
+
+HoldEntity* PowerupManager::getHoldEntity(PxRigidActor* holdActor)
+{
+	for(HoldEntity* holdEntity : holdEntities)
+	{
+		if(holdActor == holdEntity->get_actor())
+			return holdEntity;
+	}
+	return NULL;
+}
+
+InstantEntity* PowerupManager::getInstantEntity(PxRigidActor* instantActor)
+{
+	for(InstantEntity* instantEntity : instantEntities)
+	{
+		if(instantActor == instantEntity->get_actor())
+			return instantEntity;
+	}
+	return NULL;
+}
+
+void PowerupManager::respawn_powerup(HoldEntity* holdEntity)
+{
+	// Set new hold power to anything 
+	holdEntity->set_powerup(all_hold_powers[rand() % all_hold_powers.size()]);
+
+	// Move the entity
+	holdEntity->get_actor()->setGlobalPose(PxTransform(rand() % 100, heightOffFloor, rand() % 100));
+}
+
+void PowerupManager::respawn_powerup(InstantEntity* instantEntity)
+{
+
+}
+
+
