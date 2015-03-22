@@ -14,8 +14,8 @@ PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* 
 
 	scaleFactors = vec3(10.0f, 10.0f, 10.0f);
 
-	maxPickups = config->GetInteger("pickup", "maxPickups", 1);
-	heightOffFloor = (float)config->GetReal("pickup", "heightOffFloor", 0.0f);
+	maxPickups = config->GetInteger("powerup", "maxPickups", 1);
+	heightOffFloor = (float)config->GetReal("powerup", "heightOffFloor", 0.0f);
 }
 
 PowerupManager::~PowerupManager()
@@ -38,7 +38,7 @@ void PowerupManager::spawn_hold_powerup(vec3 position)
 	cout << "Spawned a new hold powerup at " << glm::to_string(position) << endl;
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
 	actor->setName("HOLD");
-	Entity* powerup = new HoldEntity(all_hold_powers[rand() % all_hold_powers.size()], actor);
+	Entity* powerup = new HoldEntity(all_hold_powers[rand() % all_hold_powers.size()], actor, scaleFactors);
 	holdEntities.push_back((HoldEntity*)powerup);
 	world->add_entity(powerup);
 }

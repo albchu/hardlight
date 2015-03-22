@@ -9,13 +9,15 @@ class HoldEntity : public Entity
 {
 public:
 	//typedef void (Powerup::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
-	HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor);
+	HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor, vec3 new_scaleFactors);
 	~HoldEntity();
 	Powerup<Hold>::PowerCallback get_powerup();
 	void set_powerup(Powerup<Hold>::PowerCallback new_power);
+	virtual mat4 get_model_matrix();
 
 private:
 	Powerup<Hold>::PowerCallback powerup; // The actual powerup attached to this item
+	vec3 scaleFactors;
 };
 
 

@@ -59,6 +59,7 @@ void HardLight::OnLoop()
 	{
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
+	bikePowerupPairs.clear();
 
 	// Albert disabled this because he has no idea how it works and will refactor it anyways
 	//closest_sound = FLT_MAX;
