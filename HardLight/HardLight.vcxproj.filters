@@ -158,7 +158,13 @@
     </ClCompile>
     <ClCompile Include="src\Instant.cpp" />
     <ClCompile Include="src\Hold.cpp" />
-    <ClCompile Include="src\PowerupItem.cpp">
+    <ClCompile Include="src\PowerupManager.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowerupHoldItem.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowerupInstantItem.cpp">
       <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
@@ -298,7 +304,13 @@
     </ClInclude>
     <ClInclude Include="include\Instant.h" />
     <ClInclude Include="include\Hold.h" />
-    <ClInclude Include="include\PowerupItem.h">
+    <ClInclude Include="include\PowerupManager.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupHoldItem.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PowerupInstantItem.h">
       <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>

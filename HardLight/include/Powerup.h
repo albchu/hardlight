@@ -13,9 +13,10 @@ enum PowerupUsage
 	HOLD
 };
 
-class Powerup
+template <class T> class Powerup
 {
 public:
+	typedef void (T::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
 	Powerup();
 	//Powerup(Bike* bike, BikeManager* bike_manager, INIReader* config);
 	~Powerup();
@@ -30,7 +31,7 @@ public:
 
 	//void choosePowerup(); // determine the type of powerup the Powerup object will be
 	//int usePowerup(); // tell bike to use a powerup (generic version)
-
+	//void jump(Chassis* chassis, TailWall* tailwall, INIReader* config);
 private:
 
 protected:

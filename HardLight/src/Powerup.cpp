@@ -17,7 +17,7 @@ Powerup::Powerup()
 //	//powType = PowerupTypes_SIZE;
 //}
 
-Powerup::~Powerup()									
+Powerup<T>::~Powerup()									
 {
 	// I dont understand why you guys make these if you dont put anything in them
 }

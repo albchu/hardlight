@@ -2,9 +2,9 @@
 #define _HOLD_H
 
 #include "Powerup.h"
-//#include "Vehicle\Bike.h"
+
 //This class contains all the powerups that the player will hold to trigger at their discression
-class Hold : public Powerup
+class Hold : public Powerup<Hold>
 {
 public:
 	Hold();
