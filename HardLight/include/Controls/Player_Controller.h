@@ -11,14 +11,17 @@ public:
 	// One of these two should be used to instantiate a player controller
 	Player_Controller(Chassis* bike, SDL_GameController* controller);
 	Player_Controller(Chassis* new_bike, KeyMapping init_keys);
-
+	~Player_Controller();
 	SDL_GameController* get_controller();
 	int get_dead_zone();
 	KeyMapping get_key_controls();
 	void init_values();
+	void init_rumble();
+	void rumble(float strength, int duration);
 
 private:
 	SDL_GameController* sdl_controller;
+	SDL_Haptic* gControllerHaptic;
 	int deadZone;
 	KeyMapping key_controls;
 };

@@ -155,6 +155,8 @@ void AI::update_controller(Bike* bike)
 		{
 			sfxMix->PlaySoundEffect("sfxPowerupActivated");
 			bike->execute_hold_powerup();
+			player->rumble(1.0, 70);
+
 		}
 	}
 		

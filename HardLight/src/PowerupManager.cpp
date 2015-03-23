@@ -83,6 +83,8 @@ void PowerupManager::spawn_random_powerup(vec3 position)
 // Applies the selected powerup to a bike
 void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 {
+
+
 	if(powerup_actor->getName() == "HOLD")
 	{
 		cout << "Applying hold powerup" << endl;
@@ -109,6 +111,8 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 			respawn_powerup(instantEntity);
 		}
 	}
+
+
 }
 
 HoldEntity* PowerupManager::getHoldEntity(PxRigidActor* holdActor)
