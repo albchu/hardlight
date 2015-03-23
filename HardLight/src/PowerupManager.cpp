@@ -34,7 +34,7 @@ void PowerupManager::spawn_random_powerup()
 {
 	if(mapType == MapTypes::SPHERE)
 	{
-
+		spawn_random_powerup(vec3(random_float(-arena_size, arena_size), arena_size + heightOffFloor, random_float(-arena_size, arena_size)));
 	}
 	else if (mapType == MapTypes::PLANE)
 	{
