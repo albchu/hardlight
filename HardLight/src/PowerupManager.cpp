@@ -17,6 +17,8 @@ PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* 
 
 	maxPickups = config->GetInteger("powerup", "maxPickups", 1);
 	heightOffFloor = (float)config->GetReal("powerup", "heightOffFloor", 0.0f);
+	mapType = config->GetInteger("scene", "map", MapTypes::SPHERE);
+	arena_size = (float)config->GetReal("scene", "size", 300.0);
 }
 
 PowerupManager::~PowerupManager()
@@ -30,7 +32,16 @@ PowerupManager::~PowerupManager()
 // Spawns some random powerup in some random place. NOTE: Currently unimplemented because thinking of way to handle sphere map
 void PowerupManager::spawn_random_powerup()
 {
+	if(mapType == MapTypes::SPHERE)
+	{
 
+	}
+	else if (mapType == MapTypes::PLANE)
+	{
+		spawn_random_powerup(vec3(random_float(-arena_size, arena_size), heightOffFloor, random_float(-arena_size, arena_size)));
+	}
+	else
+		cerr << "Do not understand how to generate powerups on this map type" << endl;
 }
 
 

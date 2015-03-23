@@ -13,6 +13,7 @@
 #include "InstantEntity.h"
 #include "World.h"
 #include "Vehicle/Bike.h"
+#include "MapTypes.h"
 
 using namespace std;
 
@@ -44,6 +45,7 @@ private:
 	vec3 scaleFactors;
 	float arena_size;
 	int maxPickups;
+	int mapType;
 	SoundMixer* sfxMix;
 	HoldEntity* getHoldEntity(PxRigidActor* holdActor);
 	InstantEntity* getInstantEntity(PxRigidActor* instantActor);
