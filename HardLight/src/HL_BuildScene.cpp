@@ -8,17 +8,8 @@ bool HardLight::BuildScene()
 	PxVec3 * velocity = new PxVec3[maxParticles];
 	PxVec3 * position = new PxVec3[maxParticles];
 	PxVec3 * force = new PxVec3[maxParticles];
-	for(PxU32 i = 0 ; i < maxParticles ; ++i)
-	{
-		index[i] = i;
-		velocity[i] = PxVec3(0,-1000,0);
-		position[i] = PxVec3(0,100,0);
-		force[i] = PxVec3(rand()%1000,rand(),rand()%1000)+PxVec3(-rand()%1000,0,-rand()%1000);
-	}
-	particleData.numParticles = 200;
-	particleData.indexBuffer = PxStrideIterator<const PxU32> (index);
-	particleData.velocityBuffer = PxStrideIterator<const PxVec3> (velocity);
-	particleData.positionBuffer = PxStrideIterator<const PxVec3> (position);
+
+	particleData = ParticleFactory::createParticleData(maxParticles, index, velocity, position, force, vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 
 	particleSystem = ParticleFactory::createParticles(maxParticles, *pxAgent, particleData);
 
