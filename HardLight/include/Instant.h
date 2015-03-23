@@ -7,7 +7,7 @@ class Instant //: public Powerup<Instant>
 {
 public:
 	Instant();
-	~Instant();
+	//~Instant();
 	void extendTail(Chassis* chassis, TailWall* tailwall, INIReader* config);
 private:
 };

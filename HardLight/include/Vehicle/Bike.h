@@ -7,7 +7,7 @@
 
 ////Powerups
 #include "Hold.h"
-//#include "Instant.h"
+#include "Instant.h"
 #include "Powerup.h"
 
 //#include "TailWall.h"
@@ -45,9 +45,9 @@ public:
 	TailWall* get_tail();
 	Controller* get_controller();
 
-	typedef void (Hold::*HoldCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
-	void set_hold_powerup(HoldCallback new_powerup);
+	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup);
 	void execute_hold_powerup();
+	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
 
 private:
 	Controller* controller;
@@ -59,6 +59,6 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
-	HoldCallback powerup;
+	Powerup<Hold>::PowerCallback powerup;
 };
 #endif

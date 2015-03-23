@@ -49,7 +49,7 @@ void PowerupManager::spawn_instant_powerup(vec3 position)
 	cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
 	actor->setName("INSTANT");
-	Entity* powerup = new InstantEntity(all_instant_powers[rand() % all_hold_powers.size()], actor);
+	Entity* powerup = new InstantEntity(all_instant_powers[rand() % all_hold_powers.size()], actor, scaleFactors);
 	instantEntities.push_back((InstantEntity*)powerup);
 	world->add_entity(powerup);
 }
@@ -81,6 +81,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 		// If we find a match, we will apply the powerup
 		if(holdEntity != NULL)
 		{
+			bike->set_hold_powerup(holdEntity->get_powerup());
 			respawn_powerup(holdEntity);
 		}
 	}
@@ -93,6 +94,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 		// If we find a match, we will apply the powerup
 		if(instantEntity != NULL)
 		{
+			bike->execute_instant_powerup(instantEntity->get_powerup());
 			respawn_powerup(instantEntity);
 		}
 	}

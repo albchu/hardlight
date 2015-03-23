@@ -8,7 +8,6 @@
 class HoldEntity : public Entity
 {
 public:
-	//typedef void (Powerup::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
 	HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor, vec3 new_scaleFactors);
 	~HoldEntity();
 	Powerup<Hold>::PowerCallback get_powerup();
