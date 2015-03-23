@@ -1,8 +1,4 @@
 #include "PhysxAgent.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
 
 static PxU32 driveable(EntityTypes type)
 {
@@ -37,67 +33,6 @@ static PxU32 collides_with(EntityTypes type)
 		return 0;
 		break;
 	}
-}
-
-// http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-static quat RotationBetweenVectors(vec3 start, vec3 dest)
-{
-	start = normalize(start);
-	dest = normalize(dest);
-
-	float cosTheta = dot(start, dest);
-	vec3 rotationAxis;
-
-	if (cosTheta < -1 + 0.001f){
-		// special case when vectors in opposite directions:
-		// there is no "ideal" rotation axis
-		// So guess one; any will do as long as it's perpendicular to start
-		rotationAxis = cross(vec3(0.0f, 0.0f, 1.0f), start);
-		if (length2(rotationAxis) < 0.01 ) // bad luck, they were parallel, try again!
-			rotationAxis = cross(vec3(1.0f, 0.0f, 0.0f), start);
-
-		rotationAxis = normalize(rotationAxis);
-		return angleAxis(PxPi, rotationAxis);
-	}
-
-	rotationAxis = cross(start, dest);
-
-	float s = sqrt( (1+cosTheta)*2 );
-	float invs = 1 / s;
-
-	return quat(
-		s * 0.5f, 
-		rotationAxis.x * invs,
-		rotationAxis.y * invs,
-		rotationAxis.z * invs
-		);
-}
-
-// http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-PxQuat PhysxAgent::PxLookAt(vec3 direction, vec3 up)
-{
-	direction = normalize(direction);
-	up = normalize(up);
-	// Find the rotation between the front of the object (that we assume towards +Z, 
-	// but this depends on your model) and the desired direction 
-	quat rot1 = RotationBetweenVectors(vec3(0.0f, 0.0f, 1.0f), direction);
-	// Recompute desiredUp so that it's perpendicular to the direction
-	// You can skip that part if you really want to force desiredUp
-	vec3 right = cross(direction, up);
-	up = cross(right, direction);
-
-	// Because of the 1rst rotation, the up is probably completely screwed up. 
-	// Find the rotation between the "up" of the rotated object, and the desired up
-	vec3 newUp = rot1 * up;
-	quat rot2 = RotationBetweenVectors(newUp, up);
-
-	quat targetOrientation = rot2 * rot1; // remember, in reverse order
-	return PxQuat(targetOrientation.x, targetOrientation.y, targetOrientation.z, targetOrientation.w);
-}
-
-PxQuat PhysxAgent::PxLookAt(PxVec3 direction, PxVec3 up)
-{
-	return PxLookAt(toVec3(direction), toVec3(up));
 }
 
 PxConvexMesh* PhysxAgent::create_convex_mesh(vector<vec3> vertices)
@@ -238,15 +173,11 @@ PxRigidStatic* PhysxAgent::create_ground_sphere(float scale_factor)
 	queryFilterData.word3 = driveable(type);
 
 	PxTransform transform(PxIdentity);
-	
+
 	PxRigidStatic* actor = PxCreateStatic(*gPhysics, transform, PxSphereGeometry(scale_factor), *ground_material);
 	PxShape* shapes[1];
 	actor->getShapes(shapes, 1);
 	PxShape* shape = shapes[0];
-	/*
-	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
-	PxShape* shape = actor->createShape(PxSphereGeometry(scale_factor), *ground_material);
-	*/
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));

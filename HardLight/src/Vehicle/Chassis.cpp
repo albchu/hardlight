@@ -11,9 +11,6 @@ Chassis::Chassis()
 	steeringParameter = 0.0f;
 }
 
-Chassis::~Chassis() {
-}
-
 mat4 Chassis::get_model_matrix()
 {
 	mat4 model_matrix = mat4(1.0);

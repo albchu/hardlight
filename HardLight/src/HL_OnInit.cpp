@@ -8,9 +8,9 @@
 bool HardLight::OnInit()
 {
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
-	if(config->GetInteger("game", "numPlayers", 1) > 4 && config->GetInteger("game", "numPlayers", 1) < 1)
+	if(config->GetInteger("game", "numPlayers", 1) > 4)
 	{
-		cerr << "Please enter a number between 1-4 in the config.ini for numPlayers" << endl;
+		cerr << "Please enter a number between 0-4 in the config.ini for numPlayers" << endl;
 		return false;
 	}
 
@@ -92,13 +92,17 @@ bool HardLight::OnInit()
 	//powerup = new Powerup(NULL, bike_manager, config);
 
 	// Initialize viewport info
-	viewports = Viewports::generate_viewports(config->GetInteger("game", "numPlayers", 1), window_width, window_height);
+	int cams = glm::max(config->GetInteger("game", "numCameras", 1), config->GetInteger("game", "numPlayers", 1));
+	
+	viewports = Viewports::generate_viewports(cams, window_width, window_height);
 
 	// Initialize keyboard player control info
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
 	overMind = new AI(bike_manager, sfxMix);
+	
+	sfxMix.PlayMusic("musicOverworld");
 
 	return true;
 }
