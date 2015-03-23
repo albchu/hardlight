@@ -9,14 +9,14 @@
 #include "Powerup.h"
 
 #include "../inih\cpp\INIReader.h"
-
+//DEPRECIATED>> NO LONGER BEING USED
 class Pickup : public Entity
 {
 public:
 	Pickup(INIReader* config, PhysxAgent* pxAgent, float arena_size);
 
 	bool placePickup();
-	Powerup* givePowerup();
+	//Powerup* givePowerup();
 	
 	virtual mat4 get_model_matrix();
 	void respawn();
@@ -31,6 +31,6 @@ private:
 	float arena_size;
 
 	vector<bool> hasPowerup; // lists whether a bike has one powerup or no powerups
-	vector<Powerup*> bikePowerups; // list of the powerup allocated to each bike
+	//vector<Powerup*> bikePowerups; // list of the powerup allocated to each bike
 };
 #endif

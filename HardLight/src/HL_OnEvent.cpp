@@ -67,6 +67,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			//	sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//	sfxMix.PlaySoundEffect("sfxIntro");
+			bike_manager->get_player_bikes()[0]->execute_hold_powerup();	// TEMP CODE BLAME ALBERT ITS BAD
 			break;
 		} // end key_down
 		break;
@@ -186,7 +187,7 @@ void HardLight::reset()
 
 void HardLight::toggle_pause()
 {
-	sfxMix.PlaySoundEffect("sfxPause");
+	sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
 		scene = GAME;
 	else if(scene == GAME)

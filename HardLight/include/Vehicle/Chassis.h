@@ -1,5 +1,5 @@
-#ifndef _BIKE_H
-#define _BIKE_H
+#ifndef _CHASSIS_H
+#define _CHASSIS_H
 
 #include "Entity.h"
 //#include "TailWall.h"
@@ -23,7 +23,7 @@ class Chassis : public Entity
 
 public:
 	Chassis();
-	virtual mat4 get_model_matrix();
+	//~Chassis();
 
 	PxVehicleDrive4W* getVehicle4W();
 	PxVehicleDrive4WRawInputData& getInputData();
@@ -39,6 +39,8 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
+
+	virtual mat4 get_model_matrix();
 	virtual void set_actor(PxRigidActor*);
 	void adaptiveSteering(int analogStickInput);
 

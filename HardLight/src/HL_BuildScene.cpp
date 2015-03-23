@@ -95,7 +95,7 @@ bool HardLight::BuildScene()
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
-			if (controllers.size() > i)
+			if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
 				bike_manager->add_player_bike(new_chassis, NULL);
@@ -129,6 +129,7 @@ bool HardLight::BuildScene()
 
 			count++;
 		}
+
 	}
 
 	if (count < viewports.size())
@@ -150,7 +151,7 @@ bool HardLight::BuildScene()
 
 
 	// Init Powerup object for testing powerup functionality temporarily
-	//powerup->setBike(bike_manager->get_player_bikes()[0]);
+	powerup_manager->spawn_hold_powerup(vec3(0,0,0));
 
 	return true;
 }

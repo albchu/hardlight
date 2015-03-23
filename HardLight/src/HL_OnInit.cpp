@@ -104,6 +104,9 @@ bool HardLight::OnInit()
 	
 	sfxMix.PlayMusic("musicOverworld");
 
+	// Init powerup manager
+	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
+
 	return true;
 }
 
