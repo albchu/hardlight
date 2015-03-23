@@ -274,7 +274,7 @@ int SoundMixer::PlaySoundEffect(std::string key, float distance, int timesToRepe
 	return previousChannelIndex;
 }
 
-bool SoundMixer::ClipFrom(std::string directory)
+bool SoundMixer::ClipFrom(const char* directory)
 {
 	char searchPath[200];
 	wchar_t* wbuff;
@@ -282,7 +282,7 @@ bool SoundMixer::ClipFrom(std::string directory)
 	std::string path;
 	std::vector<std::string> allDirectoryFiles;
 
-	sprintf_s(searchPath, "%s*.obj", directory);
+	sprintf_s(searchPath, "%s*.wav", directory);
 	WIN32_FIND_DATA fd;
 
 	int size = MultiByteToWideChar(CP_UTF8, 0, searchPath, -1, NULL, 0);
@@ -324,6 +324,26 @@ bool SoundMixer::ClipFrom(std::string directory)
 		return false;
 	}
 	std::cout << "The selected sound effect is" << path << std::endl;
+
+	// Play selected file
+	int previousChannelIndex = currentChannelIndex;
+	Mix_Volume(currentChannelIndex, 128);
+	int errorCode = Mix_PlayChannel(-1, randomSoundEffect, 0);
+	if( errorCode == -1)
+	{
+		printf("Channel: %d\n", errorCode);
+		return false;
+	}
+
+	// Find the next avaliable channel
+	do
+	{
+		currentChannelIndex++;
+	} while (Mix_Playing(currentChannelIndex) == 1);
+
+	// If index is larger than 63, start from 0
+	if (currentChannelIndex > 63)
+		currentChannelIndex = 0;
 
 	return true;
 }

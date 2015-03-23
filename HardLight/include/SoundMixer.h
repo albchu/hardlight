@@ -63,7 +63,7 @@ public:
 	int		PlayMusic(std::string key, int volume);									// Play music at preset volume
 	int		PlaySoundEffect(std::string key);
 	int		PlaySoundEffect(std::string key, float distance, int timesToRepeat);	// Play sound effect based on distance from listener
-	bool	ClipFrom(std::string directory);
+	bool	ClipFrom(const char* directory);
 };
 
 #endif
