@@ -45,6 +45,8 @@
 #include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
+#include "MapTypes.h"
+#include "ParticleFactory.h"
 
 using namespace physx;
 using namespace glm;
@@ -94,7 +96,6 @@ private:
 
 	// scene specific functions
 	void initOpenGL(Scene);
-	bool spawnBikes();
 
 	int maxParticles;
 	PxParticleSystem* particleSystem;
@@ -113,6 +114,9 @@ private:
 
 	World world;
 	float size;
+	float gravity;
+	float dampening;
+	MapTypes map_type;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
 

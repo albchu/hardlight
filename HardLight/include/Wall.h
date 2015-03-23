@@ -11,10 +11,7 @@
 
 class Wall : public Entity {
 public:
-	Wall();
-	Wall(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture);
-	~Wall();
-	virtual mat4 get_model_matrix();
+	Wall(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture, vec3 init_scale);
 };
 
 #endif

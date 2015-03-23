@@ -50,34 +50,32 @@ VehicleDesc initVehicleDesc(PxMaterial* gMaterial, INIReader* config)
 }
 
 //==============================================================================
-bool CreateVehicle::Create(Chassis* &bike, PxVec3 init_position)
+bool CreateVehicle::Create(Chassis* &chassis, PxVec3 init_position, PxVec3 init_facing, PxVec3 init_up)
 {
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 	//Create the batched scene queries for the suspension raycasts.
-	bike->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, pxAgent->get_allocator()));
-	bike->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *bike->getVehicleSceneQueryData(), pxAgent->get_scene()));
+	chassis->setVehicleSceneQueryData(VehicleSceneQueryData::allocate(1, PX_MAX_NB_WHEELS, 1, pxAgent->get_allocator()));
+	chassis->setBatchQuery(VehicleSceneQueryData::setUpBatchedSceneQuery(0, *chassis->getVehicleSceneQueryData(), pxAgent->get_scene()));
 	
 	//Create a vehicle that will drive on the plane.
 	VehicleDesc vehicleDesc = initVehicleDesc(gMaterial, config);
-	bike->setVehicle4W(createVehicle4W(vehicleDesc, pxAgent->get_physics(), pxAgent->get_cooking(), config));
-	PxTransform startTransform(init_position, PhysxAgent::PxLookAt(normalize(vec3(-init_position.x, -init_position.y, -init_position.z)), vec3(0.0f,1.0f,0.0f)));
-	bike->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
-	pxAgent->get_scene()->addActor(*bike->getVehicle4W()->getRigidDynamicActor());
+	chassis->setVehicle4W(createVehicle4W(vehicleDesc, pxAgent->get_physics(), pxAgent->get_cooking(), config));
+	PxTransform startTransform(init_position, PhysxAgent::PxLookAt(init_facing, init_up));
+	chassis->getVehicle4W()->getRigidDynamicActor()->setGlobalPose(startTransform);
+	pxAgent->get_scene()->addActor(*chassis->getVehicle4W()->getRigidDynamicActor());
 
 	//bike = new Chassis(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
-	bike->set_actor(bike->getVehicle4W()->getRigidDynamicActor());
-	bike->init_opengl();
-
-	
+	chassis->set_actor(chassis->getVehicle4W()->getRigidDynamicActor());
+	chassis->init_opengl();
 
 	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();
 
 	//Set the vehicle to rest in first gear.
 	//Set the vehicle to use auto-gears.
-	bike->getVehicle4W()->setToRestState();
-	bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-	bike->getVehicle4W()->mDriveDynData.setUseAutoGears(true);
+	chassis->getVehicle4W()->setToRestState();
+	chassis->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+	chassis->getVehicle4W()->mDriveDynData.setUseAutoGears(true);
 
-	bike->setInAir(true);
+	chassis->setInAir(true);
 	return true;
 }

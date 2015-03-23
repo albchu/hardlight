@@ -120,6 +120,7 @@
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
     <ClCompile Include="src\ParsedFile.cpp" />
+    <ClCompile Include="src\ParticleFactory.cpp" />
     <ClCompile Include="src\PhysxAgent.cpp" />
     <ClCompile Include="src\PhysX\PA_FilterShader.cpp" />
     <ClCompile Include="src\PhysX\PA_MeshCreation.cpp" />
@@ -155,11 +156,13 @@
     <ClInclude Include="include\Image.h" />
     <ClInclude Include="include\Instant.h" />
     <ClInclude Include="include\KeyMappings.h" />
+    <ClInclude Include="include\MapTypes.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
     <ClInclude Include="include\ParsedFile.h" />
+    <ClInclude Include="include\ParticleFactory.h" />
     <ClInclude Include="include\PhysxAgent.h" />
     <ClInclude Include="include\Pickup.h" />
     <ClInclude Include="include\Powerup.h" />
