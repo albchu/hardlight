@@ -101,7 +101,7 @@ bool HardLight::OnInit()
 	overMind = new AI(bike_manager, sfxMix);
 
 	// Init powerup manager
-	powerup_manager = new PowerupManager(&world, config, pxAgent);
+	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 
 	return true;
 }

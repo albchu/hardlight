@@ -5,6 +5,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+#include "SoundMixer.h"
 #include "Powerup.h"
 #include "Hold.h"
 #include "Instant.h"
@@ -20,7 +21,7 @@ class PowerupManager
 {
 public:
 	//typedef void (Powerup::*PowerCallback)(Chassis* chassis, TailWall* tailwall, INIReader* config);
-	PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent);
+	PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent, SoundMixer* new_sfxMix);
 	
 	void respawn_powerup(HoldEntity* holdEntity);
 	void respawn_powerup(InstantEntity* instantEntity);
@@ -43,7 +44,7 @@ private:
 	vec3 scaleFactors;
 	float arena_size;
 	int maxPickups;
-	
+	SoundMixer* sfxMix;
 	HoldEntity* getHoldEntity(PxRigidActor* holdActor);
 	InstantEntity* getInstantEntity(PxRigidActor* instantActor);
 };

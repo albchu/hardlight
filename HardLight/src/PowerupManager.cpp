@@ -1,9 +1,10 @@
 #include "PowerupManager.h"
 
-PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent)
+PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent, SoundMixer* new_sfxMix)
 {
 	pxAgent = new_pxAgent;
 	world = new_world;
+	sfxMix = new_sfxMix;
 
 	srand ((unsigned int)time(NULL));	// Seed for random value generator
 
@@ -74,6 +75,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 	if(powerup_actor->getName() == "HOLD")
 	{
 		cout << "Applying hold powerup" << endl;
+		sfxMix->PlaySoundEffect("sfxPowerupReady");
 		HoldEntity* holdEntity = getHoldEntity(powerup_actor);
 
 		// If we find a match, we will apply the powerup
@@ -85,6 +87,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 	else if(powerup_actor->getName() == "INSTANT")
 	{
 		cout << "Applying instant powerup" << endl;
+		sfxMix->PlaySoundEffect("sfxPowerupInstant");
 		InstantEntity* instantEntity = getInstantEntity(powerup_actor);
 
 		// If we find a match, we will apply the powerup
