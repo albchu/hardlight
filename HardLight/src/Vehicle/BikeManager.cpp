@@ -24,6 +24,11 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
+	//chassis->set_texture(TextureMap::Instance()->getTexture("../data/Textures/UVTexture.tga"));
+
+	//TEMP CODE PLZ DELETE ONCE ITS WORKIGN ALBVERT
+	new_bike->set_hold_powerup(&Hold::jump);
+
 	player_bikes.push_back(new_bike);
 }
 

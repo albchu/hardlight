@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include <string>
+#include <tuple>
 #include <iostream>
 #include "../inih\cpp\INIReader.h"
 
@@ -46,6 +47,7 @@
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
 #include "MapTypes.h"
+#include "PowerupManager.h"
 #include "ParticleFactory.h"
 
 using namespace physx;
@@ -126,16 +128,14 @@ private:
 	vector<TailSegment*> playerTail;
 	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
 	vector<Bike*> bikesToKill;
-	vector<Chassis*> hit_pickup;
-	vector<PxRigidActor*> pickup_hit;
+	//vector<Chassis*> hit_pickup;
+	//vector<PxRigidActor*> pickup_hit;
+	vector<tuple<Bike*,PxRigidActor*>> bikePowerupPairs;		//Used to map a bike to a powerup that it collides with
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
-
-	Pickup* pickup;
-	Powerup* powerup;
-
-	//vector<Camera*> cameras;
+	
+	PowerupManager* powerup_manager;
 
 public:
 	HardLight();

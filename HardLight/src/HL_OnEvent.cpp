@@ -37,6 +37,9 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_w:
 			forward = 1.0f;
 			break;
+		case SDLK_e:
+			sfxMix.ClipFrom("../data/Audio/");
+			break;
 		case SDLK_LSHIFT:
 			speed *= fast;
 			break;
@@ -62,11 +65,12 @@ void HardLight::OnEvent(SDL_Event* Event)
 			reset();
 			break;		
 		case SDLK_SPACE:
-			powerup->setPowerType(JUMP);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			//powerup->setPowerType(JUMP);
+			//if(powerup->usePowerup() == 1)
+			//	sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+			//	sfxMix.PlaySoundEffect("sfxIntro");
+			bike_manager->get_player_bikes()[0]->execute_hold_powerup();	// TEMP CODE BLAME ALBERT ITS BAD
 			break;
 		} // end key_down
 		break;
@@ -108,24 +112,24 @@ void HardLight::OnEvent(SDL_Event* Event)
 		{
 		case SDL_CONTROLLER_BUTTON_A: // A button
 			//sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
-			powerup->setPowerType(JUMP);
-			if(powerup->usePowerup() == 1)
-				sfxMix.PlaySoundEffect("sfxItemUsed");
-			else
-				sfxMix.PlaySoundEffect("sfxIntro");
+			//powerup->setPowerType(JUMP);
+			//if(powerup->usePowerup() == 1)
+			//	sfxMix.PlaySoundEffect("sfxItemUsed");
+			//else
+			//	sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_X: // X button
 			//sfxMix.PlaySoundEffect("sfxIntro");
-			powerup->setPowerType(EXTENDTAIL);
-			powerup->usePowerup();
+			//powerup->setPowerType(EXTENDTAIL);
+			//if(powerup->usePowerup() == 1);
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");
 			break;
 		case SDL_CONTROLLER_BUTTON_Y: // Y button
 			//sfxMix.PlaySoundEffect("sfxItemPickUp");
-			powerup->setPowerType(INVINCIBLE);
-			powerup->usePowerup();
+			//powerup->setPowerType(INVINCIBLE);
+			//if(powerup->usePowerup() == 1);
 			//sfxMix.PlaySoundEffect("sfxItemUsed");
 			//else
 			//sfxMix.PlaySoundEffect("sfxIntro");
@@ -180,13 +184,14 @@ void HardLight::reset()
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
-	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
+	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);
+	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 	BuildScene();
 }
 
 void HardLight::toggle_pause()
 {
-	sfxMix.PlaySoundEffect("sfxPause");
+	sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
 		scene = GAME;
 	else if(scene == GAME)

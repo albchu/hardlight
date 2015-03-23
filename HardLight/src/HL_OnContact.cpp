@@ -34,11 +34,10 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		if (pairs[i].flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER))
 			continue;
 
-		Chassis* bike = bike_manager->get_bike(pairs[i].otherActor)->get_chassis();
+		Bike* bike = bike_manager->get_bike(pairs[i].otherActor);
 		if (bike != NULL)
 		{
-			hit_pickup.push_back(bike);
-			pickup_hit.push_back(pairs[i].triggerActor);
+			bikePowerupPairs.push_back(tuple<Bike*,PxRigidActor*>(bike, pairs[i].triggerActor));
 		}
 	}
 }

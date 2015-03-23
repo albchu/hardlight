@@ -27,7 +27,7 @@ HardLight::HardLight()
 	fast = (float)config->GetReal("controls", "fast", 2.0);
 	left = right = forward = back = 0;
 
-	switch (config->GetInteger("scene", "map", 0))
+	switch (config->GetInteger("scene", "map", MapTypes::SPHERE))
 	{
 	case 0:
 		map_type = MapTypes::PLANE;

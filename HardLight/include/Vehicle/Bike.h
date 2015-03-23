@@ -1,9 +1,15 @@
-#ifndef _NEW_BIKE_H
-#define _NEW_BIKE_H
+#ifndef _BIKE_H
+#define _BIKE_H
 
 // This is what i want the new bike to look like but i dont want to make too drastic of changes at one time immediately
 
 #include "Entity.h"
+
+////Powerups
+#include "Hold.h"
+#include "Instant.h"
+#include "Powerup.h"
+
 //#include "TailWall.h"
 //#include "Chassis.h"
 #include "Controls/Player_Controller.h"
@@ -39,6 +45,11 @@ public:
 	TailWall* get_tail();
 	Controller* get_controller();
 
+	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup);
+	Powerup<Hold>::PowerCallback get_hold_powerup();
+	void execute_hold_powerup();
+	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
+
 private:
 	Controller* controller;
 	Chassis* chassis;
@@ -49,5 +60,6 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
+	Powerup<Hold>::PowerCallback powerup;
 };
 #endif
