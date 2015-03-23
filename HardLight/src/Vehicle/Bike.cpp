@@ -61,8 +61,11 @@ void Bike::set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup)
 void Bike::execute_hold_powerup()
 {
 	Hold hold;
-	(hold.*powerup)(chassis, tailwall, config);
-	powerup = NULL;	// Clear the powerup once its used
+	if(powerup != NULL)	// Only execute callback if its been set
+	{
+		(hold.*powerup)(chassis, tailwall, config);
+		powerup = NULL;	// Clear the powerup once its used
+	}
 }
 
 

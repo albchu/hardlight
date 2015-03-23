@@ -19,7 +19,7 @@ bool HardLight::BuildScene()
 	if (map_type == MapTypes::SPHERE)
 	{
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("sphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
 
 		height = size+5.0f;
@@ -155,8 +155,6 @@ bool HardLight::BuildScene()
 	{
 		powerup_manager->spawn_random_powerup();
 	}
-	//powerup_manager->spawn_instant_powerup(vec3(10,0,0));
-	//powerup_manager->spawn_hold_powerup(vec3(-10,0,0));
 
 	return true;
 }
