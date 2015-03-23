@@ -9,7 +9,7 @@ class HoldEntity : public Entity
 {
 public:
 	HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor, vec3 new_scaleFactors);
-	~HoldEntity();
+	//~HoldEntity();
 	Powerup<Hold>::PowerCallback get_powerup();
 	void set_powerup(Powerup<Hold>::PowerCallback new_power);
 	virtual mat4 get_model_matrix();

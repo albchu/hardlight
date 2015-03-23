@@ -7,22 +7,22 @@ HoldEntity::HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* ini
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = MeshMap::Instance()->getEntityMesh("powerup_random.obj");
-	texture = TextureMap::Instance()->getTexture("../data/Textures/UVTexture.tga");
+	texture = TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga");
 	init_opengl();
 	renderable = true;
 	scaleFactors = new_scaleFactors;
 }
 
-HoldEntity::~HoldEntity()
-{
-	cout << "Hold entity deconstructor" <<endl;
-	powerup = NULL;
-	mesh_data = NULL;
-	texture = NULL;
-	renderable = false;
-	actor->release();
-	
-}
+//HoldEntity::~HoldEntity()
+//{
+//	cout << "Hold entity deconstructor" <<endl;
+//	powerup = NULL;
+//	mesh_data = NULL;
+//	texture = NULL;
+//	renderable = false;
+////	actor->release();
+//	
+//}
 
 Powerup<Hold>::PowerCallback HoldEntity::get_powerup()
 {

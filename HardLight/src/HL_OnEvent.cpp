@@ -185,6 +185,7 @@ void HardLight::reset()
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
 	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);
+	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 	BuildScene();
 }
 
