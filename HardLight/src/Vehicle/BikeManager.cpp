@@ -61,7 +61,7 @@ void BikeManager::add_bot_bike(Chassis* chassis)
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	player_bikes.push_back(new_bike);
+	bot_bikes.push_back(new_bike);
 }
 
 vector<Bike*> BikeManager::get_all_bikes()
