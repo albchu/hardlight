@@ -62,11 +62,17 @@ void Bike::execute_hold_powerup()
 {
 	Hold hold;
 	(hold.*powerup)(chassis, tailwall, config);
+	powerup = NULL;	// Clear the powerup once its used
 }
 
 
-void Bike::execute_instant_powerup(Powerup<Instant>::PowerCallback powerup)
+void Bike::execute_instant_powerup(Powerup<Instant>::PowerCallback instant_powerup)
 {
 	Instant instant;
-	(instant.*powerup)(chassis, tailwall, config);
+	(instant.*instant_powerup)(chassis, tailwall, config);
+}
+
+Powerup<Hold>::PowerCallback Bike::get_hold_powerup()
+{
+	return powerup;
 }

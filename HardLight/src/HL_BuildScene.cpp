@@ -151,7 +151,8 @@ bool HardLight::BuildScene()
 
 
 	// Init Powerup object for testing powerup functionality temporarily
-	powerup_manager->spawn_hold_powerup(vec3(0,0,0));
+	powerup_manager->spawn_instant_powerup(vec3(10,0,0));
+	powerup_manager->spawn_hold_powerup(vec3(-10,0,0));
 
 	return true;
 }

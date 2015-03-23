@@ -1,7 +1,7 @@
 #include "AI/AI.h"
 
 
-AI::AI(BikeManager* init_manager, SoundMixer init_sfxMix)
+AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix)
 {
 	bike_manager = init_manager;
 	sfxMix = init_sfxMix;
@@ -92,7 +92,7 @@ void AI::update_bikes(vec3 pickup)
 			}
 			else if(bikeX->get_subtype() == PLAYER_BIKE)
 			{
-				update_player((Player_Controller*)controllableX);
+				update_player(bikeX);
 			}
 		}
 		//else {
@@ -114,16 +114,17 @@ void AI::move_bikes()
 }
 
 // Get all input for the player and perform based on that. Note: Could not do keyboard presses this way
-void AI::update_player(Player_Controller* player)
+void AI::update_player(Bike* bike)
 {
-	if(player->get_controller() != NULL)
-		update_controller(player);
+	if(((Player_Controller*)bike->get_controller())->get_controller() != NULL)
+		update_controller(bike);
 
 }
 
 // Get all controller input and set the proper callbacks
-void AI::update_controller(Player_Controller* player)
+void AI::update_controller(Bike* bike)
 {
+	Player_Controller* player = ((Player_Controller*)bike->get_controller());
 	int LeftX = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_LEFTX);
 	int RightX = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_RIGHTX);
 	int RightY = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_RIGHTY);
@@ -145,11 +146,21 @@ void AI::update_controller(Player_Controller* player)
 			accel = player->get_max_acceleration();
 	}
 
+	// Trigger powerup
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_A))
-		sfxMix.PlaySoundEffect("sfxPause");
+	{
+		if(bike->get_hold_powerup() != NULL)
+			//sfxMix->PlaySoundEffect("sfxPowerupNone");
+		//else
+		{
+			sfxMix->PlaySoundEffect("sfxPowerupActivated");
+			bike->execute_hold_powerup();
+		}
+	}
+		
 
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
-		sfxMix.PlaySoundEffect("sfxIntro");
+		sfxMix->PlaySoundEffect("sfxIntro");
 
 	player->set_motion(&Controller::forward);
 	player->set_steering(&Controller::steer);

@@ -181,7 +181,7 @@ void HardLight::reset()
 	pxAgent = new PhysxAgent(config, this);
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
-	overMind = new AI(bike_manager, sfxMix);//, keyMappings);
+	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);
 	BuildScene();
 }
 

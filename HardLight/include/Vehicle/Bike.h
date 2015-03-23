@@ -46,6 +46,7 @@ public:
 	Controller* get_controller();
 
 	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup);
+	Powerup<Hold>::PowerCallback get_hold_powerup();
 	void execute_hold_powerup();
 	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
 

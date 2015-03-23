@@ -10,18 +10,18 @@
 class AI
 {
 public:
-	AI(BikeManager* init_manager, SoundMixer init_sfxMix);//, vector<KeyMapping> init_keyMappings);
+	AI(BikeManager* init_manager, SoundMixer* init_sfxMix);//, vector<KeyMapping> init_keyMappings);
 	void update_bikes();
 	void update_bikes(vec3 pickup);
 	void move_bikes();
 //	void notify(SDL_Keycode key);
-	void update_player(Player_Controller* player);
-	void update_controller(Player_Controller* player);
+	void update_player(Bike* bike);
+	void update_controller(Bike* bike);
 //	void update_keyboard(Player_Controller* player);
 
 private:
 	BikeManager* bike_manager;
-	SoundMixer sfxMix;
+	SoundMixer* sfxMix;
 //	vector<KeyMapping> keyMappings;
 //	vector<SDL_Keycode> keyPresses;	// The buffer that holds all keys we are notified of
 };

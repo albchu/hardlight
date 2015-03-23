@@ -100,7 +100,7 @@ bool HardLight::OnInit()
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
-	overMind = new AI(bike_manager, sfxMix);
+	overMind = new AI(bike_manager, &sfxMix);
 	
 	sfxMix.PlayMusic("musicOverworld");
 
