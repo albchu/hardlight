@@ -9,7 +9,7 @@ bool HardLight::BuildScene()
 	PxVec3 * position = new PxVec3[maxParticles];
 	PxVec3 * force = new PxVec3[maxParticles];
 
-	particleData = ParticleFactory::createParticleData(maxParticles, index, velocity, position, force, vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
+	particleData = ParticleFactory::createParticleData(maxParticles, index, velocity, position, force, vec3(0.0f, -10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 
 	particleSystem = ParticleFactory::createParticles(maxParticles, *pxAgent, particleData);
 
