@@ -99,9 +99,6 @@
     <ClCompile Include="src\Button.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Pickup.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rendering\TextureMap.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -152,7 +149,7 @@
     </ClCompile>
     <ClCompile Include="src\PhysX\PA_PxLookAt.cpp">
       <Filter>PhysX</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="src\Hold.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
@@ -168,6 +165,7 @@
     <ClCompile Include="src\InstantEntity.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
+    <ClCompile Include="src\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -245,9 +243,6 @@
     </ClInclude>
     <ClInclude Include="include\Image.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Pickup.h">
-      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="include\Rendering\TextureMap.h">
       <Filter>Rendering</Filter>

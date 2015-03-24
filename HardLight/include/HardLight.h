@@ -42,7 +42,6 @@
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup.h"
-#include "Pickup.h"
 #include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
