@@ -47,7 +47,6 @@
 #include "KeyMappings.h"
 #include "MapTypes.h"
 #include "Powerup/PowerupManager.h"
-#include "ParticleData.h"
 #include "ParticleFactory.h"
 
 

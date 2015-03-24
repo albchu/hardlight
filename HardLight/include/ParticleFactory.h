@@ -2,13 +2,14 @@
 #ifndef _PARTICLEFACTORY_H_
 #define _PARTICLEFACTORY_H_
 
-#include "Hardlight.h"
+#include "ParticleData.h"
+#include "PhysxAgent.h"
 
 class ParticleFactory {
 public:
 
-	static PxParticleSystem* createParticles(int, PhysxAgent, PxParticleCreationData);
-	static PxParticleCreationData createParticleData(int, ParticleData*, vec3, vec3, vec3);
+	static PxParticleSystem* createParticles(int, PxPhysics*, physx::PxParticleCreationData);
+	static PxParticleCreationData createParticleData(int, ParticleData*, PxVec3, PxVec3, PxVec3);
 };
 
 #endif

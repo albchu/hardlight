@@ -2,30 +2,30 @@
 #ifndef _PARTICLEDATA_H_
 #define _PARTICLEDATA_H_
 
-#include "HardLight.h"
+#include <PxPhysicsAPI.h>
 
 class ParticleData {
 private:
 	int size;
-	PxU32* indexes;
-	PxVec3* velocities;
-	PxVec3* positions;
-	PxVec3* forces;
+	physx::PxU32* indexes;
+	physx::PxVec3* velocities;
+	physx::PxVec3* positions;
+	physx::PxVec3* forces;
 public:
 	ParticleData();
 	ParticleData(int);
 
-	PxU32* getIndexes();
-	void setIndex(int, PxU32);
+	physx::PxU32* getIndexes();
+	void setIndex(int, physx::PxU32);
 
-	PxVec3* getVelocities();
-	void setVelocity(int, PxVec3);
+	physx::PxVec3* getVelocities();
+	void setVelocity(int, physx::PxVec3);
 
-	PxVec3* getPositions();
-	void setPosition(int, PxVec3);
+	physx::PxVec3* getPositions();
+	void setPosition(int, physx::PxVec3);
 
-	PxVec3* getForces();
-	void setForce(int, PxVec3);
+	physx::PxVec3* getForces();
+	void setForce(int, physx::PxVec3);
 };
 
 #endif

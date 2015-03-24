@@ -1,6 +1,8 @@
 
 #include "ParticleData.h"
 
+using namespace physx;
+
 ParticleData::ParticleData() {
 	size = 0;
 	indexes = new PxU32[];
