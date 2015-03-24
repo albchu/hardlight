@@ -48,7 +48,9 @@
 #include "KeyMappings.h"
 #include "MapTypes.h"
 #include "PowerupManager.h"
+#include "ParticleData.h"
 #include "ParticleFactory.h"
+
 
 using namespace physx;
 using namespace glm;
@@ -101,7 +103,8 @@ private:
 
 	int maxParticles;
 	PxParticleSystem* particleSystem;
-	PxParticleCreationData particleData;
+	ParticleData particleData;
+	PxParticleCreationData particleCreationData;
 
 	Uint32 msGraphics;
 	Uint32 msPhysics;

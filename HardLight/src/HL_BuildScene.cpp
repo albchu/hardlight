@@ -3,20 +3,16 @@
 bool HardLight::BuildScene()
 {
 	maxParticles = 200;
+	particleData = ParticleData(maxParticles);
 
-	PxU32 * index = new PxU32[maxParticles];
-	PxVec3 * velocity = new PxVec3[maxParticles];
-	PxVec3 * position = new PxVec3[maxParticles];
-	PxVec3 * force = new PxVec3[maxParticles];
+	particleCreationData = ParticleFactory::createParticleData(maxParticles, &particleData, vec3(0.0f, -10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 
-	particleData = ParticleFactory::createParticleData(maxParticles, index, velocity, position, force, vec3(0.0f, -10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
-
-	particleSystem = ParticleFactory::createParticles(maxParticles, *pxAgent, particleData);
+	particleSystem = ParticleFactory::createParticles(maxParticles, *pxAgent, particleCreationData);
 
 	if(particleSystem)
 		pxAgent->get_scene()->addActor(*particleSystem);
 
-	particleSystem->addForces(200,PxStrideIterator<const PxU32> (index),PxStrideIterator<PxVec3>(force),PxForceMode::eFORCE);
+	particleSystem->addForces(200,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);
