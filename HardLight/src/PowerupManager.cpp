@@ -65,6 +65,25 @@ void PowerupManager::spawn_instant_powerup(vec3 position)
 	world->add_entity(powerup);
 }
 
+// Rotate all powerup entities on the map
+void PowerupManager::rotate_all()
+{
+	glm::vec3 rot(0, 2.0*(float)M_PI/180.0, 0);
+	for(HoldEntity* holdEntity : holdEntities)
+	{
+		PxTransform pose = holdEntity->get_actor()->getGlobalPose();
+		glm::quat aQuat(pose.q.w, pose.q.x, pose.q.y, pose.q.z);
+		glm::quat done = glm::normalize(aQuat * glm::quat(rot));
+		holdEntity->get_actor()->setGlobalPose(PxTransform(pose.p.x, pose.p.y, pose.p.z, PxQuat(done.x, done.y, done.z, done.w)));
+	}
+	for(InstantEntity* instantEntity : instantEntities)
+	{
+		PxTransform pose = instantEntity->get_actor()->getGlobalPose();
+		glm::quat aQuat(pose.q.w, pose.q.x, pose.q.y, pose.q.z);
+		glm::quat done = glm::normalize(aQuat * glm::quat(rot));
+		instantEntity->get_actor()->setGlobalPose(PxTransform(pose.p.x, pose.p.y, pose.p.z, PxQuat(done.x, done.y, done.z, done.w)));
+	}
+}
 
 // Spawns a brand new powerup and adds it to the list of powerups in play
 void PowerupManager::spawn_random_powerup(vec3 position)

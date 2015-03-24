@@ -5,6 +5,14 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+#include <glm/glm.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
+
 #include "SoundMixer.h"
 #include "Powerup.h"
 #include "Hold.h"
@@ -33,6 +41,7 @@ public:
 	void apply_powerup(Bike* bike, PxRigidActor* powerup_actor);
 	~PowerupManager();
 	float random_float(float low, float high);
+	void rotate_all();
 
 private:
 	vector<Powerup<Hold>::PowerCallback> all_hold_powers;

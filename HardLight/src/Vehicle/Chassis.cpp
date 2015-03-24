@@ -19,12 +19,18 @@ mat4 Chassis::get_model_matrix()
 	PxReal rads;
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
-	//cout << "Chassis location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
-	//model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
+
 	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
+	//cout << "\nX" << gPose.q.x << endl;
+	//cout << "Y" << gPose.q.y << endl;
+	//cout << "Z" << gPose.q.z << endl;
+	//cout << "W" << gPose.q.w << endl;
+	//cout << endl;
+	////cout << "Chassis location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
+	////model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
 	//model_matrix = rotate(model_matrix, rads * (axis.y), vec3(0, 1, 0));
-	//model_matrix = rotate(model_matrix, (rads * normalize(axis.z)) * -5.0f, vec3(0, 0, 1));
+	//model_matrix = rotate(model_matrix, rads * (axis.z), vec3(0, 0, 1));
+	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
 
 	model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
 
