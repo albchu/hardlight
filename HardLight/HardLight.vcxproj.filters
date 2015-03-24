@@ -152,7 +152,7 @@
     </ClCompile>
     <ClCompile Include="src\PhysX\PA_PxLookAt.cpp">
       <Filter>PhysX</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="src\Hold.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
@@ -169,6 +169,10 @@
       <Filter>World\Powerup</Filter>
     </ClCompile>
     <ClCompile Include="src\ParticleFactory.cpp">
+      <Filter>World\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\ParticleData.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -325,6 +329,9 @@
       <Filter>World\Powerup</Filter>
     </ClInclude>
     <ClInclude Include="include\ParticleFactory.h">
+      <Filter>World\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ParticleData.h">
       <Filter>World\Particles</Filter>
     </ClInclude>
   </ItemGroup>
