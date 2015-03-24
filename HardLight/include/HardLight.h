@@ -41,12 +41,12 @@
 #include "SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
-#include "Powerup.h"
+#include "Powerup/Powerup.h"
 #include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
 #include "MapTypes.h"
-#include "PowerupManager.h"
+#include "Powerup/PowerupManager.h"
 
 using namespace physx;
 using namespace glm;

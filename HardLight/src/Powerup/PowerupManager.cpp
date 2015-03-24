@@ -1,4 +1,4 @@
-#include "PowerupManager.h"
+#include "Powerup/PowerupManager.h"
 
 PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent, SoundMixer* new_sfxMix)
 {

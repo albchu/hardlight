@@ -14,11 +14,11 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "SoundMixer.h"
-#include "Powerup.h"
-#include "Hold.h"
-#include "Instant.h"
-#include "HoldEntity.h"
-#include "InstantEntity.h"
+#include "Powerup/Powerup.h"
+#include "Powerup/Hold.h"
+#include "Powerup/Instant.h"
+#include "Powerup/HoldEntity.h"
+#include "Powerup/InstantEntity.h"
 #include "World.h"
 #include "Vehicle/Bike.h"
 #include "MapTypes.h"

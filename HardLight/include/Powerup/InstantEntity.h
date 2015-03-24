@@ -2,7 +2,7 @@
 #define _INSTANT_ENTITY_H
 
 #include "Entity.h"
-#include "Instant.h"
+#include "Powerup/Instant.h"
 
 // This class represents a game world item containing a powerup ability
 class InstantEntity : public Entity

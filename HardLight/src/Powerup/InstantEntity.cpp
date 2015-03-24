@@ -1,4 +1,4 @@
-#include "InstantEntity.h"
+#include "Powerup/InstantEntity.h"
 
 InstantEntity::InstantEntity(Powerup<Instant>::PowerCallback new_power, PxRigidActor* init_actor, vec3 new_scaleFactors)
 {

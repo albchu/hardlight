@@ -1,4 +1,4 @@
-#include "HoldEntity.h"
+#include "Powerup/HoldEntity.h"
 
 HoldEntity::HoldEntity(Powerup<Hold>::PowerCallback new_power, PxRigidActor* init_actor, vec3 new_scaleFactors)
 {
