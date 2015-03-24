@@ -2,17 +2,9 @@
 
 bool HardLight::BuildScene()
 {
+
 	maxParticles = 200;
 	particleData = ParticleData(maxParticles);
-
-	particleCreationData = ParticleFactory::createParticleData(maxParticles, &particleData, vec3(0.0f, -10.0f, 0.0f), vec3(0.0f, 10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
-
-	particleSystem = ParticleFactory::createParticles(maxParticles, *pxAgent, particleCreationData);
-
-	if(particleSystem)
-		pxAgent->get_scene()->addActor(*particleSystem);
-
-	particleSystem->addForces(200,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
 	world.add_entity(skybox);
@@ -106,6 +98,15 @@ bool HardLight::BuildScene()
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
+
+			particleCreationData = ParticleFactory::createParticleData(maxParticles, &particleData, PxVec3(0.0f, 0.0f, 0.0f), start_locations[count], PxVec3(0.0f, 0.0f, 0.0f));
+
+			particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
+
+			if(particleSystem)
+				pxAgent->get_scene()->addActor(*particleSystem);
+
+			particleSystem->addForces(200,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 			if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
