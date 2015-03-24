@@ -99,9 +99,6 @@
     <ClCompile Include="src\Button.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Pickup.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rendering\TextureMap.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -153,19 +150,20 @@
     <ClCompile Include="src\PhysX\PA_PxLookAt.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Hold.cpp">
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Powerup\Instant.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\Instant.cpp">
+    <ClCompile Include="src\Powerup\InstantEntity.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\PowerupManager.cpp">
+    <ClCompile Include="src\Powerup\PowerupManager.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\HoldEntity.cpp">
+    <ClCompile Include="src\Powerup\Hold.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
-    <ClCompile Include="src\InstantEntity.cpp">
+    <ClCompile Include="src\Powerup\HoldEntity.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
     <ClCompile Include="src\ParticleFactory.cpp">
@@ -253,9 +251,6 @@
     <ClInclude Include="include\Image.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="include\Pickup.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="include\Rendering\TextureMap.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -310,22 +305,22 @@
     <ClInclude Include="include\Camera.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="include\Hold.h">
+    <ClInclude Include="include\Powerup\Instant.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\Instant.h">
+    <ClInclude Include="include\Powerup\InstantEntity.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\PowerupManager.h">
+    <ClInclude Include="include\Powerup\Powerup.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\Powerup.h">
+    <ClInclude Include="include\Powerup\PowerupManager.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\HoldEntity.h">
+    <ClInclude Include="include\Powerup\Hold.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
-    <ClInclude Include="include\InstantEntity.h">
+    <ClInclude Include="include\Powerup\HoldEntity.h">
       <Filter>World\Powerup</Filter>
     </ClInclude>
     <ClInclude Include="include\ParticleFactory.h">

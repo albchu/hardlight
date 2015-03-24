@@ -11,8 +11,6 @@ void HardLight::OnCleanup()
 		// Note for future onlookers: we need to detatch all shapes from actors https://developer.nvidia.com/sites/default/files/akamai/physx/Manual/Shapes.html
 		aBike->get_chassis()->getBatchQuery()->release();
 		aBike->get_chassis()->getVehicleSceneQueryData()->free(pxAgent->get_allocator());
-
-		//delete aBike->get_controller();
 	}
 
 	for(Bike* aBike : bike_manager->get_player_bikes())

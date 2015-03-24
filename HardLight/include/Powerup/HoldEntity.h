@@ -2,7 +2,7 @@
 #define _HOLD_ENTITY_H
 
 #include "Entity.h"
-#include "Hold.h"
+#include "Powerup/Hold.h"
 
 // This class represents a game world item containing a powerup ability
 class HoldEntity : public Entity

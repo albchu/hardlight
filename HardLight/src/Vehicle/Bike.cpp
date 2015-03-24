@@ -12,7 +12,7 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 
 	// Initialize controller 
 	controller = new_controller;
-
+	powerup = NULL;
 }
 
 Bike::~Bike()

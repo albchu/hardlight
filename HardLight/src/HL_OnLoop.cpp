@@ -117,6 +117,10 @@ void HardLight::OnLoop()
 	{
 		bike->get_tail()->update(pxAgent);
 	}
+
+	// Rotate powerups
+	powerup_manager->rotate_all();
+
 	/*
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))

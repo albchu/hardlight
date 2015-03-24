@@ -24,32 +24,9 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
 	char const * randTexture =  randTexturestr.c_str();
 	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-	//chassis->set_texture(TextureMap::Instance()->getTexture("../data/Textures/UVTexture.tga"));
-
-	//TEMP CODE PLZ DELETE ONCE ITS WORKIGN ALBVERT
-	new_bike->set_hold_powerup(&Hold::jump);
 
 	player_bikes.push_back(new_bike);
 }
-
-//// Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
-//void BikeManager::add_player_bike(Chassis* chassis, KeyMapping keymapping)
-//{
-//	//Bike* new_bike = new Bike(chassis, PLAYER_BIKE);
-//	//world->add_entity(new_bike);
-//	//new_bike->set_subtype(PLAYER_BIKE);
-//
-//	world->add_entity(chassis);
-//	int someInt = getRandInt(1,4);
-//	string randTexturestr =  "../data/Textures/BikeTexture" + to_string(someInt) + ".tga";
-//	char const * randTexture =  randTexturestr.c_str();
-//	chassis->set_texture(TextureMap::Instance()->getTexture(randTexture));
-//	chassis->set_subtype(PLAYER_BIKE);
-//	Controller * controlled = new Player_Controller(chassis, keymapping);
-//	//controlled_bikes.push_back(controlled);
-//	player_bikes.push_back(chassis);
-//	add_tail(chassis);
-//}
 
 // Creates a bot chassis, loads it onto the world and adds it to the bot bike_manager vector
 void BikeManager::add_bot_bike(Chassis* chassis)
@@ -120,8 +97,10 @@ void BikeManager::kill_bike(Bike* bike)
 		{
 			if (player_bikes[i]->get_chassis() == bike->get_chassis())
 			{
+				delete (Player_Controller*)player_bikes[i]->get_controller();	// Delete the controller
 				dead_bikes.push_back(player_bikes[i]);
 				player_bikes.erase(player_bikes.begin()+i);
+				
 				return;
 			}
 		}

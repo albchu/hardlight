@@ -1,33 +1,18 @@
 #ifndef _BIKE_H
 #define _BIKE_H
 
-// This is what i want the new bike to look like but i dont want to make too drastic of changes at one time immediately
-
 #include "Entity.h"
 
 ////Powerups
-#include "Hold.h"
-#include "Instant.h"
-#include "Powerup.h"
+#include "Powerup/Hold.h"
+#include "Powerup/Instant.h"
+#include "Powerup/Powerup.h"
 
-//#include "TailWall.h"
-//#include "Chassis.h"
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
 #include "Camera.h"
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
-
-//#include <PxPhysicsAPI.h>
-//#include <vehicle/PxVehicleUtil.h>
-//#include "../SnippetVehicleCommon/SnippetVehicleRaycast.h"
-//#include "../SnippetVehicleCommon/SnippetVehicleFilterShader.h"
-//#include "../SnippetVehicleCommon/SnippetVehicleTireFriction.h"
-//#include "../SnippetVehicleCommon/SnippetVehicleCreate.h"
-//
-//#include <glm\gtx\rotate_vector.hpp>
-//#include <glm/glm.hpp>		// Used for vec3
-//#include "glm/gtx/string_cast.hpp"		// Used for to_string
 
 using namespace glm;
 using namespace std;

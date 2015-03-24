@@ -116,7 +116,7 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 	queryFilterData.word3 = driveable(type);
 
 	PxTransform transform(PxVec3(location.x, location.y, location.z));
-	PxMeshScale scale(PxVec3(scaleFactors.x, scaleFactors.y, scaleFactors.z), PxQuat(PxIdentity));
+	PxMeshScale scale(PxVec3(scaleFactors.x + 2, scaleFactors.y + 2, scaleFactors.z + 2), PxQuat(PxIdentity));	// Plus 2 to make the collision box a little easier to hit 
 
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(pickup_mesh, scale), *pickup_material);

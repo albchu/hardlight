@@ -139,6 +139,7 @@ void AI::update_controller(Bike* bike)
 	if(SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0)
 	{
 		accel = SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT)/32768.0f;
+		//player->rumble(0.15, 15);
 		// Cap the speed into a specific range
 		if (accel < player->get_min_acceleration())
 			accel = player->get_min_acceleration();
