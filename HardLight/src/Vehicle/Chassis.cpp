@@ -20,17 +20,21 @@ mat4 Chassis::get_model_matrix()
 	PxVec3 axis;
 	gPose.q.toRadiansAndUnitAxis(rads, axis);
 
-	model_matrix = rotate(model_matrix, rads, vec3(axis.x, axis.y, axis.z));
-	//cout << "\nX" << gPose.q.x << endl;
-	//cout << "Y" << gPose.q.y << endl;
-	//cout << "Z" << gPose.q.z << endl;
-	//cout << "W" << gPose.q.w << endl;
-	//cout << endl;
-	////cout << "Chassis location" << glm::to_string(vec3(gPose.p.x, gPose.p.y, gPose.p.z)) << endl;
-	////model_matrix = rotate(model_matrix, PxPi, vec3(0, 1, 0));	// Flip the bike model around: This is a hack to get the correct physx bike lean
-	//model_matrix = rotate(model_matrix, rads * (axis.y), vec3(0, 1, 0));
-	//model_matrix = rotate(model_matrix, rads * (axis.z), vec3(0, 0, 1));
-	//model_matrix = rotate(model_matrix, rads * (axis.x), vec3(1, 0, 0));
+	glm::quat rot(gPose.q.w, gPose.q.x, gPose.q.y, gPose.q.z);
+	glm::vec3 rot_euler_angles = glm::eulerAngles(rot);
+
+	float radsx = rot_euler_angles.x;
+	float radsy = rot_euler_angles.y;
+	float radsz = rot_euler_angles.z;
+
+	//Correct's bike lean. KEVIN PLEASE DO NOT REMOVE THESE LINES IN CASE WE DECIDE NOT TO USE SPHERE. THEY WORK FOR PLANE.
+	// Please talk to albert before this block is changed
+	radsx =  (2 * PxPi - rot_euler_angles.x);
+	radsz = (2 * PxPi - rot_euler_angles.z);
+
+	model_matrix = rotate(model_matrix, radsz, vec3(0, 0, 1));
+	model_matrix = rotate(model_matrix, radsy, vec3(0, 1, 0));
+	model_matrix = rotate(model_matrix, radsx, vec3(1, 0, 0));
 
 	model_matrix = scale(model_matrix, vec3(2.5,2.5,2.5));
 
