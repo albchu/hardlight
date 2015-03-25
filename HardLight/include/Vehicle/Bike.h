@@ -31,13 +31,14 @@ class Bike : public Entity
 
 public:
 	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
-	~Bike();
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
 	void set_subtype(BikeSubTypes subtype);
 	Chassis* get_chassis();
 	TailWall* get_tail();
 	Controller* get_controller();
+	PxVec3 get_gravity_up();
+	void set_gravity_up(PxVec3 new_gravity_up);
 
 private:
 	Controller* controller;

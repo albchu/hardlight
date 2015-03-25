@@ -40,14 +40,14 @@ void TailWall::update(PhysxAgent* pxAgent)
 
 	if (max_length > 0)
 	{
-		PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, bike->get_up_vector(), width, height);
+		PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, PhysxAgent::toVec3(bike->get_gravity_up()), width, height);
 		TailSegment* segment = new TailSegment(segment_actor, "../data/Textures/LightTrail.tga", width, height, length, program_id);
 		segments.insert(segments.begin(), segment);
 
 		last_position = new_position;	// Update last set position for next wall segment
 	}
 }
-
+/*
 // Returns the pxTransform of the tail with appropriate physx transform offsets
 PxTransform TailWall::getTailTransform()
 {
@@ -56,14 +56,14 @@ PxTransform TailWall::getTailTransform()
 	vec3 direction = bike->get_direction_vector();
 
 	// Get a point that moves behind the direction vector
-	location = location - (direction * vec3(tail_offset_scalar,tail_offset_scalar,tail_offset_scalar));
+	location = location - (direction * tail_offset_scalar);
 
 	// Offset the physx actor for the tail so it doesnt start in the exact same spot as its bike
-	PxTransform bikeTransform = PxTransform(location.x, location.y, location.z, bike->get_actor()->getGlobalPose().q);
+	PxTransform bikeTransform = PxTransform(location.x, location.y, location.z, );
 
 	return bikeTransform;
 }
-
+*/
 // Returns the pxTransform of the tail with appropriate physx transform offsets
 vec3 TailWall::getTailPosition()
 {
@@ -72,7 +72,7 @@ vec3 TailWall::getTailPosition()
 	vec3 direction = bike->get_direction_vector();
 
 	// Get a point that moves behind the direction vector
-	return location - (direction * vec3(tail_offset_scalar,tail_offset_scalar,tail_offset_scalar));
+	return location - (direction * tail_offset_scalar);
 }
 
 void TailWall::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)

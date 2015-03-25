@@ -41,6 +41,8 @@ public:
 	void setInAir(bool);
 	virtual void set_actor(PxRigidActor*);
 	void adaptiveSteering(int analogStickInput);
+	void set_gravity_up(PxVec3 new_gravity_up);
+	PxVec3 get_gravity_up();
 
 private:
 	PxVehicleDrive4W* vehicle4W;
@@ -51,5 +53,6 @@ private:
 	int previousAnalogStickInput;
 	bool invincible;
 	float steeringParameter;
+	PxVec3 gravity_up;
 };
 #endif

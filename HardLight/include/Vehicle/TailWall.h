@@ -33,7 +33,7 @@ public:
 
 	// Needs to be overwritten so we can render the segments correctly
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
-	PxTransform getTailTransform();
+	//PxTransform getTailTransform();
 	vec3 getTailPosition();
 	Chassis* getBike();
 	void extend_max_length();

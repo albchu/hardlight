@@ -200,8 +200,7 @@ vec3 Entity::get_location()
 
 vec3 Entity::get_direction_vector()
 {
-	PxTransform gPose = actor->getGlobalPose();
-	PxQuat q = gPose.q;
+	PxQuat q = actor->getGlobalPose().q;
 	PxVec3 global_forward = PxVec3(0,0,1);
 	
 	return normalize(PhysxAgent::toVec3(q.rotate(global_forward)));

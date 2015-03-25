@@ -103,3 +103,13 @@ void Chassis::toggle_invincible()
 {
 	invincible = !invincible;
 }
+
+void Chassis::set_gravity_up(PxVec3 new_gravity)
+{
+	gravity_up = new_gravity.getNormalized();
+}
+
+PxVec3 Chassis::get_gravity_up()
+{
+	return gravity_up;
+}
