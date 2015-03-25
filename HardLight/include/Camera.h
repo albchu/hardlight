@@ -30,7 +30,7 @@ private:
 	float forward_percent;
 
 public:
-	Camera(INIReader* config, PxRigidActor* init_focalTarget);
+	Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height);
 	void update_translationZ(float translation);
 	void update_rotation(float rads);
 	void update(float translationZ, float rotationRads);
