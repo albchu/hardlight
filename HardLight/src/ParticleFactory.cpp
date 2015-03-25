@@ -1,5 +1,6 @@
 
 #include "ParticleFactory.h"
+#include <stdlib.h>
 
 using namespace physx;
 
@@ -36,10 +37,62 @@ PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData
 		pData->setPosition(i, position);
 		pData->setForce(i, force);
 	}
-	data.numParticles = 200;
+	data.numParticles = num;
 	data.indexBuffer = PxStrideIterator<const PxU32> (pData->getIndexes());
 	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
 	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
 
 	return data;
+}
+
+/*
+ * Provided a location, randomly assigns velocities and forces to all points.
+ * For explosions!
+ */
+PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int maxVelocity, ParticleData* pData, PxVec3 position) {
+	PxParticleCreationData data;
+
+	for(PxU32 i = 0; i < (PxU32)num; ++i) {
+		double rx = rand() % maxVelocity;
+		double ry = rand() % maxVelocity;
+		double rz = rand() % maxVelocity;
+
+		pData->setIndex(i, i);
+		pData->setVelocity(i, PxVec3(rx, ry, rz));
+		pData->setPosition(i, position);
+		pData->setForce(i, PxVec3(rx, ry, rz));
+	}
+
+	data.numParticles = num;
+	data.indexBuffer = PxStrideIterator<const PxU32> (pData->getIndexes());
+	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
+	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
+
+	return data;
+
+}
+
+// Gets meshdata version of particlesystem
+MeshData ParticleFactory::createMeshData(PxParticleSystem* system) {
+	MeshData newMesh;
+
+	PxParticleReadData* readParticle = system->lockParticleReadData();
+	if(readParticle) {
+		PxStrideIterator<const PxParticleFlags> flagIt(readParticle->flagsBuffer);
+		PxStrideIterator<const PxVec3> positionIt(readParticle->positionBuffer);
+
+		for(unsigned int j = 0 ; j < readParticle->validParticleRange; ++j, ++flagIt , ++positionIt)
+		{
+			if(*flagIt & PxParticleFlag::eVALID)
+			{
+				const PxVec3& pos = *positionIt;
+				newMesh.addVertex(vec3(pos.x, pos.y, pos.z));
+
+			}
+		}
+
+	}
+	readParticle->unlock();
+
+	return newMesh;
 }
