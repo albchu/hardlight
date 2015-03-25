@@ -15,11 +15,6 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	powerup = NULL;
 }
 
-Bike::~Bike()
-{
-
-}
-
 Chassis* Bike::get_chassis()
 {
 	return chassis;
@@ -40,7 +35,6 @@ Controller* Bike::get_controller()
 {
 	return controller;
 }
-
 
 void Bike::set_subtype(BikeSubTypes new_subtype)
 {
@@ -79,3 +73,14 @@ Powerup<Hold>::PowerCallback Bike::get_hold_powerup()
 {
 	return powerup;
 }
+
+PxVec3 Bike::get_gravity_up()
+{
+	return get_chassis()->get_gravity_up();
+}
+
+void Bike::set_gravity_up(PxVec3 new_gravity)
+{
+	get_chassis()->set_gravity_up(new_gravity);
+}
+

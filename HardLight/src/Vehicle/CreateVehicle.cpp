@@ -4,7 +4,6 @@ CreateVehicle::CreateVehicle(INIReader* new_config, PhysxAgent* new_pxAgent)
 {
 	config = new_config;
 	pxAgent = new_pxAgent;
-	
 }
 
 //==============================================================================
@@ -67,6 +66,7 @@ bool CreateVehicle::Create(Chassis* &chassis, PxVec3 init_position, PxVec3 init_
 	//bike = new Chassis(bike->getVehicle4W()->getRigidDynamicActor(), "../data/BikeTexture.tga");
 	chassis->set_actor(chassis->getVehicle4W()->getRigidDynamicActor());
 	chassis->init_opengl();
+	chassis->set_gravity_up(init_up);
 
 	//vehicle = bike->getVehicle4W()->getRigidDynamicActor();
 

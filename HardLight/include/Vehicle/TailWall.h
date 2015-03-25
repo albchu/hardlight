@@ -11,7 +11,6 @@
 class TailWall : public Entity
 {
 private:
-	//vector<TailSegment*> bikeWall;
 	unsigned int max_length;		// This value will hold exactly how many tail segments will be allowed 
 	unsigned int extend_length;		// This value will hold exactly how many segments will be added when pickup is acquired
 	vector<TailSegment*> segments;
@@ -33,7 +32,6 @@ public:
 
 	// Needs to be overwritten so we can render the segments correctly
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);
-	PxTransform getTailTransform();
 	vec3 getTailPosition();
 	Chassis* getBike();
 	void extend_max_length();

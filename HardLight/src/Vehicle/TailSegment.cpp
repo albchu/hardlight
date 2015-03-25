@@ -4,7 +4,7 @@ TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, flo
 {
 	width = init_width;
 	height = init_height;
-	length = init_length;
+	length = init_length+0.1f;
 	type = WALL;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
