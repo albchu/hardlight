@@ -99,7 +99,7 @@ bool HardLight::BuildScene()
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
-			particleCreationData = ParticleFactory::createParticleData(maxParticles, &particleData, PxVec3(0.0f, 0.0f, 0.0f), start_locations[count], PxVec3(0.0f, 0.0f, 0.0f));
+			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, 10, &particleData, PxVec3(0.0f, 0.0f, 0.0f));
 
 			particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
 

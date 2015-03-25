@@ -22,18 +22,20 @@ void HardLight::OnRender()
 		if(readParticle) {
 			PxStrideIterator<const PxParticleFlags> flagIt(readParticle->flagsBuffer);
 			PxStrideIterator<const PxVec3> positionIt(readParticle->positionBuffer);
+
 			for(unsigned int j = 0 ; j < readParticle->validParticleRange; ++j, ++flagIt , ++positionIt)
 			{
 				if(*flagIt & PxParticleFlag::eVALID)
 				{
 					const PxVec3& pos = *positionIt;
-					glPointSize(10.0f);
+					glPointSize(20.0f);
 					glColor4f(1.0f, 0.6f, 0.8f, 1.0f);
 					glBegin(GL_POINTS);
 					glVertex3f(pos.x, pos.y, pos.z);
 					glEnd();
 				}
 			}
+
 		}
 		readParticle->unlock();//must unlock!
 	}

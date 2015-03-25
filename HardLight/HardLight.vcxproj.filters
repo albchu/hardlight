@@ -173,6 +173,9 @@
     <ClCompile Include="src\ParticleData.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\ParticleSystemEntity.cpp">
+      <Filter>World\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -327,6 +330,9 @@
       <Filter>World\Particles</Filter>
     </ClInclude>
     <ClInclude Include="include\ParticleData.h">
+      <Filter>World\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ParticleSystemEntity.h">
       <Filter>World\Particles</Filter>
     </ClInclude>
   </ItemGroup>
