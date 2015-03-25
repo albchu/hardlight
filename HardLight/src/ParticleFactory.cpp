@@ -22,14 +22,14 @@ PxParticleSystem* ParticleFactory::createParticles(int max, PxPhysics* physics, 
 }
 
 /* creates creation data for particles
- * max = max particles
+ * num = number of particles, must be less than the maximum number of particles
  * pData = an empty but initialized instance of ParticleData is preferred
  * last three arguments are constant across particles
  */
-PxParticleCreationData ParticleFactory::createParticleData(int max, ParticleData* pData, PxVec3 velocity, PxVec3 position, PxVec3 force) {
+PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData* pData, PxVec3 velocity, PxVec3 position, PxVec3 force) {
 	PxParticleCreationData data;
 
-	for(PxU32 i = 0 ; i < (PxU32)max; ++i)
+	for(PxU32 i = 0 ; i < (PxU32)num; ++i)
 	{
 		pData->setIndex(i, i);
 		pData->setVelocity(i, velocity);
