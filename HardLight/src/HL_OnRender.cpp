@@ -22,7 +22,7 @@ void HardLight::OnRender()
 		if(readParticle) {
 			PxStrideIterator<const PxParticleFlags> flagIt(readParticle->flagsBuffer);
 			PxStrideIterator<const PxVec3> positionIt(readParticle->positionBuffer);
-			for(unsigned int j = 0 ; j < readParticle->validParticleRange ; ++j, ++flagIt , ++positionIt)
+			for(unsigned int j = 0 ; j < readParticle->validParticleRange; ++j, ++flagIt , ++positionIt)
 			{
 				if(*flagIt & PxParticleFlag::eVALID)
 				{
