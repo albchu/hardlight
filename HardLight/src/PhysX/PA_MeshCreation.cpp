@@ -100,7 +100,7 @@ PxRigidStatic* PhysxAgent::create_pickup(vec3 location, vec3 up, vec3 scaleFacto
 {
 	if (pickup_mesh == NULL)
 	{
-		MeshData* pickup_data = MeshMap::Instance()->getEntityMesh("PowerUp.obj");
+		MeshData* pickup_data = MeshMap::Instance()->getEntityMesh("powerup_random.obj");
 		pickup_mesh = create_convex_mesh(*pickup_data->getVertices());
 		pickup_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	}
