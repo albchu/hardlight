@@ -6,7 +6,7 @@ InstantEntity::InstantEntity(Powerup<Instant>::PowerCallback new_power, PxRigidA
 	type = WALL;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
-	mesh_data = MeshMap::Instance()->getEntityMesh("PowerUp.obj");
+	mesh_data = MeshMap::Instance()->getEntityMesh("powerup_random.obj");
 	texture = TextureMap::Instance()->getTexture("../data/Textures/PowerUpBlue.tga");
 	init_opengl();
 	renderable = true;
