@@ -61,26 +61,23 @@ PxConvexMesh* PhysxAgent::create_convex_mesh(vector<vec3> vertices)
 	return convexMesh;
 }
 
-PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec3 up, float width, float height)
+PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec3 v3up, float width, float height)
 {
-	float save_y = new_location.y;
-	old_location.y = 0.0f;
-	new_location.y = 0.0f;
 	if (tail_mesh == NULL)
 	{
 		MeshData* tail_data = MeshMap::Instance()->getEntityMesh("tail.obj");
 		tail_mesh = create_convex_mesh(*tail_data->getVertices());
 		tail_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	}
-	vec3 direction = normalize(old_location - new_location); // from new to old
-	float distance = glm::distance(vec3(old_location.x, 0.0f, old_location.z), vec3(new_location.x, 0.0f, new_location.z));
-	if (distance < 0.001f)
-	{
-		direction = vec3(0.0f, 0.0f, 1.0f);
-		distance = 0.001f;
-	}
+	vec3 v3direction = normalize(old_location - new_location); // from new to old
+	float distance = glm::distance(old_location, new_location);
 
-	PxTransform transform(PxVec3(new_location.x, save_y, new_location.z), PxLookAt(direction, up));
+	PxVec3 direction = PxVec3(v3direction.x, v3direction.y, v3direction.z).getNormalized();
+	PxVec3 up = PxVec3(v3up.x, v3up.y, v3up.z).getNormalized();
+	PxVec3 right = up.cross(direction).getNormalized();
+	direction = right.cross(up).getNormalized();
+
+	PxTransform transform(PxVec3(new_location.x, new_location.y, new_location.z), PxLookAt(direction, up));
 	PxMeshScale scale(PxVec3(width, height, distance), PxQuat(PxIdentity));
 
 	PxFilterData simFilterData;
