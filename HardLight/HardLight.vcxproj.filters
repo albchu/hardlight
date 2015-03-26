@@ -399,5 +399,11 @@
     <None Include="Paused.ini">
       <Filter>Scene</Filter>
     </None>
+    <None Include="Particle_fs.glsl">
+      <Filter>Rendering</Filter>
+    </None>
+    <None Include="Particle_vs.glsl">
+      <Filter>Rendering</Filter>
+    </None>
   </ItemGroup>
 </Project>
