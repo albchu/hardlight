@@ -73,8 +73,8 @@ PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int ma
 }
 
 // Gets meshdata version of particlesystem
-MeshData ParticleFactory::createMeshData(PxParticleSystem* system) {
-	MeshData newMesh;
+MeshData* ParticleFactory::createMeshData(PxParticleSystem* system) {
+	MeshData* newMesh = new MeshData();
 
 	PxParticleReadData* readParticle = system->lockParticleReadData();
 	if(readParticle) {
@@ -86,7 +86,7 @@ MeshData ParticleFactory::createMeshData(PxParticleSystem* system) {
 			if(*flagIt & PxParticleFlag::eVALID)
 			{
 				const PxVec3& pos = *positionIt;
-				newMesh.addVertex(vec3(pos.x, pos.y, pos.z));
+				newMesh->addVertex(vec3(pos.x, pos.y, pos.z));
 
 			}
 		}
