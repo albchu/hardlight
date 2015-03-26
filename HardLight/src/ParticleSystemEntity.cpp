@@ -59,6 +59,10 @@ void ParticleSystemEntity::render(mat4 projection_matrix, mat4 view_matrix, vec3
 
 	glUseProgram(program_id);
 
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_POINT_SPRITE);
+	glEnable(GL_PROGRAM_POINT_SIZE);
+
 	mat4 model_matrix = this->get_model_matrix();
 
 	mat4 mvp_matrix = projection_matrix * view_matrix * model_matrix;
