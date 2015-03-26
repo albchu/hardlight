@@ -1,7 +1,6 @@
 // vertex shader
 // Written by: Sean Brown
 #version 330
-#extension GL_ARB_gpu_shader5 : enable
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
 
