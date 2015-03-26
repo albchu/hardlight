@@ -11,10 +11,6 @@ void HardLight::OnRender()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	int numParticles = pxAgent->get_scene()->getNbActors(PxActorTypeSelectionFlag::ePARTICLE_SYSTEM);
-	vector<PxParticleSystem*> particleActors(numParticles+1);
-	pxAgent->get_scene()->getActors(PxActorTypeSelectionFlag::ePARTICLE_SYSTEM, (PxActor**)&particleActors[0], numParticles);
-
 	for(Viewports::Viewport viewport: viewports)
 	{
 		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices
