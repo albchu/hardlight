@@ -1,10 +1,10 @@
 
-#ifndef _PARTICLESYSTEMENTITY_H_
-#define _PARTICLESYSTEMENTITY_H_
+#ifndef _PARTICLESYSTEM_H_
+#define _PARTICLESYSTEM_H_
 
 #include "Entity.h"
 
-class ParticleSystemEntity : public Entity {
+class ParticleSystem : public Entity {
 private:
 
 	GLuint coefficient_id, percent_id, radii_id;
@@ -13,9 +13,10 @@ private:
 	void init_particle_openGL();
 
 public:
-	ParticleSystemEntity();
-	ParticleSystemEntity(PxRigidActor*, MeshData*, GLuint);
-	~ParticleSystemEntity();
+	ParticleSystem();
+	ParticleSystem(PxRigidActor*, MeshData*, GLuint);
+	~ParticleSystem();
+	void updateBuffer();
 
 	physx::PxParticleSystem* getParticleSystem();
 	void setParticleSystem(physx::PxParticleSystem*);

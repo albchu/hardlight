@@ -1,9 +1,18 @@
 
 
-#include "ParticleSystemEntity.h"
+#include "ParticleSystem.h"
 #include "ParticleFactory.h"
 
-void ParticleSystemEntity::init_particle_openGL() {
+void ParticleSystem::updateBuffer() {
+		glGenBuffers(1, &vertex_buffer_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+		glBufferData(GL_ARRAY_BUFFER,
+		mesh_data->getVertices()->size() * sizeof(vec3),
+		&mesh_data->getVertices()->at(0),
+		GL_STATIC_DRAW);
+}
+
+void ParticleSystem::init_particle_openGL() {
 	program_id = LoadShaders("Particle_vs.glsl", "Particle_fs.glsl");
 
 	glGenVertexArrays(1, &vertex_array_id);
@@ -16,23 +25,18 @@ void ParticleSystemEntity::init_particle_openGL() {
 	percent_id = glGetUniformLocation(program_id, "percentFactor");
 	radii_id = glGetUniformLocation(program_id, "radii");
 
-	glGenBuffers(1, &vertex_buffer_id);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-	glBufferData(GL_ARRAY_BUFFER,
-		mesh_data->getVertices()->size() * sizeof(vec3),
-		&mesh_data->getVertices()->at(0),
-		GL_STATIC_DRAW);
+	updateBuffer();
 
 	glUseProgram(program_id);
 }
 
-ParticleSystemEntity::ParticleSystemEntity() {
+ParticleSystem::ParticleSystem() {
 	type = UNDECLARED;
 	draw_mode = GL_POINTS;
 	renderable = true;
 }
 	
-ParticleSystemEntity::ParticleSystemEntity(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture) {
+ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture) {
 	type = UNDECLARED;
 	draw_mode = GL_POINTS;
 	actor = init_actor;
@@ -40,25 +44,27 @@ ParticleSystemEntity::ParticleSystemEntity(PxRigidActor* init_actor, MeshData* i
 	texture = new_texture;
 	init_particle_openGL();
 	renderable = true;
-	coefficient = 10.0f;
-	percentFactor = 100.0f;
+	coefficient = 1.0f;
+	percentFactor = 1000.0f;
 	radii = 0.6f;
 }
 
-ParticleSystemEntity::~ParticleSystemEntity() {
+ParticleSystem::~ParticleSystem() {
 }
 
-physx::PxParticleSystem* ParticleSystemEntity::getParticleSystem() {
+physx::PxParticleSystem* ParticleSystem::getParticleSystem() {
 	return particleSystem;
 }
 
-void ParticleSystemEntity::setParticleSystem(physx::PxParticleSystem* system) {
+void ParticleSystem::setParticleSystem(physx::PxParticleSystem* system) {
 	particleSystem = system;
 }
 
-void ParticleSystemEntity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
+void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
 
 	mesh_data = ParticleFactory::createMeshData(particleSystem);
+
+	updateBuffer();
 
 	glUseProgram(program_id);
 
@@ -103,7 +109,7 @@ void ParticleSystemEntity::render(mat4 projection_matrix, mat4 view_matrix, vec3
 	glDisable(GL_TEXTURE_2D);
 }
 
-mat4 ParticleSystemEntity::get_model_matrix() {
+mat4 ParticleSystem::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
