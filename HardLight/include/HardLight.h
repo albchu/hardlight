@@ -48,6 +48,7 @@
 #include "MapTypes.h"
 #include "Powerup/PowerupManager.h"
 #include "ParticleFactory.h"
+#include "ParticleSystemEntity.h"
 
 
 using namespace physx;
