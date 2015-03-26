@@ -1,6 +1,7 @@
 
 
 #include "ParticleSystemEntity.h"
+#include "ParticleFactory.h"
 
 void ParticleSystemEntity::init_particle_openGL() {
 	program_id = LoadShaders("Particle_vs.glsl", "Particle_fs.glsl");
@@ -41,7 +42,7 @@ ParticleSystemEntity::ParticleSystemEntity(PxRigidActor* init_actor, MeshData* i
 	renderable = true;
 	coefficient = 10.0f;
 	percentFactor = 100.0f;
-	radii = 1.0f;
+	radii = 0.6f;
 }
 
 ParticleSystemEntity::~ParticleSystemEntity() {
@@ -57,11 +58,14 @@ void ParticleSystemEntity::setParticleSystem(physx::PxParticleSystem* system) {
 
 void ParticleSystemEntity::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
 
+	mesh_data = ParticleFactory::createMeshData(particleSystem);
+
 	glUseProgram(program_id);
 
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_POINT_SPRITE);
 	glEnable(GL_PROGRAM_POINT_SIZE);
+	glEnable(GL_TEXTURE_2D);
 
 	mat4 model_matrix = this->get_model_matrix();
 
@@ -95,6 +99,8 @@ void ParticleSystemEntity::render(mat4 projection_matrix, mat4 view_matrix, vec3
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+
+	glDisable(GL_TEXTURE_2D);
 }
 
 mat4 ParticleSystemEntity::get_model_matrix() {

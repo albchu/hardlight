@@ -27,6 +27,7 @@ bool HardLight::BuildScene()
 	particleSystem->addForces(maxParticles,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 	ParticleSystemEntity* particleEntity = new ParticleSystemEntity(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 10.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpBlue.tga"));
+	particleEntity->setParticleSystem(particleSystem);
 	world.add_entity(particleEntity);
 
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga"));
