@@ -12,9 +12,9 @@ void main() {
 	
 	vec4 position4 = MVP * vec4(vertexPosition_modelspace, 1);
 	
-	//float distance = length(-position4)/percentFactor;
+	float distance = length(-position4)/percentFactor;
 	
-	float pointSize = coefficient; //sqrt(1/(coefficient*distance*distance));
+	float pointSize = sqrt(1/(coefficient*distance*distance));
 	gl_PointSize = pointSize;
 
 	gl_Position = position4;
