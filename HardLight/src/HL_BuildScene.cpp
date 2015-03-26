@@ -17,14 +17,14 @@ bool HardLight::BuildScene()
 	float height = 0.f;
 	vec3 scale_factor(size, size, size);
 
-	particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, 10, &particleData, PxVec3(0.0f, 0.0f, 0.0f));
+	particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, 10, &particleData, PxVec3(0.0f, 10.0f, 0.0f));
 
 	particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
 
 	if(particleSystem)
 		pxAgent->get_scene()->addActor(*particleSystem);
 
-	particleSystem->addForces(200,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
+	particleSystem->addForces(maxParticles,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 	ParticleSystemEntity* particleEntity = new ParticleSystemEntity(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 10.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpBlue.tga"));
 	world.add_entity(particleEntity);
