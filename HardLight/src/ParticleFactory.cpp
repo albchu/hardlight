@@ -1,6 +1,7 @@
 
 #include "ParticleFactory.h"
 #include <stdlib.h>
+#include <time.h>
 
 using namespace physx;
 
@@ -52,10 +53,12 @@ PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData
 PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int maxVelocity, ParticleData* pData, PxVec3 position) {
 	PxParticleCreationData data;
 
+	srand(time(NULL));
+
 	for(PxU32 i = 0; i < (PxU32)num; ++i) {
-		double rx = rand() % maxVelocity;
-		double ry = rand() % maxVelocity;
-		double rz = rand() % maxVelocity;
+		double rx = rand() % maxVelocity - maxVelocity/2;
+		double ry = rand() % maxVelocity - maxVelocity/2;
+		double rz = rand() % maxVelocity - maxVelocity/2;
 
 		pData->setIndex(i, i);
 		pData->setVelocity(i, PxVec3(rx, ry, rz));
