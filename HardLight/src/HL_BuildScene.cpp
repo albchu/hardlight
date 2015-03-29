@@ -2,11 +2,9 @@
 
 bool HardLight::BuildScene()
 {
-	maxParticles = 200;
+	maxParticles = 100;
+	particleSpeed = 10000.0f;
 	particleData = ParticleData(maxParticles);
-
-	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), "../data/Textures/MoonSkybox.tga");
-	world.add_entity(skybox);
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
@@ -19,10 +17,13 @@ bool HardLight::BuildScene()
 	float height = 0.f;
 	vec3 scale_factor(size, size, size);
 
+	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga"));
+	world.add_entity(skybox);
+
 	if (map_type == MapTypes::SPHERE)
 	{
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), scale_factor);
 		world.add_entity(ground);
 
 		height = size+5.0f;
@@ -97,15 +98,6 @@ bool HardLight::BuildScene()
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
-
-			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, 10, &particleData, PxVec3(0.0f, 0.0f, 0.0f));
-
-			particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
-
-			if(particleSystem)
-				pxAgent->get_scene()->addActor(*particleSystem);
-
-			particleSystem->addForces(200,PxStrideIterator<const PxU32> (particleData.getIndexes()),PxStrideIterator<PxVec3>(particleData.getForces()),PxForceMode::eFORCE);
 
 			if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
 				bike_manager->add_player_bike(new_chassis, controllers[i]);

@@ -173,7 +173,7 @@
     <ClCompile Include="src\ParticleData.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="src\ParticleSystemEntity.cpp">
+    <ClCompile Include="src\ParticleSystem.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
   </ItemGroup>
@@ -332,7 +332,7 @@
     <ClInclude Include="include\ParticleData.h">
       <Filter>World\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="include\ParticleSystemEntity.h">
+    <ClInclude Include="include\ParticleSystem.h">
       <Filter>World\Particles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -398,6 +398,12 @@
     </None>
     <None Include="Paused.ini">
       <Filter>Scene</Filter>
+    </None>
+    <None Include="Particle_fs.glsl">
+      <Filter>Rendering</Filter>
+    </None>
+    <None Include="Particle_vs.glsl">
+      <Filter>Rendering</Filter>
     </None>
   </ItemGroup>
 </Project>

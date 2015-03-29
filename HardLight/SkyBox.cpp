@@ -7,13 +7,13 @@ using namespace glm;
 SkyBox::SkyBox() {
 }
 
-SkyBox::SkyBox(PxRigidActor* init_actor, MeshData* init_mesh_data, const char* texture_file_path) 
+SkyBox::SkyBox(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint textID) 
 {
 	type = SKYBOX;
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
-	texture = load_tga_texture(texture_file_path);
+	texture = textID;
 	init_opengl();
 }
 
