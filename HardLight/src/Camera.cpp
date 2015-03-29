@@ -1,11 +1,10 @@
 #include "Camera.h"
 
-Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget)
+Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height)
 {
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
-		(float)config->GetInteger("window", "width", 800)/(float)config->GetInteger("window", "height", 600),
-		0.1f, 10000.0f);
+		width/(float)height, 0.1f, 10000.0f);
 
 	cam_translate = vec3(
 		(float)config->GetReal("camera", "x", 0.0),

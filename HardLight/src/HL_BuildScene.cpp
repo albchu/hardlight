@@ -2,7 +2,6 @@
 
 bool HardLight::BuildScene()
 {
-
 	maxParticles = 200;
 	particleData = ParticleData(maxParticles);
 
@@ -115,7 +114,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
-				Camera* aCamera = new Camera(config, new_chassis->get_actor());
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
 				viewports[count].camera = aCamera;
 			}
 
@@ -136,7 +135,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
-				Camera* aCamera = new Camera(config, new_chassis->get_actor());
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
 				viewports[count].camera = aCamera;
 			}
 
@@ -151,7 +150,7 @@ bool HardLight::BuildScene()
 
 		for (;count < viewports.size(); count++)
 		{
-			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor());
+			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor(), viewports[count].width, viewports[count].height);
 			viewports[count].camera = aCamera;
 		}
 	}
