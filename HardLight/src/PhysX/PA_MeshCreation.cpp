@@ -1,6 +1,6 @@
 #include "PhysxAgent.h"
 
-static PxU32 driveable(EntityTypes type)
+PxU32 PhysxAgent::driveable(EntityTypes type)
 {
 	switch (type)
 	{
@@ -13,7 +13,7 @@ static PxU32 driveable(EntityTypes type)
 	}
 }
 
-static PxU32 collides_with(EntityTypes type)
+PxU32 PhysxAgent::collides_with(EntityTypes type)
 {
 	switch (type)
 	{
@@ -21,7 +21,7 @@ static PxU32 collides_with(EntityTypes type)
 		return BIKE;
 		break;
 	case BIKE:
-		return WALL | BIKE | PICKUP;
+		return WALL | BIKE | PICKUP | TAIL | GROUND;
 		break;
 	case GROUND:
 		return BIKE;

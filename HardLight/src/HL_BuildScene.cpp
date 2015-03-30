@@ -3,7 +3,7 @@
 bool HardLight::BuildScene()
 {
 	maxParticles = config->GetInteger("particles", "count", 100);
-	particleSpeed = config->GetReal("particles", "speed", 10);
+	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
