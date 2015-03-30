@@ -63,6 +63,7 @@ void HardLight::OnLoop()
 			
 			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
 			particleEntity->setParticleSystem(particleSystem);
+			particleEntity->setParticleData(particleData);
 			world.add_entity(particleEntity);
 		}
 	}
