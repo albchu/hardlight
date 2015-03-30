@@ -7,6 +7,7 @@
 class ParticleSystem : public Entity {
 private:
 
+	double creationTime;
 	GLuint coefficient_id, percent_id, radii_id;
 	GLfloat coefficient, percentFactor, radii;
 	physx::PxParticleSystem* particleSystem;
@@ -14,13 +15,15 @@ private:
 
 public:
 	ParticleSystem();
-	ParticleSystem(PxRigidActor*, MeshData*, GLuint);
+	ParticleSystem(PxRigidActor*, MeshData*, GLuint, GLuint);
 	~ParticleSystem();
-	void updateBuffer();
 
+	bool isOld(double, double);
+	
 	physx::PxParticleSystem* getParticleSystem();
 	void setParticleSystem(physx::PxParticleSystem*);
 
+	void updateBuffer();
 	virtual void render(mat4, mat4, vec3);
 
 	virtual mat4 get_model_matrix();

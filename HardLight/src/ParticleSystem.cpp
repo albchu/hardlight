@@ -31,13 +31,14 @@ void ParticleSystem::init_particle_openGL() {
 }
 
 ParticleSystem::ParticleSystem() {
-	type = UNDECLARED;
+	type = PARSYSTEM;
 	draw_mode = GL_POINTS;
 	renderable = true;
 }
 	
-ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture) {
-	type = UNDECLARED;
+ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture, GLuint time) {
+	type = PARSYSTEM;
+	creationTime = time;
 	draw_mode = GL_POINTS;
 	actor = init_actor;
 	mesh_data = init_mesh_data;
@@ -109,10 +110,22 @@ void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light
 	glDisable(GL_TEXTURE_2D);
 }
 
+// returns true if too old, false if still young
+bool ParticleSystem::isOld(double current, double lifeSpan) {
+	if(current > creationTime + lifeSpan) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 mat4 ParticleSystem::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
-	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y - 5.0f, gPose.p.z));
+	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
+
+	
 
 	return model_matrix;
 }
