@@ -29,12 +29,6 @@ void ParticleSystem::init_particle_openGL() {
 
 	glUseProgram(program_id);
 }
-
-ParticleSystem::ParticleSystem() {
-	type = PARSYSTEM;
-	draw_mode = GL_POINTS;
-	renderable = true;
-}
 	
 ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture, GLuint time) {
 	type = PARSYSTEM;
@@ -48,6 +42,7 @@ ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_dat
 	coefficient = 1.0f;
 	percentFactor = 1000.0f;
 	radii = 0.6f;
+	mesh_data = NULL;
 }
 
 ParticleSystem::~ParticleSystem() {
@@ -61,8 +56,18 @@ void ParticleSystem::setParticleSystem(physx::PxParticleSystem* system) {
 	particleSystem = system;
 }
 
+ParticleData ParticleSystem::getParticleData() {
+	return particleData;
+}
+
+void ParticleSystem::setParticleData(ParticleData data) {
+	particleData = data;
+}
+
 void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
 
+	if(mesh_data != NULL)
+		delete mesh_data;
 	mesh_data = ParticleFactory::createMeshData(particleSystem);
 
 	updateBuffer();
