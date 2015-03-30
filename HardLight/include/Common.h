@@ -14,5 +14,6 @@ public:
 	static float getRandFloat(float low, float high);
 	static int getRandInt(int low, int high);
 	static float Common::FORTY_FIVE_DEGREES_RADS;
+	static int getRandSign();
 };
 #endif

@@ -48,6 +48,7 @@
 #include "MapTypes.h"
 #include "Powerup/PowerupManager.h"
 #include "ParticleFactory.h"
+#include "ParticleSystem.h"
 
 
 using namespace physx;
@@ -100,6 +101,8 @@ private:
 	void initOpenGL(Scene);
 
 	int maxParticles;
+	float particleSpeed;
+	double explosionLifeSpan;
 	PxParticleSystem* particleSystem;
 	ParticleData particleData;
 	PxParticleCreationData particleCreationData;

@@ -40,7 +40,6 @@ public:
 	void spawn_instant_powerup(vec3 position);
 	void apply_powerup(Bike* bike, PxRigidActor* powerup_actor);
 	~PowerupManager();
-	float random_float(float low, float high);
 	void rotate_all();
 
 private:

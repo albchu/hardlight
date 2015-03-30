@@ -1,12 +1,11 @@
 #include "Powerup/PowerupManager.h"
+#include "Common.h"
 
 PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* new_pxAgent, SoundMixer* new_sfxMix)
 {
 	pxAgent = new_pxAgent;
 	world = new_world;
 	sfxMix = new_sfxMix;
-
-	srand ((unsigned int)time(NULL));	// Seed for random value generator
 
 	// Initialize all powers lists
 	all_hold_powers.push_back(&Hold::jump);
@@ -36,11 +35,11 @@ void PowerupManager::spawn_random_powerup()
 {
 	if(mapType == MapTypes::SPHERE)
 	{
-		spawn_random_powerup(vec3(random_float(-arena_size, arena_size), arena_size + heightOffFloor, random_float(-arena_size, arena_size)));
+		spawn_random_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), arena_size + heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
 	}
 	else if (mapType == MapTypes::PLANE)
 	{
-		spawn_random_powerup(vec3(random_float(-arena_size, arena_size), heightOffFloor, random_float(-arena_size, arena_size)));
+		spawn_random_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
 	}
 	else
 		cerr << "Do not understand how to generate powerups on this map type" << endl;
@@ -104,8 +103,6 @@ void PowerupManager::spawn_random_powerup(vec3 position)
 // Applies the selected powerup to a bike
 void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 {
-
-
 	if(powerup_actor->getName() == "HOLD")
 	{
 		cout << "Applying hold powerup" << endl;
@@ -132,8 +129,6 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 			respawn_powerup(instantEntity);
 		}
 	}
-
-
 }
 
 HoldEntity* PowerupManager::getHoldEntity(PxRigidActor* holdActor)
@@ -160,10 +155,10 @@ InstantEntity* PowerupManager::getInstantEntity(PxRigidActor* instantActor)
 void PowerupManager::respawn_powerup(HoldEntity* holdEntity)
 {
 	// Set new hold power to anything 
-	holdEntity->set_powerup(all_hold_powers[rand() % all_hold_powers.size()]);
+	holdEntity->set_powerup(all_hold_powers[Common::getRandInt(0, all_hold_powers.size())]);
 
 	// Move the entity
-	holdEntity->get_actor()->setGlobalPose(PxTransform(rand() % 100, heightOffFloor, rand() % 100));
+	holdEntity->get_actor()->setGlobalPose(PxTransform(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
 }
 
 void PowerupManager::respawn_powerup(InstantEntity* instantEntity)
@@ -172,12 +167,5 @@ void PowerupManager::respawn_powerup(InstantEntity* instantEntity)
 	instantEntity->set_powerup(all_instant_powers[rand() % all_instant_powers.size()]);
 
 	// Move the entity
-	instantEntity->get_actor()->setGlobalPose(PxTransform(rand() % 100, heightOffFloor, rand() % 100));
-}
-
-
-float PowerupManager::random_float(float low, float high)
-{
-	float random = (float)rand()/(float)RAND_MAX;
-	return (((high-low)*random)+low);
+	instantEntity->get_actor()->setGlobalPose(PxTransform(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
 }

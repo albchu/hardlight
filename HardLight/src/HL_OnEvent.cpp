@@ -182,6 +182,7 @@ void HardLight::reset()
 	bike_manager->clear_controllers();
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
+	bikesToKill.clear();
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
 	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);

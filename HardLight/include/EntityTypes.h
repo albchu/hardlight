@@ -12,7 +12,8 @@ enum EntityTypes
 	PICKUP		= 1 << 6,
 	FLOOR		= 1 << 7,
 	MENU_PANEL	= 1 << 8,
-	CAMERA		= 1 << 9
+	CAMERA		= 1 << 9,
+	PARSYSTEM   = 1 << 10
 };
 
 enum BikeSubTypes

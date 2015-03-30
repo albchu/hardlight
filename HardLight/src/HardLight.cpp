@@ -4,6 +4,8 @@
 //==============================================================================
 HardLight::HardLight()
 {
+	srand ((unsigned int)time(NULL));	// Seed for random value generator
+
 	config = new INIReader("config.ini");
 	if (config->ParseError() < 0) {
 		fprintf(stderr, "Can't load 'config.ini'\n");
@@ -40,9 +42,9 @@ HardLight::HardLight()
 		break;
 	}
 
-	srand ((unsigned int)time(NULL));
 	//bike->setInAir(true);
 }
+
 //==============================================================================
 HardLight::~HardLight()
 {
