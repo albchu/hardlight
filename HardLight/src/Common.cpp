@@ -4,5 +4,14 @@ float Common::FORTY_FIVE_DEGREES_RADS = 0.785398163f;
 
 float Common::getRandFloat(float low, float high)
 {
-	return (low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (high - low))));
+	float random = rand() / (float)RAND_MAX; // 0 to 1
+	float diff = high - low;
+	return diff * random + low;
+}
+
+int Common::getRandInt(int low, int high)
+{
+	float random = rand() / (float)RAND_MAX; // 0 to 1
+	int diff = high - low;
+	return (int)((float)diff * random) + low;
 }

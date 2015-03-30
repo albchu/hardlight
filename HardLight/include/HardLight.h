@@ -101,7 +101,7 @@ private:
 	void initOpenGL(Scene);
 
 	int maxParticles;
-	int particleSpeed;
+	float particleSpeed;
 	PxParticleSystem* particleSystem;
 	ParticleData particleData;
 	PxParticleCreationData particleCreationData;

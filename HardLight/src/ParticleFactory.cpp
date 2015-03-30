@@ -1,5 +1,5 @@
-
 #include "ParticleFactory.h"
+#include "Common.h"
 #include <stdlib.h>
 #include <time.h>
 
@@ -50,15 +50,13 @@ PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData
  * Provided a location, randomly assigns velocities and forces to all points.
  * For explosions!
  */
-PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int maxVelocity, ParticleData* pData, PxVec3 position) {
+PxParticleCreationData ParticleFactory::createRandomParticleData(int num, float maxVelocity, ParticleData* pData, PxVec3 position) {
 	PxParticleCreationData data;
 
-	srand(time(NULL));
-
 	for(PxU32 i = 0; i < (PxU32)num; ++i) {
-		double rx = rand() % maxVelocity - maxVelocity/2;
-		double ry = rand() % maxVelocity - maxVelocity/2;
-		double rz = rand() % maxVelocity - maxVelocity/2;
+		float rx = Common::getRandFloat(0.f, maxVelocity) - maxVelocity/2.f;
+		float ry = Common::getRandFloat(0.f, maxVelocity) - maxVelocity/2.f;
+		float rz = Common::getRandFloat(0.f, maxVelocity) - maxVelocity/2.f;
 
 		pData->setIndex(i, i);
 		pData->setVelocity(i, PxVec3(rx, ry, rz));
@@ -72,7 +70,6 @@ PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int ma
 	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
 
 	return data;
-
 }
 
 // Gets meshdata version of particlesystem

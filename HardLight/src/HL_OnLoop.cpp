@@ -77,17 +77,6 @@ void HardLight::OnLoop()
 	}
 	bikePowerupPairs.clear();
 
-	// Albert disabled this because he has no idea how it works and will refactor it anyways
-	//closest_sound = FLT_MAX;
-	//for (unsigned int i = 0; i < hit_pickup.size(); i++)
-	//{
-	//	PxRigidActor* pickup_actor = pickup_hit[i];
-	//	Chassis* bike = hit_pickup[i];
-	//	bike_manager->extend_tail(bike);
-	//	for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
-	//		closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
-	//}
-
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
 	Uint32 elapsed = msCurrent - msPhysics;

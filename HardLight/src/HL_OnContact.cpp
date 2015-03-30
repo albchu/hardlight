@@ -18,10 +18,10 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 				{	// Only push bike onto bikes to kill vector if it does not already exist
 					bikesToKill.push_back(bike1);
 				}
-				//if(bike1->get_subtype() == PLAYER_BIKE)
-				//{
-				//	((Player_Controller*)bike1->get_controller())->rumble(1.0, 120);
-				//}
+				if(bike1->get_subtype() == PLAYER_BIKE)
+				{
+					((Player_Controller*)bike1->get_controller())->rumble(1.0, 120);
+				}
 			}
 			if (bike2 != NULL)
 			{
@@ -29,10 +29,10 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 				{
 					bikesToKill.push_back(bike2);
 				}
-				//if(bike2->get_subtype() == PLAYER_BIKE)
-				//{
-				//	((Player_Controller*)bike2->get_controller())->rumble(1.0, 120);
-				//}
+				if(bike2->get_subtype() == PLAYER_BIKE)
+				{
+					((Player_Controller*)bike2->get_controller())->rumble(1.0, 120);
+				}
 			}
 		}
 	}
