@@ -38,6 +38,10 @@ public:
 	void execute_hold_powerup();
 	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
 
+	// check the timers in powerup_timers
+	void check_ghost_powerup(); 
+	void check_super_saiyen_powerup();
+
 private:
 	Controller* controller;
 	Chassis* chassis;

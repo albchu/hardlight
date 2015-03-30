@@ -46,7 +46,7 @@ void Hold::super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config,
 	powerup_timers->using_super_saiyen = true;
 
 	// Activate super saiyen ability
-	tailwall->set_width(20.0f);
-	tailwall->set_height(20.0f);
+	tailwall->set_width(1.0f);
+	tailwall->set_height(10.0f);
 }
 

@@ -10,6 +10,8 @@ PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* 
 
 	// Initialize all powers lists
 	all_hold_powers.push_back(&Hold::jump);
+	all_hold_powers.push_back(&Hold::ghost);
+	all_hold_powers.push_back(&Hold::super_saiyen);
 
 	all_instant_powers.push_back(&Instant::extendTail);
 
@@ -60,7 +62,7 @@ void PowerupManager::spawn_instant_powerup(vec3 position)
 	cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
 	actor->setName("INSTANT");
-	Entity* powerup = new InstantEntity(all_instant_powers[rand() % all_hold_powers.size()], actor, scaleFactors);
+	Entity* powerup = new InstantEntity(all_instant_powers[rand() % all_instant_powers.size()], actor, scaleFactors);
 	instantEntities.push_back((InstantEntity*)powerup);
 	world->add_entity(powerup);
 }
