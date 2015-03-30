@@ -34,7 +34,7 @@ void HardLight::OnRender()
 	//font->Outset(0, 3);
 	font->CharMap(ft_encoding_unicode);
 	//font->Render("Hello FTGL!");
-	font->Render("Hello World!\nbitches",-1, position, spacing);
+	font->Render(display_message,-1, position, spacing);
 	SDL_GL_SwapWindow(window);
 
 }

@@ -143,6 +143,7 @@ private:
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 	FTGLPixmapFont * font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
+	const char * display_message;
 	PowerupManager* powerup_manager;
 
 public:

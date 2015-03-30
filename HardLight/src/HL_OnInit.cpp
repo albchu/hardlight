@@ -116,7 +116,7 @@ bool HardLight::OnInit()
 	// If something went wrong, bail out.
 	if(font->Error())
 		return -1;
-
+	display_message = "HelloWorld!!";
 
 	return true;
 }
