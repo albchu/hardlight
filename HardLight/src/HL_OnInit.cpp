@@ -153,6 +153,27 @@ bool HardLight::OnInit()
 	//Initialize LTexture
 	gTextTexture = new LTexture(gRenderer);
 
+	//LOAD MEDIA FOR SDL
+	//Open the font
+	gFont = TTF_OpenFont( "../data/Fonts/Demo_ConeriaScript.ttf", 28 );
+	if( gFont == NULL )
+	{
+		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+		return -1;
+	}
+	else
+	{
+		//Render text
+		SDL_Color textColor = { 0, 0, 0 };
+		if( !gTextTexture->loadFromRenderedText( "The quick brown fox jumps over the lazy dog", textColor, gFont ) )
+		{
+			printf( "Failed to render text texture!\n" );
+			return -1;
+		}
+	}
+
+
+
 	return true;
 }
 
