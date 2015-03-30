@@ -194,12 +194,12 @@ void HardLight::toggle_pause()
 	//sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
 	{
-		sfxMix.PlaySoundEffect("sfxItemPickup");
+		sfxMix.PlaySoundEffect("sfxUnpaused");
 		scene = GAME;
 	}
 	else if(scene == GAME)
 	{
-		sfxMix.PlaySoundEffect("sfxItemUsed");
+		sfxMix.PlaySoundEffect("sfxPaused");
 		scene = PAUSE;
 	}
 }

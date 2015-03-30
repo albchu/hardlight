@@ -27,8 +27,8 @@ private:
 	Mix_Chunk							*sfxPowerupInstant;
 	Mix_Chunk							*sfxPowerupActivated;
 	Mix_Chunk							*sfxPowerupNone;
-	Mix_Chunk							*sfxItemPickup;
-	Mix_Chunk							*sfxItemUsed;
+	Mix_Chunk							*sfxPaused;
+	Mix_Chunk							*sfxUnpaused;
 
 	std::map<std::string, Mix_Music*>	musicFilesList;
 	std::map<std::string, Mix_Chunk*>	sfxFilesList;
@@ -46,8 +46,8 @@ private:
 	std::string							sfxPowerupInstantFile;
 	std::string							sfxPowerupActivatedFile;
 	std::string							sfxPowerupNoneFile;
-	std::string							sfxItemPickupFile;
-	std::string							sfxItemUsedFile;
+	std::string							sfxPausedFile;
+	std::string							sfxUnpausedFile;
 
 	int musicVolume;
 	double sfxVolume;

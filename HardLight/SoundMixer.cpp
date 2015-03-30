@@ -11,8 +11,8 @@ SoundMixer::SoundMixer()
 	sfxPowerupReady = NULL;
 	sfxPowerupInstant = NULL;
 	sfxPowerupActivated = NULL;
-	sfxItemPickup = NULL;
-	sfxItemUsed = NULL;
+	sfxPaused = NULL;
+	sfxUnpaused = NULL;
 	
 	pathToAudioDir = "../data/Audio/";
 	errorSound = "errorSound.wav";
@@ -43,8 +43,8 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxPowerupInstantFile = pathToAudioDir + config->Get("sound", "sfxPowerupInstantFile", errorSound);
 	sfxPowerupActivatedFile = pathToAudioDir + config->Get("sound", "sfxPowerupActivatedFile", errorSound);
 	sfxPowerupNoneFile = pathToAudioDir + config->Get("sound", "sfxPowerupNoneFile", errorSound);
-	sfxItemPickupFile = pathToAudioDir + config->Get("sound", "sfxItemPickupFile", errorSound);
-	sfxItemUsedFile = pathToAudioDir + config->Get("sound", "sfxItemUsedFile", errorSound);
+	sfxPausedFile = pathToAudioDir + config->Get("sound", "sfxPausedFile", errorSound);
+	sfxUnpausedFile = pathToAudioDir + config->Get("sound", "sfxUnpausedFile", errorSound);
 
 
 	//Set random sound effect to be the error sound initially
@@ -121,17 +121,17 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 		return false;
 	}
 
-	sfxItemPickup = Mix_LoadWAV( sfxItemPickupFile.c_str() );
-	if( sfxItemPickup == NULL ) 
+	sfxPaused = Mix_LoadWAV( sfxPausedFile.c_str() );
+	if( sfxPaused == NULL ) 
 	{ 
-		std::cout << "Failed to load sound effect: " << sfxItemPickupFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		std::cout << "Failed to load sound effect: " << sfxPausedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		return false;
 	}
 
-	sfxItemUsed = Mix_LoadWAV( sfxItemUsedFile.c_str() );
-	if( sfxItemUsed == NULL ) 
+	sfxUnpaused = Mix_LoadWAV( sfxUnpausedFile.c_str() );
+	if( sfxUnpaused == NULL ) 
 	{ 
-		std::cout << "Failed to load sound effect: " << sfxItemUsedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		std::cout << "Failed to load sound effect: " << sfxUnpausedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		return false;
 	}
 
@@ -145,8 +145,8 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxFilesList["sfxPowerupInstant"] = sfxPowerupInstant;
 	sfxFilesList["sfxPowerupActivated"] = sfxPowerupActivated;
 	sfxFilesList["sfxPowerupNone"] = sfxPowerupNone;
-	sfxFilesList["sfxItemPickup"] = sfxItemPickup;
-	sfxFilesList["sfxItemUsed"] = sfxItemUsed;
+	sfxFilesList["sfxPaused"] = sfxPaused;
+	sfxFilesList["sfxUnpaused"] = sfxUnpaused;
 
 	Mix_AllocateChannels(64);
 	printf("number of channels is now : %d\n", Mix_AllocateChannels(-1));
@@ -168,16 +168,16 @@ void SoundMixer::CloseMixer()
 	Mix_FreeChunk( sfxPowerupReady ); 
 	Mix_FreeChunk( sfxPowerupInstant ); 
 	Mix_FreeChunk( sfxPowerupActivated ); 
-	Mix_FreeChunk( sfxItemPickup );
-	Mix_FreeChunk( sfxItemUsed );
+	Mix_FreeChunk( sfxPaused );
+	Mix_FreeChunk( sfxUnpaused );
 	sfxEngine = NULL;
 	sfxExplosion = NULL;
 	sfxIntro = NULL;
 	sfxPowerupReady = NULL;
 	sfxPowerupInstant = NULL;
 	sfxPowerupActivated = NULL;
-	sfxItemPickup = NULL;
-	sfxItemUsed = NULL;
+	sfxPaused = NULL;
+	sfxUnpaused = NULL;
 
 	//Quit SDL subsystems
 	Mix_Quit();
