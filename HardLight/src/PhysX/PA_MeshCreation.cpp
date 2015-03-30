@@ -21,12 +21,15 @@ static PxU32 collides_with(EntityTypes type)
 		return BIKE;
 		break;
 	case BIKE:
-		return WALL | BIKE | GROUND | PICKUP;
+		return WALL | BIKE | PICKUP;
 		break;
 	case GROUND:
 		return BIKE;
 		break;
 	case PICKUP:
+		return BIKE;
+		break;
+	case TAIL:
 		return BIKE;
 		break;
 	default:
@@ -81,7 +84,7 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 	PxMeshScale scale(PxVec3(width, height, distance), PxQuat(PxIdentity));
 
 	PxFilterData simFilterData;
-	EntityTypes type = EntityTypes::WALL;
+	EntityTypes type = EntityTypes::TAIL;
 	simFilterData.word0 = type;
 	simFilterData.word1 = collides_with(type);
 	PxFilterData queryFilterData;
@@ -89,6 +92,8 @@ PxRigidStatic* PhysxAgent::create_tail(vec3 old_location, vec3 new_location, vec
 
 	PxRigidStatic* actor = gPhysics->createRigidStatic(transform);
 	PxShape* shape = actor->createShape(PxConvexMeshGeometry(tail_mesh, scale), *tail_material);
+	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
 	shape->setQueryFilterData(queryFilterData);
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));
