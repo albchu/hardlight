@@ -51,7 +51,9 @@ void HardLight::OnRender()
 				world.getEntities()[i]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), viewport.camera->get_light());
 		}
 	}
-
+	// Set the font size and render a small text.
+font->FaceSize(72);
+font->Render("Hello World!");
 	SDL_GL_SwapWindow(window);
 
 }

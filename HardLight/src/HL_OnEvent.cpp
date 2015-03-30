@@ -47,6 +47,10 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
 			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
 			break;
+		case SDLK_l:
+			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
+			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
+			break;
 		case SDLK_DOWN:
 			//if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
 			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
