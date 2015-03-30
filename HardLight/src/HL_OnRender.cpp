@@ -18,15 +18,6 @@ void HardLight::OnRender()
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{
-			// check for old particle systems
-			if(world.getEntities()[i]->get_type() == PARSYSTEM) {
-				ParticleSystem* p = (ParticleSystem*)world.getEntities()[i];
-				if(p->isOld(msCurrent, explosionLifeSpan)) {
-					world.remove(p);
-					i--;
-				}
-			}
-
 			if(world.getEntities()[i]->is_renderable())
 				world.getEntities()[i]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), viewport.camera->get_light());
 		}

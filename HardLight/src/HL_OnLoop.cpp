@@ -111,6 +111,16 @@ void HardLight::OnLoop()
 
 	}
 
+	for(Entity* entity : world.getEntities()) {
+		// check for old particle systems
+		if(entity->get_type() == PARSYSTEM) {
+			ParticleSystem* p = (ParticleSystem*)entity;
+			if(p->isOld(msCurrent, explosionLifeSpan)) {
+				world.remove(p);
+			}
+		}
+	}
+
 	// Move Bot BikeManager
 	//overMind->update_bikes(pickup->get_location());
 	overMind->update_bikes(vec3(0,0,0));
