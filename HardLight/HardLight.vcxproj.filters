@@ -176,6 +176,9 @@
     <ClCompile Include="src\ParticleSystem.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rendering\LTexture.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -334,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="include\ParticleSystem.h">
       <Filter>World\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rendering\LTexture.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,8 @@
 
 #include <SDL_opengl.h>
 #include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <GL\GL.h>
 
 #include <PxPhysicsAPI.h>
@@ -51,6 +53,7 @@
 #include "Powerup/PowerupManager.h"
 #include "ParticleFactory.h"
 #include "ParticleSystem.h"
+#include "Rendering/LTexture.h"
 
 
 using namespace physx;
@@ -59,6 +62,7 @@ using namespace glm;
 #pragma comment(lib, "ftgl_static_D.lib")
 #pragma comment(lib, "freetype.lib")
 #pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
 #pragma comment(lib, "SDL2_image.lib")
@@ -89,7 +93,16 @@ private:
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
-	
+
+	//The window renderer
+	SDL_Renderer* gRenderer;
+
+	//Globally used font
+	TTF_Font *gFont;
+
+	//Rendered texture
+	LTexture* gTextTexture;
+
 	vector<SDL_GameController*> controllers;
 
 	PhysxAgent* pxAgent;

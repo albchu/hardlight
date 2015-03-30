@@ -15,6 +15,13 @@ bool HardLight::OnInit()
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
+	//Set texture filtering to linear
+	if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+	{
+		printf( "Warning: Linear texture filtering not enabled!" );
+		return -1;
+	}
+
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
@@ -25,7 +32,7 @@ bool HardLight::OnInit()
 	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
 		fprintf(stderr, "%s\n", SDL_GetError());
 	}
-	
+
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,   	    8);
@@ -46,6 +53,13 @@ bool HardLight::OnInit()
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
 
+	//Create vsynced renderer for window
+	gRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	if( gRenderer == NULL )
+	{
+		printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+		return -1;
+	}
 
 	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
@@ -58,6 +72,24 @@ bool HardLight::OnInit()
 		if (SDL_IsGameController(i)) {
 			controllers.push_back(SDL_GameControllerOpen(i));
 		}
+	}
+
+	//Initialize renderer color
+	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+	//Initialize PNG loading
+	int imgFlags = IMG_INIT_PNG;
+	if( !( IMG_Init( imgFlags ) & imgFlags ) )
+	{
+		printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+		return -1;
+	}
+
+	//Initialize SDL_ttf
+	if( TTF_Init() == -1 )
+	{
+		printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+		return -1;
 	}
 
 	//Initialize physx agent to govern all shared physx objects
@@ -96,7 +128,7 @@ bool HardLight::OnInit()
 
 	// Initialize viewport info
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), config->GetInteger("game", "numPlayers", 1));
-	
+
 	viewports = Viewports::generate_viewports(cams, window_width, window_height);
 
 	// Initialize keyboard player control info
@@ -104,7 +136,7 @@ bool HardLight::OnInit()
 
 	// Init AI system to govern bots
 	overMind = new AI(bike_manager, &sfxMix);
-	
+
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init powerup manager
@@ -117,6 +149,9 @@ bool HardLight::OnInit()
 	if(font->Error())
 		return -1;
 	display_message = "HelloWorld!!";
+
+	//Initialize LTexture
+	gTextTexture = new LTexture(gRenderer);
 
 	return true;
 }

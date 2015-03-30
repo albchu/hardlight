@@ -131,6 +131,7 @@
     <ClCompile Include="src\Powerup\Instant.cpp" />
     <ClCompile Include="src\Powerup\InstantEntity.cpp" />
     <ClCompile Include="src\Powerup\PowerupManager.cpp" />
+    <ClCompile Include="src\Rendering\LTexture.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
     <ClCompile Include="src\Rendering\Viewports.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="include\Powerup\InstantEntity.h" />
     <ClInclude Include="include\Powerup\Powerup.h" />
     <ClInclude Include="include\Powerup\PowerupManager.h" />
+    <ClInclude Include="include\Rendering\LTexture.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\Rendering\Viewports.h" />
