@@ -38,7 +38,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			forward = 1.0f;
 			break;
 		case SDLK_e:
-			sfxMix.ClipFrom("../data/Audio/");
+			sfxMix.ClipFrom("../data/Audio/taunts/");
 			break;
 		case SDLK_LSHIFT:
 			speed *= fast;
@@ -192,11 +192,17 @@ void HardLight::reset()
 
 void HardLight::toggle_pause()
 {
-	sfxMix.PlaySoundEffect("sfxExplosion");
+	//sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
+	{
+		sfxMix.PlaySoundEffect("sfxUnpaused");
 		scene = GAME;
+	}
 	else if(scene == GAME)
+	{
+		sfxMix.PlaySoundEffect("sfxPaused");
 		scene = PAUSE;
+	}
 }
 
 //==============================================================================

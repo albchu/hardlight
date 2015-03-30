@@ -11,14 +11,16 @@ SoundMixer::SoundMixer()
 	sfxPowerupReady = NULL;
 	sfxPowerupInstant = NULL;
 	sfxPowerupActivated = NULL;
-
+	sfxPaused = NULL;
+	sfxUnpaused = NULL;
+	
 	pathToAudioDir = "../data/Audio/";
 	errorSound = "errorSound.wav";
 
 	musicVolume = -1;
 	sfxVolume = -1;
 
-	numChannels = 64;
+	numChannels = 65;
 	currentChannelIndex = 0;
 }
 
@@ -41,6 +43,9 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxPowerupInstantFile = pathToAudioDir + config->Get("sound", "sfxPowerupInstantFile", errorSound);
 	sfxPowerupActivatedFile = pathToAudioDir + config->Get("sound", "sfxPowerupActivatedFile", errorSound);
 	sfxPowerupNoneFile = pathToAudioDir + config->Get("sound", "sfxPowerupNoneFile", errorSound);
+	sfxPausedFile = pathToAudioDir + config->Get("sound", "sfxPausedFile", errorSound);
+	sfxUnpausedFile = pathToAudioDir + config->Get("sound", "sfxUnpausedFile", errorSound);
+
 
 	//Set random sound effect to be the error sound initially
 	randomSoundEffectFile = pathToAudioDir + errorSound;
@@ -116,6 +121,20 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 		return false;
 	}
 
+	sfxPaused = Mix_LoadWAV( sfxPausedFile.c_str() );
+	if( sfxPaused == NULL ) 
+	{ 
+		std::cout << "Failed to load sound effect: " << sfxPausedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		return false;
+	}
+
+	sfxUnpaused = Mix_LoadWAV( sfxUnpausedFile.c_str() );
+	if( sfxUnpaused == NULL ) 
+	{ 
+		std::cout << "Failed to load sound effect: " << sfxUnpausedFile << " ! SDL_mixer Error: " << Mix_GetError() << std::endl;
+		return false;
+	}
+
 	// Add pointers to file list
 	musicFilesList["musicOverworld"] = musicOverworld;
 	musicFilesList["musicMenu"] = musicMenu;
@@ -126,8 +145,10 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxFilesList["sfxPowerupInstant"] = sfxPowerupInstant;
 	sfxFilesList["sfxPowerupActivated"] = sfxPowerupActivated;
 	sfxFilesList["sfxPowerupNone"] = sfxPowerupNone;
+	sfxFilesList["sfxPaused"] = sfxPaused;
+	sfxFilesList["sfxUnpaused"] = sfxUnpaused;
 
-	Mix_AllocateChannels(64);
+	Mix_AllocateChannels(numChannels);
 	printf("number of channels is now : %d\n", Mix_AllocateChannels(-1));
 	return true;
 }
@@ -147,12 +168,16 @@ void SoundMixer::CloseMixer()
 	Mix_FreeChunk( sfxPowerupReady ); 
 	Mix_FreeChunk( sfxPowerupInstant ); 
 	Mix_FreeChunk( sfxPowerupActivated ); 
+	Mix_FreeChunk( sfxPaused );
+	Mix_FreeChunk( sfxUnpaused );
 	sfxEngine = NULL;
 	sfxExplosion = NULL;
 	sfxIntro = NULL;
 	sfxPowerupReady = NULL;
 	sfxPowerupInstant = NULL;
 	sfxPowerupActivated = NULL;
+	sfxPaused = NULL;
+	sfxUnpaused = NULL;
 
 	//Quit SDL subsystems
 	Mix_Quit();
@@ -223,7 +248,7 @@ int SoundMixer::PlaySoundEffect(std::string key)
 {
 	int previousChannelIndex = currentChannelIndex;
 	Mix_Volume(currentChannelIndex, 128);
-	int errorCode = Mix_PlayChannel(-1, sfxFilesList[key], 0);
+	int errorCode = Mix_PlayChannel(currentChannelIndex, sfxFilesList[key], 0);
 	if( errorCode == -1)
 	{
 		printf("Channel: %d\n", errorCode);
@@ -326,24 +351,18 @@ bool SoundMixer::ClipFrom(const char* directory)
 	std::cout << "The selected sound effect is" << path << std::endl;
 
 	// Play selected file
-	int previousChannelIndex = currentChannelIndex;
-	Mix_Volume(currentChannelIndex, 128);
-	int errorCode = Mix_PlayChannel(-1, randomSoundEffect, 0);
+	if( Mix_Playing(64) == 1)
+	{	
+		printf("Random sound currently playing");
+		return false;
+	}
+	Mix_Volume(64, 128);
+	int errorCode = Mix_PlayChannel(64, randomSoundEffect, 0);
 	if( errorCode == -1)
 	{
 		printf("Channel: %d\n", errorCode);
 		return false;
 	}
-
-	// Find the next avaliable channel
-	do
-	{
-		currentChannelIndex++;
-	} while (Mix_Playing(currentChannelIndex) == 1);
-
-	// If index is larger than 63, start from 0
-	if (currentChannelIndex > 63)
-		currentChannelIndex = 0;
 
 	return true;
 }

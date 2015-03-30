@@ -81,3 +81,14 @@ void TailWall::set_max_length(int new_length)
 {
 	max_length = new_length;
 }
+
+void TailWall::set_width(float new_width)
+{
+	width = new_width;
+}
+
+void TailWall::set_height(float new_height)
+{
+	height = new_height;
+}
+

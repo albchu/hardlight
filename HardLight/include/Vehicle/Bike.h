@@ -14,6 +14,8 @@
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
 
+
+
 using namespace glm;
 using namespace std;
 
@@ -36,6 +38,10 @@ public:
 	void execute_hold_powerup();
 	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
 
+	// check the timers in powerup_timers
+	void check_ghost_powerup(); 
+	void check_super_saiyen_powerup();
+
 private:
 	Controller* controller;
 	Chassis* chassis;
@@ -46,6 +52,7 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
+	PowerupTimers* powerup_timers; // Variables needed for timed powerups
 	Powerup<Hold>::PowerCallback powerup;
 };
 #endif

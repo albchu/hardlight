@@ -36,6 +36,8 @@ public:
 	Chassis* getBike();
 	void extend_max_length();
 	void set_max_length(int new_length);
+	void set_width(float new_width);
+	void set_height(float new_height);
 };
 
 #endif

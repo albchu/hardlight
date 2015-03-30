@@ -136,6 +136,14 @@ void HardLight::OnLoop()
 	// Rotate powerups
 	powerup_manager->rotate_all();
 
+	// Update all timed powerups
+	for(Bike* bike : bike_manager->get_all_bikes())
+	{
+		bike->check_ghost_powerup();
+		bike->check_super_saiyen_powerup();
+	}
+
+
 	/*
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
