@@ -18,6 +18,7 @@ void HardLight::OnRender()
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{
+			// check for old particle systems
 			if(world.getEntities()[i]->get_type() == PARSYSTEM) {
 				ParticleSystem* p = (ParticleSystem*)world.getEntities()[i];
 				if(p->isOld(msCurrent, explosionLifeSpan)) {

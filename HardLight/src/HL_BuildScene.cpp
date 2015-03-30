@@ -2,9 +2,9 @@
 
 bool HardLight::BuildScene()
 {
-	maxParticles = 100;
-	particleSpeed = 10000; // keep here for best random directions.
-	explosionLifeSpan = 5000.0f;
+	maxParticles = config->GetInteger("particles", "count", 100);
+	particleSpeed = config->GetReal("particles", "speed", 10);
+	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
@@ -24,7 +24,7 @@ bool HardLight::BuildScene()
 	if (map_type == MapTypes::SPHERE)
 	{
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), scale_factor);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/IronTile2.tga"), scale_factor);
 		world.add_entity(ground);
 
 		height = size+5.0f;

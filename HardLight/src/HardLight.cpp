@@ -42,9 +42,9 @@ HardLight::HardLight()
 		break;
 	}
 
-	srand ((unsigned int)time(NULL));
 	//bike->setInAir(true);
 }
+
 //==============================================================================
 HardLight::~HardLight()
 {

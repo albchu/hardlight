@@ -15,3 +15,11 @@ int Common::getRandInt(int low, int high)
 	int diff = high - low;
 	return (int)((float)diff * random) + low;
 }
+
+int Common::getRandSign()
+{
+	int random = rand() % 2;
+	if (random == 0)
+		random = -1;
+	return random;
+}
