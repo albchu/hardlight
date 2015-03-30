@@ -38,7 +38,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			forward = 1.0f;
 			break;
 		case SDLK_e:
-			sfxMix.ClipFrom("../data/Audio/");
+			sfxMix.ClipFrom("../data/Audio/taunts/");
 			break;
 		case SDLK_LSHIFT:
 			speed *= fast;

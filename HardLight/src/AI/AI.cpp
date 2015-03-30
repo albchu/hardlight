@@ -160,7 +160,19 @@ void AI::update_controller(Bike* bike)
 
 		}
 	}
-		
+	
+	// Trigger random taunt sound
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_Y))
+	{
+		sfxMix->ClipFrom("../data/Audio/taunts/");
+	}
+
+	// Trigger random taunt sound
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X))
+	{
+		sfxMix->ClipFrom("../data/Audio/onDeath/");
+	}
+
 
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
 		sfxMix->PlaySoundEffect("sfxIntro");

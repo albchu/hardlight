@@ -20,7 +20,7 @@ SoundMixer::SoundMixer()
 	musicVolume = -1;
 	sfxVolume = -1;
 
-	numChannels = 64;
+	numChannels = 65;
 	currentChannelIndex = 0;
 }
 
@@ -148,7 +148,7 @@ bool SoundMixer::InitializeMixer(INIReader *config)
 	sfxFilesList["sfxPaused"] = sfxPaused;
 	sfxFilesList["sfxUnpaused"] = sfxUnpaused;
 
-	Mix_AllocateChannels(64);
+	Mix_AllocateChannels(numChannels);
 	printf("number of channels is now : %d\n", Mix_AllocateChannels(-1));
 	return true;
 }
@@ -248,7 +248,7 @@ int SoundMixer::PlaySoundEffect(std::string key)
 {
 	int previousChannelIndex = currentChannelIndex;
 	Mix_Volume(currentChannelIndex, 128);
-	int errorCode = Mix_PlayChannel(-1, sfxFilesList[key], 0);
+	int errorCode = Mix_PlayChannel(currentChannelIndex, sfxFilesList[key], 0);
 	if( errorCode == -1)
 	{
 		printf("Channel: %d\n", errorCode);
@@ -351,24 +351,18 @@ bool SoundMixer::ClipFrom(const char* directory)
 	std::cout << "The selected sound effect is" << path << std::endl;
 
 	// Play selected file
-	int previousChannelIndex = currentChannelIndex;
-	Mix_Volume(currentChannelIndex, 128);
-	int errorCode = Mix_PlayChannel(-1, randomSoundEffect, 0);
+	if( Mix_Playing(64) == 1)
+	{	
+		printf("Random sound currently playing");
+		return false;
+	}
+	Mix_Volume(64, 128);
+	int errorCode = Mix_PlayChannel(64, randomSoundEffect, 0);
 	if( errorCode == -1)
 	{
 		printf("Channel: %d\n", errorCode);
 		return false;
 	}
-
-	// Find the next avaliable channel
-	do
-	{
-		currentChannelIndex++;
-	} while (Mix_Playing(currentChannelIndex) == 1);
-
-	// If index is larger than 63, start from 0
-	if (currentChannelIndex > 63)
-		currentChannelIndex = 0;
 
 	return true;
 }
