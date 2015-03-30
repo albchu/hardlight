@@ -102,6 +102,7 @@ private:
 
 	int maxParticles;
 	float particleSpeed;
+	double explosionLifeSpan;
 	PxParticleSystem* particleSystem;
 	ParticleData particleData;
 	PxParticleCreationData particleCreationData;
