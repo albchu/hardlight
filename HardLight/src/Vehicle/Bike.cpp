@@ -99,7 +99,7 @@ void Bike::check_ghost_powerup()
 		powerup_timers->using_ghost = false;
 
 		// Deactivate ghost ability
-		chassis->toggle_invincible();
+		chassis->set_invincible(false);
 	}
 }
 

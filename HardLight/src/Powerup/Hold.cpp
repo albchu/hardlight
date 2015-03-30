@@ -36,7 +36,7 @@ void Hold::ghost(Chassis* chassis, TailWall* tailwall, INIReader* config, Poweru
 	powerup_timers->using_ghost = true;
 
 	// Activate ghost ability
-	chassis->toggle_invincible();
+	chassis->set_invincible(true);
 }
 
 void Hold::super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)
@@ -46,7 +46,7 @@ void Hold::super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config,
 	powerup_timers->using_super_saiyen = true;
 
 	// Activate super saiyen ability
-	tailwall->set_width(1.0f);
-	tailwall->set_height(10.0f);
+	tailwall->set_width((float)config->GetReal("powerup","ss_wall_width",1.0));
+	tailwall->set_height((float)config->GetReal("powerup","ss_wall_height",10.0));
 }
 
