@@ -1,4 +1,4 @@
-﻿//==============================================================================
+//==============================================================================
 #include "HardLight.h"
 
 //==============================================================================
@@ -14,8 +14,10 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 			Bike* bike2 = bike_manager->get_bike(pairHeader.actors[1]);
 			if (bike1 != NULL)
 			{
-				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())	// Only push bike onto bikes to kill vector if it does not already exist
+				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())
+				{	// Only push bike onto bikes to kill vector if it does not already exist
 					bikesToKill.push_back(bike1);
+				}
 				if(bike1->get_subtype() == PLAYER_BIKE)
 				{
 					((Player_Controller*)bike1->get_controller())->rumble(1.0, 120);
@@ -24,7 +26,9 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 			if (bike2 != NULL)
 			{
 				if(find(bikesToKill.begin(), bikesToKill.end(), bike2) == bikesToKill.end())
+				{
 					bikesToKill.push_back(bike2);
+				}
 				if(bike2->get_subtype() == PLAYER_BIKE)
 				{
 					((Player_Controller*)bike2->get_controller())->rumble(1.0, 120);
