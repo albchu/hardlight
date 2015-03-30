@@ -41,7 +41,7 @@ ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_dat
 	renderable = true;
 	coefficient = 1.0f;
 	percentFactor = 1000.0f;
-	radii = 0.6f;
+	radii = 1.5f;
 	mesh_data = NULL;
 }
 
