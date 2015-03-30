@@ -14,6 +14,8 @@
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
 
+
+
 using namespace glm;
 using namespace std;
 
@@ -46,6 +48,7 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
+	PowerupTimers* powerup_timers; // Variables needed for timed powerups
 	Powerup<Hold>::PowerCallback powerup;
 };
 #endif

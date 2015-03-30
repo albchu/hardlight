@@ -5,11 +5,11 @@ Hold::Hold()
 	//bike = NULL;
 	//bike_manager = NULL;
 	//config = NULL;
-//	powType = PowerupTypes_SIZE;
+	//	powType = PowerupTypes_SIZE;
 	//type = HOLD;
 }
 
-void Hold::jump(Chassis* chassis, TailWall* tailwall, INIReader* config)
+void Hold::jump(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)
 {
 	//PxVec3 negation = PxVec3(0.0,0.0,0.0);
 	//negation = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();
@@ -28,3 +28,25 @@ void Hold::jump(Chassis* chassis, TailWall* tailwall, INIReader* config)
 	//bike = NULL;
 	return;
 }
+
+void Hold::ghost(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)
+{
+	// Set ghost_timer to the current system time; set using_ghost flag to true
+	powerup_timers->ghost_timer = clock();
+	powerup_timers->using_ghost = true;
+
+	// Activate ghost ability
+	chassis->toggle_invincible();
+}
+
+void Hold::super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)
+{
+	// Set super_saiyen_timer to the current system time; set using_super_saiyen to true
+	powerup_timers->super_saiyen_timer = clock();
+	powerup_timers->using_super_saiyen = true;
+
+	// Activate super saiyen ability
+	tailwall->set_width(20.0f);
+	tailwall->set_height(20.0f);
+}
+

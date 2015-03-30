@@ -11,7 +11,9 @@ public:
 	//~Hold();
 	
 	// Powerups
-	void jump(Chassis* chassis, TailWall* tailwall, INIReader* config);
+	void jump(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers);
+	void ghost(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers);
+	void super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers);
 
 private:
 

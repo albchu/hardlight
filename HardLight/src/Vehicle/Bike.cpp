@@ -57,7 +57,7 @@ void Bike::execute_hold_powerup()
 	Hold hold;
 	if(powerup != NULL)	// Only execute callback if its been set
 	{
-		(hold.*powerup)(chassis, tailwall, config);
+		(hold.*powerup)(chassis, tailwall, config, powerup_timers);
 		powerup = NULL;	// Clear the powerup once its used
 	}
 }
@@ -66,7 +66,7 @@ void Bike::execute_hold_powerup()
 void Bike::execute_instant_powerup(Powerup<Instant>::PowerCallback instant_powerup)
 {
 	Instant instant;
-	(instant.*instant_powerup)(chassis, tailwall, config);
+	(instant.*instant_powerup)(chassis, tailwall, config, powerup_timers);
 }
 
 Powerup<Hold>::PowerCallback Bike::get_hold_powerup()
