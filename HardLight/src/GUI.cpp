@@ -43,8 +43,8 @@ void GUI::loadMenu(const char * menuPath, PxPhysics* physics) {
 	for(int i = 0; i < numOfImages; i++) {
 
 		imagePath = loader->Get("images", string("image") + to_string(i+1), "");
-		x = loader->GetReal("images", string("x") + to_string(i+1), 0.0f);
-		y = loader->GetReal("images", string("y") + to_string(i+1), 0.0f);
+		x = (float)loader->GetReal("images", string("x") + to_string(i+1), 0.0);
+		y = (float)loader->GetReal("images", string("y") + to_string(i+1), 0.0);
 
 		image = Image(imagePath.c_str());
 		image.setPos(vec2(x, y));
@@ -121,15 +121,16 @@ void GUI::render() {
 
 bool GUI::onGUIEvent(SDL_Event* event, Scene* scene) {
 
-	int i = 0;
-
-	switch(event->type) {
+	switch(event->type)
+	{
 	case SDL_QUIT:
 		return false;
 	case SDL_KEYDOWN:
-		switch(event->key.keysym.sym) {
+		switch(event->key.keysym.sym)
+		{
 		case SDLK_i:
-			for(i; i < images.size(); i++) {
+			for(unsigned int i = 0; i < images.size(); i++)
+			{
 				fprintf(stdout, "Position = (%.2f, %.2f)\n", images[i].getPos().x, images[i].getPos().y);
 			}
 			break;
@@ -139,7 +140,8 @@ bool GUI::onGUIEvent(SDL_Event* event, Scene* scene) {
 		}
 		break;
 	case SDL_CONTROLLERBUTTONDOWN:
-		switch(event->cbutton.button) {
+		switch(event->cbutton.button)
+		{
 		case SDL_CONTROLLER_BUTTON_START:
 			*scene = GAME;
 			break;

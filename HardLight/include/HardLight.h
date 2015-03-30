@@ -50,11 +50,13 @@
 #include "MapTypes.h"
 #include "Powerup/PowerupManager.h"
 #include "ParticleFactory.h"
+#include "ParticleSystem.h"
 
 
 using namespace physx;
 using namespace glm;
 
+#pragma comment(lib, "ftgl_static_D.lib")
 #pragma comment(lib, "freetype.lib")
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "SDL2.lib")
@@ -103,6 +105,8 @@ private:
 	void initOpenGL(Scene);
 
 	int maxParticles;
+	float particleSpeed;
+	double explosionLifeSpan;
 	PxParticleSystem* particleSystem;
 	ParticleData particleData;
 	PxParticleCreationData particleCreationData;

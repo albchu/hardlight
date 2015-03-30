@@ -1,6 +1,7 @@
-
 #include "ParticleFactory.h"
+#include "Common.h"
 #include <stdlib.h>
+#include <time.h>
 
 using namespace physx;
 
@@ -10,7 +11,8 @@ using namespace physx;
  * physics = particle system is created from PxPhysics object
  * data = particle creation data from calling createParticleData()
  */
-PxParticleSystem* ParticleFactory::createParticles(int max, PxPhysics* physics, PxParticleCreationData data) {
+PxParticleSystem* ParticleFactory::createParticles(int max, PxPhysics* physics, PxParticleCreationData data)
+{
 	PxParticleSystem* parSystem;
 
 	parSystem = physics->createParticleSystem(max, false);
@@ -26,7 +28,7 @@ PxParticleSystem* ParticleFactory::createParticles(int max, PxPhysics* physics, 
  * num = number of particles, must be less than the maximum number of particles
  * pData = an empty but initialized instance of ParticleData is preferred
  * last three arguments are constant across particles
- */
+ *//*
 PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData* pData, PxVec3 velocity, PxVec3 position, PxVec3 force) {
 	PxParticleCreationData data;
 
@@ -44,37 +46,40 @@ PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData
 
 	return data;
 }
-
+*/
 /*
  * Provided a location, randomly assigns velocities and forces to all points.
  * For explosions!
  */
-PxParticleCreationData ParticleFactory::createRandomParticleData(int num, int maxVelocity, ParticleData* pData, PxVec3 position) {
+PxParticleCreationData ParticleFactory::createRandomParticleData(int num, float maxVelocity, ParticleData* pData, PxVec3 position)
+{
 	PxParticleCreationData data;
 
-	for(PxU32 i = 0; i < (PxU32)num; ++i) {
-		double rx = rand() % maxVelocity;
-		double ry = rand() % maxVelocity;
-		double rz = rand() % maxVelocity;
-
+	for(PxU32 i = 0; i < (PxU32)num; ++i)
+	{
+		float rx = Common::getRandFloat(-1.f, 1.f);
+		float ry = Common::getRandFloat(0.f, 1.f);
+		float rz = Common::getRandFloat(-1.f, 1.f);
+		PxVec3 direction = PxVec3(rx, ry, rz).getNormalized();
+		direction = direction * maxVelocity;
 		pData->setIndex(i, i);
-		pData->setVelocity(i, PxVec3(rx, ry, rz));
+		pData->setVelocity(i, direction);
 		pData->setPosition(i, position);
-		pData->setForce(i, PxVec3(rx, ry, rz));
+		pData->setForce(i, direction);
 	}
-
+	
 	data.numParticles = num;
 	data.indexBuffer = PxStrideIterator<const PxU32> (pData->getIndexes());
 	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
 	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
 
 	return data;
-
 }
 
 // Gets meshdata version of particlesystem
-MeshData ParticleFactory::createMeshData(PxParticleSystem* system) {
-	MeshData newMesh;
+MeshData* ParticleFactory::createMeshData(PxParticleSystem* system)
+{
+	MeshData* newMesh = new MeshData();
 
 	PxParticleReadData* readParticle = system->lockParticleReadData();
 	if(readParticle) {
@@ -86,11 +91,9 @@ MeshData ParticleFactory::createMeshData(PxParticleSystem* system) {
 			if(*flagIt & PxParticleFlag::eVALID)
 			{
 				const PxVec3& pos = *positionIt;
-				newMesh.addVertex(vec3(pos.x, pos.y, pos.z));
-
+				newMesh->addVertex(vec3(pos.x, pos.y, pos.z));
 			}
 		}
-
 	}
 	readParticle->unlock();
 

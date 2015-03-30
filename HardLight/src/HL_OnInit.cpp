@@ -3,8 +3,6 @@
 
 //==============================================================================
 
-#pragma comment(lib, "ftgl_static_D.lib")
-//==============================================================================
 bool HardLight::OnInit()
 {
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
@@ -17,7 +15,6 @@ bool HardLight::OnInit()
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
-	
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
@@ -29,8 +26,6 @@ bool HardLight::OnInit()
 		fprintf(stderr, "%s\n", SDL_GetError());
 	}
 	
-	
-
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,   	    8);

@@ -48,6 +48,22 @@ void HardLight::OnLoop()
 			for (Bike* bikeY : bike_manager->get_player_bikes())
 				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
 			bike_manager->kill_bike(bikeX);
+
+			PxVec3 collisionPosition = PxVec3(bikeX->get_chassis()->get_actor()->getGlobalPose().p);
+			// initialize creation data: random velocities and directions
+			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, particleSpeed, &particleData, collisionPosition);
+			// initialize particle system
+			particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
+
+			// add to scene
+			if(particleSystem)
+				pxAgent->get_scene()->addActor(*particleSystem);
+
+			particleSystem->addForces(maxParticles, PxStrideIterator<const PxU32> (particleData.getIndexes()), PxStrideIterator<PxVec3>(particleData.getForces()), PxForceMode::eACCELERATION);
+			
+			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
+			particleEntity->setParticleSystem(particleSystem);
+			world.add_entity(particleEntity);
 		}
 	}
 	if (closest_sound < FLT_MAX)
@@ -60,17 +76,6 @@ void HardLight::OnLoop()
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
 	bikePowerupPairs.clear();
-
-	// Albert disabled this because he has no idea how it works and will refactor it anyways
-	//closest_sound = FLT_MAX;
-	//for (unsigned int i = 0; i < hit_pickup.size(); i++)
-	//{
-	//	PxRigidActor* pickup_actor = pickup_hit[i];
-	//	Chassis* bike = hit_pickup[i];
-	//	bike_manager->extend_tail(bike);
-	//	for (unsigned int i = 0; i < bike_manager->get_player_bikes().size(); i++)
-	//		closest_sound = glm::min(closest_sound, bike_manager->get_player_bikes()[i]->get_distance(pickup));
-	//}
 
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msPhysics < 1000 / 60) return;
@@ -104,6 +109,16 @@ void HardLight::OnLoop()
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
+	}
+
+	for(Entity* entity : world.getEntities()) {
+		// check for old particle systems
+		if(entity->get_type() == PARSYSTEM) {
+			ParticleSystem* p = (ParticleSystem*)entity;
+			if(p->isOld(msCurrent, explosionLifeSpan)) {
+				world.remove(p);
+			}
+		}
 	}
 
 	// Move Bot BikeManager

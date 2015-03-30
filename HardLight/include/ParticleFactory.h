@@ -10,9 +10,9 @@ class ParticleFactory {
 public:
 
 	static PxParticleSystem* createParticles(int, PxPhysics*, physx::PxParticleCreationData);
-	static PxParticleCreationData createParticleData(int, ParticleData*, PxVec3, PxVec3, PxVec3);
-	static PxParticleCreationData createRandomParticleData(int, int, ParticleData*, PxVec3);
-	static MeshData createMeshData(PxParticleSystem*);
+	//static PxParticleCreationData createParticleData(int, ParticleData*, PxVec3, PxVec3, PxVec3);
+	static PxParticleCreationData createRandomParticleData(int, float, ParticleData*, PxVec3);
+	static MeshData* createMeshData(PxParticleSystem*);
 };
 
 #endif
