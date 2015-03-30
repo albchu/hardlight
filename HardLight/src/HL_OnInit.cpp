@@ -116,15 +116,12 @@ bool HardLight::OnInit()
 	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 
 	// Create a pixmap font from a TrueType file.
-	font = new FTGLPixmapFont("Demo_ConeriaScript.ttf");
-//
-// If something went wrong, bail out.
-if(font->Error())
-    return -1;
-//
-// Set the font size and render a small text.
-//font.FaceSize(72);
-//font.Render("Hello World!");
+	font = new FTBufferFont("../data/Fonts/Demo_ConeriaScript.ttf");
+	//
+	// If something went wrong, bail out.
+	if(font->Error())
+		return -1;
+
 
 	return true;
 }
