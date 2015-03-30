@@ -3,7 +3,7 @@
 bool HardLight::BuildScene()
 {
 	maxParticles = 100;
-	particleSpeed = 10000;
+	particleSpeed = 10000; // keep here for best random directions.
 	particleData = ParticleData(maxParticles);
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
