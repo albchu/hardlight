@@ -142,7 +142,7 @@ private:
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
-	FTFont* font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
+	FTGLPixmapFont * font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
 	PowerupManager* powerup_manager;
 
 public:

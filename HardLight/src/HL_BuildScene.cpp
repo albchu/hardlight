@@ -96,6 +96,7 @@ bool HardLight::BuildScene()
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
+			cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
