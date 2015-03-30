@@ -189,10 +189,8 @@ PxRigidStatic* PhysxAgent::create_ground_sphere(float scale_factor)
 
 PxRigidStatic* PhysxAgent::create_ground_plane()
 {
-	if (ground_mesh == NULL)
+	if (ground_material == NULL)
 	{
-		MeshData* ground_data = MeshMap::Instance()->getEntityMesh("sphere.obj");
-		ground_mesh = create_convex_mesh(*ground_data->getVertices());
 		ground_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
 	}
 	PxFilterData simFilterData;
