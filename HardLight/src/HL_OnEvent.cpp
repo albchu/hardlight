@@ -101,7 +101,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 			break;
 		case SDLK_DOWN:
-			if (bike != NULL) bike->getInputData().setAnalogAccel(0.0f);
+			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 			break;
 		case SDLK_LEFT:
 			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
