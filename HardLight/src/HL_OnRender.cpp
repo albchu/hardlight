@@ -18,10 +18,12 @@ void HardLight::OnRender()
 		FTPoint spacing(5,0,0);
 		font->FaceSize(80);
 		font->CharMap(ft_encoding_unicode);
+		if( bike_manager->get_player_bikes().size() > 0)
+		{
+			Player_Controller* controller = (Player_Controller*)bike_manager->get_player_bikes()[i % bike_manager->get_player_bikes().size()]->get_controller();
 
-		Player_Controller* controller = (Player_Controller*)bike_manager->get_player_bikes()[i % bike_manager->get_player_bikes().size()]->get_controller();
-		
-		viewport.camera->update((controller->get_camera_up())*speed, (controller->get_camera_right())*speed);
+			viewport.camera->update((controller->get_camera_up())*speed, (controller->get_camera_right())*speed);
+		}
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{
@@ -46,8 +48,29 @@ void HardLight::OnRender()
 			font->Render(resetMessage, -1, subMessagePos, spacing);
 		}
 		else {
+			if (loseMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0){
+				Bike* b = bike_manager->get_all_bikes()[i % bike_manager->get_all_bikes().size()];
+				switch (b->power)
+				{
+				case 0:
+					loseMessage = "Jump";
+					break;
+				case 1:
+					loseMessage = "Invincible";
+					break;
+				case 2:
+					loseMessage = "Super Tail";
+					break;
+				default:
+					loseMessage = "";
+					break;
+				}
+				font->FaceSize(20);
+				messagePos = FTPoint(viewport.x + 10, viewport.y + 10, 190);
+				font->Render(loseMessage, -1, messagePos, spacing);
+				loseMessage = "";
+			}
 			font->Render(loseMessage, -1, messagePos, spacing);
-
 			font->FaceSize(40);
 			font->Render(resetMessage, -1, subMessagePos, spacing);
 		}

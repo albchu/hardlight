@@ -31,7 +31,7 @@ bool HardLight::BuildScene()
 	if (map_type == MapTypes::SPHERE)
 	{
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/IronTile2.tga"), scale_factor);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/WorldSphere.tga"), scale_factor);
 		world.add_entity(ground);
 
 		height = size+5.0f;
@@ -137,6 +137,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
+				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
 				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}

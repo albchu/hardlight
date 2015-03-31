@@ -17,6 +17,7 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	// Initialize powerup_timers
 	powerup_timers = new PowerupTimers();
 	powerup_timers->powerup_duration =(float)config->GetReal("powerup", "duration", 3.0);
+	power = -1;
 }
 
 Chassis* Bike::get_chassis()
@@ -51,8 +52,9 @@ void Bike::render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos)
 	tailwall->render(projection_matrix,view_matrix,lightPos);
 }
 
-void Bike::set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup)
+void Bike::set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup, int i)
 {
+	power = i;
 	powerup = new_powerup;
 }
 
@@ -63,6 +65,8 @@ void Bike::execute_hold_powerup()
 	{
 		(hold.*powerup)(chassis, tailwall, config, powerup_timers);
 		powerup = NULL;	// Clear the powerup once its used
+		cout << power << endl;
+		power = -1;
 	}
 }
 

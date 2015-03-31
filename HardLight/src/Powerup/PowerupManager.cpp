@@ -19,7 +19,7 @@ PowerupManager::PowerupManager(World* new_world, INIReader* config, PhysxAgent* 
 	maxPickups = config->GetInteger("powerup", "maxPickups", 1);
 	heightOffFloor = (float)config->GetReal("powerup", "heightOffFloor", 0.0f);
 	mapType = config->GetInteger("scene", "map", MapTypes::SPHERE);
-	arena_size = (float)config->GetReal("scene", "size", 300.0);
+	arena_size = (float)config->GetReal("scene", "size", 300.0) - 20.0f;
 }
 
 PowerupManager::~PowerupManager()
@@ -56,6 +56,20 @@ void PowerupManager::spawn_hold_powerup(vec3 position)
 	world->add_entity(powerup);
 }
 
+void PowerupManager::spawn_hold_powerup()
+{
+	if(mapType == MapTypes::SPHERE)
+	{
+		spawn_hold_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), arena_size + heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
+	}
+	else if (mapType == MapTypes::PLANE)
+	{
+		spawn_hold_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
+	}
+	else
+		cerr << "Do not understand how to generate powerups on this map type" << endl;
+}
+
 void PowerupManager::spawn_instant_powerup()
 {
 	if(mapType == MapTypes::SPHERE)
@@ -69,7 +83,6 @@ void PowerupManager::spawn_instant_powerup()
 	else
 		cerr << "Do not understand how to generate powerups on this map type" << endl;
 }
-
 void PowerupManager::spawn_instant_powerup(vec3 position)
 {
 	cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
@@ -125,20 +138,26 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 	if(powerup_actor->getName() == "HOLD")
 	{
 		cout << "Applying hold powerup" << endl;
-		sfxMix->PlaySoundEffect("sfxPowerupReady");
+		if(bike->get_subtype() == PLAYER_BIKE) sfxMix->PlaySoundEffect("sfxPowerupReady");
 		HoldEntity* holdEntity = getHoldEntity(powerup_actor);
-
+		
 		// If we find a match, we will apply the powerup
 		if(holdEntity != NULL)
 		{
-			bike->set_hold_powerup(holdEntity->get_powerup());
+			int i;
+			for (i=0; i<all_hold_powers.size(); i++)
+			{
+				if (all_hold_powers[i] == holdEntity->get_powerup())
+					break;
+			}
+			bike->set_hold_powerup(holdEntity->get_powerup(), i);
 			respawn_powerup(holdEntity);
 		}
 	}
 	else if(powerup_actor->getName() == "INSTANT")
 	{
 		cout << "Applying instant powerup" << endl;
-		sfxMix->PlaySoundEffect("sfxPowerupInstant");
+		if(bike->get_subtype() == PLAYER_BIKE) sfxMix->PlaySoundEffect("sfxPowerupInstant");
 		InstantEntity* instantEntity = getInstantEntity(powerup_actor);
 
 		// If we find a match, we will apply the powerup

@@ -3,7 +3,7 @@
 //==============================================================================
 
 const int deadZone = 8000;
-const float minAccel = 0.0f;
+const float minAccel = 0.85f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
