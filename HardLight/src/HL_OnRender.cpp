@@ -11,14 +11,19 @@ void HardLight::OnRender()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for(Viewports::Viewport viewport : viewports)
+	for(int i = 0; i < viewports.size(); i++)
 	{
+		Viewports::Viewport viewport = viewports[i];
+
 		FTPoint spacing(5,0,0);
 		font->FaceSize(80);
 		font->CharMap(ft_encoding_unicode);
 
+		Player_Controller* controller = (Player_Controller*)bike_manager->get_player_bikes()[i % bike_manager->get_player_bikes().size()]->get_controller();
+
+
 		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices
-		viewport.camera->update((forward-back)*speed, (right-left)*speed);
+		viewport.camera->update((controller->get_camera_up())*speed, (controller->get_camera_right())*speed);
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)
 		{
@@ -49,6 +54,12 @@ void HardLight::OnRender()
 			font->Render(resetMessage, -1, subMessagePos, spacing);
 		}
 	}
+
+	//if(msCurrent <= messageTime + messageTimeSpan) {
+	//	FTPoint spacing(2, 0, 0);
+	//	FTPoint position(viewport.x + (viewport.width/1.5f), viewport.y + (viewport.height/1.5f), 190);
+	//	font->FaceSize(10);
+	//}
 
 	SDL_GL_SwapWindow(window);
 

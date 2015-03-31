@@ -147,6 +147,9 @@ private:
 	const char* loseMessage;
 	const char* winMessage;
 	const char* resetMessage;
+	const char* powerUpMessage;
+	int messageTime;
+	int messageTimeSpan;
 	BikeID winner;
 
 public:

@@ -11,6 +11,8 @@ bool HardLight::BuildScene()
 	loseMessage = "";
 	winMessage = "";
 	resetMessage = "";
+	powerUpMessage = "";
+	messageTimeSpan = 1000;
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 

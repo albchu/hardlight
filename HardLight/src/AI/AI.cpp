@@ -131,6 +131,21 @@ void AI::update_controller(Bike* bike)
 	float accel = player->get_min_acceleration(); // Default acceleration to minimum if non is given
 	PxReal steer = 0.0;
 
+	if(RightX < -player->get_dead_zone()){
+		player->set_camera_right((RightX)/(-32768.0f));
+	}else if(RightX > player->get_dead_zone()){
+		player->set_camera_right((RightX)/(-32768.0f));
+	}else {
+		player->set_camera_right(0.0f);
+	}		
+	if(RightY > player->get_dead_zone()){
+		player->set_camera_up((RightY)/(-32768.0f));
+	}else if(RightY < -player->get_dead_zone()){
+		player->set_camera_up((RightY)/(-32768.0f));
+	}else{
+		player->set_camera_up(0.0f);
+	}
+
 	if (LeftX < -(player->get_dead_zone()) || LeftX > player->get_dead_zone())
 	{
 		steer = (LeftX)/(-32768.0f); //the axis are inverted on the controller
@@ -152,7 +167,7 @@ void AI::update_controller(Bike* bike)
 	{
 		if(bike->get_hold_powerup() != NULL)
 			//sfxMix->PlaySoundEffect("sfxPowerupNone");
-		//else
+				//else
 		{
 			sfxMix->PlaySoundEffect("sfxPowerupActivated");
 			bike->execute_hold_powerup();
@@ -160,7 +175,7 @@ void AI::update_controller(Bike* bike)
 
 		}
 	}
-		
+
 
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
 		sfxMix->PlaySoundEffect("sfxIntro");

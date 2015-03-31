@@ -73,6 +73,13 @@ void HardLight::OnLoop()
 	// Process all powerups that were hit. Note: Cannot be done in OnTrigger because physx complains
 	for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
 	{
+		//messageTime = SDL_GetTicks();
+		//if(get<1>(pair)->getName() == "HOLD") {
+		//	powerUpMessage = "Power up ready";
+		//}
+		//else if(get<1>(pair)->getName() == "INSTANT") {
+		//	powerUpMessage = "Tail extended";
+		//}
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
 	bikePowerupPairs.clear();
