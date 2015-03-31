@@ -20,9 +20,7 @@ void HardLight::OnRender()
 		font->CharMap(ft_encoding_unicode);
 
 		Player_Controller* controller = (Player_Controller*)bike_manager->get_player_bikes()[i % bike_manager->get_player_bikes().size()]->get_controller();
-
-
-		// PLACEHOLDER: For each player id in the viewport, update that camera setting and get the proj and view matrices
+		
 		viewport.camera->update((controller->get_camera_up())*speed, (controller->get_camera_right())*speed);
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int i = 0; i < world.getEntities().size(); i++)

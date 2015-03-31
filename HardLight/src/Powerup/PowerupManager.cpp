@@ -101,6 +101,11 @@ void PowerupManager::spawn_random_powerup(vec3 position)
 // Applies the selected powerup to a bike
 void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 {
+	if(bike->get_subtype() == PLAYER_BIKE)
+	{
+		((Player_Controller*)bike->get_controller())->rumble(1.0, 155);
+	}
+
 	if(powerup_actor->getName() == "HOLD")
 	{
 		cout << "Applying hold powerup" << endl;

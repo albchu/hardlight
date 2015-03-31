@@ -13,10 +13,7 @@ void HardLight::OnCleanup()
 		aBike->get_chassis()->getVehicleSceneQueryData()->free(pxAgent->get_allocator());
 	}
 
-	for(Bike* aBike : bike_manager->get_player_bikes())
-	{
-		delete (Player_Controller*)aBike->get_controller();
-	}
+	bike_manager->clear_controllers();
 
 	gFrictionPairs->release();
 	pxAgent->cleanup();
