@@ -114,30 +114,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 	case SDL_CONTROLLERBUTTONDOWN:
 		switch (Event->cbutton.button)
 		{
-		case SDL_CONTROLLER_BUTTON_A: // A button
-			//sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
-			//powerup->setPowerType(JUMP);
-			//if(powerup->usePowerup() == 1)
-			//	sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//	sfxMix.PlaySoundEffect("sfxIntro");
-			break;
-		case SDL_CONTROLLER_BUTTON_X: // X button
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			//powerup->setPowerType(EXTENDTAIL);
-			//if(powerup->usePowerup() == 1);
-			//sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			break;
-		case SDL_CONTROLLER_BUTTON_Y: // Y button
-			//sfxMix.PlaySoundEffect("sfxItemPickUp");
-			//powerup->setPowerType(INVINCIBLE);
-			//if(powerup->usePowerup() == 1);
-			//sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			toggle_pause();
 
@@ -177,12 +153,14 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 void HardLight::reset()
 {
-	if(scene == PAUSE)
+	if(scene == PAUSE || scene == GAME_OVER)
 		scene = GAME;
 	for(Bike* bike : bike_manager->get_all_bikes()) {
 		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}
+	for(Viewports::Viewport port : viewports)
+		port.message = "";
 	bike_manager->clear_controllers();
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);

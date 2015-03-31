@@ -8,9 +8,6 @@ bool HardLight::BuildScene()
 	particleData = ParticleData(maxParticles);
 
 	winner = NONE;
-	loseMessage = "";
-	winMessage = "";
-	resetMessage = "";
 	powerUpMessage = "";
 	messageTimeSpan = 1000;
 

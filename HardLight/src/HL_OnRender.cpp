@@ -38,53 +38,40 @@ void HardLight::OnRender()
 		FTPoint subMessagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 - 30, 190);
 
 		if(scene == PAUSE) {
-			winMessage = "";
-			loseMessage = "";
-			resetMessage = "";
 
 			font->Render("PAUSED", -1, messagePos, spacing);
 		}
-
-		if(viewport.id == winner) {
-			font->Render(winMessage, -1, messagePos, spacing);
+		else if(scene == GAME_OVER) {
+			font->Render(viewport.message, -1, messagePos, spacing);
 
 			font->FaceSize(40);
-			font->Render(resetMessage, -1, subMessagePos, spacing);
+			font->Render("Press Back or 'r'", -1, subMessagePos, spacing);
 		}
-		else {
-			if (loseMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0){
+		else if(scene == GAME) {
+			if (powerUpMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0){
 				Bike* b = bike_manager->get_all_bikes()[i % bike_manager->get_all_bikes().size()];
 				switch (b->power)
 				{
 				case 0:
-					loseMessage = "Jump";
+					powerUpMessage = "Jump";
 					break;
 				case 1:
-					loseMessage = "Invincible";
+					powerUpMessage = "Invincible";
 					break;
 				case 2:
-					loseMessage = "Super Tail";
+					powerUpMessage = "Super Tail";
 					break;
 				default:
-					loseMessage = "";
+					powerUpMessage = "";
 					break;
 				}
 				font->FaceSize(20);
 				messagePos = FTPoint(viewport.x + 10, viewport.y + 10, 190);
-				font->Render(loseMessage, -1, messagePos, spacing);
-				loseMessage = "";
+				font->Render(powerUpMessage, -1, messagePos, spacing);
+				powerUpMessage = "";
 			}
-			font->Render(loseMessage, -1, messagePos, spacing);
-			font->FaceSize(40);
-			font->Render(resetMessage, -1, subMessagePos, spacing);
 		}
 	}
-
-	//if(msCurrent <= messageTime + messageTimeSpan) {
-	//	FTPoint spacing(2, 0, 0);
-	//	FTPoint position(viewport.x + (viewport.width/1.5f), viewport.y + (viewport.height/1.5f), 190);
-	//	font->FaceSize(10);
-	//}
 
 	SDL_GL_SwapWindow(window);
 
