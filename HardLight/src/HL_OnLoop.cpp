@@ -6,10 +6,10 @@
 
 PxF32 gSteerVsForwardSpeedData[2*8]=
 {
-	0.0f,		0.75f,
-	5.0f,		0.45f,
-	30.0f,		0.45f,
-	120.0f,		0.45f,
+	0.0f,		0.45f,
+	5.0f,		0.35f,
+	30.0f,		0.35f,
+	120.0f,		0.35f,
 	PX_MAX_F32, PX_MAX_F32,
 	PX_MAX_F32, PX_MAX_F32,
 	PX_MAX_F32, PX_MAX_F32,
@@ -100,10 +100,13 @@ void HardLight::OnLoop()
 		if (map_type == MapTypes::SPHERE)
 			bike->set_gravity_up(actor->getGlobalPose().p);
 		PxVec3 grav = bike->get_gravity_up() * -gravity;
+		//increase gravity with forward speed
+		if (map_type != MapTypes::PLANE)
+			grav += (bike->get_gravity_up() * -1.f * actor->getLinearVelocity().magnitude());
 		actor->clearForce();
 		actor->addForce(grav, PxForceMode::eACCELERATION);
-		PxVec3 slow = actor->getLinearVelocity() * -dampening;
-		actor->addForce(slow, PxForceMode::eACCELERATION);
+		//PxVec3 slow = actor->getLinearVelocity() * -dampening;
+		//actor->addForce(slow, PxForceMode::eACCELERATION);
 
 		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
