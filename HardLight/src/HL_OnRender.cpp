@@ -28,6 +28,14 @@ void HardLight::OnRender()
 		FTPoint messagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + 250, 190);
 		FTPoint subMessagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + (viewport.height/3.0f), 190);
 
+		if(scene == PAUSE) {
+			winMessage = "";
+			loseMessage = "";
+			resetMessage = "";
+
+			font->Render("PAUSED", -1, messagePos, spacing);
+		}
+
 		if(viewport.id == winner) {
 			font->Render(winMessage, -1, messagePos, spacing);
 
@@ -42,17 +50,6 @@ void HardLight::OnRender()
 		}
 	}
 
-
-	//// Set the font size and render a small text.
-	//FTPoint spacing(5,0,0);
-	////font->Render("Hello World!"	, 2, position, spacing);
-	//FTPoint position(500, 600, 190);
-	//font->FaceSize(80);
-	////font->Depth(10);
-	////font->Outset(0, 3);
-	//font->CharMap(ft_encoding_unicode);
-	////font->Render("Hello FTGL!");
-	//font->Render(message,-1, position, spacing);
 	SDL_GL_SwapWindow(window);
 
 }
