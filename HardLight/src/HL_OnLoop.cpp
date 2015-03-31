@@ -64,8 +64,6 @@ void HardLight::OnLoop()
 			if(particleSystem)
 				pxAgent->get_scene()->addActor(*particleSystem);
 
-			particleSystem->addForces(maxParticles, PxStrideIterator<const PxU32> (particleData.getIndexes()), PxStrideIterator<PxVec3>(particleData.getForces()), PxForceMode::eACCELERATION);
-
 			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
 			particleEntity->setParticleSystem(particleSystem);
 			particleEntity->setParticleData(particleData);
