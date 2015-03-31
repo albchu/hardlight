@@ -3,7 +3,7 @@
 bool HardLight::BuildScene()
 {
 	maxParticles = config->GetInteger("particles", "count", 100);
-	particleSpeed = config->GetReal("particles", "speed", 10);
+	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
@@ -100,14 +100,14 @@ bool HardLight::BuildScene()
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
-			if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
+			if (controllers.size() > i && !config->GetBoolean("game", "disableControllers", false))
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
 				bike_manager->add_player_bike(new_chassis, NULL);
 
 			if (count < viewports.size())
 			{
-				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
 
@@ -128,7 +128,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
-				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
 
@@ -143,7 +143,7 @@ bool HardLight::BuildScene()
 
 		for (;count < viewports.size(); count++)
 		{
-			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor(), viewports[count].width, viewports[count].height);
+			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor(), viewports[count].width, viewports[count].height, map_type);
 			viewports[count].camera = aCamera;
 		}
 	}

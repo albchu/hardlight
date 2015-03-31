@@ -10,29 +10,43 @@ void HardLight::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 		if(cp.events & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 		{
-			Bike* bike1 = bike_manager->get_bike(pairHeader.actors[0]);
-			Bike* bike2 = bike_manager->get_bike(pairHeader.actors[1]);
-			if (bike1 != NULL)
+			int iBike, iOther;
+			if (cp.shapes[0]->getSimulationFilterData().word0 & EntityTypes::BIKE)
 			{
-				if(find(bikesToKill.begin(), bikesToKill.end(), bike1) == bikesToKill.end())
-				{	// Only push bike onto bikes to kill vector if it does not already exist
-					bikesToKill.push_back(bike1);
-				}
-				if(bike1->get_subtype() == PLAYER_BIKE)
-				{
-					((Player_Controller*)bike1->get_controller())->rumble(1.0, 120);
-				}
+				iBike = 0;
+				iOther = 1;
 			}
-			if (bike2 != NULL)
+			else if (cp.shapes[1]->getSimulationFilterData().word0 & EntityTypes::BIKE)
 			{
-				if(find(bikesToKill.begin(), bikesToKill.end(), bike2) == bikesToKill.end())
-				{
-					bikesToKill.push_back(bike2);
+				iBike = 1;
+				iOther = 0;
+			}
+			else
+			{
+				continue;
+			}
+			Bike* bike = bike_manager->get_bike(pairHeader.actors[iBike]);
+			switch (cp.shapes[iOther]->getSimulationFilterData().word0)
+			{
+			case EntityTypes::GROUND:
+				break;
+			case EntityTypes::WALL:
+				if (find(bikesToKill.begin(), bikesToKill.end(), bike) == bikesToKill.end())
+				{	// Only push bike onto bikes to kill vector if it does not already exist
+					bikesToKill.push_back(bike);
 				}
-				if(bike2->get_subtype() == PLAYER_BIKE)
-				{
-					((Player_Controller*)bike2->get_controller())->rumble(1.0, 120);
+				break;
+			case EntityTypes::BIKE:
+				if(find(bikesToKill.begin(), bikesToKill.end(), bike) == bikesToKill.end())
+				{	// Only push bike onto bikes to kill vector if it does not already exist
+					bikesToKill.push_back(bike);
 				}
+				bike = bike_manager->get_bike(pairHeader.actors[iOther]);
+				if(find(bikesToKill.begin(), bikesToKill.end(), bike) == bikesToKill.end())
+				{	// Only push bike onto bikes to kill vector if it does not already exist
+					bikesToKill.push_back(bike);
+				}
+				break;
 			}
 		}
 	}
@@ -42,17 +56,26 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 {
 	for(PxU32 i=0; i < count; i++)
 	{
-		// ignore pairs when shapes have been deleted
-		if (pairs[i].flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER))
-			continue;
+		const PxTriggerPair& tp = pairs[i];
 
-		Bike* bike = bike_manager->get_bike(pairs[i].otherActor);
-		if (bike != NULL)
+		if(tp.status & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 		{
-			bikePowerupPairs.push_back(tuple<Bike*,PxRigidActor*>(bike, pairs[i].triggerActor));
-			if(bike->get_subtype() == PLAYER_BIKE)
+			Bike* bike = bike_manager->get_bike(tp.otherActor);
+			switch (tp.triggerShape->getSimulationFilterData().word0)
 			{
-				((Player_Controller*)bike->get_controller())->rumble(1.0, 75);
+			case EntityTypes::PICKUP:
+				bikePowerupPairs.push_back(tuple<Bike*,PxRigidActor*>(bike, tp.triggerActor));
+				if(bike->get_subtype() == PLAYER_BIKE)
+				{
+					((Player_Controller*)bike->get_controller())->rumble(1.0, 75);
+				}
+				break;
+			case EntityTypes::TAIL:
+				Bike* bike = bike_manager->get_bike(tp.otherActor);
+				if(find(bikesToKill.begin(), bikesToKill.end(), bike) == bikesToKill.end())
+				{	// Only push bike onto bikes to kill vector if it does not already exist
+					bikesToKill.push_back(bike);
+				}
 			}
 		}
 	}

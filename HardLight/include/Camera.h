@@ -5,6 +5,7 @@
 #include "../inih/cpp/INIReader.h"
 #include "Rendering\TextureMap.h"
 #include "Vehicle/Chassis.h"
+#include "MapTypes.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
@@ -26,11 +27,11 @@ private:
 	PxRigidActor* focalTarget;
 	float look_above;
 	float light_height;
-	float up_percent;
 	float forward_percent;
+	MapTypes map_type;
 
 public:
-	Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height);
+	Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height, MapTypes map);
 	void update_translationZ(float translation);
 	void update_rotation(float rads);
 	void update(float translationZ, float rotationRads);

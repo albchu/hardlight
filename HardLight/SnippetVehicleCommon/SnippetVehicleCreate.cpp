@@ -139,11 +139,13 @@ PxRigidDynamic* createVehicleActor
 
 	//Wheel and chassis simulation filter data.
 	PxFilterData wheelSimFilterData;
-	wheelSimFilterData.word0 = COLLISION_FLAG_WHEEL;
-	wheelSimFilterData.word1 = COLLISION_FLAG_WHEEL_AGAINST;
+	EntityTypes type = EntityTypes::WHEEL;
+	wheelSimFilterData.word0 = type;
+	wheelSimFilterData.word1 = PhysxAgent::collides_with(type);
 	PxFilterData chassisSimFilterData;
-	chassisSimFilterData.word0 = COLLISION_FLAG_CHASSIS;
-	chassisSimFilterData.word1 = COLLISION_FLAG_CHASSIS_AGAINST;
+	type = EntityTypes::BIKE;
+	chassisSimFilterData.word0 = type;
+	chassisSimFilterData.word1 = PhysxAgent::collides_with(type);
 
 	//Wheel and chassis query filter data.
 	//Optional: cars don't drive on other cars.
