@@ -8,12 +8,13 @@
 
 using namespace std;
 
-enum PlayerID
+enum BikeID
 {
-	PLAYER1,
-	PLAYER2,
-	PLAYER3,
-	PLAYER4,
+	NONE,
+	BIKE1,
+	BIKE2,
+	BIKE3,
+	BIKE4,
 };
 
 class Viewports
@@ -30,7 +31,7 @@ public:
 		int  height;
 
 		// An ID to distinguish which camera it is for
-		PlayerID id;
+		BikeID id;
 
 		// The camera for the particular viewport
 		Camera* camera;
