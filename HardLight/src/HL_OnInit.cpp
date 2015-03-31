@@ -111,7 +111,7 @@ bool HardLight::OnInit()
 	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 
 	// Create a pixmap font from a TrueType file.
-	font = new FTGLPixmapFont ("../data/Fonts/Demo_ConeriaScript.ttf");
+	font = new FTGLPixmapFont ("../data/Fonts/Roboto-Bold.ttf");
 	//
 	// If something went wrong, bail out.
 	if(font->Error())
