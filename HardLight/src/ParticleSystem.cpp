@@ -65,7 +65,6 @@ void ParticleSystem::setParticleData(ParticleData data) {
 }
 
 void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
-
 	if(mesh_data != NULL)
 		delete mesh_data;
 	mesh_data = ParticleFactory::createMeshData(particleSystem);
@@ -129,8 +128,6 @@ mat4 ParticleSystem::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
-
-	
 
 	return model_matrix;
 }
