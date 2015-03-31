@@ -135,32 +135,38 @@ void HardLight::OnLoop()
 	// Rotate powerups
 	powerup_manager->rotate_all();
 
-	/*
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
-		//if(bike_manager->get_all_bikes().size() == 1)
-		//{
-		//	Chassis* aBike = bike_manager->get_all_bikes()[0];
-		//	if(aBike->get_subtype() == PLAYER_BIKE)
-		//	{
-		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
-		//		scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
-		//	}
-		//	if(aBike->get_subtype() == BOT_BIKE)
-		//	{
-		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-		//	}
 
-		//	menu->set_renderable(true);
-		//}
-		//else if (bike_manager->get_player_bikes().size() == 0)
-		//{
-		//	menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-		//	menu->set_renderable(true);
-		//}
+		if(bike_manager->get_all_bikes().size() == 1)
+		{
+			Bike* aBike = bike_manager->get_all_bikes()[0];
+			if(aBike->get_subtype() == PLAYER_BIKE)
+			{
+				winner = aBike->get_id();
+				winMessage = "You Win!";
+				loseMessage = "You Lost!";
+				resetMessage = "Press Back or 'r'";
+				//menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
+				scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
+			}
+			if(aBike->get_subtype() == BOT_BIKE)
+			{
+				loseMessage = "You Lost!";
+				resetMessage = "Press Back or 'r'";
+				//menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
+			}
+
+			//menu->set_renderable(true);
+		}
+		else if (bike_manager->get_player_bikes().size() == 0)
+		{
+			loseMessage = "You Lost!";
+			resetMessage = "Press Back or 'r'";
+		}
 	}
-	*/
+
 	//Scene update.
 	pxAgent->get_scene()->simulate(timestep);
 	msPhysics = msCurrent;
