@@ -45,6 +45,11 @@ void HardLight::OnLoop()
 	{
 		if (!bikeX->get_chassis()->is_invincible())
 		{
+			if(bikeX->get_subtype() == PLAYER_BIKE)
+			{
+				((Player_Controller*)bikeX->get_controller())->rumble(1.0, 220);
+			}
+
 			for (Bike* bikeY : bike_manager->get_player_bikes())
 				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
 			bike_manager->kill_bike(bikeX);
@@ -60,7 +65,7 @@ void HardLight::OnLoop()
 				pxAgent->get_scene()->addActor(*particleSystem);
 
 			particleSystem->addForces(maxParticles, PxStrideIterator<const PxU32> (particleData.getIndexes()), PxStrideIterator<PxVec3>(particleData.getForces()), PxForceMode::eACCELERATION);
-			
+
 			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
 			particleEntity->setParticleSystem(particleSystem);
 			particleEntity->setParticleData(particleData);
@@ -74,6 +79,13 @@ void HardLight::OnLoop()
 	// Process all powerups that were hit. Note: Cannot be done in OnTrigger because physx complains
 	for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
 	{
+		//messageTime = SDL_GetTicks();
+		//if(get<1>(pair)->getName() == "HOLD") {
+		//	powerUpMessage = "Power up ready";
+		//}
+		//else if(get<1>(pair)->getName() == "INSTANT") {
+		//	powerUpMessage = "Tail extended";
+		//}
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
 	bikePowerupPairs.clear();
@@ -87,32 +99,35 @@ void HardLight::OnLoop()
 	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
 	for(Bike* bike : bike_manager->get_all_bikes())
 	{
-		Chassis* chassis = bike->get_chassis();
-		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, chassis->getInputData(), timestep, chassis->isInAir(), *chassis->getVehicle4W());
+		if(bike->is_renderable())
+		{
+			Chassis* chassis = bike->get_chassis();
+			PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs(gPadSmoothingData, gSteerVsForwardSpeedTable, chassis->getInputData(), timestep, chassis->isInAir(), *chassis->getVehicle4W());
 
-		//Raycasts.
-		PxVehicleWheels* vehicles[1] = {chassis->getVehicle4W()};
-		PxRaycastQueryResult* raycastResults = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
-		const PxU32 raycastResultsSize = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
-		PxVehicleSuspensionRaycasts(chassis->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
+			//Raycasts.
+			PxVehicleWheels* vehicles[1] = {chassis->getVehicle4W()};
+			PxRaycastQueryResult* raycastResults = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBuffer(0);
+			const PxU32 raycastResultsSize = chassis->getVehicleSceneQueryData()->getRaycastQueryResultBufferSize();
+			PxVehicleSuspensionRaycasts(chassis->getBatchQuery(), 1, vehicles, raycastResultsSize, raycastResults);
 
-		//Vehicle update.
-		PxRigidDynamic* actor = chassis->getVehicle4W()->getRigidDynamicActor();
-		if (map_type == MapTypes::SPHERE)
-			bike->set_gravity_up(actor->getGlobalPose().p);
-		PxVec3 grav = bike->get_gravity_up() * -gravity;
-		//increase gravity with forward speed
-		if (map_type != MapTypes::PLANE)
-			grav += (bike->get_gravity_up() * -1.f * actor->getLinearVelocity().magnitude());
-		actor->clearForce();
-		actor->addForce(grav, PxForceMode::eACCELERATION);
-		//PxVec3 slow = actor->getLinearVelocity() * -dampening;
-		//actor->addForce(slow, PxForceMode::eACCELERATION);
+			//Vehicle update.
+			PxRigidDynamic* actor = chassis->getVehicle4W()->getRigidDynamicActor();
+			if (map_type == MapTypes::SPHERE)
+				bike->set_gravity_up(actor->getGlobalPose().p);
+			PxVec3 grav = bike->get_gravity_up() * -gravity;
+			//increase gravity with forward speed
+			if (map_type != MapTypes::PLANE)
+				grav += (bike->get_gravity_up() * -1.f * actor->getLinearVelocity().magnitude());
+			actor->clearForce();
+			actor->addForce(grav, PxForceMode::eACCELERATION);
+			//PxVec3 slow = actor->getLinearVelocity() * -dampening;
+			//actor->addForce(slow, PxForceMode::eACCELERATION);
 
-		PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
-		PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
-		PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
+			PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
+			PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
+			PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
 
+		}
 	}
 
 	for(Entity* entity : world.getEntities()) {
@@ -147,32 +162,33 @@ void HardLight::OnLoop()
 	}
 
 
-	/*
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
-		//if(bike_manager->get_all_bikes().size() == 1)
-		//{
-		//	Chassis* aBike = bike_manager->get_all_bikes()[0];
-		//	if(aBike->get_subtype() == PLAYER_BIKE)
-		//	{
-		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
-		//		scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
-		//	}
-		//	if(aBike->get_subtype() == BOT_BIKE)
-		//	{
-		//		menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-		//	}
 
-		//	menu->set_renderable(true);
-		//}
-		//else if (bike_manager->get_player_bikes().size() == 0)
-		//{
-		//	menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
-		//	menu->set_renderable(true);
-		//}
+		if(bike_manager->get_all_bikes().size() == 1)
+		{
+			Bike* aBike = bike_manager->get_all_bikes()[0];
+			if(aBike->get_subtype() == PLAYER_BIKE)
+			{
+				winner = aBike->get_id();
+				winMessage = "You Win!";
+				loseMessage = "You Lost!";
+				resetMessage = "Press Back or 'r'";
+			}
+			if(aBike->get_subtype() == BOT_BIKE)
+			{
+				loseMessage = "You Lost!";
+				resetMessage = "Press Back or 'r'";
+			}
+		}
+		else if (bike_manager->get_player_bikes().size() == 0)
+		{
+			loseMessage = "You Lost!";
+			resetMessage = "Press Back or 'r'";
+		}
 	}
-	*/
+
 	//Scene update.
 	pxAgent->get_scene()->simulate(timestep);
 	msPhysics = msCurrent;

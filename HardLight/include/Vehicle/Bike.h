@@ -10,6 +10,7 @@
 
 #include "Controls/Player_Controller.h"
 #include "Controls/Bot_Controller.h"
+#include "Rendering/Viewports.h"
 #include "Camera.h"
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
@@ -32,6 +33,8 @@ public:
 	Controller* get_controller();
 	PxVec3 get_gravity_up();
 	void set_gravity_up(PxVec3 new_gravity_up);
+	BikeID get_id();
+	void set_id(BikeID id);
 
 	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup);
 	Powerup<Hold>::PowerCallback get_hold_powerup();
@@ -49,6 +52,7 @@ private:
 	Entity* back_tire;
 	Entity* tail_dispenser;
 	Camera* camera; // Note: This field should only be set for player bike_manager
+	BikeID bikeID;
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;

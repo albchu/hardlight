@@ -97,9 +97,8 @@ void BikeManager::kill_bike(Bike* bike)
 		{
 			if (player_bikes[i]->get_chassis() == bike->get_chassis())
 			{
-				delete (Player_Controller*)player_bikes[i]->get_controller();	// Delete the controller
 				dead_bikes.push_back(player_bikes[i]);
-				player_bikes.erase(player_bikes.begin()+i);
+				//player_bikes.erase(player_bikes.begin()+i);
 				
 				return;
 			}
@@ -113,7 +112,7 @@ void BikeManager::kill_bike(Bike* bike)
 			if (bot_bikes[i]->get_chassis() == bike->get_chassis())
 			{
 				dead_bikes.push_back(bot_bikes[i]);
-				bot_bikes.erase(bot_bikes.begin()+i);
+				//bot_bikes.erase(bot_bikes.begin()+i);
 				return;
 			}
 		}
@@ -124,6 +123,9 @@ void BikeManager::kill_bike(Bike* bike)
 void BikeManager::clear_controllers() {
 	for(Bike* bike : get_all_bikes()) 
 	{
-		delete bike->get_controller();;
+		if(bike->get_subtype() == PLAYER_BIKE)
+			delete (Player_Controller*)bike->get_controller();
+		else if(bike->get_subtype() == BOT_BIKE)
+			delete (Bot_Controller*)bike->get_controller();
 	}
 }

@@ -118,3 +118,10 @@ void Bike::check_super_saiyen_powerup()
 		tailwall->set_height((float)config->GetReal("tail", "height", 1));
 	}
 }
+BikeID Bike::get_id() {
+	return bikeID;
+}
+
+void Bike::set_id(BikeID id) {
+	bikeID = id;
+}

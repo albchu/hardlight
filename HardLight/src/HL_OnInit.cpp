@@ -2,6 +2,7 @@
 #include "HardLight.h"
 
 //==============================================================================
+
 bool HardLight::OnInit()
 {
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
@@ -108,6 +109,14 @@ bool HardLight::OnInit()
 
 	// Init powerup manager
 	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
+
+	// Create a pixmap font from a TrueType file.
+	font = new FTGLPixmapFont ("../data/Fonts/Roboto-Bold.ttf");
+	//
+	// If something went wrong, bail out.
+	if(font->Error())
+		return -1;
+
 
 	return true;
 }

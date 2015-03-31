@@ -7,6 +7,13 @@ bool HardLight::BuildScene()
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
+	winner = NONE;
+	loseMessage = "";
+	winMessage = "";
+	resetMessage = "";
+	powerUpMessage = "";
+	messageTimeSpan = 1000;
+
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the friction table for each combination of tire and surface type.
@@ -96,6 +103,7 @@ bool HardLight::BuildScene()
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
+			cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
@@ -107,6 +115,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
+				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
 				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
