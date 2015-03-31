@@ -187,7 +187,7 @@ void HardLight::OnLoop()
 				resetMessage = "Press Back or 'r'";
 			}
 		}
-		else if (bike_manager->get_player_bikes().size() == 0)
+		else if (bike_manager->get_player_bikes().size() - bike_manager->get_dead_bikes().size() == 0)
 		{
 			loseMessage = "You Lost!";
 			resetMessage = "Press Back or 'r'";

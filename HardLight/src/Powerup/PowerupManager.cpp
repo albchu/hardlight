@@ -90,7 +90,7 @@ void PowerupManager::rotate_all()
 void PowerupManager::spawn_random_powerup(vec3 position)
 {
 	// Random chance to determine what kind of powerup to build
-	if(rand() % 10 < 5)
+	if(rand() % 10 < 8)
 	{
 		spawn_hold_powerup(position);
 	}
