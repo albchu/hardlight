@@ -178,6 +178,7 @@
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\Rendering\Viewports.h" />
+    <ClInclude Include="include\SceneTypes.h" />
     <ClInclude Include="include\ShaderTools.h" />
     <ClInclude Include="include\SkyBox.h" />
     <ClInclude Include="include\SoundMixer.h" />
@@ -191,7 +192,6 @@
     <ClInclude Include="include\World.h" />
     <ClInclude Include="inih\cpp\INIReader.h" />
     <ClInclude Include="inih\ini.h" />
-    <ClInclude Include="SceneTypes.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleCreate.h" />
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleFilterShader.h" />

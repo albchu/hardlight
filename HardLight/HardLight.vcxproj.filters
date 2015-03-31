@@ -262,9 +262,6 @@
     <ClInclude Include="include\GUI.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneTypes.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
       <Filter>PhysXSnippets</Filter>
     </ClInclude>
@@ -336,6 +333,9 @@
     </ClInclude>
     <ClInclude Include="include\ParticleSystem.h">
       <Filter>World\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneTypes.h">
+      <Filter>HardLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
