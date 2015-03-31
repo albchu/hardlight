@@ -165,10 +165,15 @@ void HardLight::OnLoop()
 	// Check win/loss condition
 	if(!config->GetBoolean("game", "debugMode", false))
 	{
-
-		if(bike_manager->get_all_bikes().size() == 1)
+		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{
-			Bike* aBike = bike_manager->get_all_bikes()[0];
+			Bike* aBike;
+			for(Bike* bike : bike_manager->get_all_bikes())
+			{
+				if(bike->is_renderable())
+					aBike = bike;
+			}
+			//Bike* aBike = bike_manager->get_all_bikes()[0];
 			if(aBike->get_subtype() == PLAYER_BIKE)
 			{
 				winner = aBike->get_id();
