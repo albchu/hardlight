@@ -46,8 +46,8 @@ ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_dat
 	init_particle_openGL();
 	renderable = true;
 	coefficient = 1.0f;
-	percentFactor = 1000.0f;
-	radii = 0.6f;
+	percentFactor = 100.0f;
+	radii = 1.5f;
 }
 
 ParticleSystem::~ParticleSystem() {
