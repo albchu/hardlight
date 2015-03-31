@@ -141,8 +141,7 @@ void HardLight::OnLoop()
 	}
 
 	// Move Bot BikeManager
-	//overMind->update_bikes(pickup->get_location());
-	overMind->update_bikes(vec3(0,0,0));
+	overMind->update_bikes(powerup_manager->get_all_instant_entities()[0]->get_location());
 	overMind->move_bikes();
 
 	// Tail creation
@@ -187,7 +186,7 @@ void HardLight::OnLoop()
 				resetMessage = "Press Back or 'r'";
 			}
 		}
-		else if (bike_manager->get_player_bikes().size() - bike_manager->get_dead_bikes().size() == 0)
+		else if (bike_manager->get_player_bikes().size() == bike_manager->get_dead_bikes().size())
 		{
 			loseMessage = "You Lost!";
 			resetMessage = "Press Back or 'r'";

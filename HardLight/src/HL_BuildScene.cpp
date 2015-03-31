@@ -169,6 +169,7 @@ bool HardLight::BuildScene()
 	{
 		powerup_manager->spawn_random_powerup();
 	}
+	powerup_manager->spawn_instant_powerup();	// Always spawn at least one instant powerup
 
 	return true;
 }

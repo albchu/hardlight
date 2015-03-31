@@ -56,6 +56,20 @@ void PowerupManager::spawn_hold_powerup(vec3 position)
 	world->add_entity(powerup);
 }
 
+void PowerupManager::spawn_instant_powerup()
+{
+	if(mapType == MapTypes::SPHERE)
+	{
+		spawn_instant_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), arena_size + heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
+	}
+	else if (mapType == MapTypes::PLANE)
+	{
+		spawn_instant_powerup(vec3(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
+	}
+	else
+		cerr << "Do not understand how to generate powerups on this map type" << endl;
+}
+
 void PowerupManager::spawn_instant_powerup(vec3 position)
 {
 	cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
@@ -90,7 +104,7 @@ void PowerupManager::rotate_all()
 void PowerupManager::spawn_random_powerup(vec3 position)
 {
 	// Random chance to determine what kind of powerup to build
-	if(rand() % 10 < 8)
+	if(rand() % 10 < 9)
 	{
 		spawn_hold_powerup(position);
 	}
@@ -174,3 +188,14 @@ void PowerupManager::respawn_powerup(InstantEntity* instantEntity)
 	// Move the entity
 	instantEntity->get_actor()->setGlobalPose(PxTransform(Common::getRandFloat(-arena_size, arena_size), heightOffFloor, Common::getRandFloat(-arena_size, arena_size)));
 }
+
+vector<HoldEntity*> PowerupManager::get_all_hold_entities()
+{
+	return holdEntities;
+}
+
+vector<InstantEntity*> PowerupManager::get_all_instant_entities()
+{
+	return instantEntities;
+}
+
