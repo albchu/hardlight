@@ -148,17 +148,12 @@ void HardLight::OnLoop()
 				winMessage = "You Win!";
 				loseMessage = "You Lost!";
 				resetMessage = "Press Back or 'r'";
-				//menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Win.tga"));
-				scene = PAUSE;	// This is to avoid allowing the player to win, then kill themselves and have a loss screen show up.
 			}
 			if(aBike->get_subtype() == BOT_BIKE)
 			{
 				loseMessage = "You Lost!";
 				resetMessage = "Press Back or 'r'";
-				//menu->set_texture(TextureMap::Instance()->getTexture("../data/images/Lose.tga"));
 			}
-
-			//menu->set_renderable(true);
 		}
 		else if (bike_manager->get_player_bikes().size() == 0)
 		{
