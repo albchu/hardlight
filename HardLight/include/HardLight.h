@@ -144,6 +144,10 @@ private:
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 	FTGLPixmapFont * font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
 	PowerupManager* powerup_manager;
+	const char* loseMessage;
+	const char* winMessage;
+	const char* resetMessage;
+	BikeID winner;
 
 public:
 	HardLight();
