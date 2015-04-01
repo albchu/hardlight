@@ -45,9 +45,6 @@ ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_dat
 	mesh_data = NULL;
 }
 
-ParticleSystem::~ParticleSystem() {
-}
-
 physx::PxParticleSystem* ParticleSystem::getParticleSystem() {
 	return particleSystem;
 }

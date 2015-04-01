@@ -22,9 +22,9 @@ bool HardLight::OnInit()
 	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1) < 0) {
 		fprintf(stderr, "%s\n", SDL_GetError());
 	}
-	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
-		fprintf(stderr, "%s\n", SDL_GetError());
-	}
+	//if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
+	//	fprintf(stderr, "%s\n", SDL_GetError());
+	//}
 	
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);

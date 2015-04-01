@@ -53,7 +53,7 @@ void HardLight::OnLoop()
 			for (Bike* bikeY : bike_manager->get_player_bikes())
 				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
 			bike_manager->kill_bike(bikeX);
-
+			
 			PxVec3 collisionPosition = PxVec3(bikeX->get_chassis()->get_actor()->getGlobalPose().p);
 			// initialize creation data: random velocities and directions
 			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, particleSpeed, &particleData, collisionPosition);
@@ -160,7 +160,7 @@ void HardLight::OnLoop()
 
 
 	// Check win/loss condition
-	if(!config->GetBoolean("game", "debugMode", false))
+	if(scene == GAME && !config->GetBoolean("game", "debugMode", false))
 	{
 		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{

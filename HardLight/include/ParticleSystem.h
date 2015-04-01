@@ -17,7 +17,6 @@ private:
 
 public:
 	ParticleSystem(PxRigidActor*, MeshData*, GLuint, GLuint);
-	~ParticleSystem();
 
 	bool isOld(double, double);
 	

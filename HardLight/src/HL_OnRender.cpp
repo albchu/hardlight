@@ -65,7 +65,7 @@ void HardLight::OnRender()
 					powerUpMessage = "";
 					break;
 				}
-				font->FaceSize(20);
+				font->FaceSize(40);
 				messagePos = FTPoint(viewport.x + 10, viewport.y + 10, 190);
 				font->Render(powerUpMessage, -1, messagePos, spacing);
 				powerUpMessage = "";

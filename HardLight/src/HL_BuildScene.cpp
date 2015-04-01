@@ -2,14 +2,12 @@
 
 bool HardLight::BuildScene()
 {
-	maxParticles = config->GetInteger("particles", "count", 100);
+	maxParticles = config->GetInteger("particles", "count", 100) / config->GetInteger("game", "numCameras", 1);
 	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
-	winner = NONE;
 	powerUpMessage = "";
-	messageTimeSpan = 1000;
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
@@ -100,7 +98,7 @@ bool HardLight::BuildScene()
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
-			cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
+			//cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));

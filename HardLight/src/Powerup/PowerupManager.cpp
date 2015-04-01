@@ -48,7 +48,7 @@ void PowerupManager::spawn_random_powerup()
 
 void PowerupManager::spawn_hold_powerup(vec3 position)
 {
-	cout << "Spawned a new hold powerup at " << glm::to_string(position) << endl;
+	//cout << "Spawned a new hold powerup at " << glm::to_string(position) << endl;
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
 	actor->setName("HOLD");
 	Entity* powerup = new HoldEntity(all_hold_powers[rand() % all_hold_powers.size()], actor, scaleFactors);
@@ -85,7 +85,7 @@ void PowerupManager::spawn_instant_powerup()
 }
 void PowerupManager::spawn_instant_powerup(vec3 position)
 {
-	cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
+	//cout << "Spawned a new instant powerup at " << glm::to_string(position) << endl;
 	PxRigidActor* actor = pxAgent->create_pickup(position, vec3(0,1,0), scaleFactors);
 	actor->setName("INSTANT");
 	Entity* powerup = new InstantEntity(all_instant_powers[rand() % all_instant_powers.size()], actor, scaleFactors);
@@ -137,7 +137,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 
 	if(powerup_actor->getName() == "HOLD")
 	{
-		cout << "Applying hold powerup" << endl;
+		//cout << "Applying hold powerup" << endl;
 		if(bike->get_subtype() == PLAYER_BIKE) sfxMix->PlaySoundEffect("sfxPowerupReady");
 		HoldEntity* holdEntity = getHoldEntity(powerup_actor);
 		
@@ -156,7 +156,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 	}
 	else if(powerup_actor->getName() == "INSTANT")
 	{
-		cout << "Applying instant powerup" << endl;
+		//cout << "Applying instant powerup" << endl;
 		if(bike->get_subtype() == PLAYER_BIKE) sfxMix->PlaySoundEffect("sfxPowerupInstant");
 		InstantEntity* instantEntity = getInstantEntity(powerup_actor);
 
