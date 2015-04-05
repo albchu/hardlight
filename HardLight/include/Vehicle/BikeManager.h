@@ -28,6 +28,7 @@ public:
 	vector<Bike*> get_all_bikes();
 	vector<Bike*> get_player_bikes();
 	vector<Bike*> get_bot_bikes();
+	vector<Bike*> get_dead_bikes();
 	Bike* get_bike(PxRigidActor* actor);
 	void kill_bike(Bike* bike);
 	void clear_controllers();

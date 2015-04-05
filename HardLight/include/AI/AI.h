@@ -22,6 +22,7 @@ public:
 private:
 	BikeManager* bike_manager;
 	SoundMixer* sfxMix;
+	bool channel_available; // Used to play taunt once per button press
 //	vector<KeyMapping> keyMappings;
 //	vector<SDL_Keycode> keyPresses;	// The buffer that holds all keys we are notified of
 };

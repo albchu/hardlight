@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height)
+Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int height, MapTypes map)
 {
 	projection_matrix = perspective(
 		(float)config->GetReal("camera", "fov", 60.0)/180.0f*PxPi,
@@ -17,15 +17,24 @@ Camera::Camera(INIReader* config, PxRigidActor* init_focalTarget, int width, int
 	look_above = (float)config->GetReal("camera", "look_above", 3.0);
 
 	target = focalTarget->getGlobalPose();
-	up = target.q.rotate(PxVec3(0,1,0)).getNormalized();
+	map_type = map;
+	switch (map_type)
+	{
+	case PLANE:
+		up = PxVec3(0,1,0);
+		break;
+	case SPHERE:
+		up = target.p.getNormalized();
+		break;
+	default:
+		up = target.q.rotate(PxVec3(0,1,0)).getNormalized();
+		break;
+	}
 	forward = target.q.rotate(PxVec3(0,0,1)).getNormalized();
 
 	forward_percent = (float)config->GetReal("camera", "forward_percent", 1.0);
-	up_percent = (float)config->GetReal("camera", "up_percent", 1.0);
 	if (forward_percent > 1.f) forward_percent = 1.f;
 	if (forward_percent < 0.f) forward_percent = 0.f;
-	if (up_percent > 1.f) up_percent = 1.f;
-	if (up_percent < 0.f) up_percent = 0.f;
 }
 
 // Moves the camera forward and back
@@ -51,8 +60,17 @@ void Camera::update(float translationZ, float rotationRads)
 
 	target = focalTarget->getGlobalPose();
 
-	up = (up * (1.f-up_percent)) + (target.q.rotate(PxVec3(0,1,0)) * up_percent);
-	up.normalize();
+	switch (map_type)
+	{
+	case PLANE:
+		break;
+	case SPHERE:
+		up = target.p.getNormalized();
+		break;
+	default:
+		up = target.q.rotate(PxVec3(0,1,0)).getNormalized();
+		break;
+	}
 	forward = (forward * (1.f-forward_percent)) + (target.q.rotate(PxVec3(0,0,1)) * forward_percent);
 	forward.normalize();
 
@@ -68,9 +86,6 @@ void Camera::update(float translationZ, float rotationRads)
 	camera_position = rotate(camera_position, rads, vec3(axis.x, axis.y, axis.z));
 
 	camera_position += PhysxAgent::toVec3(target.p);
-
-	up = orientation.rotate(PxVec3(0,1,0)).getNormalized();
-	forward = orientation.rotate(PxVec3(0,0,1)).getNormalized();
 
 	view_matrix = lookAt(camera_position, PhysxAgent::toVec3(target.p + up*look_above), PhysxAgent::toVec3(up));
 }

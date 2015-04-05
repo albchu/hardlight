@@ -6,10 +6,10 @@
 
 PxF32 gSteerVsForwardSpeedData[2*8]=
 {
-	0.0f,		0.75f,
-	5.0f,		0.45f,
-	30.0f,		0.45f,
-	120.0f,		0.45f,
+	0.0f,		0.45f,
+	5.0f,		0.35f,
+	30.0f,		0.35f,
+	120.0f,		0.35f,
 	PX_MAX_F32, PX_MAX_F32,
 	PX_MAX_F32, PX_MAX_F32,
 	PX_MAX_F32, PX_MAX_F32,
@@ -53,7 +53,7 @@ void HardLight::OnLoop()
 			for (Bike* bikeY : bike_manager->get_player_bikes())
 				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
 			bike_manager->kill_bike(bikeX);
-
+			
 			PxVec3 collisionPosition = PxVec3(bikeX->get_chassis()->get_actor()->getGlobalPose().p);
 			// initialize creation data: random velocities and directions
 			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, particleSpeed, &particleData, collisionPosition);
@@ -64,10 +64,9 @@ void HardLight::OnLoop()
 			if(particleSystem)
 				pxAgent->get_scene()->addActor(*particleSystem);
 
-			particleSystem->addForces(maxParticles, PxStrideIterator<const PxU32> (particleData.getIndexes()), PxStrideIterator<PxVec3>(particleData.getForces()), PxForceMode::eACCELERATION);
-
 			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
 			particleEntity->setParticleSystem(particleSystem);
+			particleEntity->setParticleData(particleData);
 			world.add_entity(particleEntity);
 		}
 	}
@@ -114,14 +113,18 @@ void HardLight::OnLoop()
 			if (map_type == MapTypes::SPHERE)
 				bike->set_gravity_up(actor->getGlobalPose().p);
 			PxVec3 grav = bike->get_gravity_up() * -gravity;
+			//increase gravity with forward speed
+			if (map_type != MapTypes::PLANE)
+				grav += (bike->get_gravity_up() * -1.f * actor->getLinearVelocity().magnitude());
 			actor->clearForce();
 			actor->addForce(grav, PxForceMode::eACCELERATION);
-			PxVec3 slow = actor->getLinearVelocity() * -dampening;
-			actor->addForce(slow, PxForceMode::eACCELERATION);
+			//PxVec3 slow = actor->getLinearVelocity() * -dampening;
+			//actor->addForce(slow, PxForceMode::eACCELERATION);
 
 			PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 			PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
 			PxVehicleUpdates(timestep, grav, *gFrictionPairs, 1, vehicles, vehicleQueryResults);
+
 		}
 	}
 
@@ -136,8 +139,7 @@ void HardLight::OnLoop()
 	}
 
 	// Move Bot BikeManager
-	//overMind->update_bikes(pickup->get_location());
-	overMind->update_bikes(vec3(0,0,0));
+	overMind->update_bikes(powerup_manager->get_all_instant_entities()[0]->get_location());
 	overMind->move_bikes();
 
 	// Tail creation
@@ -149,31 +151,44 @@ void HardLight::OnLoop()
 	// Rotate powerups
 	powerup_manager->rotate_all();
 
-	// Check win/loss condition
-	if(!config->GetBoolean("game", "debugMode", false))
+	// Update all timed powerups
+	for(Bike* bike : bike_manager->get_all_bikes())
 	{
+		bike->check_ghost_powerup();
+		bike->check_super_saiyen_powerup();
+	}
 
-		if(bike_manager->get_all_bikes().size() == 1)
+
+	// Check win/loss condition
+	if(scene == GAME && !config->GetBoolean("game", "debugMode", false))
+	{
+		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{
-			Bike* aBike = bike_manager->get_all_bikes()[0];
-			if(aBike->get_subtype() == PLAYER_BIKE)
+			Bike* aBike;
+			for(Bike* bike : bike_manager->get_all_bikes())
 			{
-				winner = aBike->get_id();
-				winMessage = "You Win!";
-				loseMessage = "You Lost!";
-				resetMessage = "Press Back or 'r'";
+				if(bike->is_renderable())
+					aBike = bike;
 			}
-			if(aBike->get_subtype() == BOT_BIKE)
-			{
-				loseMessage = "You Lost!";
-				resetMessage = "Press Back or 'r'";
+			//Bike* aBike = bike_manager->get_all_bikes()[0];
+			for(int i = 0; i < viewports.size(); i++) {
+				if(aBike->get_id() == viewports[i].id) {
+					viewports[i].message = "You Win!";
+				}
+				else {
+					viewports[i].message = "You Lost!";
+				}
 			}
+			scene = GAME_OVER;
 		}
-		else if (bike_manager->get_player_bikes().size() == 0)
+		else if (bike_manager->get_all_bikes().size() == bike_manager->get_dead_bikes().size())
 		{
-			loseMessage = "You Lost!";
-			resetMessage = "Press Back or 'r'";
+			for(int i = 0; i < viewports.size(); i++) {
+				viewports[i].message = "You Lost!";
+			}
+			scene = GAME_OVER;
 		}
+		
 	}
 
 	//Scene update.

@@ -15,6 +15,8 @@
 #include "../inih/cpp/INIReader.h"
 #include "Vehicle/TailWall.h"
 
+
+
 using namespace glm;
 using namespace std;
 
@@ -22,6 +24,7 @@ class Bike : public Entity
 {
 
 public:
+	int power;
 	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
@@ -34,10 +37,14 @@ public:
 	BikeID get_id();
 	void set_id(BikeID id);
 
-	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup);
+	void set_hold_powerup(Powerup<Hold>::PowerCallback new_powerup, int i);
 	Powerup<Hold>::PowerCallback get_hold_powerup();
 	void execute_hold_powerup();
 	void execute_instant_powerup(Powerup<Instant>::PowerCallback new_powerup);
+
+	// check the timers in powerup_timers
+	void check_ghost_powerup(); 
+	void check_super_saiyen_powerup();
 
 private:
 	Controller* controller;
@@ -50,6 +57,7 @@ private:
 	BikeSubTypes subtype;
 	TailWall* tailwall;
 	INIReader* config;
+	PowerupTimers* powerup_timers; // Variables needed for timed powerups
 	Powerup<Hold>::PowerCallback powerup;
 };
 #endif

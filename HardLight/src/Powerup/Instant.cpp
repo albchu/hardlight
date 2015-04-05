@@ -9,7 +9,7 @@ Instant::Instant()
 	//type = INSTANT;
 }
 
-void Instant::extendTail(Chassis* chassis, TailWall* tailwall, INIReader* config)
+void Instant::extendTail(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)
 {
 	//vector<TailWall*> tmpTailWall = bike_manager->get_all_tails();
 	//for(unsigned int i = 0; i < tmpTailWall.size(); i++)

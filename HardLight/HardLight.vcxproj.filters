@@ -150,7 +150,6 @@
     <ClCompile Include="src\PhysX\PA_PxLookAt.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Powerup\Instant.cpp">
       <Filter>World\Powerup</Filter>
     </ClCompile>
@@ -177,6 +176,9 @@
       <Filter>World\Particles</Filter>
     </ClCompile>
     <ClCompile Include="src\Rendering\LTexture.cpp">
+	  <Filter>Rendering</Filter>
+	</ClCompile>
+    <ClCompile Include="src\Camera.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -263,9 +265,6 @@
     <ClInclude Include="include\GUI.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SceneTypes.h">
-      <Filter>HardLight</Filter>
-    </ClInclude>
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleConcurrency.h">
       <Filter>PhysXSnippets</Filter>
     </ClInclude>
@@ -340,6 +339,9 @@
     </ClInclude>
     <ClInclude Include="include\Rendering\LTexture.h">
       <Filter>Rendering</Filter>
+	</ClInclude>
+    <ClInclude Include="include\SceneTypes.h">
+      <Filter>HardLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

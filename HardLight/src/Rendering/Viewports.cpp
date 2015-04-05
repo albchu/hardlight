@@ -17,6 +17,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport1.width = width;
 			viewport1.height = height;
 			viewport1.id = BIKE1;
+			viewport1.message = "";
 			viewports.push_back(viewport1);
 			break;
 		}
@@ -31,6 +32,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport1.width = width;
 			viewport1.height = height/2;
 			viewport1.id = BIKE1;
+			viewport1.message = "";
 
 			// Bottom frame
 			viewport2.x = 0;
@@ -38,6 +40,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport2.width = width;
 			viewport2.height = height/2;
 			viewport2.id = BIKE2;
+			viewport2.message = "";
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);
@@ -55,6 +58,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport1.width = width/2;
 			viewport1.height = height/2;
 			viewport1.id = BIKE1;
+			viewport1.message = "";
 
 			// Top right frame
 			viewport2.x = width/2;
@@ -62,6 +66,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport2.width = width/2;
 			viewport2.height = height/2;
 			viewport2.id = BIKE2;
+			viewport2.message = "";
 
 			// Bottom frame
 			viewport3.x = 0;
@@ -69,6 +74,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport3.width = width;
 			viewport3.height = height/2;
 			viewport3.id = BIKE3;
+			viewport3.message = "";
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);
@@ -88,6 +94,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport1.width = width/2;
 			viewport1.height = height/2;
 			viewport1.id = BIKE1;
+			viewport1.message = "";
 
 			// Top right frame
 			viewport2.x = width/2;
@@ -95,6 +102,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport2.width = width/2;
 			viewport2.height = height/2;
 			viewport2.id = BIKE2;
+			viewport2.message = "";
 
 			// Bottom left frame
 			viewport3.x = 0;
@@ -102,6 +110,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport3.width = width/2;
 			viewport3.height = height/2;
 			viewport3.id = BIKE3;
+			viewport3.message = "";
 			
 			// Bottom right frame
 			viewport4.x = width/2;
@@ -109,6 +118,7 @@ vector<Viewports::Viewport> Viewports::generate_viewports(int numViews, int widt
 			viewport4.width = width/2;
 			viewport4.height = height/2;
 			viewport4.id = BIKE4;
+			viewport4.message = "";
 
 			viewports.push_back(viewport1);
 			viewports.push_back(viewport2);

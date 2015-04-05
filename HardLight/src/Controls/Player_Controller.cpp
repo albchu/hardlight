@@ -63,7 +63,7 @@ void Player_Controller::init_values()
 
 	sdl_controller = NULL;
 	max_acceleration = 1.0;
-	min_acceleration = 0.5;
+	min_acceleration = 0.85;
 	acceleration = min_acceleration;
 	direction = 0.0;
 	camera_deadZone = 8000;

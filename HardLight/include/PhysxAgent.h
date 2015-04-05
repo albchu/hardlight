@@ -25,6 +25,8 @@ class PhysxAgent
 public:
 	PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimulationEventCallback);
 	static vec3 toVec3(PxVec3);
+	static PxU32 collides_with(EntityTypes type);
+	static PxU32 driveable(EntityTypes type);
 	PxPhysics* get_physics();
 	PxScene* get_scene();
 	PxFoundation* get_foundation();

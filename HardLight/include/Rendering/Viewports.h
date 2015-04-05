@@ -33,6 +33,9 @@ public:
 		// An ID to distinguish which camera it is for
 		BikeID id;
 
+		// 
+		const char* message;
+
 		// The camera for the particular viewport
 		Camera* camera;
 	};

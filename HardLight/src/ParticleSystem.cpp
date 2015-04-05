@@ -29,12 +29,6 @@ void ParticleSystem::init_particle_openGL() {
 
 	glUseProgram(program_id);
 }
-
-ParticleSystem::ParticleSystem() {
-	type = PARSYSTEM;
-	draw_mode = GL_POINTS;
-	renderable = true;
-}
 	
 ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_data, GLuint new_texture, GLuint time) {
 	type = PARSYSTEM;
@@ -46,11 +40,9 @@ ParticleSystem::ParticleSystem(PxRigidActor* init_actor, MeshData* init_mesh_dat
 	init_particle_openGL();
 	renderable = true;
 	coefficient = 1.0f;
-	percentFactor = 500.0f;
+	percentFactor = 1000.0f;
 	radii = 1.5f;
-}
-
-ParticleSystem::~ParticleSystem() {
+	mesh_data = NULL;
 }
 
 physx::PxParticleSystem* ParticleSystem::getParticleSystem() {
@@ -61,8 +53,17 @@ void ParticleSystem::setParticleSystem(physx::PxParticleSystem* system) {
 	particleSystem = system;
 }
 
-void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
+ParticleData ParticleSystem::getParticleData() {
+	return particleData;
+}
 
+void ParticleSystem::setParticleData(ParticleData data) {
+	particleData = data;
+}
+
+void ParticleSystem::render(mat4 projection_matrix, mat4 view_matrix, vec3 light) {
+	if(mesh_data != NULL)
+		delete mesh_data;
 	mesh_data = ParticleFactory::createMeshData(particleSystem);
 
 	updateBuffer();
@@ -124,8 +125,6 @@ mat4 ParticleSystem::get_model_matrix() {
 	mat4 model_matrix = mat4(1.0);
 	PxTransform gPose = actor->getGlobalPose();
 	model_matrix = translate(model_matrix, vec3(gPose.p.x, gPose.p.y, gPose.p.z));
-
-	
 
 	return model_matrix;
 }

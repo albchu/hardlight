@@ -21,32 +21,11 @@ PxParticleSystem* ParticleFactory::createParticles(int max, PxPhysics* physics, 
 	if(!success)
 		fprintf(stderr, "Couldn't create Particles!\n");
 
+	parSystem->setParticleReadDataFlag(PxParticleReadDataFlag::eVELOCITY_BUFFER, true);
+	parSystem->setMaxMotionDistance(2.f);
 	return parSystem;
 }
 
-/* creates creation data for particles
- * num = number of particles, must be less than the maximum number of particles
- * pData = an empty but initialized instance of ParticleData is preferred
- * last three arguments are constant across particles
- *//*
-PxParticleCreationData ParticleFactory::createParticleData(int num, ParticleData* pData, PxVec3 velocity, PxVec3 position, PxVec3 force) {
-	PxParticleCreationData data;
-
-	for(PxU32 i = 0 ; i < (PxU32)num; ++i)
-	{
-		pData->setIndex(i, i);
-		pData->setVelocity(i, velocity);
-		pData->setPosition(i, position);
-		pData->setForce(i, force);
-	}
-	data.numParticles = num;
-	data.indexBuffer = PxStrideIterator<const PxU32> (pData->getIndexes());
-	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
-	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
-
-	return data;
-}
-*/
 /*
  * Provided a location, randomly assigns velocities and forces to all points.
  * For explosions!
@@ -57,21 +36,20 @@ PxParticleCreationData ParticleFactory::createRandomParticleData(int num, float 
 
 	for(PxU32 i = 0; i < (PxU32)num; ++i)
 	{
+		pData->setIndex(i, i);
+		pData->setPosition(i, position);
+
 		float rx = Common::getRandFloat(-1.f, 1.f);
 		float ry = Common::getRandFloat(0.f, 1.f);
 		float rz = Common::getRandFloat(-1.f, 1.f);
-		PxVec3 direction = PxVec3(rx, ry, rz).getNormalized();
-		direction = direction * maxVelocity;
-		pData->setIndex(i, i);
-		pData->setVelocity(i, direction);
-		pData->setPosition(i, position);
-		pData->setForce(i, direction);
+		PxVec3 velocity = PxVec3(rx, ry, rz).getNormalized();
+		velocity = velocity * maxVelocity;
+		pData->setVelocity(i, velocity);
 	}
-	
 	data.numParticles = num;
 	data.indexBuffer = PxStrideIterator<const PxU32> (pData->getIndexes());
-	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
 	data.positionBuffer = PxStrideIterator<const PxVec3> (pData->getPositions());
+	data.velocityBuffer = PxStrideIterator<const PxVec3> (pData->getVelocities());
 
 	return data;
 }

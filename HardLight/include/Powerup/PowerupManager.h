@@ -38,7 +38,11 @@ public:
 	void spawn_random_powerup();
 	void spawn_hold_powerup(vec3 position);
 	void spawn_instant_powerup(vec3 position);
+	void spawn_instant_powerup();
+	void spawn_hold_powerup();
 	void apply_powerup(Bike* bike, PxRigidActor* powerup_actor);
+	vector<HoldEntity*> get_all_hold_entities();
+	vector<InstantEntity*> get_all_instant_entities();
 	~PowerupManager();
 	void rotate_all();
 

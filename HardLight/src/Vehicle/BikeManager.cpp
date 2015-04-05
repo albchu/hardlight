@@ -61,6 +61,10 @@ vector<Bike*> BikeManager::get_bot_bikes()
 	return bot_bikes;
 }
 
+vector<Bike*> BikeManager::get_dead_bikes()
+{
+	return dead_bikes;
+}
 // Searches all bikes for the one with the corresponding chassis actor
 Bike* BikeManager::get_bike(PxRigidActor* actor)
 {

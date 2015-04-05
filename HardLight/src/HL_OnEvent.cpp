@@ -3,7 +3,7 @@
 //==============================================================================
 
 const int deadZone = 8000;
-const float minAccel = 0.0f;
+const float minAccel = 0.85f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
@@ -38,7 +38,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			forward = 1.0f;
 			break;
 		case SDLK_e:
-			sfxMix.ClipFrom("../data/Audio/");
+			sfxMix.ClipFrom("../data/Audio/taunts/");
 			break;
 		case SDLK_LSHIFT:
 			speed *= fast;
@@ -100,7 +100,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 			break;
 		case SDLK_DOWN:
-			if (bike != NULL) bike->getInputData().setAnalogAccel(0.0f);
+			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
 			break;
 		case SDLK_LEFT:
 			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
@@ -113,30 +113,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 	case SDL_CONTROLLERBUTTONDOWN:
 		switch (Event->cbutton.button)
 		{
-		case SDL_CONTROLLER_BUTTON_A: // A button
-			//sfxMix.PlaySoundEffect("sfxExplosion", 350.0f, 0);
-			//powerup->setPowerType(JUMP);
-			//if(powerup->usePowerup() == 1)
-			//	sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//	sfxMix.PlaySoundEffect("sfxIntro");
-			break;
-		case SDL_CONTROLLER_BUTTON_X: // X button
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			//powerup->setPowerType(EXTENDTAIL);
-			//if(powerup->usePowerup() == 1);
-			//sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			break;
-		case SDL_CONTROLLER_BUTTON_Y: // Y button
-			//sfxMix.PlaySoundEffect("sfxItemPickUp");
-			//powerup->setPowerType(INVINCIBLE);
-			//if(powerup->usePowerup() == 1);
-			//sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//sfxMix.PlaySoundEffect("sfxIntro");
-			break;
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			toggle_pause();
 
@@ -176,12 +152,14 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 void HardLight::reset()
 {
-	if(scene == PAUSE)
+	if(scene == PAUSE || scene == GAME_OVER)
 		scene = GAME;
 	for(Bike* bike : bike_manager->get_all_bikes()) {
 		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}
+	for(Viewports::Viewport port : viewports)
+		port.message = "";
 	bike_manager->clear_controllers();
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
@@ -195,11 +173,17 @@ void HardLight::reset()
 
 void HardLight::toggle_pause()
 {
-	sfxMix.PlaySoundEffect("sfxExplosion");
+	//sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
+	{
+		sfxMix.PlaySoundEffect("sfxUnpaused");
 		scene = GAME;
+	}
 	else if(scene == GAME)
+	{
+		sfxMix.PlaySoundEffect("sfxPaused");
 		scene = PAUSE;
+	}
 }
 
 //==============================================================================

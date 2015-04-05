@@ -64,6 +64,8 @@ bool HardLight::OnInit()
 	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
 
+	SDL_GetWindowSize(window, &window_width, &window_height);
+
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 		cerr << "Could not make SDL OpenGl context" << endl;
 

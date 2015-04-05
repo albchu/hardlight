@@ -2,17 +2,12 @@
 
 bool HardLight::BuildScene()
 {
-	maxParticles = config->GetInteger("particles", "count", 100);
-	particleSpeed = config->GetReal("particles", "speed", 10);
+	maxParticles = config->GetInteger("particles", "count", 100) / config->GetInteger("game", "numCameras", 1);
+	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
-	winner = NONE;
-	loseMessage = "";
-	winMessage = "";
-	resetMessage = "";
 	powerUpMessage = "";
-	messageTimeSpan = 1000;
 
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
@@ -31,7 +26,7 @@ bool HardLight::BuildScene()
 	if (map_type == MapTypes::SPHERE)
 	{
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
-		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/IronTile2.tga"), scale_factor);
+		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/WorldSphere.tga"), scale_factor);
 		world.add_entity(ground);
 
 		height = size+5.0f;
@@ -103,12 +98,12 @@ bool HardLight::BuildScene()
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
-			cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
+			//cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
-			if (controllers.size() > 0 && !config->GetBoolean("game", "disableControllers", false))
+			if (controllers.size() > i && !config->GetBoolean("game", "disableControllers", false))
 				bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
 				bike_manager->add_player_bike(new_chassis, NULL);
@@ -116,7 +111,7 @@ bool HardLight::BuildScene()
 			if (count < viewports.size())
 			{
 				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
-				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
 
@@ -137,7 +132,8 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
-				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
+				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
+				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
 
@@ -152,7 +148,7 @@ bool HardLight::BuildScene()
 
 		for (;count < viewports.size(); count++)
 		{
-			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor(), viewports[count].width, viewports[count].height);
+			Camera* aCamera = new Camera(config, bikes[count%bikes.size()]->get_chassis()->get_actor(), viewports[count].width, viewports[count].height, map_type);
 			viewports[count].camera = aCamera;
 		}
 	}
@@ -169,6 +165,7 @@ bool HardLight::BuildScene()
 	{
 		powerup_manager->spawn_random_powerup();
 	}
+	powerup_manager->spawn_instant_powerup();	// Always spawn at least one instant powerup
 
 	return true;
 }
