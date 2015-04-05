@@ -66,7 +66,7 @@ void Player_Controller::init_values()
 	min_acceleration = 0.5;
 	acceleration = min_acceleration;
 	direction = 0.0;
-	deadZone = 8000;
+	camera_deadZone = 8000;
 	steeringMethod = NULL;
 	motionMethod = NULL;
 }
@@ -78,7 +78,7 @@ SDL_GameController* Player_Controller::get_controller()
 
 int Player_Controller::get_dead_zone()
 {
-	return deadZone;
+	return camera_deadZone;
 }
 
 KeyMapping Player_Controller::get_key_controls()
@@ -86,3 +86,22 @@ KeyMapping Player_Controller::get_key_controls()
 	return key_controls;
 }
 
+float Player_Controller::get_camera_right()
+{
+	return camera_right;
+}
+
+void Player_Controller::set_camera_right(float right)
+{
+	camera_right = right;
+}
+
+float Player_Controller::get_camera_up()
+{
+	return camera_up;
+}
+
+void Player_Controller::set_camera_up(float up)
+{
+	camera_up = up;
+}

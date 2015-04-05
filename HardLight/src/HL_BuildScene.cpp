@@ -7,6 +7,13 @@ bool HardLight::BuildScene()
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
 	particleData = ParticleData(maxParticles);
 
+	winner = NONE;
+	loseMessage = "";
+	winMessage = "";
+	resetMessage = "";
+	powerUpMessage = "";
+	messageTimeSpan = 1000;
+
 	PxMaterial* gMaterial = pxAgent->get_physics()->createMaterial(2.0f, 2.0f, 0.6f);
 
 	//Create the friction table for each combination of tire and surface type.
@@ -108,6 +115,7 @@ bool HardLight::BuildScene()
 
 			if (count < viewports.size())
 			{
+				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
 				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height);
 				viewports[count].camera = aCamera;
 			}

@@ -84,3 +84,10 @@ void Bike::set_gravity_up(PxVec3 new_gravity)
 	get_chassis()->set_gravity_up(new_gravity);
 }
 
+BikeID Bike::get_id() {
+	return bikeID;
+}
+
+void Bike::set_id(BikeID id) {
+	bikeID = id;
+}
