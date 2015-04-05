@@ -23,21 +23,6 @@ void HardLight::OnRender()
 		}
 	}
 
-
-
-	//// Set the font size and render a small text.
-	//FTPoint spacing(5,0,0);
-	////font->Render("Hello World!"	, 2, position, spacing);
-	//FTPoint position(190, 150, 190);
-	//font->FaceSize(80);
-	////font->Depth(10);
-	////font->Outset(0, 3);
-	//font->CharMap(ft_encoding_unicode);
-	////font->Render("Hello FTGL!");
-	//font->Render(display_message,-1, position, spacing);
-
-
-
 	SDL_GL_SwapWindow(window);
 
 }
