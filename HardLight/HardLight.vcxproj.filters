@@ -196,6 +196,9 @@
     <ClCompile Include="src\Menu\MenuManager.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
+    <ClCompile Include="src\HL_Menu.cpp">
+      <Filter>HardLight</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">

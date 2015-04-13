@@ -105,6 +105,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
+    <ClCompile Include="src\HL_Menu.cpp" />
     <ClCompile Include="src\HL_OnCleanup.cpp" />
     <ClCompile Include="src\HL_OnContact.cpp" />
     <ClCompile Include="src\HL_OnEvent.cpp" />

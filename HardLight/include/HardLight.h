@@ -189,6 +189,10 @@ public:
 	void reset();
 
 	void toggle_pause();
+
+	bool menu_init();
+
+	void menu_update();
 };
 
 //==============================================================================

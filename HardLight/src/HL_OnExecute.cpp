@@ -6,9 +6,10 @@ int HardLight::OnExecute()
 {
 	if (!OnInit())
 		return EXIT_FAILURE;
+	if (!menu_init())
+		return EXIT_FAILURE;
 	if (!BuildScene())
 		return EXIT_FAILURE;
-
 	SDL_Event Event;
 
 	while(running)
