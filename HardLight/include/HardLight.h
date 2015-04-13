@@ -170,6 +170,7 @@ private:
 	bool scene_built;
 	int selectedIndex;
 	bool restart_trigger;
+	bool continue_trigger;	// If the game is paused, this will resume it
 
 public:
 	HardLight();

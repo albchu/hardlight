@@ -37,32 +37,43 @@ void HardLight::OnEvent(SDL_Event* Event)
 			speed *= fast;
 			break;
 
-		//case SDLK_l:
-		//	menu_active = !menu_active;	// toggle the menu to active
-		//	break;
 		case SDLK_DOWN:
-			menuManager->down();
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->down();
 			break;
 
 		case SDLK_UP:
-			menuManager->up();
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->up();
 			break;
 
 		case SDLK_LEFT:
-			menuManager->left();
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->left();
 			break;
 
 		case SDLK_RIGHT:
-			menuManager->right();
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->right();
 			break;
 
 		case SDLK_RETURN:
-			menuManager->select();
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->select();
 			break;
 
-		case SDLK_ESCAPE:
-			menuManager->set_current_menu(pauseMenu);
-			menu_active = true;
+		case SDLK_ESCAPE:	
+			// Only apply this command if the game has been loaded 
+			if(game_launched)
+			{
+				menuManager->set_current_menu(pauseMenu);
+				menu_active = true;
+			}
 			break;
 
 		case SDLK_p:

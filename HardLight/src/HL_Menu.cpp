@@ -38,7 +38,9 @@ bool HardLight::menu_init()
 	pauseMenu = menuManager->createMenu("Pause Menu");
 
 	restart_trigger = false;
+	continue_trigger = false;
 	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
+	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
 	return true;
@@ -58,5 +60,12 @@ void HardLight::menu_update()
 		reset();
 		menu_active = false;	// Turn off menu
 		restart_trigger = false;
+	}
+
+	if(continue_trigger)
+	{
+		scene = GAME;	// Instantly load into game
+		menu_active = false;	// Turn off menu
+		continue_trigger = false;	// Turn off command until its triggered again through the menu
 	}
 }
