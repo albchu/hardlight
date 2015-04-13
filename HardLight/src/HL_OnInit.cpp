@@ -177,8 +177,8 @@ bool HardLight::OnInit()
 	// Initialize menu manager
 	menuManager = new MenuManager(gRenderer, 0,0, window_width, window_height);
 	menu_active = true;
-	game_loaded = false;
-
+	game_launched = false;
+	scene_built = false;
 
 	return true;
 }

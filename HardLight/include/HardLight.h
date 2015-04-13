@@ -163,9 +163,10 @@ private:
 	const char* powerUpMessage;
 
 	bool menu_active; // Determines when we switch renderers to the menu in the game
-	bool game_loaded;
+	bool game_launched;
 
 	MenuManager* menuManager;
+	bool scene_built;
 
 
 public:

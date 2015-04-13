@@ -8,8 +8,7 @@ int HardLight::OnExecute()
 		return EXIT_FAILURE;
 	if (!menu_init())
 		return EXIT_FAILURE;
-	if (!BuildScene())
-		return EXIT_FAILURE;
+
 	SDL_Event Event;
 
 	while(running)
@@ -32,7 +31,7 @@ int HardLight::OnExecute()
 			//Update screen
 			SDL_RenderPresent( gRenderer );
 		}
-		else if (!menu_active && game_loaded)
+		else if (!menu_active && scene_built)
 		{
 			if(scene != PAUSE) {
 				OnLoop();
@@ -40,10 +39,7 @@ int HardLight::OnExecute()
 			OnRender();
 		}
 
-
-
-
-
+		menu_update();
 	}
 
 	//OnCleanup();

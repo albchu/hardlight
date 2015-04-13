@@ -3,7 +3,7 @@
 
 bool HardLight::menu_init()
 {
-	
+
 	Menu* mainMenu = menuManager->createMenu("Main Menu");
 	Menu* newGame = menuManager->createMenu("New Game");
 	Menu* settings = menuManager->createMenu("Settings");
@@ -14,7 +14,7 @@ bool HardLight::menu_init()
 	//menuManager->setupOption(newGame, "Select Number of Players", mainMenu);	// UPDATE PLZ
 	//menuManager->setupOption(newGame, "Select Number of Bots", mainMenu);	// UPDATE PLZ
 	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
-	menuManager->setupOption(newGame, "launch", "Launch Game", game_loaded);
+	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
 
 	// Dev options setup
 	bool godmode = false;
@@ -39,5 +39,9 @@ bool HardLight::menu_init()
 
 void HardLight::menu_update()
 {
-
+	if(game_launched && !scene_built)
+	{
+		BuildScene();
+		menu_active = false;	// Turn off menu
+	}
 }
