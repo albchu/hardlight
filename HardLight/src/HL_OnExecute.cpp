@@ -26,13 +26,12 @@ int HardLight::OnExecute()
 			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 			SDL_RenderClear( gRenderer );
 
-			//Render current frame
-			gTextTexture->render( ( window_width - gTextTexture->getWidth() ) / 2, ( window_height - gTextTexture->getHeight() ) / 2 );
+			menuManager->render();
 
 			//Update screen
 			SDL_RenderPresent( gRenderer );
 		}
-		else
+		else if (!menu_active && game_loaded)
 		{
 			if(scene != PAUSE) {
 				OnLoop();

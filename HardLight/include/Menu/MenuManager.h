@@ -5,6 +5,7 @@
 
 #include "Menu/SDL_Texture_Wrapper.h"
 #include "Menu/Menu.h"
+#include "Menu/MenuOption.h"
 
 
 using namespace std;

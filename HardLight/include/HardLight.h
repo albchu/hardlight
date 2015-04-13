@@ -54,6 +54,7 @@
 #include "ParticleFactory.h"
 #include "ParticleSystem.h"
 #include "Rendering/LTexture.h"
+#include "Menu/MenuManager.h"
 
 
 using namespace physx;
@@ -162,6 +163,10 @@ private:
 	const char* powerUpMessage;
 
 	bool menu_active; // Determines when we switch renderers to the menu in the game
+	bool game_loaded;
+
+	MenuManager* menuManager;
+
 
 public:
 	HardLight();
