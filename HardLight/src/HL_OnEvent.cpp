@@ -48,7 +48,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
 			break;
 		case SDLK_l:
-			display_message = "Fuck you";
+			menu_active = !menu_active;	// toggle the menu to active
 			break;
 		case SDLK_DOWN:
 			//if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
@@ -62,7 +62,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			break;
 		case SDLK_p:
 			toggle_pause();
-			menu->toggle_renderable();	// Toggle menu panel from being rendered
+			//menu->toggle_renderable();	// Toggle menu panel from being rendered
 			break;
 		case SDLK_r:
 			reset();

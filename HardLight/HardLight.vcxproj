@@ -115,6 +115,11 @@
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\KeyMappings.cpp" />
     <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menu\MenuManager.cpp" />
+    <ClCompile Include="src\Menu\MenuOption.cpp" />
+    <ClCompile Include="src\Menu\MenuRangeOption.cpp" />
+    <ClCompile Include="src\Menu\SDL_Texture_Wrapper.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
@@ -162,6 +167,11 @@
     <ClInclude Include="include\KeyMappings.h" />
     <ClInclude Include="include\MapTypes.h" />
     <ClInclude Include="include\Menu.h" />
+    <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Menu\MenuManager.h" />
+    <ClInclude Include="include\Menu\MenuOption.h" />
+    <ClInclude Include="include\Menu\MenuRangeOption.h" />
+    <ClInclude Include="include\Menu\SDL_Texture_Wrapper.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />

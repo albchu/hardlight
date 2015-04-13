@@ -174,7 +174,7 @@ bool HardLight::OnInit()
 		}
 	}
 
-
+	menu_active = false;
 
 	return true;
 }

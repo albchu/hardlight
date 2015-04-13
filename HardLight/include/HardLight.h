@@ -161,6 +161,8 @@ private:
 	PowerupManager* powerup_manager;
 	const char* powerUpMessage;
 
+	bool menu_active; // Determines when we switch renderers to the menu in the game
+
 public:
 	HardLight();
 	~HardLight();

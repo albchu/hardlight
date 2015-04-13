@@ -6,8 +6,8 @@ int HardLight::OnExecute()
 {
 	if (!OnInit())
 		return EXIT_FAILURE;
-	//if (!BuildScene())
-	//	return EXIT_FAILURE;
+	if (!BuildScene())
+		return EXIT_FAILURE;
 
 	SDL_Event Event;
 
@@ -19,20 +19,31 @@ int HardLight::OnExecute()
 			OnEvent(&Event);
 		}
 
-		//if(scene != PAUSE) {
-		//	OnLoop();
-		//}
-		//OnRender();
-
+		if(menu_active)
+		{
+			scene = PAUSE;
 			//Clear screen
-	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-	SDL_RenderClear( gRenderer );
+			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+			SDL_RenderClear( gRenderer );
 
-	//Render current frame
-	gTextTexture->render( ( window_width - gTextTexture->getWidth() ) / 2, ( window_height - gTextTexture->getHeight() ) / 2 );
+			//Render current frame
+			gTextTexture->render( ( window_width - gTextTexture->getWidth() ) / 2, ( window_height - gTextTexture->getHeight() ) / 2 );
 
-	//Update screen
-	SDL_RenderPresent( gRenderer );
+			//Update screen
+			SDL_RenderPresent( gRenderer );
+		}
+		else
+		{
+			if(scene != PAUSE) {
+				OnLoop();
+			}
+			OnRender();
+		}
+
+
+
+
+
 	}
 
 	//OnCleanup();
