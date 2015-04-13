@@ -169,6 +169,7 @@ MenuOption* MenuManager::get_option(Menu* menu, const char * option_id, vector<c
 	return option;
 }
 
+// Note: input selected index must be properly scoped otherwise if its garbage collected, there will be issues
 MenuOption* MenuManager::setupRangeOption(Menu* menu, const char * option_id, vector<const char *> pickbox, int& selectedIndex)
 {
 	MenuOption* option = get_option(menu, option_id, pickbox, selectedIndex);	//If the option doesnt exist, create it in the menu

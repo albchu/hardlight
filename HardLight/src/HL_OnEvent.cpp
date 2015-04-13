@@ -18,9 +18,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 		switch (Event->key.keysym.sym)
 		{
-		case SDLK_ESCAPE:
-			running = false;
-			break;
 		case SDLK_a:
 			left = 1.0f;
 			break;
@@ -40,27 +37,32 @@ void HardLight::OnEvent(SDL_Event* Event)
 			speed *= fast;
 			break;
 
-		case SDLK_l:
-			menu_active = !menu_active;	// toggle the menu to active
-			break;
+		//case SDLK_l:
+		//	menu_active = !menu_active;	// toggle the menu to active
+		//	break;
 		case SDLK_DOWN:
 			menuManager->down();
 			break;
-			
+
 		case SDLK_UP:
 			menuManager->up();
 			break;
-						
+
 		case SDLK_LEFT:
 			menuManager->left();
 			break;
-						
+
 		case SDLK_RIGHT:
 			menuManager->right();
 			break;
-			
+
 		case SDLK_RETURN:
 			menuManager->select();
+			break;
+
+		case SDLK_ESCAPE:
+			menuManager->set_current_menu(pauseMenu);
+			menu_active = true;
 			break;
 
 		case SDLK_p:

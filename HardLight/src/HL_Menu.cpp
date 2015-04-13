@@ -25,14 +25,21 @@ bool HardLight::menu_init()
 	pickbox.push_back("Choice 1");
 	pickbox.push_back("Choice 2");
 	pickbox.push_back("Choice 3");
-	int selectedIndex = 1;
+	selectedIndex = 0;
 
 	menuManager->setupRangeOption(mainMenu, "Some Pickbox", pickbox, selectedIndex);
 	menuManager->setupOption(mainMenu, "newgame", "New Game", newGame);
 	menuManager->setupOption(mainMenu, "settings", "Settings", settings);
 	menuManager->setupOption(mainMenu, "exitgame", "Exit Game", running);
 
-	menuManager->set_current_menu("Main Menu");
+	menuManager->set_current_menu("Main Menu");	// Set the initial landing menu
+
+	//Create the pause menu
+	pauseMenu = menuManager->createMenu("Pause Menu");
+
+	restart_trigger = false;
+	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
+	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
 	return true;
 }
@@ -42,6 +49,14 @@ void HardLight::menu_update()
 	if(game_launched && !scene_built)
 	{
 		BuildScene();
+		scene = GAME;	// Instantly load into game
 		menu_active = false;	// Turn off menu
+	}
+
+	if(restart_trigger)
+	{
+		reset();
+		menu_active = false;	// Turn off menu
+		restart_trigger = false;
 	}
 }

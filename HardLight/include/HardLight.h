@@ -166,8 +166,10 @@ private:
 	bool game_launched;
 
 	MenuManager* menuManager;
+	Menu* pauseMenu;
 	bool scene_built;
-
+	int selectedIndex;
+	bool restart_trigger;
 
 public:
 	HardLight();
