@@ -182,7 +182,7 @@ bool HardLight::BuildScene()
 	{
 		powerup_manager->spawn_hold_powerup();
 	}
-	for(int i = 0; i < numHoldPowerups; i++)
+	for(int i = 0; i < numInstantPowerups; i++)
 	{
 		powerup_manager->spawn_instant_powerup();
 	}

@@ -53,18 +53,19 @@ bool HardLight::menu_init()
 	menuManager->setupOption(mainMenu, "exitgame", "Exit Game", running);
 
 	menuManager->set_current_menu("Main Menu");	// Set the initial landing menu
-
-	//Create the pause menu
-	pauseMenu = menuManager->createMenu("Pause Menu");
-
+	
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
 	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
 
+	//Create the pause menu
+	pauseMenu = menuManager->createMenu("Pause Menu");
 	restart_trigger = false;
 	continue_trigger = false;
+	halt_trigger = false;
 	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
 	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
+	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
 	return true;
@@ -80,7 +81,7 @@ void HardLight::menu_update()
 
 		numPlayers = numPlayersMenu + 1;
 
-		BuildScene();
+		reset();
 		scene = GAME;	// Instantly load into game
 		menu_active = false;	// Turn off menu
 
@@ -99,6 +100,15 @@ void HardLight::menu_update()
 		menu_active = false;	// Turn off menu
 		continue_trigger = false;	// Turn off command until its triggered again through the menu
 	}
+
+	if(halt_trigger)
+	{
+		menuManager->set_current_menu("Main Menu");	// Set the initial landing menu as the current menu
+		game_launched = false;
+		halt_trigger = false;
+		scene_built = false;
+	}
+
 }
 
 void HardLight::loading_update(const char * message)

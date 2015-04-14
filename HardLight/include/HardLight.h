@@ -160,6 +160,7 @@ private:
 	MenuOption* loadingMessage;
 	bool scene_built;
 	//int selectedIndex;
+	bool halt_trigger;		// Used if the player wants to go back to main menu
 	bool restart_trigger;
 	bool continue_trigger;	// If the game is paused, this will resume it
 
