@@ -129,9 +129,6 @@
     <ClCompile Include="src\PhysX\PA_FilterShader.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rendering\Viewports.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -303,9 +300,6 @@
     </ClInclude>
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
       <Filter>PhysXSnippets</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Menu.h">
-      <Filter>World</Filter>
     </ClInclude>
     <ClInclude Include="include\Rendering\Viewports.h">
       <Filter>Rendering</Filter>

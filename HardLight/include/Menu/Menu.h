@@ -32,6 +32,8 @@ private:
 	int selected_index;
 	const char * title;
 	SDL_Texture_Wrapper* titleTexture;
+	SDL_Texture_Wrapper* titleBGTexture;
+	SDL_Texture_Wrapper* bgTexture;
 	int titleFontSize;
 	Menu* prev_menu;	// Pointer to previous menu instance if there is one
 };

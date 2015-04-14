@@ -2,6 +2,12 @@
 
 bool HardLight::BuildScene()
 {
+	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
+	numPlayers += 1;	// Add 1 because of menu input. Trust Albert on this
+	numBots += 1;	// Add 1 because of menu input. Trust Albert on this
+	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
+	viewports = Viewports::generate_viewports(cams, window_width, window_height);
+
 	maxParticles = config->GetInteger("particles", "count", 100) / config->GetInteger("game", "numCameras", 1);
 	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
@@ -93,12 +99,11 @@ bool HardLight::BuildScene()
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 	unsigned int count = 0;
 
-	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
+	for (unsigned int i=0; i < (unsigned int)numPlayers; i++)
 	{
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
-			//cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
@@ -119,7 +124,7 @@ bool HardLight::BuildScene()
 		}
 	}
 
-	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numBots", 0); i++)
+	for (unsigned int i=0; i < (unsigned int)numBots; i++)
 	{
 		if (count < start_locations.size())
 		{
@@ -166,7 +171,7 @@ bool HardLight::BuildScene()
 		powerup_manager->spawn_random_powerup();
 	}
 	powerup_manager->spawn_instant_powerup();	// Always spawn at least one instant powerup
-	
+
 	scene_built = true;
 
 	return true;

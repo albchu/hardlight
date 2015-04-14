@@ -8,6 +8,8 @@ Menu::Menu(SDL_Renderer* new_renderer, const char * new_title)
 	title = new_title;
 	renderer = new_renderer;
 	titleTexture = new SDL_Texture_Wrapper(renderer);
+	titleBGTexture = new SDL_Texture_Wrapper(renderer);
+	bgTexture = new SDL_Texture_Wrapper(renderer);
 	titleFontSize = 35;
 
 	TTF_Font* titleFont = TTF_OpenFont( "../data/Fonts/gomarice_hyouzi_display.ttf", titleFontSize );
@@ -15,6 +17,18 @@ Menu::Menu(SDL_Renderer* new_renderer, const char * new_title)
 	if( !titleTexture->loadFromRenderedText( title, textColor, titleFont ) )
 	{
 		printf( "Failed to render title texture!\n" );
+	}
+
+	// Load background selected button
+	if( !titleBGTexture->loadFromFile("../data/images/Menu/menuTitleBG.bmp") )
+	{
+		printf( "Failed to render button texture!\n" );
+	}
+
+	// Load background selected button
+	if( !bgTexture->loadFromFile("../data/images/Menu/MainMenuBG1.bmp") )
+	{
+		printf( "Failed to render button texture!\n" );
 	}
 }
 
@@ -50,6 +64,21 @@ void Menu::render(int view_x, int view_y, int width, int height)
 	int y = view_y + height/4;
 	int spacing_y = 5;
 
+	SDL_Rect* bgRect = new SDL_Rect();
+	bgRect->h = height;
+	bgRect->w = width;
+
+	SDL_Rect* titleBGRect = new SDL_Rect();
+	titleBGRect->w = titleTexture->getWidth();// + (font_size * padding_w_scalar);
+	titleBGRect->h = titleTexture->getHeight();// + (font_size * padding_h_scalar);
+
+	SDL_Point* rotate_center = new SDL_Point();
+	rotate_center->x = 0;
+	rotate_center->y = 0;
+
+	bgTexture->render(0,0, NULL, 0, rotate_center, SDL_FLIP_NONE, bgRect);
+
+	titleBGTexture->render(x - titleTexture->getWidth()/2,y - titleFontSize * 2, NULL, 0, rotate_center, SDL_FLIP_NONE, titleBGRect);	// Renders the title of the menu
 	titleTexture->render(x - titleTexture->getWidth()/2,y - titleFontSize * 2);	// Renders the title of the menu
 
 	for(int i = 0; i < options.size(); i++)

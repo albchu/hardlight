@@ -7,27 +7,38 @@ bool HardLight::menu_init()
 	Menu* mainMenu = menuManager->createMenu("Main Menu");
 	Menu* newGame = menuManager->createMenu("New Game");
 	Menu* settings = menuManager->createMenu("Settings");
-	//Menu* exitGame = menuManager->createMenu("Exit Game");
 	Menu* developer = menuManager->createMenu("Developer Options");
 
 	//New game menu setup
-	//menuManager->setupOption(newGame, "Select Number of Players", mainMenu);	// UPDATE PLZ
-	//menuManager->setupOption(newGame, "Select Number of Bots", mainMenu);	// UPDATE PLZ
-	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
+	vector<const char*> numPlayersBox;
+	numPlayersBox.push_back("1");
+	numPlayersBox.push_back("2");
+	numPlayersBox.push_back("3");
+	numPlayersBox.push_back("4");
+
+	vector<const char*> numBotsBox;
+	numBotsBox.push_back("0");
+	numBotsBox.push_back("1");
+	numBotsBox.push_back("2");
+	numBotsBox.push_back("3");
+	numBotsBox.push_back("4");
+	numBotsBox.push_back("5");
+	numBotsBox.push_back("6");
+	numBotsBox.push_back("7");
+	numBotsBox.push_back("8");
+	numBotsBox.push_back("9");
+	numBotsBox.push_back("10 (High end rig recommended)");
+
+	menuManager->setupRangeOption(newGame, "Number of Bots", numBotsBox, numBots);
+	menuManager->setupRangeOption(newGame, "Number of Players", numPlayersBox, numPlayers);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
+	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
 
 	// Dev options setup
 	bool godmode = false;
 	MenuOption* godModeOption = menuManager->setupOption(developer, "devoptions", "Godmode Off", godmode);
 
 	//Main menu setup
-	vector<const char*> pickbox;
-	pickbox.push_back("Choice 1");
-	pickbox.push_back("Choice 2");
-	pickbox.push_back("Choice 3");
-	selectedIndex = 0;
-
-	menuManager->setupRangeOption(mainMenu, "Some Pickbox", pickbox, selectedIndex);
 	menuManager->setupOption(mainMenu, "newgame", "New Game", newGame);
 	menuManager->setupOption(mainMenu, "settings", "Settings", settings);
 	menuManager->setupOption(mainMenu, "exitgame", "Exit Game", running);

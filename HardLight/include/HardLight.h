@@ -40,13 +40,11 @@
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
-#include "Menu.h"
 #include "GUI.h"
 #include "SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup/Powerup.h"
-#include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
 #include "MapTypes.h"
@@ -98,12 +96,6 @@ private:
 	//The window renderer
 	SDL_Renderer* gRenderer;
 
-	//Globally used font
-	TTF_Font *gFont;
-
-	//Rendered texture
-	LTexture* gTextTexture;
-
 	vector<SDL_GameController*> controllers;
 
 	PhysxAgent* pxAgent;
@@ -150,8 +142,6 @@ private:
 	vector<TailSegment*> playerTail;
 	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
 	vector<Bike*> bikesToKill;
-	//vector<Chassis*> hit_pickup;
-	//vector<PxRigidActor*> pickup_hit;
 	vector<tuple<Bike*,PxRigidActor*>> bikePowerupPairs;		//Used to map a bike to a powerup that it collides with
 	AI* overMind;
 
@@ -168,9 +158,12 @@ private:
 	MenuManager* menuManager;
 	Menu* pauseMenu;
 	bool scene_built;
-	int selectedIndex;
+	//int selectedIndex;
 	bool restart_trigger;
 	bool continue_trigger;	// If the game is paused, this will resume it
+
+	int numPlayers;
+	int numBots;
 
 public:
 	HardLight();

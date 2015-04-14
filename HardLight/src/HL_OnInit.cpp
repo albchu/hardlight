@@ -6,7 +6,9 @@
 bool HardLight::OnInit()
 {
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
-	if(config->GetInteger("game", "numPlayers", 1) > 4)
+	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input. Trust Albert on this
+	numBots = config->GetInteger("game", "numBots", 0) - 1;			// Subtract 1 because of menu input. Trust Albert on this
+	if(numPlayers > 4)
 	{
 		cerr << "Please enter a number between 0-4 in the config.ini for numPlayers" << endl;
 		return false;
@@ -58,7 +60,7 @@ bool HardLight::OnInit()
 	if( gRenderer == NULL )
 	{
 		printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
-		return -1;
+		return false;
 	}
 
 	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
@@ -84,14 +86,14 @@ bool HardLight::OnInit()
 	if( !( IMG_Init( imgFlags ) & imgFlags ) )
 	{
 		printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-		return -1;
+		return false;
 	}
 
 	//Initialize SDL_ttf
 	if( TTF_Init() == -1 )
 	{
 		printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
-		return -1;
+		return false;
 	}
 
 	//Initialize physx agent to govern all shared physx objects
@@ -125,14 +127,6 @@ bool HardLight::OnInit()
 
 	bike_manager = new BikeManager(&world, config, pxAgent);
 
-	// Init Powerup object for testing powerup functionality temporarily
-	//powerup = new Powerup(NULL, bike_manager, config);
-
-	// Initialize viewport info
-	int cams = glm::max(config->GetInteger("game", "numCameras", 1), config->GetInteger("game", "numPlayers", 1));
-
-	viewports = Viewports::generate_viewports(cams, window_width, window_height);
-
 	// Initialize keyboard player control info
 	keyMappings = KeyMappings::generate_keyMappings();
 
@@ -151,28 +145,6 @@ bool HardLight::OnInit()
 	if(font->Error())
 		return -1;
 	display_message = "HelloWorld!!";
-
-	//Initialize LTexture
-	gTextTexture = new LTexture(gRenderer);
-
-	//LOAD MEDIA FOR SDL
-	//Open the font
-	gFont = TTF_OpenFont( "../data/Fonts/Demo_ConeriaScript.ttf", 28 );
-	if( gFont == NULL )
-	{
-		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
-		return -1;
-	}
-	else
-	{
-		//Render text
-		SDL_Color textColor = { 0, 0, 0 };
-		if( !gTextTexture->loadFromRenderedText( "The quick brown fox jumps over the lazy dog", textColor, gFont ) )
-		{
-			printf( "Failed to render text texture!\n" );
-			return -1;
-		}
-	}
 
 	// Initialize menu manager
 	menuManager = new MenuManager(gRenderer, 0,0, window_width, window_height);
