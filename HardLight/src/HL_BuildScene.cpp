@@ -2,16 +2,18 @@
 
 bool HardLight::BuildScene()
 {
-	loading_update("Loading variables");
 
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
+	loading_update("Generating viewports");
 	numPlayers += 1;	// Add 1 because of menu input. Trust Albert on this
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
 	viewports = Viewports::generate_viewports(cams, window_width, window_height);
 
+	loading_update("Loading variables");
 	maxParticles = config->GetInteger("particles", "count", 100) / config->GetInteger("game", "numCameras", 1);
 	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
+	loading_update("Initializing partical data");
 	particleData = ParticleData(maxParticles);
 
 	powerUpMessage = "";
@@ -27,6 +29,10 @@ bool HardLight::BuildScene()
 	float height = 0.f;
 	vec3 scale_factor(size, size, size);
 
+	loading_update("Importing objects");
+	MeshMap::Instance();
+
+	loading_update("Building skybox");
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga"));
 	world.add_entity(skybox);
 
