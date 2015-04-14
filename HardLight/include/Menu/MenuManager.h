@@ -31,6 +31,10 @@ public:
 	void set_current_menu(Menu * menu, bool dontCreateBackButton = true);
 	MenuOption* get_option(Menu* menu, const char * option_id, const char * option_text);
 	MenuOption* get_option(Menu* menu, const char * option_id, vector<const char *> pickbox, int& selectedIndex);
+	void set_width(int width);
+	void set_height(int height);
+
+
 private:
 	SDL_Renderer* renderer;
 	map<const char*, Menu*> menus;

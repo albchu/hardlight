@@ -47,18 +47,18 @@ bool HardLight::menu_init()
 	bool godmode = false;
 	MenuOption* godModeOption = menuManager->setupOption(developer, "devoptions", "Godmode Off", godmode);
 
-	//Main menu setup
+	// Main menu setup
 	menuManager->setupOption(mainMenu, "newgame", "New Game", newGame);
 	menuManager->setupOption(mainMenu, "settings", "Settings", settings);
 	menuManager->setupOption(mainMenu, "exitgame", "Exit Game", running);
 
 	menuManager->set_current_menu("Main Menu");	// Set the initial landing menu
-	
+
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
 	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
 
-	//Create the pause menu
+	// Create the pause menu
 	pauseMenu = menuManager->createMenu("Pause Menu");
 	restart_trigger = false;
 	continue_trigger = false;
@@ -67,6 +67,16 @@ bool HardLight::menu_init()
 	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
 	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
+
+	// Create settings menu
+	vector<const char*> resolutions;
+	resolutions.push_back("1280 x 800");
+	resolutions.push_back("600 x 400");
+	resolutionIndex = 0;
+	settings_update = false;
+	menuManager->setupRangeOption(settings,"Resolution", resolutions, resolutionIndex);
+	fullscreenOption = menuManager->setupOption(settings,"fullscreen", "Toggle Fullscreen", isFullscreen);
+	menuManager->setupOption(settings, "apply", "Apply Changes", settings_update);
 
 	return true;
 }
@@ -86,6 +96,56 @@ void HardLight::menu_update()
 		menu_active = false;	// Turn off menu
 
 	}
+
+	if(isFullscreen)
+	{
+		fullscreenOption->set_text("Fullscreen: On");
+
+	}
+	else if (!isFullscreen)
+	{
+		fullscreenOption->set_text("Fullscreen: Off");
+	}
+
+
+	if(settings_update)
+	{
+		switch(resolutionIndex)
+		{
+		case(0):
+			window_width = 1280;
+			window_height = 800;
+			break;
+		case(1):
+			window_width = 600;
+			window_height = 400;
+			break;
+		default:
+			window_width = 600;
+			window_height = 400;
+			break;
+		}
+
+		SDL_SetWindowSize(window, window_width, window_height);
+		if (isFullscreen)
+		{
+			if(SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+				cerr << "Could not make SDL window fullscreen" << endl;
+		}
+		else if (!isFullscreen)
+		{
+						if(SDL_SetWindowFullscreen(window, 0) < 0)
+				cerr << "Could not make SDL window fullscreen" << endl;
+		}
+		SDL_GetWindowSize(window, &window_width, &window_height);
+
+		menuManager->set_width(window_width);
+		menuManager->set_height(window_height);
+
+
+		settings_update = false;
+	}
+
 
 	if(restart_trigger)
 	{

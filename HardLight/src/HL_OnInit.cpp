@@ -66,7 +66,8 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+	isFullscreen = config->GetBoolean("window", "fullscreen", false);
+	if (isFullscreen && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
 
 	SDL_GetWindowSize(window, &window_width, &window_height);
@@ -146,7 +147,7 @@ bool HardLight::OnInit()
 	//
 	// If something went wrong, bail out.
 	if(font->Error())
-		return -1;
+		return false;
 	display_message = "HelloWorld!!";
 
 	// Initialize menu manager
