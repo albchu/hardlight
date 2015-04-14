@@ -8,31 +8,38 @@ bool HardLight::menu_init()
 	Menu* newGame = menuManager->createMenu("New Game");
 	Menu* settings = menuManager->createMenu("Settings");
 	Menu* developer = menuManager->createMenu("Developer Options");
+	Menu* powerups = menuManager->createMenu("Powerups");
 
-	//New game menu setup
 	vector<const char*> numPlayersBox;
 	numPlayersBox.push_back("1");
 	numPlayersBox.push_back("2");
 	numPlayersBox.push_back("3");
 	numPlayersBox.push_back("4");
 
-	vector<const char*> numBotsBox;
-	numBotsBox.push_back("0");
-	numBotsBox.push_back("1");
-	numBotsBox.push_back("2");
-	numBotsBox.push_back("3");
-	numBotsBox.push_back("4");
-	numBotsBox.push_back("5");
-	numBotsBox.push_back("6");
-	numBotsBox.push_back("7");
-	numBotsBox.push_back("8");
-	numBotsBox.push_back("9");
-	numBotsBox.push_back("10 (High end rig recommended)");
 
-	menuManager->setupRangeOption(newGame, "Number of Bots", numBotsBox, numBots);
+	vector<const char*> zeroToTen;
+	zeroToTen.push_back("0");
+	zeroToTen.push_back("1");
+	zeroToTen.push_back("2");
+	zeroToTen.push_back("3");
+	zeroToTen.push_back("4");
+	zeroToTen.push_back("5");
+	zeroToTen.push_back("6");
+	zeroToTen.push_back("7");
+	zeroToTen.push_back("8");
+	zeroToTen.push_back("9");
+	zeroToTen.push_back("10 (High end rig recommended)");
+
+	//New game menu setup
+	menuManager->setupRangeOption(newGame, "Number of Bots", zeroToTen, numBots);
 	menuManager->setupRangeOption(newGame, "Number of Players", numPlayersBox, numPlayers);
+	menuManager->setupOption(newGame, "powerups", "Configure Powerups", powerups);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
 	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
+
+	// Powerup menu
+	menuManager->setupRangeOption(powerups, "Number of instant effect powerups on field", zeroToTen, numInstantPowerups);
+	menuManager->setupRangeOption(powerups, "Number of manual trigger powerups on field", zeroToTen, numHoldPowerups);
 
 	// Dev options setup
 	bool godmode = false;

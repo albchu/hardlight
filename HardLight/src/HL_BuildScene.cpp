@@ -4,7 +4,6 @@ bool HardLight::BuildScene()
 {
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	numPlayers += 1;	// Add 1 because of menu input. Trust Albert on this
-	numBots += 1;	// Add 1 because of menu input. Trust Albert on this
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
 	viewports = Viewports::generate_viewports(cams, window_width, window_height);
 
@@ -158,19 +157,21 @@ bool HardLight::BuildScene()
 		}
 	}
 
-	//pickup = new Pickup(config, pxAgent, size);
-	//world.add_entity(pickup);
 	start_locations.clear();
 	start_facing.clear();
 	start_up.clear();
 
-
 	// Init Powerup object for testing powerup functionality temporarily
-	for(int i = 0; i < config->GetInteger("powerup", "maxPowerups", 1); i++)
+	for(int i = 0; i < numHoldPowerups; i++)
 	{
-		powerup_manager->spawn_random_powerup();
+		powerup_manager->spawn_hold_powerup();
 	}
-	powerup_manager->spawn_instant_powerup();	// Always spawn at least one instant powerup
+	for(int i = 0; i < numHoldPowerups; i++)
+	{
+		powerup_manager->spawn_instant_powerup();
+	}
+	powerup_manager->spawn_instant_powerup();	// Always make at least one instant powerup
+
 
 	scene_built = true;
 

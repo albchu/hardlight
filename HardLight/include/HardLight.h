@@ -164,6 +164,8 @@ private:
 
 	int numPlayers;
 	int numBots;
+	int numInstantPowerups;
+	int numHoldPowerups;
 
 public:
 	HardLight();

@@ -5,9 +5,12 @@
 
 bool HardLight::OnInit()
 {
+	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
+	numBots = config->GetInteger("game", "numBots", 0);	
+	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);
+	numHoldPowerups = config->GetInteger("powerup", "maxHolds", 1);
+
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
-	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input. Trust Albert on this
-	numBots = config->GetInteger("game", "numBots", 0) - 1;			// Subtract 1 because of menu input. Trust Albert on this
 	if(numPlayers > 4)
 	{
 		cerr << "Please enter a number between 0-4 in the config.ini for numPlayers" << endl;
