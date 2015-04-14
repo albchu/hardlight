@@ -24,7 +24,7 @@ bool HardLight::OnInit()
 	if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 	{
 		printf( "Warning: Linear texture filtering not enabled!" );
-		return -1;
+		return false;
 	}
 
 	glEnable(GL_MULTISAMPLE);
