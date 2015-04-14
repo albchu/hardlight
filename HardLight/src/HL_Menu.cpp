@@ -9,6 +9,7 @@ bool HardLight::menu_init()
 	Menu* settings = menuManager->createMenu("Settings");
 	Menu* developer = menuManager->createMenu("Developer Options");
 	Menu* powerups = menuManager->createMenu("Powerups");
+	Menu* loadingScreen = menuManager->createMenu("Now Loading");
 
 	vector<const char*> numPlayersBox;
 	numPlayersBox.push_back("1");
@@ -55,6 +56,10 @@ bool HardLight::menu_init()
 	//Create the pause menu
 	pauseMenu = menuManager->createMenu("Pause Menu");
 
+	// Create the loading option
+	bool bogus = false;	// this is never used. I just dont care anymore to make something new
+	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
+
 	restart_trigger = false;
 	continue_trigger = false;
 	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
@@ -68,9 +73,14 @@ void HardLight::menu_update()
 {
 	if(game_launched && !scene_built)
 	{
+		menuManager->set_current_menu("Now Loading");
+		menuManager->render();
+		SDL_RenderPresent( gRenderer );
+
 		BuildScene();
 		scene = GAME;	// Instantly load into game
 		menu_active = false;	// Turn off menu
+
 	}
 
 	if(restart_trigger)
@@ -87,3 +97,13 @@ void HardLight::menu_update()
 		continue_trigger = false;	// Turn off command until its triggered again through the menu
 	}
 }
+
+void HardLight::loading_update(const char * message)
+{
+	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+	SDL_RenderClear( gRenderer );
+	loadingMessage->set_text(message);
+	menuManager->render();
+	SDL_RenderPresent( gRenderer );
+}
+

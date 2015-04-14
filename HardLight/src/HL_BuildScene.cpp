@@ -2,6 +2,8 @@
 
 bool HardLight::BuildScene()
 {
+	loading_update("Loading variables");
+
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	numPlayers += 1;	// Add 1 because of menu input. Trust Albert on this
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
@@ -30,6 +32,8 @@ bool HardLight::BuildScene()
 
 	if (map_type == MapTypes::SPHERE)
 	{
+		loading_update("Creating sphere world");
+
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
 		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/WorldSphere.tga"), scale_factor);
 		world.add_entity(ground);
@@ -52,6 +56,8 @@ bool HardLight::BuildScene()
 	}
 	else if (map_type == MapTypes::PLANE)
 	{
+		loading_update("Creating arena world");
+
 		PxRigidStatic* actor = pxAgent->create_ground_plane();
 		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
@@ -97,6 +103,7 @@ bool HardLight::BuildScene()
 
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 	unsigned int count = 0;
+	loading_update("Populating world with players");
 
 	for (unsigned int i=0; i < (unsigned int)numPlayers; i++)
 	{
@@ -122,6 +129,8 @@ bool HardLight::BuildScene()
 			count++;
 		}
 	}
+
+	loading_update("Populating world with bots");
 
 	for (unsigned int i=0; i < (unsigned int)numBots; i++)
 	{
@@ -161,6 +170,8 @@ bool HardLight::BuildScene()
 	start_facing.clear();
 	start_up.clear();
 
+	loading_update("Setting up powerups");
+
 	// Init Powerup object for testing powerup functionality temporarily
 	for(int i = 0; i < numHoldPowerups; i++)
 	{
@@ -171,7 +182,6 @@ bool HardLight::BuildScene()
 		powerup_manager->spawn_instant_powerup();
 	}
 	powerup_manager->spawn_instant_powerup();	// Always make at least one instant powerup
-
 
 	scene_built = true;
 

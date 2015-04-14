@@ -157,6 +157,7 @@ private:
 
 	MenuManager* menuManager;
 	Menu* pauseMenu;
+	MenuOption* loadingMessage;
 	bool scene_built;
 	//int selectedIndex;
 	bool restart_trigger;
@@ -192,6 +193,8 @@ public:
 	bool menu_init();
 
 	void menu_update();
+
+	void loading_update(const char * message);
 };
 
 //==============================================================================
