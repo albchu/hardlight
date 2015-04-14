@@ -105,6 +105,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\HardLight.cpp" />
     <ClCompile Include="src\HL_BuildScene.cpp" />
+    <ClCompile Include="src\HL_Menu.cpp" />
     <ClCompile Include="src\HL_OnCleanup.cpp" />
     <ClCompile Include="src\HL_OnContact.cpp" />
     <ClCompile Include="src\HL_OnEvent.cpp" />
@@ -114,7 +115,11 @@
     <ClCompile Include="src\HL_OnRender.cpp" />
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\KeyMappings.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\Menu\Menu.cpp" />
+    <ClCompile Include="src\Menu\MenuManager.cpp" />
+    <ClCompile Include="src\Menu\MenuOption.cpp" />
+    <ClCompile Include="src\Menu\MenuRangeOption.cpp" />
+    <ClCompile Include="src\Menu\SDL_Texture_Wrapper.cpp" />
     <ClCompile Include="src\MeshData.cpp" />
     <ClCompile Include="src\MeshMap.cpp" />
     <ClCompile Include="src\objParser.cpp" />
@@ -131,6 +136,7 @@
     <ClCompile Include="src\Powerup\Instant.cpp" />
     <ClCompile Include="src\Powerup\InstantEntity.cpp" />
     <ClCompile Include="src\Powerup\PowerupManager.cpp" />
+    <ClCompile Include="src\Rendering\LTexture.cpp" />
     <ClCompile Include="src\Rendering\TextureMap.cpp" />
     <ClCompile Include="src\GUI.cpp" />
     <ClCompile Include="src\Rendering\Viewports.cpp" />
@@ -160,7 +166,11 @@
     <ClInclude Include="include\Image.h" />
     <ClInclude Include="include\KeyMappings.h" />
     <ClInclude Include="include\MapTypes.h" />
-    <ClInclude Include="include\Menu.h" />
+    <ClInclude Include="include\Menu\Menu.h" />
+    <ClInclude Include="include\Menu\MenuManager.h" />
+    <ClInclude Include="include\Menu\MenuOption.h" />
+    <ClInclude Include="include\Menu\MenuRangeOption.h" />
+    <ClInclude Include="include\Menu\SDL_Texture_Wrapper.h" />
     <ClInclude Include="include\MeshData.h" />
     <ClInclude Include="include\MeshMap.h" />
     <ClInclude Include="include\objParser.h" />
@@ -175,6 +185,7 @@
     <ClInclude Include="include\Powerup\InstantEntity.h" />
     <ClInclude Include="include\Powerup\Powerup.h" />
     <ClInclude Include="include\Powerup\PowerupManager.h" />
+    <ClInclude Include="include\Rendering\LTexture.h" />
     <ClInclude Include="include\Rendering\TextureMap.h" />
     <ClInclude Include="include\GUI.h" />
     <ClInclude Include="include\Rendering\Viewports.h" />

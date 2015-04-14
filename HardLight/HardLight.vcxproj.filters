@@ -129,9 +129,6 @@
     <ClCompile Include="src\PhysX\PA_FilterShader.cpp">
       <Filter>PhysX</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>World</Filter>
-    </ClCompile>
     <ClCompile Include="src\Rendering\Viewports.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -175,8 +172,29 @@
     <ClCompile Include="src\ParticleSystem.cpp">
       <Filter>World\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rendering\LTexture.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
     <ClCompile Include="src\Camera.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\MenuOption.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\MenuRangeOption.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\SDL_Texture_Wrapper.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\MenuManager.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HL_Menu.cpp">
+      <Filter>HardLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,9 +301,6 @@
     <ClInclude Include="SnippetVehicleCommon\SnippetVehicleWheelQueryResult.h">
       <Filter>PhysXSnippets</Filter>
     </ClInclude>
-    <ClInclude Include="include\Menu.h">
-      <Filter>World</Filter>
-    </ClInclude>
     <ClInclude Include="include\Rendering\Viewports.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -334,8 +349,26 @@
     <ClInclude Include="include\ParticleSystem.h">
       <Filter>World\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="include\Rendering\LTexture.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="include\SceneTypes.h">
       <Filter>HardLight</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menu\MenuRangeOption.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menu\SDL_Texture_Wrapper.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menu\Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menu\MenuManager.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Menu\MenuOption.h">
+      <Filter>Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -380,6 +413,9 @@
     </Filter>
     <Filter Include="World\Particles">
       <UniqueIdentifier>{966f134e-1470-4360-8cb0-7acdde490a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{a7e27ddc-8849-4b5b-9f2f-697e30d5db02}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
