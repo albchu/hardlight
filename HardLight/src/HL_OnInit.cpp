@@ -58,6 +58,7 @@ bool HardLight::OnInit()
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
 
+
 	//Create vsynced renderer for window
 	gRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	if( gRenderer == NULL )
@@ -67,10 +68,21 @@ bool HardLight::OnInit()
 	}
 
 	isFullscreen = config->GetBoolean("window", "fullscreen", false);
-	if (isFullscreen && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+
+	if(SDL_SetWindowFullscreen(window, isFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
 
+	//if (isFullscreen)
+	//{
+
+	//	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+	//	SDL_RenderSetLogicalSize(gRenderer, window_width, window_height);
+	//}
+
+
 	SDL_GetWindowSize(window, &window_width, &window_height);
+
+
 
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 		cerr << "Could not make SDL OpenGl context" << endl;

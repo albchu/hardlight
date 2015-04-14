@@ -107,7 +107,6 @@ void HardLight::menu_update()
 		fullscreenOption->set_text("Fullscreen: Off");
 	}
 
-
 	if(settings_update)
 	{
 		switch(resolutionIndex)
@@ -126,22 +125,22 @@ void HardLight::menu_update()
 			break;
 		}
 
+		if(isFullscreen)
+		{
+			// Hack: Fullscreen bugs out when trying to switch back to sdl renderer so we're going to fake it with borderless high resolution instead
+			window_width = 1920;
+			window_height = 1200;
+			SDL_SetWindowBordered(window, SDL_FALSE);
+		}
+		else
+		{
+			SDL_SetWindowBordered(window, SDL_TRUE);
+		}
+
 		SDL_SetWindowSize(window, window_width, window_height);
-		if (isFullscreen)
-		{
-			if(SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
-				cerr << "Could not make SDL window fullscreen" << endl;
-		}
-		else if (!isFullscreen)
-		{
-						if(SDL_SetWindowFullscreen(window, 0) < 0)
-				cerr << "Could not make SDL window fullscreen" << endl;
-		}
-		SDL_GetWindowSize(window, &window_width, &window_height);
 
 		menuManager->set_width(window_width);
 		menuManager->set_height(window_height);
-
 
 		settings_update = false;
 	}
