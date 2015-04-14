@@ -33,7 +33,8 @@ bool HardLight::menu_init()
 
 	//New game menu setup
 	menuManager->setupRangeOption(newGame, "Number of Bots", zeroToTen, numBots);
-	menuManager->setupRangeOption(newGame, "Number of Players", numPlayersBox, numPlayers);
+	numPlayersMenu = numPlayers + 1;
+	menuManager->setupRangeOption(newGame, "Number of Players", numPlayersBox, numPlayersMenu);
 	menuManager->setupOption(newGame, "powerups", "Configure Powerups", powerups);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
 	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
@@ -76,6 +77,8 @@ void HardLight::menu_update()
 		menuManager->set_current_menu("Now Loading");
 		menuManager->render();
 		SDL_RenderPresent( gRenderer );
+
+		numPlayers = numPlayersMenu + 1;
 
 		BuildScene();
 		scene = GAME;	// Instantly load into game
