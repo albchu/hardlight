@@ -30,6 +30,7 @@ int HardLight::OnExecute()
 
 			//Update screen
 			SDL_RenderPresent( gRenderer );
+			menu_update();
 		}
 		else if (!menu_active && scene_built)
 		{
@@ -39,7 +40,6 @@ int HardLight::OnExecute()
 			OnRender();
 		}
 
-		menu_update();
 	}
 
 	//OnCleanup();
