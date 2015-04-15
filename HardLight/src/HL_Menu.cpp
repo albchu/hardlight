@@ -71,6 +71,7 @@ bool HardLight::menu_init()
 	// Create settings menu
 	vector<const char*> resolutions;
 	resolutions.push_back("1280 x 800");
+	resolutions.push_back("1024 x 576");
 	resolutions.push_back("600 x 400");
 	resolutionIndex = 0;
 	settings_update = false;
@@ -116,6 +117,10 @@ void HardLight::menu_update()
 			window_height = 800;
 			break;
 		case(1):
+			window_width = 1024;
+			window_height = 576;
+			break;
+		case(2):
 			window_width = 600;
 			window_height = 400;
 			break;

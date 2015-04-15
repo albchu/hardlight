@@ -67,22 +67,13 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	isFullscreen = config->GetBoolean("window", "fullscreen", false);
+	isFullscreen = config->GetBoolean("window", "fullscreen", false);	// May god have mercy on the man's soul that turns this on before final submission
 
 	if(SDL_SetWindowFullscreen(window, isFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
 
-	//if (isFullscreen)
-	//{
-
-	//	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	//	SDL_RenderSetLogicalSize(gRenderer, window_width, window_height);
-	//}
-
 
 	SDL_GetWindowSize(window, &window_width, &window_height);
-
-
 
 	if ((glcontext = SDL_GL_CreateContext(window)) == NULL)
 		cerr << "Could not make SDL OpenGl context" << endl;
