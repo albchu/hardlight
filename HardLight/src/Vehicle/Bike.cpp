@@ -18,6 +18,9 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	powerup_timers = new PowerupTimers();
 	powerup_timers->powerup_duration =(float)config->GetReal("powerup", "duration", 3.0);
 	power = -1;
+
+	// Initialize player score
+	player_score = 0;
 }
 
 Chassis* Bike::get_chassis()
@@ -75,6 +78,7 @@ void Bike::execute_instant_powerup(Powerup<Instant>::PowerCallback instant_power
 {
 	Instant instant;
 	(instant.*instant_powerup)(chassis, tailwall, config, powerup_timers);
+	update_player_score();
 }
 
 Powerup<Hold>::PowerCallback Bike::get_hold_powerup()
@@ -122,10 +126,21 @@ void Bike::check_super_saiyen_powerup()
 		tailwall->set_height((float)config->GetReal("tail", "height", 1));
 	}
 }
+
 BikeID Bike::get_id() {
 	return bikeID;
 }
 
 void Bike::set_id(BikeID id) {
 	bikeID = id;
+}
+
+int Bike::get_player_score()
+{
+	return player_score;
+}
+
+void Bike::update_player_score()
+{
+	player_score++;
 }
