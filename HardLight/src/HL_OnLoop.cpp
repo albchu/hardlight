@@ -162,6 +162,24 @@ void HardLight::OnLoop()
 	// Check win/loss condition
 	if(scene == GAME && !config->GetBoolean("game", "debugMode", false))
 	{
+		for(Bike* bike : bike_manager->get_all_bikes())
+		{
+			if(bike->get_player_score() >= 10)
+			{
+				for(int i = 0; i < viewports.size(); i++) 
+				{
+					if(bike->get_id() == viewports[i].id)
+					{
+						viewports[i].message = "You Win!";
+					}
+					else 
+					{
+						viewports[i].message = "You Lost!";
+					}
+				}
+				scene = GAME_OVER;
+			}
+		}
 		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{
 			Bike* aBike;
