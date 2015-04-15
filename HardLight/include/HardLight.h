@@ -6,6 +6,7 @@
 #include <string>
 #include <tuple>
 #include <iostream>
+#include <sstream>
 #include "../inih\cpp\INIReader.h"
 
 #include <GL\glew.h>
@@ -172,7 +173,7 @@ private:
 	int numBots;
 	int numInstantPowerups;
 	int numHoldPowerups;
-
+	Uint32 timer;
 public:
 	HardLight();
 	~HardLight();

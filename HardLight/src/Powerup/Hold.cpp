@@ -20,7 +20,7 @@ void Hold::jump(Chassis* chassis, TailWall* tailwall, INIReader* config, Powerup
 	chassis->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,100.0,0.0),PxForceMode::eIMPULSE);
 	chassis->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(PxVec3(0.0,0.0,0.0));
 	chassis->getVehicle4W()->getRigidDynamicActor()->clearTorque();
-	chassis->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,(float)config->GetReal("powerup","powerupJumpForce",0.0),0.0),PxForceMode::eIMPULSE);
+	chassis->getVehicle4W()->getRigidDynamicActor()->addForce(PxVec3(0.0,(float)config->GetReal("powerup","powerupJumpForce",0.0),0.0),PxForceMode::eVELOCITY_CHANGE);
 	//PxVec3 negation = PxVec3(0.0,0.0,0.0);
 	//bike->getVehicle4W()->getRigidDynamicActor()->setAngularVelocity(negation,PxForceMode::eIMPULSE);
 	//PxVec3 temp = bike->getVehicle4W()->getRigidDynamicActor()->getAngularVelocity();

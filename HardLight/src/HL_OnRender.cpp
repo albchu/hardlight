@@ -7,15 +7,17 @@ void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
 	if (msCurrent - msGraphics < 1000 / 60) return;
+	timer += msCurrent - msGraphics;
 	msGraphics = msCurrent;
-
+	stringstream ss;
+	FTPoint spacing(5,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for(int i = 0; i < viewports.size(); i++)
 	{
 		Viewports::Viewport viewport = viewports[i];
 
-		FTPoint spacing(5,0,0);
+		
 		font->FaceSize(80);
 		font->CharMap(ft_encoding_unicode);
 		if( bike_manager->get_player_bikes().size() > i && controllers.size() > i)
@@ -29,15 +31,19 @@ void HardLight::OnRender()
 			viewport.camera->update(0.f, 0.f);
 		}
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
-		for(unsigned int i = 0; i < world.getEntities().size(); i++)
+		for(unsigned int k = 0; k < world.getEntities().size(); k++)
 		{
-			if(world.getEntities()[i]->is_renderable())
-				world.getEntities()[i]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), viewport.camera->get_light());
+			if(world.getEntities()[k]->is_renderable())
+				world.getEntities()[k]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), viewport.camera->get_light());
 		}
 		FTPoint messagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 + 30, 190);
 		FTPoint subMessagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 - 30, 190);
-
-		if(scene == PAUSE) {
+		if(timer<3000){
+			ss.str("");
+			ss<<(4000-timer)/1000;
+			font->Render(ss.str().c_str(), -1, messagePos, spacing);
+		}
+		else if(scene == PAUSE) {
 
 			font->Render("PAUSED", -1, messagePos, spacing);
 		}
@@ -72,7 +78,12 @@ void HardLight::OnRender()
 			}
 		}
 	}
-
+	FTPoint mid(window_width/2 -20 , window_height - 30, 190);
+	int min = timer/60000;
+	int sec = (timer%60000)/1000; 
+	ss.str("");
+	ss<<min<<":"<<sec;
+	font->Render(ss.str().c_str(), -1, mid, spacing);
 	SDL_GL_SwapWindow(window);
 
 }
