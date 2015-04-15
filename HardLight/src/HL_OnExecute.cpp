@@ -33,7 +33,7 @@ int HardLight::OnExecute()
 		}
 		else if (!menu_active && scene_built)
 		{
-			if(scene != PAUSE) {
+			if(scene != PAUSE &&(timer < 1 || timer > 3000)) {
 				OnLoop();
 			}
 			OnRender();
