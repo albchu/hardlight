@@ -24,7 +24,7 @@ bool HardLight::OnInit()
 	if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 	{
 		printf( "Warning: Linear texture filtering not enabled!" );
-		return -1;
+		return false;
 	}
 
 	glEnable(GL_MULTISAMPLE);
@@ -58,6 +58,7 @@ bool HardLight::OnInit()
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
 
+
 	//Create vsynced renderer for window
 	gRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 	if( gRenderer == NULL )
@@ -66,8 +67,11 @@ bool HardLight::OnInit()
 		return false;
 	}
 
-	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+	isFullscreen = config->GetBoolean("window", "fullscreen", false);	// May god have mercy on the man's soul that turns this on before final submission
+
+	if(SDL_SetWindowFullscreen(window, isFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
+
 
 	SDL_GetWindowSize(window, &window_width, &window_height);
 
@@ -146,7 +150,7 @@ bool HardLight::OnInit()
 	//
 	// If something went wrong, bail out.
 	if(font->Error())
-		return -1;
+		return false;
 	display_message = "HelloWorld!!";
 
 	// Initialize menu manager

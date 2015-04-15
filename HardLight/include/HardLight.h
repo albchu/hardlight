@@ -158,11 +158,16 @@ private:
 	MenuManager* menuManager;
 	Menu* pauseMenu;
 	MenuOption* loadingMessage;
+	MenuOption* fullscreenOption;
+	bool isFullscreen;
 	bool scene_built;
-	//int selectedIndex;
+	int resolutionIndex;
+	bool settings_update;	// Triggered when some settings have been updated
+	bool halt_trigger;		// Used if the player wants to go back to main menu
 	bool restart_trigger;
 	bool continue_trigger;	// If the game is paused, this will resume it
 
+	int numPlayersMenu;		// Tracks the number of players in menu selection. Needs to be separate due to constant iteration in buildscene issue
 	int numPlayers;
 	int numBots;
 	int numInstantPowerups;

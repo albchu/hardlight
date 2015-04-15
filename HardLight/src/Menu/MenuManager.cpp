@@ -176,3 +176,13 @@ MenuOption* MenuManager::setupRangeOption(Menu* menu, const char * option_id, ve
 
 	return option;
 }
+
+void  MenuManager::set_width(int new_width)
+{
+	width = new_width;
+}
+
+void  MenuManager::set_height(int new_height)
+{
+	height = new_height;
+}
