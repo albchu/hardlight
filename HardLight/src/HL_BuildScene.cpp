@@ -2,7 +2,7 @@
 
 bool HardLight::BuildScene()
 {
-	timer = 0;
+	
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	loading_update("Generating viewports");
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
@@ -189,6 +189,7 @@ bool HardLight::BuildScene()
 	powerup_manager->spawn_instant_powerup();	// Always make at least one instant powerup
 
 	scene_built = true;
-
+	timer = 0;
+	msGraphics= msPhysics = SDL_GetTicks();
 	return true;
 }
