@@ -12,6 +12,8 @@
 
 #include <SDL_opengl.h>
 #include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <GL\GL.h>
 
 #include <PxPhysicsAPI.h>
@@ -38,19 +40,19 @@
 #include "Vehicle/TailWall.h"
 #include "MeshMap.h"
 #include "Rendering/TextureMap.h"
-#include "Menu.h"
 #include "GUI.h"
 #include "SceneTypes.h"
 #include "SoundMixer.h"
 #include "Vehicle/CreateVehicle.h"
 #include "Powerup/Powerup.h"
-#include "Menu.h"
 #include "Rendering/Viewports.h"
 #include "KeyMappings.h"
 #include "MapTypes.h"
 #include "Powerup/PowerupManager.h"
 #include "ParticleFactory.h"
 #include "ParticleSystem.h"
+#include "Rendering/LTexture.h"
+#include "Menu/MenuManager.h"
 
 
 using namespace physx;
@@ -59,6 +61,7 @@ using namespace glm;
 #pragma comment(lib, "ftgl_static_D.lib")
 #pragma comment(lib, "freetype.lib")
 #pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "SDL2_ttf.lib")
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
 #pragma comment(lib, "SDL2_image.lib")
@@ -89,7 +92,10 @@ private:
 	int window_height;
 	SDL_Window* window;
 	SDL_GLContext glcontext;
-	
+
+	//The window renderer
+	SDL_Renderer* gRenderer;
+
 	vector<SDL_GameController*> controllers;
 
 	PhysxAgent* pxAgent;
@@ -136,16 +142,36 @@ private:
 	vector<TailSegment*> playerTail;
 	BikeManager* bike_manager;		// Holds arrays of all bike_manager on the scene
 	vector<Bike*> bikesToKill;
-	//vector<Chassis*> hit_pickup;
-	//vector<PxRigidActor*> pickup_hit;
 	vector<tuple<Bike*,PxRigidActor*>> bikePowerupPairs;		//Used to map a bike to a powerup that it collides with
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
 
 	FTGLPixmapFont * font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
+	const char * display_message;
 	PowerupManager* powerup_manager;
 	const char* powerUpMessage;
+
+	bool menu_active; // Determines when we switch renderers to the menu in the game
+	bool game_launched;
+
+	MenuManager* menuManager;
+	Menu* pauseMenu;
+	MenuOption* loadingMessage;
+	MenuOption* fullscreenOption;
+	bool isFullscreen;
+	bool scene_built;
+	int resolutionIndex;
+	bool settings_update;	// Triggered when some settings have been updated
+	bool halt_trigger;		// Used if the player wants to go back to main menu
+	bool restart_trigger;
+	bool continue_trigger;	// If the game is paused, this will resume it
+
+	int numPlayersMenu;		// Tracks the number of players in menu selection. Needs to be separate due to constant iteration in buildscene issue
+	int numPlayers;
+	int numBots;
+	int numInstantPowerups;
+	int numHoldPowerups;
 
 public:
 	HardLight();
@@ -168,6 +194,12 @@ public:
 	void reset();
 
 	void toggle_pause();
+
+	bool menu_init();
+
+	void menu_update();
+
+	void loading_update(const char * message);
 };
 
 //==============================================================================

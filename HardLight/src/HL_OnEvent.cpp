@@ -7,10 +7,6 @@ const float minAccel = 0.85f;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
-	Chassis* bike = NULL;
-	if (bike_manager->get_player_bikes().size() > 0)
-		bike = bike_manager->get_player_bikes()[0]->get_chassis();
-
 	switch (Event->type)
 	{
 	case SDL_QUIT:
@@ -22,9 +18,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 		switch (Event->key.keysym.sym)
 		{
-		case SDLK_ESCAPE:
-			running = false;
-			break;
 		case SDLK_a:
 			left = 1.0f;
 			break;
@@ -43,39 +36,52 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_LSHIFT:
 			speed *= fast;
 			break;
-		case SDLK_UP:
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
-			break;
-		case SDLK_l:
-			if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eFIRST);
-			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
-			break;
+
 		case SDLK_DOWN:
-			//if (bike != NULL) bike->getVehicle4W()->mDriveDynData.forceGearChange(PxVehicleGearsData::eREVERSE);
-			if (bike != NULL) bike->getInputData().setAnalogAccel(1.0f);
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->down();
 			break;
+
+		case SDLK_UP:
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->up();
+			break;
+
 		case SDLK_LEFT:
-			if (bike != NULL) bike->getInputData().setAnalogSteer(1.0f);
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->left();
 			break;
+
 		case SDLK_RIGHT:
-			if (bike != NULL) bike->getInputData().setAnalogSteer(-1.0f);
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->right();
 			break;
+
+		case SDLK_RETURN:
+			// Only apply this command if the menu is active
+			if(menu_active)
+				menuManager->select();
+			break;
+
+		case SDLK_ESCAPE:	
+			// Only apply this command if the game has been loaded 
+			if(game_launched)
+			{
+				menuManager->set_current_menu(pauseMenu);
+				menu_active = true;
+			}
+			break;
+
 		case SDLK_p:
 			toggle_pause();
-			menu->toggle_renderable();	// Toggle menu panel from being rendered
 			break;
 		case SDLK_r:
 			reset();
 			break;		
-		case SDLK_SPACE:
-			//powerup->setPowerType(JUMP);
-			//if(powerup->usePowerup() == 1)
-			//	sfxMix.PlaySoundEffect("sfxItemUsed");
-			//else
-			//	sfxMix.PlaySoundEffect("sfxIntro");
-			bike_manager->get_player_bikes()[0]->execute_hold_powerup();	// TEMP CODE BLAME ALBERT ITS BAD
-			break;
 		} // end key_down
 		break;
 
@@ -97,18 +103,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 		case SDLK_LSHIFT:
 			speed /= fast;
 			break;
-		case SDLK_UP:
-			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
-			break;
-		case SDLK_DOWN:
-			if (bike != NULL) bike->getInputData().setAnalogAccel(minAccel);
-			break;
-		case SDLK_LEFT:
-			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
-			break;
-		case SDLK_RIGHT:
-			if (bike != NULL) bike->getInputData().setAnalogSteer(0.0f);
-			break;
 		} // end key_up
 		break;
 	case SDL_CONTROLLERBUTTONDOWN:
@@ -116,11 +110,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 		{
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			toggle_pause();
-
-			// Toggle the menu for all bikes
-			//for(Bike* i : bike_manager->get_player_bikes()) {
-			//	bike->get_menu()->toggle_renderable();
-			//}
 
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:

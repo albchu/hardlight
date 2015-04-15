@@ -2,9 +2,17 @@
 
 bool HardLight::BuildScene()
 {
+
+	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
+	loading_update("Generating viewports");
+	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
+	viewports = Viewports::generate_viewports(cams, window_width, window_height);
+
+	loading_update("Loading variables");
 	maxParticles = config->GetInteger("particles", "count", 100) / config->GetInteger("game", "numCameras", 1);
 	particleSpeed = (float)config->GetReal("particles", "speed", 10);
 	explosionLifeSpan = config->GetReal("particles", "lifetime", 5000.0f);
+	loading_update("Initializing partical data");
 	particleData = ParticleData(maxParticles);
 
 	powerUpMessage = "";
@@ -20,11 +28,17 @@ bool HardLight::BuildScene()
 	float height = 0.f;
 	vec3 scale_factor(size, size, size);
 
+	loading_update("Importing objects");
+	MeshMap::Instance();
+
+	loading_update("Building skybox");
 	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga"));
 	world.add_entity(skybox);
 
 	if (map_type == MapTypes::SPHERE)
 	{
+		loading_update("Creating sphere world");
+
 		PxRigidStatic* ground_actor = pxAgent->create_ground_sphere(size);
 		Entity* ground = new Entity(ground_actor, MeshMap::Instance()->getEntityMesh("WorldSphere.obj"), TextureMap::Instance()->getTexture("../data/Textures/WorldSphere.tga"), scale_factor);
 		world.add_entity(ground);
@@ -47,6 +61,8 @@ bool HardLight::BuildScene()
 	}
 	else if (map_type == MapTypes::PLANE)
 	{
+		loading_update("Creating arena world");
+
 		PxRigidStatic* actor = pxAgent->create_ground_plane();
 		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
 		world.add_entity(ground);
@@ -92,13 +108,13 @@ bool HardLight::BuildScene()
 
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 	unsigned int count = 0;
+	loading_update("Populating world with players");
 
-	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numPlayers", 1); i++)
+	for (unsigned int i=0; i < (unsigned int)numPlayers; i++)
 	{
 		if (count < start_locations.size())
 		{
 			Chassis* new_chassis = new Chassis();
-			//cout << start_locations[count].x << " " << start_locations[count].y << " " << start_locations[count].z << endl;
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
@@ -119,7 +135,9 @@ bool HardLight::BuildScene()
 		}
 	}
 
-	for (unsigned int i=0; i < (unsigned int)config->GetInteger("game", "numBots", 0); i++)
+	loading_update("Populating world with bots");
+
+	for (unsigned int i=0; i < (unsigned int)numBots; i++)
 	{
 		if (count < start_locations.size())
 		{
@@ -153,19 +171,24 @@ bool HardLight::BuildScene()
 		}
 	}
 
-	//pickup = new Pickup(config, pxAgent, size);
-	//world.add_entity(pickup);
 	start_locations.clear();
 	start_facing.clear();
 	start_up.clear();
 
+	loading_update("Setting up powerups");
 
 	// Init Powerup object for testing powerup functionality temporarily
-	for(int i = 0; i < config->GetInteger("powerup", "maxPowerups", 1); i++)
+	for(int i = 0; i < numHoldPowerups; i++)
 	{
-		powerup_manager->spawn_random_powerup();
+		powerup_manager->spawn_hold_powerup();
 	}
-	powerup_manager->spawn_instant_powerup();	// Always spawn at least one instant powerup
+	for(int i = 0; i < numInstantPowerups; i++)
+	{
+		powerup_manager->spawn_instant_powerup();
+	}
+	powerup_manager->spawn_instant_powerup();	// Always make at least one instant powerup
+
+	scene_built = true;
 
 	return true;
 }

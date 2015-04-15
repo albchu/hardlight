@@ -6,7 +6,7 @@ int HardLight::OnExecute()
 {
 	if (!OnInit())
 		return EXIT_FAILURE;
-	if (!BuildScene())
+	if (!menu_init())
 		return EXIT_FAILURE;
 
 	SDL_Event Event;
@@ -19,13 +19,30 @@ int HardLight::OnExecute()
 			OnEvent(&Event);
 		}
 
-		if(scene != PAUSE) {
-			OnLoop();
+		if(menu_active)
+		{
+			scene = PAUSE;
+			//Clear screen
+			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+			SDL_RenderClear( gRenderer );
+
+			menuManager->render();
+
+			//Update screen
+			SDL_RenderPresent( gRenderer );
 		}
-		OnRender();
+		else if (!menu_active && scene_built)
+		{
+			if(scene != PAUSE) {
+				OnLoop();
+			}
+			OnRender();
+		}
+
+		menu_update();
 	}
 
-	OnCleanup();
+	//OnCleanup();
 
 	return EXIT_SUCCESS;
 }

@@ -5,8 +5,13 @@
 
 bool HardLight::OnInit()
 {
+	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
+	numBots = config->GetInteger("game", "numBots", 0);	
+	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);
+	numHoldPowerups = config->GetInteger("powerup", "maxHolds", 1);
+
 	// Enforce that we cannot support more than 4 players. It either fails here or bombs out our program in a spot thats hard to debug
-	if(config->GetInteger("game", "numPlayers", 1) > 4)
+	if(numPlayers > 4)
 	{
 		cerr << "Please enter a number between 0-4 in the config.ini for numPlayers" << endl;
 		return false;
@@ -15,6 +20,13 @@ bool HardLight::OnInit()
 	if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
 		cerr << "Could not initialize SDL" << endl;
 
+	//Set texture filtering to linear
+	if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+	{
+		printf( "Warning: Linear texture filtering not enabled!" );
+		return false;
+	}
+
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
@@ -22,10 +34,10 @@ bool HardLight::OnInit()
 	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1) < 0) {
 		fprintf(stderr, "%s\n", SDL_GetError());
 	}
-	//if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
-	//	fprintf(stderr, "%s\n", SDL_GetError());
-	//}
-	
+	if(SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16) < 0) {
+		fprintf(stderr, "%s\n", SDL_GetError());
+	}
+
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE,    	    8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,  	    8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,   	    8);
@@ -46,8 +58,20 @@ bool HardLight::OnInit()
 	if((window = SDL_CreateWindow("Hard Light", 8, 31, window_width, window_height, SDL_WINDOW_OPENGL)) == NULL)
 		cerr << "Could not create SDL window" << endl;
 
-	if (config->GetBoolean("window", "fullscreen", false) && SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) < 0)
+
+	//Create vsynced renderer for window
+	gRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	if( gRenderer == NULL )
+	{
+		printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
+		return false;
+	}
+
+	isFullscreen = config->GetBoolean("window", "fullscreen", false);	// May god have mercy on the man's soul that turns this on before final submission
+
+	if(SDL_SetWindowFullscreen(window, isFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0) < 0)
 		cerr << "Could not make SDL window fullscreen" << endl;
+
 
 	SDL_GetWindowSize(window, &window_width, &window_height);
 
@@ -59,6 +83,24 @@ bool HardLight::OnInit()
 		if (SDL_IsGameController(i)) {
 			controllers.push_back(SDL_GameControllerOpen(i));
 		}
+	}
+
+	//Initialize renderer color
+	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+
+	//Initialize PNG loading
+	int imgFlags = IMG_INIT_PNG;
+	if( !( IMG_Init( imgFlags ) & imgFlags ) )
+	{
+		printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+		return false;
+	}
+
+	//Initialize SDL_ttf
+	if( TTF_Init() == -1 )
+	{
+		printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+		return false;
 	}
 
 	//Initialize physx agent to govern all shared physx objects
@@ -92,20 +134,12 @@ bool HardLight::OnInit()
 
 	bike_manager = new BikeManager(&world, config, pxAgent);
 
-	// Init Powerup object for testing powerup functionality temporarily
-	//powerup = new Powerup(NULL, bike_manager, config);
-
-	// Initialize viewport info
-	int cams = glm::max(config->GetInteger("game", "numCameras", 1), config->GetInteger("game", "numPlayers", 1));
-	
-	viewports = Viewports::generate_viewports(cams, window_width, window_height);
-
 	// Initialize keyboard player control info
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
 	overMind = new AI(bike_manager, &sfxMix);
-	
+
 	sfxMix.PlayMusic("musicOverworld");
 
 	// Init powerup manager
@@ -116,8 +150,14 @@ bool HardLight::OnInit()
 	//
 	// If something went wrong, bail out.
 	if(font->Error())
-		return -1;
+		return false;
+	display_message = "HelloWorld!!";
 
+	// Initialize menu manager
+	menuManager = new MenuManager(gRenderer, 0,0, window_width, window_height);
+	menu_active = true;
+	game_launched = false;
+	scene_built = false;
 
 	return true;
 }
