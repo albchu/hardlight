@@ -123,11 +123,6 @@ private:
 	Uint32 msMax;
 
 	float speed;
-	float fast;
-	float forward;
-	float back;
-	float left;
-	float right;
 
 	World world;
 	float size;
