@@ -63,8 +63,8 @@ bool HardLight::menu_init()
 	restart_trigger = false;
 	continue_trigger = false;
 	halt_trigger = false;
-	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
 	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
+	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
 	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
