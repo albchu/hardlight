@@ -18,25 +18,6 @@ void HardLight::OnEvent(SDL_Event* Event)
 
 		switch (Event->key.keysym.sym)
 		{
-		case SDLK_a:
-			left = 1.0f;
-			break;
-		case SDLK_d:
-			right = 1.0f;
-			break;
-		case SDLK_s:
-			back = 1.0f;
-			break;
-		case SDLK_w:
-			forward = 1.0f;
-			break;
-		case SDLK_e:
-			sfxMix.ClipFrom("../data/Audio/taunts/");
-			break;
-		case SDLK_LSHIFT:
-			speed *= fast;
-			break;
-
 		case SDLK_DOWN:
 			// Only apply this command if the menu is active
 			if(menu_active)
@@ -85,58 +66,56 @@ void HardLight::OnEvent(SDL_Event* Event)
 		} // end key_down
 		break;
 
-	case SDL_KEYUP:
-		switch (Event->key.keysym.sym)
-		{
-		case SDLK_a:
-			left = 0.0f;
-			break;
-		case SDLK_d:
-			right = 0.0f;
-			break;
-		case SDLK_s:
-			back = 0.0f;
-			break;
-		case SDLK_w:
-			forward = 0.0f;
-			break;
-		case SDLK_LSHIFT:
-			speed /= fast;
-			break;
-		} // end key_up
-		break;
 	case SDL_CONTROLLERBUTTONDOWN:
 		switch (Event->cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_START: // START button
 			toggle_pause();
-
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
 			reset();
 			break;
+		case SDL_CONTROLLER_BUTTON_A:
+			if(menu_active)
+				menuManager->select();
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_UP:
+			if(menu_active)
+				menuManager->up();
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_LEFT:
+			if(menu_active)
+				menuManager->left();
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+			if(menu_active)
+				menuManager->down();
+			break;
+		case SDL_CONTROLLER_BUTTON_DPAD_RIGHT:
+			if(menu_active)
+				menuManager->right();
+			break;
 		}
 		break; // end SDL_CONTROLLERBUTTONDOWN
-
-	case SDL_CONTROLLERAXISMOTION:
-		int RightX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTX);
-		int RightY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
-
+		/*
+		case SDL_CONTROLLERAXISMOTION:
+		int LeftX = SDL_GameControllerGetAxis(Event->, SDL_CONTROLLER_AXIS_RIGHTX);
+		int LeftY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
 		if(RightX < -deadZone){
-			left =(RightX)/(-32768.0f);
+		left =(RightX)/(-32768.0f);
 		}else if(RightX > deadZone){
-			left = (RightX)/(-32768.0f);
+		left = (RightX)/(-32768.0f);
 		}else {
-			left = right = 0.0f;
+		left = right = 0.0f;
 		}		
 		if(RightY > deadZone){
-			forward = (RightY)/(-32768.0f);
+		forward = (RightY)/(-32768.0f);
 		}else if(RightY < -deadZone){
-			forward = (RightY)/(-32768.0f);
+		forward = (RightY)/(-32768.0f);
 		}else{
-			forward = back = 0.0f;
+		forward = back = 0.0f;
 		}
-		break;
+		break;*/
 	} // end type
 }
 
@@ -163,7 +142,6 @@ void HardLight::reset()
 
 void HardLight::toggle_pause()
 {
-	//sfxMix.PlaySoundEffect("sfxExplosion");
 	if(scene == PAUSE)
 	{
 		sfxMix.PlaySoundEffect("sfxUnpaused");
@@ -173,6 +151,11 @@ void HardLight::toggle_pause()
 	{
 		sfxMix.PlaySoundEffect("sfxPaused");
 		scene = PAUSE;
+		if(game_launched)
+		{
+			menuManager->set_current_menu(pauseMenu);
+			menu_active = true;
+		}
 	}
 }
 
