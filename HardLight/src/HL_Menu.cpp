@@ -133,14 +133,15 @@ void HardLight::menu_update()
 		if(isFullscreen)
 		{
 			// Hack: Fullscreen bugs out when trying to switch back to sdl renderer so we're going to fake it with borderless high resolution instead
-			SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			window_width = 1920;
+			window_height = 1200;
+			SDL_SetWindowBordered(window, SDL_FALSE);
 		}
 		else
 		{
-			SDL_SetWindowFullscreen(window, 0);
-			SDL_SetWindowSize(window, window_width, window_height);
+			SDL_SetWindowBordered(window, SDL_TRUE);
 		}
-		SDL_GetWindowSize(window, &window_width, &window_height);
+		SDL_SetWindowSize(window, window_width, window_height);
 
 		menuManager->set_width(window_width);
 		menuManager->set_height(window_height);
