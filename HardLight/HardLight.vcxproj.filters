@@ -196,6 +196,9 @@
     <ClCompile Include="src\HL_Menu.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scoreboard.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -369,6 +372,9 @@
     </ClInclude>
     <ClInclude Include="include\Menu\MenuOption.h">
       <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scoreboard.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
