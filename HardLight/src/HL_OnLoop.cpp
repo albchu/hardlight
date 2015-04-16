@@ -158,6 +158,8 @@ void HardLight::OnLoop()
 		bike->check_super_saiyen_powerup();
 	}
 
+	// Update scoreboard
+	scoreboard.update_scoreboard();
 
 	// Check win/loss condition
 	if(scene == GAME && !config->GetBoolean("game", "debugMode", false))

@@ -188,6 +188,9 @@ bool HardLight::BuildScene()
 	}
 	powerup_manager->spawn_instant_powerup();	// Always make at least one instant powerup
 
+	// Initialize scoreboard
+	scoreboard = Scoreboard(bike_manager);
+
 	scene_built = true;
 
 	return true;
