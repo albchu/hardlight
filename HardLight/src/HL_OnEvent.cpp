@@ -109,8 +109,13 @@ void HardLight::OnEvent(SDL_Event* Event)
 		switch (Event->cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_START: // START button
-			toggle_pause();
-
+			//toggle_pause();
+			// Only apply this command if the game has been loaded 
+			if(game_launched)
+			{
+				menuManager->set_current_menu(pauseMenu);
+				menu_active = true;
+			}
 			break;
 		case SDL_CONTROLLER_BUTTON_BACK:
 			reset();
