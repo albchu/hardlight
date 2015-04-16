@@ -82,7 +82,7 @@ void HardLight::OnRender()
 	int min = timer/60000;
 	int sec = (timer%60000)/1000; 
 	ss.str("");
-	ss<<min<<":"<<sec;
+	ss<<min<<":"<<sec-3;
 	font->Render(ss.str().c_str(), -1, mid, spacing);
 	SDL_GL_SwapWindow(window);
 
