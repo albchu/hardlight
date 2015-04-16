@@ -26,8 +26,6 @@ HardLight::HardLight()
 	msMax = config->GetInteger("physics", "msMax", 100);
 
 	speed = (float)config->GetReal("controls", "speed", 1.0);
-	fast = (float)config->GetReal("controls", "fast", 2.0);
-	left = right = forward = back = 0;
 
 	switch (config->GetInteger("scene", "map", MapTypes::SPHERE))
 	{

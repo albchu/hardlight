@@ -63,16 +63,16 @@ bool HardLight::menu_init()
 	restart_trigger = false;
 	continue_trigger = false;
 	halt_trigger = false;
-	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
 	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
+	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
 	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
 	// Create settings menu
 	vector<const char*> resolutions;
 	resolutions.push_back("1280 x 800");
-	resolutions.push_back("1024 x 576");
-	resolutions.push_back("600 x 400");
+	resolutions.push_back("1024 x 768");
+	resolutions.push_back("800 x 600");
 	resolutionIndex = 0;
 	settings_update = false;
 	menuManager->setupRangeOption(settings,"Resolution", resolutions, resolutionIndex);
@@ -118,11 +118,11 @@ void HardLight::menu_update()
 			break;
 		case(1):
 			window_width = 1024;
-			window_height = 576;
+			window_height = 768;
 			break;
 		case(2):
-			window_width = 600;
-			window_height = 400;
+			window_width = 800;
+			window_height = 600;
 			break;
 		default:
 			window_width = 600;
@@ -133,14 +133,18 @@ void HardLight::menu_update()
 		if(isFullscreen)
 		{
 			// Hack: Fullscreen bugs out when trying to switch back to sdl renderer so we're going to fake it with borderless high resolution instead
-			SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+			SDL_DisplayMode current;
+			if(SDL_GetDesktopDisplayMode(0, &current) == 0)
+				printf("Could not get current monitor display mode"); 
+			window_width = current.w;
+			window_height = current.h;
+			SDL_SetWindowBordered(window, SDL_FALSE);
 		}
 		else
 		{
-			SDL_SetWindowFullscreen(window, 0);
-			SDL_SetWindowSize(window, window_width, window_height);
+			SDL_SetWindowBordered(window, SDL_TRUE);
 		}
-		SDL_GetWindowSize(window, &window_width, &window_height);
+		SDL_SetWindowSize(window, window_width, window_height);
 
 		menuManager->set_width(window_width);
 		menuManager->set_height(window_height);

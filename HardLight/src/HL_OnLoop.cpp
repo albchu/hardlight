@@ -171,7 +171,7 @@ void HardLight::OnLoop()
 					aBike = bike;
 			}
 			//Bike* aBike = bike_manager->get_all_bikes()[0];
-			for(int i = 0; i < viewports.size(); i++) {
+			for(unsigned int i = 0; i < viewports.size(); i++) {
 				if(aBike->get_id() == viewports[i].id) {
 					viewports[i].message = "You Win!";
 				}
@@ -183,7 +183,7 @@ void HardLight::OnLoop()
 		}
 		else if (bike_manager->get_all_bikes().size() == bike_manager->get_dead_bikes().size())
 		{
-			for(int i = 0; i < viewports.size(); i++) {
+			for(unsigned int i = 0; i < viewports.size(); i++) {
 				viewports[i].message = "You Lost!";
 			}
 			scene = GAME_OVER;
