@@ -89,59 +89,70 @@ void HardLight::OnRender()
 
 	// RENDER SCOREBOARD CODE
 
-	// copy vector of all bikes
-	vector<Bike*> scoreboard;
-	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
-	{
-		scoreboard.push_back(bike_manager->get_all_bikes()[i]);
-	}
+	//// copy vector of all bikes
+	//vector<Bike*> scoreboard;
+	//vector<int> scoreboard_bike_id;
+	//int player_number = 1;
+	//int bot_number = 1;
+	//for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
+	//{
+	//	scoreboard.push_back(bike_manager->get_all_bikes()[i]);
+	//	if(bike_manager->get_all_bikes()[i]->get_subtype() == PLAYER_BIKE)
+	//	{
+	//		scoreboard_bike_id.push_back(player_number);
+	//		player_number++;
+	//	}
+	//	else
+	//	{
+	//		scoreboard_bike_id.push_back(bot_number);
+	//		bot_number++;
+	//	}
+	//}
 
-	// Bubblesort
-	bool swapped = true;
-	unsigned int j_sort = 0;
-	Bike* tmp;
-	while (swapped) 
-	{
-		swapped = false;
-		j_sort++;
+	//// Bubblesort
+	//bool swapped = true;
+	//unsigned int j_sort = 0;
+	//Bike* tmp;
+	//int tmp_id;
+	//while (swapped) 
+	//{
+	//	swapped = false;
+	//	j_sort++;
 
-		for (unsigned int i_sort = 0; i_sort < scoreboard.size() - j_sort; i_sort++) 
-		{
-			if (scoreboard[i_sort] < scoreboard[i_sort + 1]) 
-			{
-				tmp = scoreboard[i_sort];
-				scoreboard[i_sort] = scoreboard[i_sort + 1];
-				scoreboard[i_sort + 1] = tmp;
-				swapped = true;
-			}
-		}
-	}
+	//	for (unsigned int i_sort = 0; i_sort < scoreboard.size() - j_sort; i_sort++) 
+	//	{
+	//		if (scoreboard[i_sort]->get_player_score() < scoreboard[i_sort + 1]->get_player_score()) 
+	//		{
+	//			tmp = scoreboard[i_sort];
+	//			scoreboard[i_sort] = scoreboard[i_sort + 1];
+	//			scoreboard[i_sort + 1] = tmp;
+	//			tmp_id = scoreboard_bike_id[i_sort];
+	//			scoreboard_bike_id[i_sort] = scoreboard_bike_id[i_sort + 1];
+	//			scoreboard_bike_id[i_sort + 1] = tmp_id;
+	//			swapped = true;
+	//		}
+	//	}
+	//}
 
 	// render the scoreboard to the viewport
-	
-	int player_number = 1;
-	int bot_number = 1;
-
 	unsigned int num_scoreboard_players = 5;
-	if(scoreboard.size() < num_scoreboard_players)
+	if(scoreboard.get_scoreboard().size() < num_scoreboard_players)
 	{
-		num_scoreboard_players = scoreboard.size();
+		num_scoreboard_players = scoreboard.get_scoreboard().size();
 	}
 	for(unsigned int i = 0; i < num_scoreboard_players; i++)
 	{
-		FTPoint scoreboard_position(5, window_height - 30 - (i*40), 190);
+		FTPoint scoreboard_position(5, window_height - 30 - (i*35), 190);
 		stringstream player_score_string;
-		if(scoreboard[i]->get_subtype() == PLAYER_BIKE)
+		if(scoreboard.get_scoreboard()[i]->get_subtype() == PLAYER_BIKE)
 		{
-			player_score_string << "Player " << player_number << ": ";
-			player_number++;
+			player_score_string << "Player " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
 		}
 		else
 		{
-			player_score_string << "Bot " << bot_number << ": ";
-			bot_number++;
+			player_score_string << "Bot " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
 		}
-		player_score_string << scoreboard[i]->get_player_score();
+		player_score_string << scoreboard.get_scoreboard()[i]->get_player_score();
 		font->Render(player_score_string.str().c_str(), -1, scoreboard_position, spacing);
 	}
 	// END RENDER SCOREBOARD CODE
