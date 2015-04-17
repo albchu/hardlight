@@ -2,7 +2,18 @@
 
 bool HardLight::BuildScene()
 {
-	
+	/*
+	config = new INIReader("config.ini");
+	size = (float)config->GetReal("scene", "size", 300.0);
+	gravity = (float)config->GetReal("scene", "gravity", 9.81);
+	dampening = (float)config->GetReal("bike", "dampening", 0.0);
+	msMax = config->GetInteger("physics", "msMax", 100);
+	speed = (float)config->GetReal("controls", "speed", 1.0);
+	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
+	numBots = config->GetInteger("game", "numBots", 0);	
+	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);
+	numHoldPowerups = config->GetInteger("powerup", "maxHolds", 1);
+	*/
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	loading_update("Generating viewports");
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
@@ -109,7 +120,15 @@ bool HardLight::BuildScene()
 	CreateVehicle vehicleCreator = CreateVehicle(config, pxAgent);
 	unsigned int count = 0;
 	loading_update("Populating world with players");
-
+	
+	vec3 ai_scale((float)config->GetReal("ai", "scaleX", 10.0),
+		(float)config->GetReal("ai", "scaleY", 10.0),
+		(float)config->GetReal("ai", "scaleZ", 10.0));
+	
+	vec3 ai_transform((float)config->GetReal("ai", "transformX", 0.0),
+		(float)config->GetReal("ai", "transformY", 0.0),
+		(float)config->GetReal("ai", "transformZ", 10.0));
+	
 	for (unsigned int i=0; i < (unsigned int)numPlayers; i++)
 	{
 		if (count < start_locations.size())
@@ -119,14 +138,15 @@ bool HardLight::BuildScene()
 				return false;
 			new_chassis->set_invincible(config->GetBoolean("game", "playerInvincible", false));
 
+			Bike* bike;
 			if (controllers.size() > i && !config->GetBoolean("game", "disableControllers", false))
-				bike_manager->add_player_bike(new_chassis, controllers[i]);
+				bike = bike_manager->add_player_bike(new_chassis, controllers[i]);
 			else
-				bike_manager->add_player_bike(new_chassis, NULL);
+				bike = bike_manager->add_player_bike(new_chassis, NULL);
 
 			if (count < viewports.size())
 			{
-				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
+				bike->set_id(viewports[count].id);
 				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}
@@ -134,7 +154,7 @@ bool HardLight::BuildScene()
 			count++;
 		}
 	}
-
+	
 	loading_update("Populating world with bots");
 
 	for (unsigned int i=0; i < (unsigned int)numBots; i++)
@@ -146,11 +166,12 @@ bool HardLight::BuildScene()
 			if(!vehicleCreator.Create(new_chassis, start_locations[count], start_facing[count], start_up[count]))
 				return false;
 
-			bike_manager->add_bot_bike(new_chassis);
+			Bike* bike = bike_manager->add_bot_bike(new_chassis);
+			pxAgent->create_ai_vision(ai_scale, ai_transform, new_chassis->get_actor(), bike);
 
 			if (count < viewports.size())
 			{
-				bike_manager->get_bike(new_chassis->get_actor())->set_id(viewports[count].id);
+				bike->set_id(viewports[count].id);
 				Camera* aCamera = new Camera(config, new_chassis->get_actor(), viewports[count].width, viewports[count].height, map_type);
 				viewports[count].camera = aCamera;
 			}

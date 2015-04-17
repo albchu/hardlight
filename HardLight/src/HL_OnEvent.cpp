@@ -130,7 +130,6 @@ void HardLight::reset()
 	if(scene == PAUSE || scene == GAME_OVER)
 		scene = GAME;
 	for(Bike* bike : bike_manager->get_all_bikes()) {
-		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}
 	for(Viewports::Viewport port : viewports)
@@ -141,7 +140,7 @@ void HardLight::reset()
 	bikesToKill.clear();
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
-	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);
+	overMind = new AI(bike_manager, &sfxMix, config);//, keyMappings);
 	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 	BuildScene();
 }
