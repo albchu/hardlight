@@ -29,6 +29,11 @@ void INIReader::SetInteger(string section, string name, int default_value)
     Set(section, name, std::to_string(default_value));
 }
 
+void INIReader::SetLong(string section, string name, long default_value)
+{
+    Set(section, name, std::to_string(default_value));
+}
+
 string INIReader::Get(string section, string name, string default_value)
 {
     string key = MakeKey(section, name);

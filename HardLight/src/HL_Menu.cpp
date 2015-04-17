@@ -3,7 +3,6 @@
 
 bool HardLight::menu_init()
 {
-
 	Menu* mainMenu = menuManager->createMenu("Main Menu");
 	Menu* newGame = menuManager->createMenu("New Game");
 	Menu* settings = menuManager->createMenu("Settings");
@@ -15,7 +14,8 @@ bool HardLight::menu_init()
 	Menu* controls = menuManager->createMenu("Controls");
 	controls->set_background("../data/images/Menu/Controls.bmp");
 	objectives->set_background("../data/images/Menu/Objectives.bmp");
-	
+	credits->set_background("../data/images/Menu/Credits.bmp");
+
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
 	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
@@ -27,49 +27,6 @@ bool HardLight::menu_init()
 	Menu* sean = menuManager->createMenu("sean");
 	Menu* rob = menuManager->createMenu("rob");
 	Menu* henry = menuManager->createMenu("henry");
-
-	menuManager->setupOption(albert, "", "Multiplayer Programming", bogus);
-	menuManager->setupOption(albert, "", "AI Design and Prototyping", bogus);
-	menuManager->setupOption(albert, "", "Menu Designer", bogus);
-	menuManager->setupOption(albert, "", "Controller Support (Partial)", bogus);
-	menuManager->setupOption(albert, "", "Texture Designer Finalizer", bogus);
-	menuManager->setupOption(albert, "", "Bike Design", bogus);
-	menuManager->setupOption(albert, "", "Light Trails Design", bogus);
-	menuManager->setupOption(albert, "", "Powerups", bogus);
-	menuManager->setupOption(albert, "", "Game Engine Designer", bogus);
-
-	menuManager->setupOption(kevin, "", "Rendering", bogus);
-	menuManager->setupOption(kevin, "", "AI Main Programmer", bogus);
-	menuManager->setupOption(kevin, "", "Controller Support (Partial)", bogus);
-	menuManager->setupOption(kevin, "", "Sphere Map Prototyping", bogus);
-	menuManager->setupOption(kevin, "", "Light Trails Programming", bogus);
-	menuManager->setupOption(kevin, "", "Arena Map Design", bogus);
-	menuManager->setupOption(kevin, "", "Physx Backend Support", bogus);
-	menuManager->setupOption(kevin, "", "Game Engine Designer", bogus);
-
-	menuManager->setupOption(sean, "", "Shadows", bogus);
-	menuManager->setupOption(sean, "", "Win Conditions", bogus);
-	menuManager->setupOption(sean, "", "Skybox Designer", bogus);
-	menuManager->setupOption(sean, "", "Particle Effects Programming", bogus);
-	menuManager->setupOption(sean, "", "Model Prototyping", bogus);
-	menuManager->setupOption(sean, "", "Initial Texture Designer", bogus);
-	menuManager->setupOption(sean, "", "Object Loader", bogus);
-
-	menuManager->setupOption(rob, "", "Object Loader (Partial)", bogus);
-	menuManager->setupOption(rob, "", "Sound Backend", bogus);
-	menuManager->setupOption(rob, "", "Scoreboard Design", bogus);
-	menuManager->setupOption(rob, "", "Match Timer Maintenance", bogus);
-
-	menuManager->setupOption(henry, "", "HUD Prototyping", bogus);
-	menuManager->setupOption(henry, "", "Light Trails Prototyping", bogus);
-	menuManager->setupOption(henry, "", "Match Timer Prototyping", bogus);
-	menuManager->setupOption(henry, "", "Texture Designer (Partial)", bogus);
-
-	menuManager->setupOption(credits, "albert", "Albert Chu", albert);
-	menuManager->setupOption(credits, "kevin", "Kevin Tolsma", kevin);
-	menuManager->setupOption(credits, "sean", "Sean Brown", sean);
-	menuManager->setupOption(credits, "rob", "Robert Plantilla", rob);
-	menuManager->setupOption(credits, "henry", "Henry Khuu", henry);
 
 	vector<const char*> numPlayersBox;
 	numPlayersBox.push_back("1");
@@ -144,6 +101,12 @@ void HardLight::menu_update()
 
 	if(game_launched && !scene_built)
 	{
+		if(classic)
+		{
+			cams = 1;
+			config->SetLong("tail", "width", 1);
+		}
+
 		menuManager->set_current_menu("Now Loading...");
 		menuManager->render();
 		SDL_RenderPresent( gRenderer );
@@ -212,9 +175,7 @@ void HardLight::menu_update()
 
 	if(classic)
 	{
-		cams = 1;
 		classicOption->set_text("Classic Camera: Activated");
-		config->SetInteger("tail", "width", 4);
 	}
 	else if(!classic)
 	{

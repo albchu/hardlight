@@ -5,10 +5,6 @@
 //==============================================================================
 void HardLight::OnRender()
 {
-	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msGraphics < 1000 / 60) return;
-	timer += msCurrent - msGraphics;
-	msGraphics = msCurrent;
 	stringstream ss;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
