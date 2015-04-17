@@ -50,7 +50,6 @@ void HardLight::OnLoop()
 	float timestep = elapsed / 1000.0f;
 	if(timestep < 0.001)
 		timestep = 0.001;
-	cout << "TimeStep: " << timestep << endl;
 	float closest_sound = FLT_MAX;
 
 	// Delete all bikes queued up to be destroyed
