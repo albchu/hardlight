@@ -26,6 +26,7 @@ HardLight::HardLight()
 	msMax = config->GetInteger("physics", "msMax", 100);
 
 	speed = (float)config->GetReal("controls", "speed", 1.0);
+	classic = config->GetBoolean("camera", "classic", false);
 
 	switch (config->GetInteger("scene", "map", MapTypes::SPHERE))
 	{

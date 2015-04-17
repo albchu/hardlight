@@ -18,10 +18,10 @@ PxU32 PhysxAgent::collides_with(EntityTypes type)
 	switch (type)
 	{
 	case WALL:
-		return BIKE | AILEFT | AIRIGHT;
+		return BIKE | AILEFT | AIRIGHT | AICENTER;
 		break;
 	case BIKE:
-		return WALL | BIKE | PICKUP | TAIL | GROUND | AILEFT | AIRIGHT;
+		return WALL | BIKE | PICKUP | TAIL | GROUND | AILEFT | AIRIGHT | AICENTER;
 		break;
 	case GROUND:
 		return BIKE;
@@ -30,10 +30,11 @@ PxU32 PhysxAgent::collides_with(EntityTypes type)
 		return BIKE;
 		break;
 	case TAIL:
-		return BIKE | AILEFT | AIRIGHT;
+		return BIKE | AILEFT | AIRIGHT | AICENTER;
 		break;
 	case AILEFT:
 	case AIRIGHT:
+	case AICENTER:
 		return BIKE | WALL | TAIL;
 		break;
 	default:
@@ -322,4 +323,21 @@ void PhysxAgent::create_ai_vision(vec3 scaleFactors, vec3 transform, PxRigidActo
 	right_box->setSimulationFilterData(simFilterDataRight);
 	right_box->setLocalPose(right_transform);
 	right_box->userData = bike;
+
+	// center
+	PxFilterData simFilterDataCenter;
+	type = EntityTypes::AICENTER;
+	simFilterDataCenter.word0 = type;
+	simFilterDataCenter.word1 = collides_with(type);
+
+	//PxTransform right_transform(scaleFactors.x/2.f + abs(transform.x), transform.y, transform.z + scaleFactors.z/2.f);
+	PxTransform center_transform(0.f, transform.y, transform.z + scaleFactors.z/2.f);
+
+	PxShape* center_box = actor->createShape(PxBoxGeometry(scaleFactors.x/2.f, scaleFactors.y/2.f, scaleFactors.z/2.f), *ai_material);
+	center_box->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	center_box->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+	center_box->setQueryFilterData(queryFilterData);
+	center_box->setSimulationFilterData(simFilterDataCenter);
+	center_box->setLocalPose(center_transform);
+	center_box->userData = bike;
 }
