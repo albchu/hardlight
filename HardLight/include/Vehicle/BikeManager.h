@@ -15,8 +15,14 @@
 #include <vector>
 #include <SDL.h>
 
-
 using namespace std;
+
+struct BikeAssignment
+{
+	const char* bikeTexture;
+	const char* bikeTransTexture;
+	const char* tailTexture;
+};
 
 class BikeManager
 {
@@ -40,6 +46,8 @@ private:
 	World* world;
 	INIReader* config;
 	PhysxAgent* pxAgent;
+	vector<BikeAssignment> bikeAssignments;	// A list of tail to bike texture pairs
+	int selectedIndex;
 };
 
 #endif

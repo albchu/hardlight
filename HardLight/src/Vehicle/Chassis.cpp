@@ -123,3 +123,20 @@ PxVec3 Chassis::get_gravity_up()
 {
 	return gravity_up;
 }
+
+void Chassis::set_trans_texture(GLuint new_texture)
+{
+	transTexture = new_texture;
+	regularTexture = texture;	// If a transparent texture is given, then we should save the current texture as the regular one for restoration purposes
+}
+
+GLuint Chassis::get_trans_texture()
+{
+	return transTexture;
+}
+
+GLuint Chassis::get_regular_texture()
+{
+	return regularTexture;
+}
+

@@ -40,6 +40,9 @@ public:
 	void setVehicleSceneQueryData(VehicleSceneQueryData*);
 	void setBatchQuery(PxBatchQuery*);
 	void setInAir(bool);
+	void set_trans_texture(GLuint new_texture);
+	GLuint get_trans_texture();
+	GLuint get_regular_texture();
 
 	virtual mat4 get_model_matrix();
 	virtual void set_actor(PxRigidActor*);
@@ -57,5 +60,8 @@ private:
 	bool invincible;
 	float steeringParameter;
 	PxVec3 gravity_up;
+	GLuint transTexture;		// Texture for ghost mode
+	GLuint regularTexture;			// Tracks the original texture when chassis goes into transMode
+
 };
 #endif

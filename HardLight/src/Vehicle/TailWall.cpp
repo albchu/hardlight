@@ -41,7 +41,7 @@ void TailWall::update(PhysxAgent* pxAgent)
 	if (max_length > 0)
 	{
 		PxRigidActor* segment_actor = pxAgent->create_tail(new_position, last_position, PhysxAgent::toVec3(bike->get_gravity_up()), width, height);
-		TailSegment* segment = new TailSegment(segment_actor, "../data/Textures/LightTrail.tga", width, height, length, program_id);
+		TailSegment* segment = new TailSegment(segment_actor, texture, width, height, length, program_id);
 		segments.insert(segments.begin(), segment);
 
 		last_position = new_position;	// Update last set position for next wall segment
