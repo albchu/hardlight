@@ -195,9 +195,14 @@ void BikeManager::kill_bike(Bike* bike)
 void BikeManager::clear_controllers() {
 	for(Bike* bike : get_all_bikes()) 
 	{
-		if(bike->get_subtype() == PLAYER_BIKE)
-			delete (Player_Controller*)bike->get_controller();
-		else if(bike->get_subtype() == BOT_BIKE)
-			delete (Bot_Controller*)bike->get_controller();
+		delete bike->get_controller();
 	}
+}
+
+void BikeManager::release()
+{
+	clear_controllers();
+	player_bikes.clear();
+	bot_bikes.clear();
+	dead_bikes.clear();
 }
