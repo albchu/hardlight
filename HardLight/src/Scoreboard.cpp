@@ -5,6 +5,7 @@ Scoreboard::Scoreboard()
 	int player_number = 0;
 	int bot_number = 0;
 	BikeManager* bike_manager = NULL;
+	unsigned int num_scoreboard_players = 0;
 }
 
 Scoreboard::Scoreboard(BikeManager* b_mngr)
@@ -13,7 +14,7 @@ Scoreboard::Scoreboard(BikeManager* b_mngr)
 	player_number = 1;
 	bot_number = 1;
 	// copy vector of all bikes
-	
+
 	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
 	{
 		scoreboard.push_back(bike_manager->get_all_bikes()[i]);
@@ -28,6 +29,8 @@ Scoreboard::Scoreboard(BikeManager* b_mngr)
 			bot_number++;
 		}
 	}
+
+	unsigned int num_scoreboard_players = 5;
 }
 
 void Scoreboard::update_scoreboard()
@@ -58,29 +61,29 @@ void Scoreboard::update_scoreboard()
 	}
 }
 
-void Scoreboard::render_scoreboard()
+void Scoreboard::render_scoreboard(FTGL_DOUBLE x, FTGL_DOUBLE y, FTGL_DOUBLE z, FTGLPixmapFont * font)
 {
-	//// render the scoreboard to the viewport
-	//unsigned int num_scoreboard_players = 5;
-	//if(scoreboard.size() < num_scoreboard_players)
-	//{
-	//	num_scoreboard_players = scoreboard.size();
-	//}
-	//for(unsigned int i = 0; i < num_scoreboard_players; i++)
-	//{
-	//	FTPoint scoreboard_position(5, window_height - 30 - (i*35), 190);
-	//	stringstream player_score_string;
-	//	if(scoreboard[i]->get_subtype() == PLAYER_BIKE)
-	//	{
-	//		player_score_string << "Player " << scoreboard_bike_id[i] << ": ";
-	//	}
-	//	else
-	//	{
-	//		player_score_string << "Bot " << scoreboard_bike_id[i] << ": ";
-	//	}
-	//	player_score_string << scoreboard[i]->get_player_score();
-	//	font->Render(player_score_string.str().c_str(), -1, scoreboard_position, spacing);
-	//}
+	// render the scoreboard to the viewport
+	font->FaceSize(40);
+	if(scoreboard.size() < num_scoreboard_players)
+	{
+		num_scoreboard_players = scoreboard.size();
+	}
+	for(unsigned int i = 0; i < num_scoreboard_players; i++)
+	{
+		FTPoint scoreboard_position(x, y - (i*35), z);
+		stringstream player_score_string;
+		if(scoreboard[i]->get_subtype() == PLAYER_BIKE)
+		{
+			player_score_string << "Player " << scoreboard_bike_id[i] << ": ";
+		}
+		else
+		{
+			player_score_string << "Bot " << scoreboard_bike_id[i] << ": ";
+		}
+		player_score_string << scoreboard[i]->get_player_score();
+		font->Render(player_score_string.str().c_str(), -1, scoreboard_position, FTPoint(5, 0, 0));
+	}
 }
 
 vector<Bike*> Scoreboard::get_scoreboard()

@@ -1,6 +1,8 @@
 #ifndef _SCOREBOARD_H
 #define _SCOREBOARD_H
 
+#include <sstream>
+
 #include <FTGL/ftgl.h>
 
 #include "Vehicle\Bike.h"
@@ -15,7 +17,7 @@ public:
 	Scoreboard();
 	Scoreboard(BikeManager* b_mngr);
 	void update_scoreboard();
-	void render_scoreboard();
+	void render_scoreboard(FTGL_DOUBLE x, FTGL_DOUBLE y, FTGL_DOUBLE z, FTGLPixmapFont * font);
 	vector<Bike*> get_scoreboard();
 	vector<int> get_scoreboard_bike_id();
 private:
@@ -24,6 +26,7 @@ private:
 	int player_number;
 	int bot_number;
 	BikeManager* bike_manager;
+	unsigned int num_scoreboard_players;
 };
 
 #endif

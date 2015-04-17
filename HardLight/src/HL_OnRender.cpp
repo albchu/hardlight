@@ -76,7 +76,10 @@ void HardLight::OnRender()
 				font->Render(powerUpMessage, -1, messagePos, spacing);
 				powerUpMessage = "";
 
-
+				if(overMind->get_show_scoreboard() == true)
+				{
+					scoreboard.render_scoreboard(viewport.x + 100, viewport.y + 100, 190, font);
+				}
 			} 
 		}
 	}
@@ -88,6 +91,7 @@ void HardLight::OnRender()
 	font->Render(ss.str().c_str(), -1, mid, spacing);
 
 	// RENDER SCOREBOARD CODE
+	//scoreboard.render_scoreboard(5, window_height - 30, 190, font);
 
 	//// copy vector of all bikes
 	//vector<Bike*> scoreboard;
@@ -135,27 +139,27 @@ void HardLight::OnRender()
 	//}
 
 	// render the scoreboard to the viewport
-	unsigned int num_scoreboard_players = 5;
-	if(scoreboard.get_scoreboard().size() < num_scoreboard_players)
-	{
-		num_scoreboard_players = scoreboard.get_scoreboard().size();
-	}
-	for(unsigned int i = 0; i < num_scoreboard_players; i++)
-	{
-		FTPoint scoreboard_position(5, window_height - 30 - (i*35), 190);
-		stringstream player_score_string;
-		if(scoreboard.get_scoreboard()[i]->get_subtype() == PLAYER_BIKE)
-		{
-			player_score_string << "Player " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
-		}
-		else
-		{
-			player_score_string << "Bot " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
-		}
-		player_score_string << scoreboard.get_scoreboard()[i]->get_player_score();
-		font->Render(player_score_string.str().c_str(), -1, scoreboard_position, spacing);
-	}
-	// END RENDER SCOREBOARD CODE
+	//unsigned int num_scoreboard_players = 5;
+	//if(scoreboard.get_scoreboard().size() < num_scoreboard_players)
+	//{
+	//	num_scoreboard_players = scoreboard.get_scoreboard().size();
+	//}
+	//for(unsigned int i = 0; i < num_scoreboard_players; i++)
+	//{
+	//	FTPoint scoreboard_position(5, window_height - 30 - (i*35), 190);
+	//	stringstream player_score_string;
+	//	if(scoreboard.get_scoreboard()[i]->get_subtype() == PLAYER_BIKE)
+	//	{
+	//		player_score_string << "Player " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
+	//	}
+	//	else
+	//	{
+	//		player_score_string << "Bot " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
+	//	}
+	//	player_score_string << scoreboard.get_scoreboard()[i]->get_player_score();
+	//	font->Render(player_score_string.str().c_str(), -1, scoreboard_position, spacing);
+	//}
+	//// END RENDER SCOREBOARD CODE
 
 	SDL_GL_SwapWindow(window);
 

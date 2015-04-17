@@ -18,11 +18,13 @@ public:
 	void update_player(Bike* bike);
 	void update_controller(Bike* bike);
 //	void update_keyboard(Player_Controller* player);
+	bool get_show_scoreboard();
 
 private:
 	BikeManager* bike_manager;
 	SoundMixer* sfxMix;
 	bool channel_available; // Used to play taunt once per button press
+	bool show_scoreboard;
 //	vector<KeyMapping> keyMappings;
 //	vector<SDL_Keycode> keyPresses;	// The buffer that holds all keys we are notified of
 };

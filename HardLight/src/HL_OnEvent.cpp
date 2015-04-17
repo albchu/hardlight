@@ -112,8 +112,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 			toggle_pause();
 
 			break;
-		case SDL_CONTROLLER_BUTTON_BACK:
-			reset();
+		//case SDL_CONTROLLER_BUTTON_BACK:
+		//	reset();
 			break;
 		}
 		break; // end SDL_CONTROLLERBUTTONDOWN
