@@ -18,6 +18,17 @@ int INIReader::ParseError()
     return _error;
 }
 
+void INIReader::Set(string section, string name, string default_value)
+{
+    string key = MakeKey(section, name);
+	_values[key] = default_value;
+}
+
+void INIReader::SetInteger(string section, string name, int default_value)
+{
+    Set(section, name, std::to_string(default_value));
+}
+
 string INIReader::Get(string section, string name, string default_value)
 {
     string key = MakeKey(section, name);
