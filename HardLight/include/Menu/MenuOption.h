@@ -42,6 +42,7 @@ public:
 	const char* get_text();
 	void set_text(const char* new_text);
 	void set_selectable(bool new_selectable);
+	bool is_selectable();
 
 protected:
 	const char * id;	// different from text incase text changes, this wont be lost

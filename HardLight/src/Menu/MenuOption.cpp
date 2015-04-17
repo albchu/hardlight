@@ -54,7 +54,7 @@ void MenuOption::render(int x, int y)
 	rotate_center->y = 0;
 
 	//Determine which button texture to use
-	if(is_selected)// && selectable)
+	if(is_selected && selectable)
 		buttonTextureSelected->render(x,y, NULL, 0, rotate_center, SDL_FLIP_NONE, buttonRenderQuad);
 	else
 		buttonTexture->render(x,y, NULL, 0, rotate_center, SDL_FLIP_NONE, buttonRenderQuad);
@@ -158,5 +158,10 @@ const char* MenuOption::get_id()
 void MenuOption::set_selectable(bool new_selectable)
 {
 	selectable = new_selectable;
+}
+
+bool MenuOption::is_selectable()
+{
+	return selectable;
 }
 
