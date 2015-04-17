@@ -10,7 +10,7 @@ private:
 	int ceiling;
 
 public:
-	LoopTimer(int new_ceiling);
+	LoopTimer(int new_ceiling, int init_counter=0);
 	bool ready();
 };
 

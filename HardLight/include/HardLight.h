@@ -175,7 +175,6 @@ private:
 
 	// Variables to track when to calculate different stages of onLoop
 	LoopTimer* deathCalc;
-	//LoopTimer* aiCalc;
 	LoopTimer* powerupCalc;
 	LoopTimer* winCalc;
 

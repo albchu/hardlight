@@ -6,6 +6,7 @@
 #include "KeyMappings.h"
 #include <glm/gtx/vector_angle.hpp>
 #include "SoundMixer.h"
+#include "LoopTimer.h"
 #include "Powerup/PowerupManager.h"
 #include "../inih\cpp\INIReader.h"
 
@@ -26,7 +27,7 @@ private:
 	SoundMixer* sfxMix;
 	bool channel_available; // Used to play taunt once per button press
 	float avoidance_angle;
-//	vector<KeyMapping> keyMappings;
-//	vector<SDL_Keycode> keyPresses;	// The buffer that holds all keys we are notified of
+	LoopTimer* aiCalc;
+
 };
 #endif

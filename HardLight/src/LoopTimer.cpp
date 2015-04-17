@@ -1,9 +1,9 @@
 #include "LoopTimer.h"
 
 
-LoopTimer::LoopTimer(int new_ceiling)
+LoopTimer::LoopTimer(int new_ceiling, int init_counter)
 {
-	counter = 0;
+	counter = init_counter;
 	ceiling = new_ceiling;
 }
 
