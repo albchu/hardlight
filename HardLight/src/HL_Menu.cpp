@@ -33,7 +33,7 @@ bool HardLight::menu_init()
 
 	//New game menu setup
 	menuManager->setupRangeOption(newGame, "Number of Bots", zeroToTen, numBots);
-	numPlayersMenu = numPlayers + 1;
+	numPlayersMenu = numPlayers - 1;
 	menuManager->setupRangeOption(newGame, "Number of Players", numPlayersBox, numPlayersMenu);
 	menuManager->setupOption(newGame, "powerups", "Configure Powerups", powerups);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
@@ -98,15 +98,15 @@ void HardLight::menu_update()
 
 	}
 
-	//if(isFullscreen)
-	//{
-	//	fullscreenOption->set_text("Fullscreen: On");
+	if(isFullscreen)
+	{
+		fullscreenOption->set_text("Fullscreen: On");
 
-	//}
-	//else if (!isFullscreen)
-	//{
-	//	fullscreenOption->set_text("Fullscreen: Off");
-	//}
+	}
+	else if (!isFullscreen)
+	{
+		fullscreenOption->set_text("Fullscreen: Off");
+	}
 
 	if(settings_update)
 	{
