@@ -28,6 +28,5 @@ private:
 	bool channel_available; // Used to play taunt once per button press
 	float avoidance_angle;
 	LoopTimer* aiCalc;
-
 };
 #endif

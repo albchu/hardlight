@@ -25,6 +25,10 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	// Initialize contact counters
 	left_contacts = 0;
 	right_contacts = 0;
+
+	// Initialize button flags
+	x_toggle = false;
+	y_toggle = false;
 }
 
 Chassis* Bike::get_chassis()
@@ -192,3 +196,22 @@ int Bike::rights()
 	return right_contacts;
 }
 
+void Bike::set_x_toggle(bool x_toggle)
+{
+	this->x_toggle = x_toggle;
+}
+
+bool Bike::get_x_toggle()
+{
+	return x_toggle;
+}
+
+void Bike::set_y_toggle(bool y_toggle)
+{
+	this->y_toggle = y_toggle;
+}
+
+bool Bike::get_y_toggle()
+{
+	return y_toggle;
+}

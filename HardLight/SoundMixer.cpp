@@ -351,11 +351,11 @@ bool SoundMixer::ClipFrom(const char* directory)
 	std::cout << "The selected sound effect is" << path << std::endl;
 
 	// Play selected file
-	if( Mix_Playing(64) == 1)
-	{	
-		printf("Random sound currently playing");
-		return false;
-	}
+	//if( Mix_Playing(64) == 1)
+	//{	
+	//	printf("Random sound currently playing");
+	//	return false;
+	//}
 	Mix_Volume(64, 128);
 	int errorCode = Mix_PlayChannel(64, randomSoundEffect, 0);
 	if( errorCode == -1)
