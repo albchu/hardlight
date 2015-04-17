@@ -25,6 +25,8 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	// Initialize contact counters
 	left_contacts = 0;
 	right_contacts = 0;
+	center_contacts = 0;
+	turn = 0;
 
 	// Initialize button flags
 	x_toggle = false;
@@ -174,6 +176,11 @@ void Bike::add_right_contact()
 	right_contacts++;
 }
 
+void Bike::add_center_contact()
+{
+	center_contacts++;
+}
+
 void Bike::remove_left_contact()
 {
 	if (left_contacts > 0)
@@ -186,6 +193,12 @@ void Bike::remove_right_contact()
 		right_contacts--;
 }
 
+void Bike::remove_center_contact()
+{
+	if (center_contacts > 0)
+		center_contacts--;
+}
+
 int Bike::lefts()
 {
 	return left_contacts;
@@ -196,7 +209,40 @@ int Bike::rights()
 	return right_contacts;
 }
 
-void Bike::set_x_toggle(bool x_toggle)
+int Bike::centers()
+{
+	return center_contacts;
+}
+
+int Bike::get_turn()
+{
+	if (center_contacts == 0)
+	{
+		turn = 0;
+	}
+	if (turn == -1)
+	{
+		if (left_contacts == 0)
+			turn = 0;
+	}
+	if (turn == 1)
+	{
+		if (right_contacts == 0)
+			turn = 0;
+	}
+	if (turn == 0)
+	{
+		if (left_contacts > right_contacts)
+		{
+			turn = -1;
+		}
+		else if (right_contacts > left_contacts)
+		{
+			turn = 1;
+		}
+	}
+	return turn;
+}void Bike::set_x_toggle(bool x_toggle)
 {
 	this->x_toggle = x_toggle;
 }

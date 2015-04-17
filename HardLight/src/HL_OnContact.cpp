@@ -57,7 +57,7 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 	for(PxU32 i=0; i < count; i++)
 	{
 		// ignore pairs when shapes have been deleted
-		if (pairs[i].flags & PxTriggerPairFlag::eDELETED_SHAPE_TRIGGER)
+		if (pairs[i].flags & PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER)
 			continue;
 
 		const PxTriggerPair& tp = pairs[i];
@@ -92,6 +92,10 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 				bike->add_right_contact();
 				//cout << "right found" << endl;
 				break;
+			case EntityTypes::AICENTER:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->add_center_contact();
+				break;
 			}
 		}
 		else if(tp.status & PxPairFlag::eNOTIFY_TOUCH_LOST)
@@ -108,6 +112,10 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 				bike = (Bike*)tp.triggerShape->userData;
 				bike->remove_right_contact();
 				//cout << "right lost" << endl;
+				break;
+			case EntityTypes::AICENTER:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->remove_center_contact();
 				break;
 			}
 		}

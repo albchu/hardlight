@@ -24,6 +24,7 @@ public:
 	void set_prev_menu(Menu* new_menu);
 	Menu* get_prev_menu();
 	vector<MenuOption*> get_options();
+	void set_background(const char* path);
 
 private:
 	vector<MenuOption*> options;
