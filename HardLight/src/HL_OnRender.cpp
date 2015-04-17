@@ -10,7 +10,6 @@ void HardLight::OnRender()
 	timer += msCurrent - msGraphics;
 	msGraphics = msCurrent;
 	stringstream ss;
-	FTPoint spacing(5,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for(int i = 0; i < viewports.size(); i++)
@@ -41,23 +40,27 @@ void HardLight::OnRender()
 		if(timer<3000)
 		{
 			// Countdown Timer
-			font->FaceSize(window_height/2);
 			ss.str("");
 			ss<<(4000-timer)/1000;
+			font->FaceSize(window_height/2);
 			FTPoint countdown_location(viewport.x+(viewport.width/2) - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, viewport.y+(viewport.height/2) - (font->BBox(ss.str().c_str()).Lower().Y()+font->BBox(ss.str().c_str()).Upper().Y())/2);
-			font->Render(ss.str().c_str(), -1, countdown_location, spacing);
+			font->Render(ss.str().c_str(), -1, countdown_location);
 		}
 		else if(scene == PAUSE) 
 		{
-
-			font->Render("PAUSED", -1, messagePos, spacing);
+			font->FaceSize(viewport.height/4);
+			messagePos = FTPoint(viewport.x+(viewport.width/2) - (font->BBox("PAUSED").Lower().X()+font->BBox("PAUSED").Upper().X())/2, viewport.y+(viewport.height/2) - (font->BBox("PAUSED").Lower().Y()+font->BBox("PAUSED").Upper().Y())/2);
+			font->Render("PAUSED", -1, messagePos);
 		}
 		else if(scene == GAME_OVER) 
 		{
-			font->Render(viewport.message, -1, messagePos, spacing);
+			font->FaceSize(viewport.height/4);
+			messagePos = FTPoint(viewport.x+(viewport.width/2) - (font->BBox(viewport.message).Lower().X()+font->BBox(viewport.message).Upper().X())/2, viewport.y+(viewport.height/2) - (font->BBox(viewport.message).Lower().Y()+font->BBox(viewport.message).Upper().Y())/2);
+			font->Render(viewport.message, -1, messagePos);
 
-			font->FaceSize(40);
-			font->Render("Press Back or 'r'", -1, subMessagePos, spacing);
+			font->FaceSize(viewport.height/8);
+			subMessagePos = FTPoint(viewport.x+(viewport.width/2) - (font->BBox("Press START to exit").Lower().X()+font->BBox("Press START to exit").Upper().X())/2, messagePos.Y() - viewport.height/4/2);
+			font->Render("Press START to exit", -1, subMessagePos);
 		}
 		else if(scene == GAME) 
 		{
@@ -78,9 +81,9 @@ void HardLight::OnRender()
 					powerUpMessage = "";
 					break;
 				}
-				font->FaceSize(40);
-				messagePos = FTPoint(viewport.x + 10, viewport.y + 10, 190);
-				font->Render(powerUpMessage, -1, messagePos, spacing);
+				font->FaceSize(window_height/16);
+				messagePos = FTPoint(viewport.x + window_height/32, viewport.y + window_height/32, 190);
+				font->Render(powerUpMessage, -1, messagePos);
 				powerUpMessage = "";
 
 				if(b->get_show_scoreboard() == true)
@@ -93,7 +96,7 @@ void HardLight::OnRender()
 		}
 	}
 	// Game timer
-	font->FaceSize(window_height/10);
+	font->FaceSize(window_height/8);
 	
 	int min = timer/60000;
 	int sec = (timer%60000)/1000; 
@@ -114,8 +117,8 @@ void HardLight::OnRender()
 			ss<<sec-3;
 		}
 	}
-	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/10, 190);
-	font->Render(ss.str().c_str(), -1, mid, spacing);
+	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/8);
+	font->Render(ss.str().c_str(), -1, mid);
 	SDL_GL_SwapWindow(window);
 }
 
