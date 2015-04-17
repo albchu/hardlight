@@ -157,10 +157,22 @@ void AI::update_controller(Bike* bike)
 	}else{
 		player->set_camera_up(0.0f);
 	}
-
-	if (LeftX < -(player->get_dead_zone()) || LeftX > player->get_dead_zone())
+	float power = 3;
+	if (LeftX > player->get_dead_zone())
 	{
-		steer = (LeftX)/(-32768.0f); //the axis are inverted on the controller
+		float ratio = (LeftX - player->get_dead_zone())/(32768.0f);
+		//ratio = 1 - ratio;
+		ratio = pow(ratio, power);
+		steer = -ratio;
+		//steer = (LeftX - player->get_dead_zone())/(-32768.0f + player->get_dead_zone()); //the axis are inverted on the controller
+	}
+	else if (LeftX < -(player->get_dead_zone()))
+	{
+		LeftX = -LeftX;
+		float ratio = (LeftX - player->get_dead_zone())/(32768.0f);
+		//ratio = 1 - ratio;
+		ratio = pow(ratio, power);
+		steer = ratio;
 	}
 
 	if(SDL_GameControllerGetAxis(player->get_controller(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0)
