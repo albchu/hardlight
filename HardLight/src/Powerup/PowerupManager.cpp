@@ -144,7 +144,7 @@ void PowerupManager::apply_powerup(Bike* bike, PxRigidActor* powerup_actor)
 		// If we find a match, we will apply the powerup
 		if(holdEntity != NULL)
 		{
-			int i;
+			unsigned int i;
 			for (i=0; i<all_hold_powers.size(); i++)
 			{
 				if (all_hold_powers[i] == holdEntity->get_powerup())

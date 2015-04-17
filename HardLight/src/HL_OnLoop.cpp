@@ -162,7 +162,7 @@ void HardLight::OnLoop()
 		{
 			if(bike->get_player_score() >= 5)
 			{
-				for(int i = 0; i < viewports.size(); i++) 
+				for(unsigned int i = 0; i < viewports.size(); i++) 
 				{
 					if(bike->get_id() == viewports[i].id)
 					{

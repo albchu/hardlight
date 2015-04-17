@@ -13,7 +13,7 @@ void HardLight::OnRender()
 	FTPoint spacing(5,0,0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for(int i = 0; i < viewports.size(); i++)
+	for(unsigned int i = 0; i < viewports.size(); i++)
 	{
 		Viewports::Viewport viewport = viewports[i];
 

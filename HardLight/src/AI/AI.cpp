@@ -5,7 +5,7 @@ AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix, INIReader* config)
 {
 	bike_manager = init_manager;
 	sfxMix = init_sfxMix;
-	avoidance_angle = radians(config->GetReal("ai", "avoidance_angle", 90.f));
+	avoidance_angle = radians((float)config->GetReal("ai", "avoidance_angle", 90.0));
 	//	keyMappings = init_keyMappings;
 }
 
