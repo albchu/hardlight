@@ -3,7 +3,6 @@
 
 bool HardLight::menu_init()
 {
-
 	Menu* mainMenu = menuManager->createMenu("Main Menu");
 	Menu* newGame = menuManager->createMenu("New Game");
 	Menu* settings = menuManager->createMenu("Settings");
@@ -16,7 +15,7 @@ bool HardLight::menu_init()
 	controls->set_background("../data/images/Menu/Controls.bmp");
 	objectives->set_background("../data/images/Menu/Objectives.bmp");
 	credits->set_background("../data/images/Menu/Credits.bmp");
-	
+
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
 	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
@@ -102,6 +101,12 @@ void HardLight::menu_update()
 
 	if(game_launched && !scene_built)
 	{
+		if(classic)
+		{
+			cams = 1;
+			config->SetLong("tail", "width", 1);
+		}
+
 		menuManager->set_current_menu("Now Loading...");
 		menuManager->render();
 		SDL_RenderPresent( gRenderer );
@@ -170,9 +175,7 @@ void HardLight::menu_update()
 
 	if(classic)
 	{
-		cams = 1;
 		classicOption->set_text("Classic Camera: Activated");
-		config->SetInteger("tail", "width", 4);
 	}
 	else if(!classic)
 	{
