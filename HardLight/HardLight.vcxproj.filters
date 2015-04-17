@@ -378,7 +378,7 @@
     </ClInclude>
     <ClInclude Include="include\LoopTimer.h">
       <Filter>HardLight</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="include\Scoreboard.h">
       <Filter>World</Filter>
     </ClInclude>
