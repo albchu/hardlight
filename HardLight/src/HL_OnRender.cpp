@@ -38,22 +38,29 @@ void HardLight::OnRender()
 		}
 		FTPoint messagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 + 30, 190);
 		FTPoint subMessagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 - 30, 190);
-		if(timer<3000){
+		if(timer<3000)
+		{
+			// Countdown Timer
+			font->FaceSize(window_height/2);
 			ss.str("");
 			ss<<(4000-timer)/1000;
-			font->Render(ss.str().c_str(), -1, messagePos, spacing);
+			FTPoint countdown_location(viewport.x+(viewport.width/2) - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, viewport.y+(viewport.height/2) - (font->BBox(ss.str().c_str()).Lower().Y()+font->BBox(ss.str().c_str()).Upper().Y())/2);
+			font->Render(ss.str().c_str(), -1, countdown_location, spacing);
 		}
-		else if(scene == PAUSE) {
+		else if(scene == PAUSE) 
+		{
 
 			font->Render("PAUSED", -1, messagePos, spacing);
 		}
-		else if(scene == GAME_OVER) {
+		else if(scene == GAME_OVER) 
+		{
 			font->Render(viewport.message, -1, messagePos, spacing);
 
 			font->FaceSize(40);
 			font->Render("Press Back or 'r'", -1, subMessagePos, spacing);
 		}
-		else if(scene == GAME) {
+		else if(scene == GAME) 
+		{
 			if (powerUpMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0){
 				Bike* b = bike_manager->get_all_bikes()[i % bike_manager->get_all_bikes().size()];
 				switch (b->power)
@@ -85,86 +92,35 @@ void HardLight::OnRender()
 			} 
 		}
 	}
-	FTPoint mid(window_width/2 -20 , window_height - 30, 190);
+	// Game timer
+	font->FaceSize(window_height/10);
+	
 	int min = timer/60000;
 	int sec = (timer%60000)/1000; 
 	ss.str("");
-	ss<<min<<":"<<sec-3;
+	ss<<min<<":";
+	if(sec-3 <= 0)
+	{
+		ss<<"00";
+	}
+	else
+	{
+		if(sec-3 < 10)
+		{
+			ss<<"0"<<sec-3;
+		}
+		else
+		{
+			ss<<sec-3;
+		}
+	}
+	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/10, 190);
 	font->Render(ss.str().c_str(), -1, mid, spacing);
 
-	// RENDER SCOREBOARD CODE
-	//scoreboard.render_scoreboard(5, window_height - 30, 190, font);
-
-	//// copy vector of all bikes
-	//vector<Bike*> scoreboard;
-	//vector<int> scoreboard_bike_id;
-	//int player_number = 1;
-	//int bot_number = 1;
-	//for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
-	//{
-	//	scoreboard.push_back(bike_manager->get_all_bikes()[i]);
-	//	if(bike_manager->get_all_bikes()[i]->get_subtype() == PLAYER_BIKE)
-	//	{
-	//		scoreboard_bike_id.push_back(player_number);
-	//		player_number++;
-	//	}
-	//	else
-	//	{
-	//		scoreboard_bike_id.push_back(bot_number);
-	//		bot_number++;
-	//	}
-	//}
-
-	//// Bubblesort
-	//bool swapped = true;
-	//unsigned int j_sort = 0;
-	//Bike* tmp;
-	//int tmp_id;
-	//while (swapped) 
-	//{
-	//	swapped = false;
-	//	j_sort++;
-
-	//	for (unsigned int i_sort = 0; i_sort < scoreboard.size() - j_sort; i_sort++) 
-	//	{
-	//		if (scoreboard[i_sort]->get_player_score() < scoreboard[i_sort + 1]->get_player_score()) 
-	//		{
-	//			tmp = scoreboard[i_sort];
-	//			scoreboard[i_sort] = scoreboard[i_sort + 1];
-	//			scoreboard[i_sort + 1] = tmp;
-	//			tmp_id = scoreboard_bike_id[i_sort];
-	//			scoreboard_bike_id[i_sort] = scoreboard_bike_id[i_sort + 1];
-	//			scoreboard_bike_id[i_sort + 1] = tmp_id;
-	//			swapped = true;
-	//		}
-	//	}
-	//}
-
-	// render the scoreboard to the viewport
-	//unsigned int num_scoreboard_players = 5;
-	//if(scoreboard.get_scoreboard().size() < num_scoreboard_players)
-	//{
-	//	num_scoreboard_players = scoreboard.get_scoreboard().size();
-	//}
-	//for(unsigned int i = 0; i < num_scoreboard_players; i++)
-	//{
-	//	FTPoint scoreboard_position(5, window_height - 30 - (i*35), 190);
-	//	stringstream player_score_string;
-	//	if(scoreboard.get_scoreboard()[i]->get_subtype() == PLAYER_BIKE)
-	//	{
-	//		player_score_string << "Player " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
-	//	}
-	//	else
-	//	{
-	//		player_score_string << "Bot " << scoreboard.get_scoreboard_bike_id()[i] << ": ";
-	//	}
-	//	player_score_string << scoreboard.get_scoreboard()[i]->get_player_score();
-	//	font->Render(player_score_string.str().c_str(), -1, scoreboard_position, spacing);
-	//}
-	//// END RENDER SCOREBOARD CODE
+	cout << "Lower: (" << font->BBox(ss.str().c_str()).Lower().X() << ", " << font->BBox(ss.str().c_str()).Lower().X() << ", "<<+ font->BBox(ss.str().c_str()).Lower().X() << ")" << endl;
+	cout << "Upper: (" << font->BBox(ss.str().c_str()).Upper().X() << ", " << font->BBox(ss.str().c_str()).Upper().X() << ", "<<+ font->BBox(ss.str().c_str()).Upper().X() << ")" << endl;
 
 	SDL_GL_SwapWindow(window);
-
 }
 
 //==============================================================================
