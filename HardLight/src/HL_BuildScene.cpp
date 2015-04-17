@@ -44,7 +44,7 @@ bool HardLight::BuildScene()
 	MeshMap::Instance();
 
 	loading_update("Building skybox");
-	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/MoonSkybox.tga"));
+	skybox = new SkyBox(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 0.0f, 0.0f))), MeshMap::Instance()->getEntityMesh("skybox.obj"), TextureMap::Instance()->getTexture("../data/Textures/Skybox.tga"));
 	world.add_entity(skybox);
 
 	if (map_type == MapTypes::SPHERE)

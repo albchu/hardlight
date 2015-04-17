@@ -51,7 +51,7 @@ bool HardLight::menu_init()
 	classicOption = menuManager->setupOption(newGame, "classic", "Classic Camera", classic);
 	menuManager->setupOption(newGame, "powerups", "Configure Powerups", powerups);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
-	newGame->set_selected(3);	// Set the default choice to be launch game
+	newGame->set_selected(4);	// Set the default choice to be launch game
 
 	// Powerup menu
 	menuManager->setupRangeOption(powerups, "Number of instant effect powerups on field", zeroToSix, numInstantPowerups);
