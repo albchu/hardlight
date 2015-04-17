@@ -78,8 +78,8 @@ void HardLight::OnEvent(SDL_Event* Event)
 				menu_active = true;
 			}
 			break;
-		case SDL_CONTROLLER_BUTTON_BACK:
-			reset();
+		//case SDL_CONTROLLER_BUTTON_BACK:
+		//	reset();
 			break;
 		case SDL_CONTROLLER_BUTTON_A:
 			if(menu_active)

@@ -54,6 +54,7 @@
 #include "ParticleSystem.h"
 #include "Rendering/LTexture.h"
 #include "Menu/MenuManager.h"
+#include "Scoreboard.h"
 
 
 using namespace physx;
@@ -142,6 +143,7 @@ private:
 	AI* overMind;
 
 	SoundMixer sfxMix;	// Create a Mixer that holds all sound files
+	Scoreboard scoreboard;
 
 	FTGLPixmapFont * font;	// THIS CODE IS BAD AND SHOULDNT BE HARD INSTANTIATED LIKE THIS
 	const char * display_message;

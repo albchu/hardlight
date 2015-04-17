@@ -187,6 +187,16 @@ void AI::update_controller(Bike* bike)
 		sfxMix->ClipFrom("../data/Audio/onDeath/");
 	}
 
+	// Show scoreboard
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_BACK))
+	{
+		bike->set_show_scoreboard(true);
+	}
+	else
+	{
+		bike->set_show_scoreboard(false);
+	}
+
 	player->set_motion(&Controller::forward);
 	player->set_steering(&Controller::steer);
 	player->set_direction(steer);

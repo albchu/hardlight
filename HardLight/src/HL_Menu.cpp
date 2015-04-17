@@ -98,15 +98,15 @@ void HardLight::menu_update()
 
 	}
 
-	if(isFullscreen)
-	{
-		fullscreenOption->set_text("Fullscreen: On");
+	//if(isFullscreen)
+	//{
+	//	fullscreenOption->set_text("Fullscreen: On");
 
-	}
-	else if (!isFullscreen)
-	{
-		fullscreenOption->set_text("Fullscreen: Off");
-	}
+	//}
+	//else if (!isFullscreen)
+	//{
+	//	fullscreenOption->set_text("Fullscreen: Off");
+	//}
 
 	if(settings_update)
 	{

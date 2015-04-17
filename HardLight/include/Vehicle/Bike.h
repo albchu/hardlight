@@ -46,6 +46,12 @@ public:
 	void check_ghost_powerup(); 
 	void check_super_saiyen_powerup();
 
+	// update the score (on instant powerup pickup)
+	int get_player_score();
+	void update_player_score();
+	void set_show_scoreboard(bool show_scoreboard);
+	bool get_show_scoreboard();
+
 private:
 	Controller* controller;
 	Chassis* chassis;
@@ -59,5 +65,7 @@ private:
 	INIReader* config;
 	PowerupTimers* powerup_timers; // Variables needed for timed powerups
 	Powerup<Hold>::PowerCallback powerup;
+	int player_score;
+	bool show_scoreboard;
 };
 #endif
