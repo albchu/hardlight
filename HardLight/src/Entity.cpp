@@ -202,7 +202,7 @@ vec3 Entity::get_direction_vector()
 {
 	PxQuat q = actor->getGlobalPose().q;
 	PxVec3 global_forward = PxVec3(0,0,1);
-	
+
 	return normalize(PhysxAgent::toVec3(q.rotate(global_forward)));
 }
 
@@ -212,7 +212,7 @@ vec3 Entity::get_up_vector()
 	PxTransform gPose = actor->getGlobalPose();
 	PxQuat q = gPose.q;
 	PxVec3 global_up = PxVec3(0.0f,1.0f,0.0f);
-	
+
 	return normalize(PhysxAgent::toVec3(global_up));
 }
 
@@ -220,3 +220,9 @@ float Entity::get_distance(Entity* other)
 {
 	return (this->actor->getGlobalPose().p - other->actor->getGlobalPose().p).magnitude();
 }
+
+GLuint Entity::get_texture()
+{
+	return texture;
+}
+
