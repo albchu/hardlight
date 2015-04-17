@@ -1,6 +1,6 @@
 #include "Vehicle/TailSegment.h"
 
-TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, float init_width, float init_height, float init_length, GLuint init_program_id)
+TailSegment::TailSegment(PxRigidActor* init_actor, GLuint new_texture, float init_width, float init_height, float init_length, GLuint init_program_id)
 {
 	width = init_width;
 	height = init_height;
@@ -9,7 +9,7 @@ TailSegment::TailSegment(PxRigidActor* init_actor, const char * texturePath, flo
 	draw_mode = GL_TRIANGLES;
 	actor = init_actor;
 	mesh_data = MeshMap::Instance()->getEntityMesh("tail.obj");
-	texture = TextureMap::Instance()->getTexture(texturePath);
+	texture = new_texture;
 	init_opengl(init_program_id);
 	renderable = true;
 }
