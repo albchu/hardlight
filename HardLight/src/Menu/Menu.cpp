@@ -26,11 +26,20 @@ Menu::Menu(SDL_Renderer* new_renderer, const char * new_title)
 	}
 
 	// Load background selected button
-	if( !bgTexture->loadFromFile("../data/images/Menu/MainMenuBG1.bmp") )
+	set_background("../data/images/Menu/MainMenuBG1.bmp");
+}
+
+void Menu::set_background(const char* path)
+{
+
+	// Load background selected button
+	if( !bgTexture->loadFromFile(path) )
 	{
-		printf( "Failed to render button texture!\n" );
+		printf( "Failed to render menu background texture!\n" );
 	}
 }
+
+
 
 Menu::~Menu()
 {

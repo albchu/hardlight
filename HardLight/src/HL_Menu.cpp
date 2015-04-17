@@ -10,7 +10,12 @@ bool HardLight::menu_init()
 	Menu* developer = menuManager->createMenu("Developer Options");
 	Menu* powerups = menuManager->createMenu("Powerups");
 	Menu* loadingScreen = menuManager->createMenu("Now Loading...");
+	loadingScreen->set_background("../data/images/Menu/Controls.bmp");
 	Menu* credits = menuManager->createMenu("Credits");
+	Menu* objectives = menuManager->createMenu("Objectives");
+	Menu* controls = menuManager->createMenu("Controls");
+	controls->set_background("../data/images/Menu/Controls.bmp");
+	objectives->set_background("../data/images/Menu/Objectives.bmp");
 	
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
@@ -117,6 +122,8 @@ bool HardLight::menu_init()
 
 	// Main menu setup
 	menuManager->setupOption(mainMenu, "newgame", "New Game", newGame);
+	menuManager->setupOption(mainMenu, "controls", "Show Controls", controls);
+	menuManager->setupOption(mainMenu, "objectives", "Objectives", objectives);
 	menuManager->setupOption(mainMenu, "settings", "Settings", settings);
 	menuManager->setupOption(mainMenu, "credits", "Credits", credits);
 	menuManager->setupOption(mainMenu, "exitgame", "Exit Game", running);
@@ -131,6 +138,8 @@ bool HardLight::menu_init()
 	halt_trigger = false;
 	menuManager->setupOption(pauseMenu, "continue", "Continue Game", continue_trigger);
 	menuManager->setupOption(pauseMenu, "restart", "Restart Game", restart_trigger);
+	menuManager->setupOption(pauseMenu, "controls", "Show Controls", controls);
+	menuManager->setupOption(pauseMenu, "objectives", "Objectives", objectives);
 	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
