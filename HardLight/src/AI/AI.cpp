@@ -188,7 +188,7 @@ void AI::update_controller(Bike* bike)
 	}
 
 	// Show scoreboard
-	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_BACK))
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_B))
 	{
 		bike->set_show_scoreboard(true);
 	}
