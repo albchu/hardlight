@@ -9,7 +9,7 @@ bool HardLight::menu_init()
 	Menu* settings = menuManager->createMenu("Settings");
 	Menu* developer = menuManager->createMenu("Developer Options");
 	Menu* powerups = menuManager->createMenu("Powerups");
-	Menu* loadingScreen = menuManager->createMenu("Now Loading");
+	Menu* loadingScreen = menuManager->createMenu("Now Loading...");
 
 	vector<const char*> numPlayersBox;
 	numPlayersBox.push_back("1");
@@ -69,6 +69,7 @@ bool HardLight::menu_init()
 	// Create the loading option
 	bool bogus = false;	// this is never used. I just dont care anymore to make something new
 	loadingMessage = menuManager->setupOption(loadingScreen, "loadingmessage", "Warming up!", bogus);
+//	loadingMessage->set_selectable(false);
 
 	// Create the pause menu
 	pauseMenu = menuManager->createMenu("Pause Menu");

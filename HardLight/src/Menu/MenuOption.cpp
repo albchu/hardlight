@@ -31,6 +31,7 @@ MenuOption::MenuOption(SDL_Renderer* new_renderer, const char* init_id, const ch
 		printf( "Failed to render button texture!\n" );
 	}
 
+	selectable = true;
 	////Set rendering space and render to screen
 	//buttonRenderQuad->w = textTexture->getWidth() + (font_size * padding_w_scalar);
 	//buttonRenderQuad->h = textTexture->getHeight() + (font_size * padding_h_scalar);
@@ -53,7 +54,7 @@ void MenuOption::render(int x, int y)
 	rotate_center->y = 0;
 
 	//Determine which button texture to use
-	if(is_selected)
+	if(is_selected)// && selectable)
 		buttonTextureSelected->render(x,y, NULL, 0, rotate_center, SDL_FLIP_NONE, buttonRenderQuad);
 	else
 		buttonTexture->render(x,y, NULL, 0, rotate_center, SDL_FLIP_NONE, buttonRenderQuad);
@@ -68,7 +69,7 @@ SDL_Texture_Wrapper* MenuOption::get_text_texture()
 
 void MenuOption::set_button_texture(const char* texture_path)
 {
-		// Load background button
+	// Load background button
 	if( !buttonTexture->loadFromFile(texture_path) )
 	{
 		printf( "Failed to render button texture!\n" );
@@ -77,7 +78,7 @@ void MenuOption::set_button_texture(const char* texture_path)
 
 void MenuOption::set_button_selected_texture(const char* texture_path)
 {
-		// Load background button
+	// Load background button
 	if( !buttonTextureSelected->loadFromFile(texture_path) )
 	{
 		printf( "Failed to render button texture!\n" );
@@ -152,5 +153,10 @@ void MenuOption::toggle_flag()
 const char* MenuOption::get_id()
 {
 	return id;
+}
+
+void MenuOption::set_selectable(bool new_selectable)
+{
+	selectable = new_selectable;
 }
 
