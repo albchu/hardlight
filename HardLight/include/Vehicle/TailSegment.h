@@ -19,7 +19,7 @@ private:
 	float length;
 
 public:
-	TailSegment(PxRigidActor* init_actor, const char * texturePath, float init_width, float init_height, float init_length, GLuint init_program_id);
+	TailSegment(PxRigidActor* init_actor, GLuint new_texture, float init_width, float init_height, float init_length, GLuint init_program_id);
 	void generate_wall_mesh();
 	virtual mat4 get_model_matrix();
 };

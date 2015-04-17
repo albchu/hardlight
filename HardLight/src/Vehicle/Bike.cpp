@@ -108,6 +108,7 @@ void Bike::check_ghost_powerup()
 
 		// Deactivate ghost ability
 		chassis->set_invincible(false);
+		chassis->set_texture(chassis->get_regular_texture());
 	}
 }
 

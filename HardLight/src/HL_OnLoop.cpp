@@ -38,6 +38,14 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 //==============================================================================
 void HardLight::OnLoop()
 {
+	Uint32 msCurrent = SDL_GetTicks();
+	if (msCurrent - msPhysics < 1000 / 60) 
+		return;
+	Uint32 elapsed = msCurrent - msPhysics;
+	if (elapsed > msMax) 
+		elapsed = msMax;
+	float timestep = elapsed / 1000.0f;
+
 	float closest_sound = FLT_MAX;
 
 	// Delete all bikes queued up to be destroyed
@@ -64,7 +72,7 @@ void HardLight::OnLoop()
 			if(particleSystem)
 				pxAgent->get_scene()->addActor(*particleSystem);
 
-			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), TextureMap::Instance()->getTexture("../data/Textures/PowerUpRed.tga"), SDL_GetTicks());
+			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), bikeX->get_tail()->get_texture(), SDL_GetTicks());
 			particleEntity->setParticleSystem(particleSystem);
 			particleEntity->setParticleData(particleData);
 			world.add_entity(particleEntity);
@@ -77,22 +85,10 @@ void HardLight::OnLoop()
 	// Process all powerups that were hit. Note: Cannot be done in OnTrigger because physx complains
 	for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
 	{
-		//messageTime = SDL_GetTicks();
-		//if(get<1>(pair)->getName() == "HOLD") {
-		//	powerUpMessage = "Power up ready";
-		//}
-		//else if(get<1>(pair)->getName() == "INSTANT") {
-		//	powerUpMessage = "Tail extended";
-		//}
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
 	bikePowerupPairs.clear();
 
-	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msPhysics < 1000 / 60) return;
-	Uint32 elapsed = msCurrent - msPhysics;
-	if (elapsed > msMax) elapsed = msMax;
-	float timestep = elapsed / 1000.0f;
 
 	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
 	for(Bike* bike : bike_manager->get_all_bikes())
@@ -191,7 +187,7 @@ void HardLight::OnLoop()
 					aBike = bike;
 			}
 			//Bike* aBike = bike_manager->get_all_bikes()[0];
-			for(int i = 0; i < viewports.size(); i++) {
+			for(unsigned int i = 0; i < viewports.size(); i++) {
 				if(aBike->get_id() == viewports[i].id) {
 					viewports[i].message = "You Win!";
 				}
@@ -203,7 +199,7 @@ void HardLight::OnLoop()
 		}
 		else if (bike_manager->get_all_bikes().size() == bike_manager->get_dead_bikes().size())
 		{
-			for(int i = 0; i < viewports.size(); i++) {
+			for(unsigned int i = 0; i < viewports.size(); i++) {
 				viewports[i].message = "You Lost!";
 			}
 			scene = GAME_OVER;

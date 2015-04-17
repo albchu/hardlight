@@ -2,7 +2,7 @@
 
 bool HardLight::BuildScene()
 {
-	timer = 0;
+	
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	loading_update("Generating viewports");
 	int cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
@@ -64,24 +64,24 @@ bool HardLight::BuildScene()
 		loading_update("Creating arena world");
 
 		PxRigidStatic* actor = pxAgent->create_ground_plane();
-		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		Entity* ground = new Entity(actor, MeshMap::Instance()->getEntityMesh("plane.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile.tga"), scale_factor);
 		world.add_entity(ground);
 
 		//walls
 		PxRigidStatic* wall_actor = pxAgent->create_wall_plane(PxPlane(1.f,0.f,0.f,size));
-		Wall* wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		Wall* wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile.tga"), scale_factor);
 		world.add_entity(wall);
 
 		wall_actor = pxAgent->create_wall_plane(PxPlane(-1.f,0.f,0.f,size));
-		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile.tga"), scale_factor);
 		world.add_entity(wall);
 
 		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,1.f,size));
-		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile.tga"), scale_factor);
 		world.add_entity(wall);
 
 		wall_actor = pxAgent->create_wall_plane(PxPlane(0.f,0.f,-1.f,size));
-		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile2.tga"), scale_factor);
+		wall = new Wall(wall_actor, MeshMap::Instance()->getEntityMesh("arenaWall.obj"), TextureMap::Instance()->getTexture("../data/Textures/TronTile.tga"), scale_factor);
 		world.add_entity(wall);
 
 		float offset = size-10.0f;
@@ -192,6 +192,7 @@ bool HardLight::BuildScene()
 	scoreboard = Scoreboard(bike_manager);
 
 	scene_built = true;
-
+	timer = 0;
+	msGraphics= msPhysics = SDL_GetTicks();
 	return true;
 }

@@ -72,6 +72,7 @@ public:
 	void			init_opengl(GLuint init_program_id);
 
 	void			set_texture(GLuint);
+	GLuint			get_texture();
 	
 	int				get_type();
 	void			set_type(EntityTypes type);
