@@ -35,7 +35,7 @@ bool HardLight::menu_init()
 	menuManager->setupOption(albert, "", "Game Engine Designer", bogus);
 
 	menuManager->setupOption(kevin, "", "Rendering", bogus);
-	menuManager->setupOption(kevin, "", "AI", bogus);
+	menuManager->setupOption(kevin, "", "AI Main Programmer", bogus);
 	menuManager->setupOption(kevin, "", "Controller Support (Partial)", bogus);
 	menuManager->setupOption(kevin, "", "Sphere Map Prototyping", bogus);
 	menuManager->setupOption(kevin, "", "Light Trails Programming", bogus);

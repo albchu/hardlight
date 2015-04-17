@@ -208,7 +208,6 @@ void AI::update_controller(Bike* bike)
 	// Trigger random taunt sound
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X))
 	{
-		sfxMix->ClipFrom("../data/Audio/onDeath/");
 	}
 
 	// Show scoreboard
