@@ -24,8 +24,8 @@ void main(){
 	
 	// Material properties
 	vec4 MaterialDiffuseColor = texture2D( myTextureSampler, UV ).rgba;
-	vec4 MaterialAmbientColor = vec4(0.2,0.2,0.2,1.0) * MaterialDiffuseColor;
-	vec4 MaterialSpecularColor = vec4(0.3,0.3,0.3,1.0);
+	vec4 MaterialAmbientColor = vec4(0.5,0.5,0.5,1.0) * MaterialDiffuseColor;
+	vec4 MaterialSpecularColor = vec4(0.6,0.6,0.2,1.0);
 
 	// Distance to the light
 	float distance = length( LightPosition_worldspace - Position_worldspace );
