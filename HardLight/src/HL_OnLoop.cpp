@@ -166,7 +166,7 @@ void HardLight::OnLoop()
 	{
 		for(Bike* bike : bike_manager->get_all_bikes())
 		{
-			if(bike->get_player_score() >= 10)
+			if(bike->get_player_score() >= 5)
 			{
 				for(int i = 0; i < viewports.size(); i++) 
 				{

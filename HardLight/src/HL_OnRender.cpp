@@ -76,9 +76,11 @@ void HardLight::OnRender()
 				font->Render(powerUpMessage, -1, messagePos, spacing);
 				powerUpMessage = "";
 
-				if(overMind->get_show_scoreboard() == true)
+				if(b->get_show_scoreboard() == true)
+			//	if(viewport.id == BIKE1 || viewport.id == BIKE4)
+			//	if(true)
 				{
-					scoreboard.render_scoreboard(viewport.x + 100, viewport.y + 100, 190, font);
+					scoreboard.render_scoreboard(viewport, font);
 				}
 			} 
 		}

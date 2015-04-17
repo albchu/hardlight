@@ -144,3 +144,13 @@ void Bike::update_player_score()
 {
 	player_score++;
 }
+
+void Bike::set_show_scoreboard(bool show_scoreboard)
+{
+	this->show_scoreboard = show_scoreboard;
+}
+
+bool Bike::get_show_scoreboard()
+{
+	return show_scoreboard;
+}

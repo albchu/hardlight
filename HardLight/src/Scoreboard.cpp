@@ -30,7 +30,11 @@ Scoreboard::Scoreboard(BikeManager* b_mngr)
 		}
 	}
 
-	unsigned int num_scoreboard_players = 5;
+	num_scoreboard_players = scoreboard.size();
+	if(num_scoreboard_players > 5)
+	{
+		num_scoreboard_players = 5;
+	}
 }
 
 void Scoreboard::update_scoreboard()
@@ -61,17 +65,14 @@ void Scoreboard::update_scoreboard()
 	}
 }
 
-void Scoreboard::render_scoreboard(FTGL_DOUBLE x, FTGL_DOUBLE y, FTGL_DOUBLE z, FTGLPixmapFont * font)
+void Scoreboard::render_scoreboard(Viewports::Viewport viewport, FTGLPixmapFont * font)
 {
 	// render the scoreboard to the viewport
-	font->FaceSize(40);
-	if(scoreboard.size() < num_scoreboard_players)
-	{
-		num_scoreboard_players = scoreboard.size();
-	}
+	unsigned int letter_size = viewport.height/3/num_scoreboard_players;
+	font->FaceSize(letter_size);
 	for(unsigned int i = 0; i < num_scoreboard_players; i++)
 	{
-		FTPoint scoreboard_position(x, y - (i*35), z);
+		FTPoint scoreboard_position(viewport.x+(viewport.width/2*0), (viewport.y+viewport.height) - ((i+1)*letter_size));
 		stringstream player_score_string;
 		if(scoreboard[i]->get_subtype() == PLAYER_BIKE)
 		{
@@ -82,8 +83,10 @@ void Scoreboard::render_scoreboard(FTGL_DOUBLE x, FTGL_DOUBLE y, FTGL_DOUBLE z, 
 			player_score_string << "Bot " << scoreboard_bike_id[i] << ": ";
 		}
 		player_score_string << scoreboard[i]->get_player_score();
-		font->Render(player_score_string.str().c_str(), -1, scoreboard_position, FTPoint(5, 0, 0));
+		font->Render(player_score_string.str().c_str(), -1, scoreboard_position);
 	}
+
+
 }
 
 vector<Bike*> Scoreboard::get_scoreboard()

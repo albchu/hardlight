@@ -17,7 +17,7 @@ public:
 	Scoreboard();
 	Scoreboard(BikeManager* b_mngr);
 	void update_scoreboard();
-	void render_scoreboard(FTGL_DOUBLE x, FTGL_DOUBLE y, FTGL_DOUBLE z, FTGLPixmapFont * font);
+	void render_scoreboard(Viewports::Viewport viewport, FTGLPixmapFont * font);
 	vector<Bike*> get_scoreboard();
 	vector<int> get_scoreboard_bike_id();
 private:

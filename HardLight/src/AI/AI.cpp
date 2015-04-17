@@ -190,7 +190,11 @@ void AI::update_controller(Bike* bike)
 	// Show scoreboard
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_BACK))
 	{
-		show_scoreboard = true;
+		bike->set_show_scoreboard(true);
+	}
+	else
+	{
+		bike->set_show_scoreboard(false);
 	}
 
 	player->set_motion(&Controller::forward);
@@ -234,8 +238,3 @@ void AI::update_controller(Bike* bike)
 //	//player->set_direction(steer);
 //	//player->set_acceleration(accel);
 //}
-
-bool AI::get_show_scoreboard()
-{
-	return show_scoreboard;
-}
