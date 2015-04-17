@@ -70,10 +70,16 @@ void HardLight::OnEvent(SDL_Event* Event)
 		switch (Event->cbutton.button)
 		{
 		case SDL_CONTROLLER_BUTTON_START: // START button
-			toggle_pause();
+			//toggle_pause();
+			// Only apply this command if the game has been loaded 
+			if(game_launched)
+			{
+				menuManager->set_current_menu(pauseMenu);
+				menu_active = true;
+			}
 			break;
-		case SDL_CONTROLLER_BUTTON_BACK:
-			reset();
+		//case SDL_CONTROLLER_BUTTON_BACK:
+		//	reset();
 			break;
 		case SDL_CONTROLLER_BUTTON_A:
 			if(menu_active)
@@ -124,7 +130,6 @@ void HardLight::reset()
 	if(scene == PAUSE || scene == GAME_OVER)
 		scene = GAME;
 	for(Bike* bike : bike_manager->get_all_bikes()) {
-		pxAgent->get_scene()->removeActor(*bike->get_chassis()->get_actor(), false);
 		bike_manager->kill_bike(bike);
 	}
 	for(Viewports::Viewport port : viewports)
@@ -135,7 +140,7 @@ void HardLight::reset()
 	bikesToKill.clear();
 	world.clear();
 	bike_manager = new BikeManager(&world, config, pxAgent);
-	overMind = new AI(bike_manager, &sfxMix);//, keyMappings);
+	overMind = new AI(bike_manager, &sfxMix, config);//, keyMappings);
 	powerup_manager = new PowerupManager(&world, config, pxAgent, &sfxMix);
 	BuildScene();
 	OnLoop();

@@ -14,7 +14,9 @@ enum EntityTypes
 	UNDECLARED	= 1 << 7,
 	MENU_PANEL	= 1 << 8,
 	CAMERA		= 1 << 9,
-	PARSYSTEM   = 1 << 10
+	PARSYSTEM   = 1 << 10,
+	AILEFT		= 1 << 11,
+	AIRIGHT		= 1 << 12
 };
 
 enum BikeSubTypes

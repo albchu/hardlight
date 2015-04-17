@@ -5,8 +5,8 @@
 TailWall::TailWall(Chassis* new_bike, INIReader* new_config)
 {
 	config = new_config;		// Needed to be passed into tail segments
-	max_length = config->GetInteger("tail", "maxLength", 30) / (float)config->GetInteger("game", "numCameras", 1);
-	extend_length = config->GetInteger("tail", "extend_length", 10) / (float)config->GetInteger("game", "numCameras", 1);
+	max_length = config->GetInteger("tail", "maxLength", 30) / config->GetInteger("game", "numCameras", 1);
+	extend_length = config->GetInteger("tail", "extend_length", 10) / config->GetInteger("game", "numCameras", 1);
 	min_segment_allowance = (float)config->GetReal("tail", "minSegmentSize", 0.5) * (float)config->GetInteger("game", "numCameras", 1);
 	max_segment_allowance = (float)config->GetReal("tail", "maxSegmentSize", 100);
 	tail_offset_scalar = (float)config->GetReal("tail", "offset", 4);

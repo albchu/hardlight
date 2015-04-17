@@ -16,6 +16,7 @@ PhysxAgent::PhysxAgent(INIReader* new_config, PxSimulationEventCallback* pxSimul
 	ground_material = NULL;
 	wall_mesh = NULL;
 	wall_material = NULL;
+	ai_material = NULL;
 
 	// Initialize foundation
 	gFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gAllocator, gErrorCallback);

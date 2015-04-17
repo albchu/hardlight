@@ -6,7 +6,7 @@
 
 PxF32 gSteerVsForwardSpeedData[2*8]=
 {
-	0.0f,		0.45f,
+	0.0f,		0.35f,
 	5.0f,		0.35f,
 	30.0f,		0.35f,
 	120.0f,		0.35f,
@@ -124,8 +124,6 @@ void HardLight::OnLoop()
 				grav += (bike->get_gravity_up() * -1.f * actor->getLinearVelocity().magnitude());
 			actor->clearForce();
 			actor->addForce(grav, PxForceMode::eACCELERATION);
-			//PxVec3 slow = actor->getLinearVelocity() * -dampening;
-			//actor->addForce(slow, PxForceMode::eACCELERATION);
 
 			PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
 			PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, chassis->getVehicle4W()->mWheelsSimData.getNbWheels()}};
@@ -145,7 +143,7 @@ void HardLight::OnLoop()
 	}
 
 	// Move Bot BikeManager
-	overMind->update_bikes(powerup_manager->get_all_instant_entities()[0]->get_location());
+	overMind->update_bikes(powerup_manager);
 	overMind->move_bikes();
 
 	// Tail creation
@@ -167,10 +165,30 @@ void HardLight::OnLoop()
 		bike->check_super_saiyen_powerup();
 	}
 
+	// Update scoreboard
+	scoreboard.update_scoreboard();
 
 	// Check win/loss condition
 	if(winCalc->ready() && scene == GAME && !config->GetBoolean("game", "debugMode", false))
 	{
+		for(Bike* bike : bike_manager->get_all_bikes())
+		{
+			if(bike->get_player_score() >= 5)
+			{
+				for(unsigned int i = 0; i < viewports.size(); i++) 
+				{
+					if(bike->get_id() == viewports[i].id)
+					{
+						viewports[i].message = "You Win!";
+					}
+					else 
+					{
+						viewports[i].message = "You Lost!";
+					}
+				}
+				scene = GAME_OVER;
+			}
+		}
 		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{
 			Bike* aBike;

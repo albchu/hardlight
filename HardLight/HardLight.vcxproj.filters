@@ -199,6 +199,9 @@
     <ClCompile Include="src\LoopTimer.cpp">
       <Filter>HardLight</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scoreboard.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inih\ini.h">
@@ -375,6 +378,9 @@
     </ClInclude>
     <ClInclude Include="include\LoopTimer.h">
       <Filter>HardLight</Filter>
+    </ClCompile>
+    <ClInclude Include="include\Scoreboard.h">
+      <Filter>World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

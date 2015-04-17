@@ -1,10 +1,11 @@
 #include "AI/AI.h"
 
 
-AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix)
+AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix, INIReader* config)
 {
 	bike_manager = init_manager;
 	sfxMix = init_sfxMix;
+	avoidance_angle = radians((float)config->GetReal("ai", "avoidance_angle", 90.0));
 	//	keyMappings = init_keyMappings;
 }
 
@@ -12,7 +13,7 @@ AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix)
 //{
 //	keyPresses.push_back(key);
 //}
-
+/*
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
@@ -67,37 +68,45 @@ void AI::update_bikes()
 		}
 	}
 }
-
-void AI::update_bikes(vec3 pickup)
+*/
+void AI::update_bikes(PowerupManager* powerup_manager)
 {
-	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
+	for(Bike* player : bike_manager->get_player_bikes())
 	{
-		Bike* bikeX = bike_manager->get_all_bikes()[i];
-		Controller* controllableX = bikeX->get_controller();
-		if(controllableX->get_chassis()->is_renderable())
+		update_player(player);
+	}
+
+	for(Bike* bike : bike_manager->get_bot_bikes())
+	{
+		Controller* controller = bike->get_controller();
+		Chassis* chassis = controller->get_chassis();
+		if (!chassis->is_renderable())
+			continue;
+		if (bike->lefts() > bike->rights())
 		{
-			if(bikeX->get_subtype() == BOT_BIKE)
-			{
-				vec3 current_direction = normalize(controllableX->get_chassis()->get_direction_vector());
-				vec3 current_postion = controllableX->get_chassis()->get_location();
-				vec3 desired_direction = normalize(pickup - current_postion);
-				float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
-				float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
-				float angle = -atan2(det1, dot1);
-				// Go to target location
-				controllableX->set_motion(&Controller::forward);
-				controllableX->set_steering(&Controller::steer);
-				controllableX->set_direction(angle/PxPi);
-				controllableX->set_acceleration(controllableX->get_max_acceleration());
-			}
-			else if(bikeX->get_subtype() == PLAYER_BIKE)
-			{
-				update_player(bikeX);
-			}
+			//cout << "left" << endl;
+			controller->set_direction(avoidance_angle);
 		}
-		//else {
-		//	bike_manager->kill_bike(controllableX->get_chassis());
-		//}
+		else if (bike->lefts() < bike->rights())
+		{
+			//cout << "right" << endl;
+			controller->set_direction(-avoidance_angle);
+		}
+		else
+		{
+			vec3 pickup = powerup_manager->get_all_instant_entities()[0]->get_location();
+			vec3 current_direction = normalize(chassis->get_direction_vector());
+			vec3 current_postion = chassis->get_location();
+			vec3 desired_direction = normalize(pickup - current_postion);
+			float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
+			float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
+			float angle = -atan2(det1, dot1);
+			// Go to target location
+			controller->set_direction(angle/PxPi/2.f);
+		}
+		controller->set_motion(&Controller::forward);
+		controller->set_steering(&Controller::steer);
+		controller->set_acceleration(controller->get_max_acceleration());
 	}
 }
 
@@ -185,6 +194,16 @@ void AI::update_controller(Bike* bike)
 	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X))
 	{
 		sfxMix->ClipFrom("../data/Audio/onDeath/");
+	}
+
+	// Show scoreboard
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_BACK))
+	{
+		bike->set_show_scoreboard(true);
+	}
+	else
+	{
+		bike->set_show_scoreboard(false);
 	}
 
 	player->set_motion(&Controller::forward);

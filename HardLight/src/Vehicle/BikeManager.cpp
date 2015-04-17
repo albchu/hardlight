@@ -70,7 +70,7 @@ BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* in
 }
 
 // Creates a player chassis, loads it onto the world and adds it to the player bike_manager vector
-void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_controller)
+Bike* BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_controller)
 {
 	Controller* controller = new Player_Controller(chassis, sdl_controller);
 	Bike* new_bike = new Bike(chassis, PLAYER_BIKE, config, controller);
@@ -83,10 +83,11 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 	chassis->set_trans_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTransTexture));
 	new_bike->get_tail()->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.tailTexture));
 	player_bikes.push_back(new_bike);
+	return new_bike;
 }
 
 // Creates a bot chassis, loads it onto the world and adds it to the bot bike_manager vector
-void BikeManager::add_bot_bike(Chassis* chassis)
+Bike* BikeManager::add_bot_bike(Chassis* chassis)
 {
 	Controller* controller = new Bot_Controller(chassis);
 	Bike* new_bike = new Bike(chassis, BOT_BIKE, config, controller);
@@ -99,6 +100,7 @@ void BikeManager::add_bot_bike(Chassis* chassis)
 	chassis->set_trans_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTransTexture));
 	new_bike->get_tail()->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.tailTexture));
 	bot_bikes.push_back(new_bike);
+	return new_bike;
 }
 
 vector<Bike*> BikeManager::get_all_bikes()

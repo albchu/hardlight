@@ -25,6 +25,8 @@ class Bike : public Entity
 
 public:
 	int power;
+	int left_contacts;
+	int right_contacts;
 	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
@@ -46,6 +48,20 @@ public:
 	void check_ghost_powerup(); 
 	void check_super_saiyen_powerup();
 
+	// update the score (on instant powerup pickup)
+	int get_player_score();
+	void update_player_score();
+	void set_show_scoreboard(bool show_scoreboard);
+	bool get_show_scoreboard();
+
+	// contact management
+	void add_left_contact();
+	void add_right_contact();
+	void remove_left_contact();
+	void remove_right_contact();
+	int lefts();
+	int rights();
+
 private:
 	Controller* controller;
 	Chassis* chassis;
@@ -59,5 +75,7 @@ private:
 	INIReader* config;
 	PowerupTimers* powerup_timers; // Variables needed for timed powerups
 	Powerup<Hold>::PowerCallback powerup;
+	int player_score;
+	bool show_scoreboard;
 };
 #endif
