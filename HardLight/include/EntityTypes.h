@@ -16,7 +16,8 @@ enum EntityTypes
 	CAMERA		= 1 << 9,
 	PARSYSTEM   = 1 << 10,
 	AILEFT		= 1 << 11,
-	AIRIGHT		= 1 << 12
+	AIRIGHT		= 1 << 12,
+	AICENTER	= 1 << 13
 };
 
 enum BikeSubTypes

@@ -130,6 +130,7 @@ private:
 	float size;
 	float gravity;
 	float dampening;
+	bool classic;
 	MapTypes map_type;
 
 	PxVehicleDrivableSurfaceToTireFrictionPairs* gFrictionPairs;
