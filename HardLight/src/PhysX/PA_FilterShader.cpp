@@ -14,12 +14,10 @@ PxFilterFlags PhysxAgent::gFilterShader(PxFilterObjectAttributes attributes0, Px
 	else
 	{
 		pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+		if ((filterData0.word0 & EntityTypes::BIKE) || (filterData1.word0 & EntityTypes::BIKE))
+		{
+			pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+		}
 	}
-
-	if ((filterData0.word0 & EntityTypes::BIKE) || (filterData1.word0 & EntityTypes::BIKE))
-	{
-		pairFlags = pairFlags | PxPairFlag::eNOTIFY_TOUCH_FOUND;
-	}
-
 	return PxFilterFlag::eDEFAULT;
 }

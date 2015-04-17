@@ -6,7 +6,8 @@ AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix, INIReader* config)
 	bike_manager = init_manager;
 	sfxMix = init_sfxMix;
 	avoidance_angle = radians((float)config->GetReal("ai", "avoidance_angle", 90.0));
-	aiCalc = new LoopTimer(50, 50);
+	int t = config->GetInteger("ai", "timer", 50);
+	aiCalc = new LoopTimer(t, t);
 }
 
 //void AI::notify(SDL_Keycode key)
@@ -84,27 +85,40 @@ void AI::update_bikes(PowerupManager* powerup_manager)
 			Chassis* chassis = controller->get_chassis();
 			if (!chassis->is_renderable())
 				continue;
-			if (bike->lefts() > bike->rights())
+			int turn = bike->get_turn();
+			if (turn == 0 && bike->lefts() == 0 && bike->rights() == 0)
 			{
-				//cout << "left" << endl;
-				controller->set_direction(avoidance_angle);
-			}
-			else if (bike->lefts() < bike->rights())
-			{
-				//cout << "right" << endl;
-				controller->set_direction(-avoidance_angle);
-			}
-			else
-			{
-				vec3 pickup = powerup_manager->get_all_instant_entities()[0]->get_location();
 				vec3 current_direction = normalize(chassis->get_direction_vector());
 				vec3 current_postion = chassis->get_location();
+				vec3 pickup = vec3(0, 0, 0);
+				float d = FLT_MAX;
+
+				for (int i = 0; (unsigned int)i < powerup_manager->get_all_instant_entities().size(); i++)
+				{
+					vec3 new_pickup = powerup_manager->get_all_instant_entities()[i]->get_location();
+					float new_d = glm::distance(new_pickup, current_postion);
+					if (new_d < d)
+					{
+						pickup = new_pickup;
+						d = new_d;
+					}
+				}
 				vec3 desired_direction = normalize(pickup - current_postion);
 				float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
 				float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
 				float angle = -atan2(det1, dot1);
 				// Go to target location
 				controller->set_direction(angle/PxPi/2.f);
+				//cout << angle << endl;
+			}
+			else
+			{
+				if (turn == 0 && bike->centers() > 0)
+				{
+					turn = 1;
+				}
+				//printf("%d\t%d\t%d\t%d\n", bike->lefts(), bike->centers(), bike->rights(), bike->get_turn());
+				controller->set_direction(avoidance_angle*turn);
 			}
 			controller->set_motion(&Controller::forward);
 			controller->set_steering(&Controller::steer);

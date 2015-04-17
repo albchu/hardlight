@@ -2,17 +2,18 @@
 
 bool HardLight::BuildScene()
 {
-	/*
+	/* // debug code
 	config = new INIReader("config.ini");
 	size = (float)config->GetReal("scene", "size", 300.0);
 	gravity = (float)config->GetReal("scene", "gravity", 9.81);
 	dampening = (float)config->GetReal("bike", "dampening", 0.0);
 	msMax = config->GetInteger("physics", "msMax", 100);
 	speed = (float)config->GetReal("controls", "speed", 1.0);
-	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
+	numPlayers = config->GetInteger("game", "numPlayers", 1);	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
 	numBots = config->GetInteger("game", "numBots", 0);	
 	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);
 	numHoldPowerups = config->GetInteger("powerup", "maxHolds", 1);
+	classic = config->GetBoolean("camera", "classic", false);
 	*/
 	// Initialize viewport info. Moved into build scene due to num players being able to be changed in menu after init is called
 	loading_update("Generating viewports");
