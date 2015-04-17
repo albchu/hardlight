@@ -181,10 +181,12 @@ void HardLight::OnLoop()
 					if(bike->get_id() == viewports[i].id)
 					{
 						viewports[i].message = "You Win!";
+						sfxMix.ClipFrom("../data/Audio/onWin/");
 					}
 					else 
 					{
 						viewports[i].message = "You Lost!";
+						sfxMix.ClipFrom("../data/Audio/onLose/");
 					}
 				}
 				scene = GAME_OVER;

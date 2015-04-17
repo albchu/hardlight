@@ -179,7 +179,7 @@ void HardLight::menu_update()
 	}
 	else if(!classic)
 	{
-		classicOption->set_text("Classic Camera: Disactivated");
+		classicOption->set_text("Classic Camera: Deactivated");
 	}
 
 	if(restart_trigger)
