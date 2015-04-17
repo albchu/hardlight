@@ -20,7 +20,7 @@ SoundMixer::SoundMixer()
 	musicVolume = -1;
 	sfxVolume = -1;
 
-	numChannels = 65;
+	numChannels = 70;
 	currentChannelIndex = 0;
 }
 
@@ -351,17 +351,45 @@ bool SoundMixer::ClipFrom(const char* directory)
 	std::cout << "The selected sound effect is" << path << std::endl;
 
 	// Play selected file
-	//if( Mix_Playing(64) == 1)
-	//{	
-	//	printf("Random sound currently playing");
-	//	return false;
-	//}
-	Mix_Volume(64, 128);
-	int errorCode = Mix_PlayChannel(64, randomSoundEffect, 0);
-	if( errorCode == -1)
+	if(strcmp(directory, "../data/Audio/taunts/") == 0)
 	{
-		printf("Channel: %d\n", errorCode);
-		return false;
+		Mix_Volume(64, 128);
+		int errorCode = Mix_PlayChannel(64, randomSoundEffect, 0);
+		if( errorCode == -1)
+		{
+			printf("Channel: %d\n", errorCode);
+			return false;
+		}
+	}
+	else if(strcmp(directory, "../data/Audio/onDeath/") == 0)
+	{
+		Mix_Volume(65, 128);
+		int errorCode = Mix_PlayChannel(65, randomSoundEffect, 0);
+		if( errorCode == -1)
+		{
+			printf("Channel: %d\n", errorCode);
+			return false;
+		}
+	}
+	else if(strcmp(directory, "../data/Audio/onWin/") == 0)
+	{
+		Mix_Volume(66, 128);
+		int errorCode = Mix_PlayChannel(66, randomSoundEffect, 0);
+		if( errorCode == -1)
+		{
+			printf("Channel: %d\n", errorCode);
+			return false;
+		}
+	}
+	else if(strcmp(directory, "../data/Audio/onLose/") == 0)
+	{
+		Mix_Volume(67, 128);
+		int errorCode = Mix_PlayChannel(67, randomSoundEffect, 0);
+		if( errorCode == -1)
+		{
+			printf("Channel: %d\n", errorCode);
+			return false;
+		}
 	}
 
 	return true;

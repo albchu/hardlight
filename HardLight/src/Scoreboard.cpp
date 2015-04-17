@@ -68,7 +68,7 @@ void Scoreboard::update_scoreboard()
 void Scoreboard::render_scoreboard(Viewports::Viewport viewport, FTGLPixmapFont * font)
 {
 	// render the scoreboard to the viewport
-	unsigned int letter_size = viewport.height/3/num_scoreboard_players;
+	unsigned int letter_size = viewport.height/4/num_scoreboard_players;
 	font->FaceSize(letter_size);
 	for(unsigned int i = 0; i < num_scoreboard_players; i++)
 	{

@@ -106,7 +106,7 @@ void HardLight::OnRender()
 		}
 	}
 	// Game timer
-	font->FaceSize(window_height/8);
+	font->FaceSize(window_height/16);
 
 	int min = timer/60000;
 	int sec = (timer%60000)/1000; 
@@ -127,7 +127,7 @@ void HardLight::OnRender()
 			ss<<sec-3;
 		}
 	}
-	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/8);
+	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/16);
 	font->Render(ss.str().c_str(), -1, mid);
 	SDL_GL_SwapWindow(window);
 }
