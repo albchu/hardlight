@@ -34,6 +34,7 @@ void HardLight::OnRender()
 		for(unsigned int k = 0; k < world.getEntities().size(); k++)
 		{
 			if(world.getEntities()[k]->is_renderable())
+				//world.getEntities()[k]->render(viewport.camera->get_projection_matrix(), lookAt(vec3(0,size*1.5f,0),vec3(0,0,0), vec3(1,0,0)), viewport.camera->get_light());
 				world.getEntities()[k]->render(viewport.camera->get_projection_matrix(), viewport.camera->get_view_matrix(), viewport.camera->get_light());
 		}
 		FTPoint messagePos(viewport.x + (viewport.width/2.0f) - 200, viewport.y + viewport.height/2 + 30, 190);

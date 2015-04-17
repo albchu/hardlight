@@ -18,6 +18,9 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	powerup_timers = new PowerupTimers();
 	powerup_timers->powerup_duration =(float)config->GetReal("powerup", "duration", 3.0);
 	power = -1;
+
+	left_contacts = 0;
+	right_contacts = 0;
 }
 
 Chassis* Bike::get_chassis()
@@ -129,3 +132,36 @@ BikeID Bike::get_id() {
 void Bike::set_id(BikeID id) {
 	bikeID = id;
 }
+
+void Bike::add_left_contact()
+{
+	left_contacts++;
+}
+
+void Bike::add_right_contact()
+{
+	right_contacts++;
+}
+
+void Bike::remove_left_contact()
+{
+	if (left_contacts > 0)
+		left_contacts--;
+}
+
+void Bike::remove_right_contact()
+{
+	if (right_contacts > 0)
+		right_contacts--;
+}
+
+int Bike::lefts()
+{
+	return left_contacts;
+}
+
+int Bike::rights()
+{
+	return right_contacts;
+}
+

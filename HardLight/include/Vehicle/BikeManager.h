@@ -22,9 +22,9 @@ class BikeManager
 {
 public:
 	BikeManager(World* new_world, INIReader* new_config, PhysxAgent* init_pxAgent);
-	void add_bot_bike(Chassis* bike);
-	void add_player_bike(Chassis* bike, SDL_GameController* controller);
-	void add_player_bike(Chassis* chassis, KeyMapping keymapping);
+	Bike* add_bot_bike(Chassis* bike);
+	Bike* add_player_bike(Chassis* bike, SDL_GameController* controller);
+	//Bike* add_player_bike(Chassis* chassis, KeyMapping keymapping);
 	vector<Bike*> get_all_bikes();
 	vector<Bike*> get_player_bikes();
 	vector<Bike*> get_bot_bikes();

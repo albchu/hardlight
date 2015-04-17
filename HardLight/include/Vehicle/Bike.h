@@ -25,6 +25,8 @@ class Bike : public Entity
 
 public:
 	int power;
+	int left_contacts;
+	int right_contacts;
 	Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_config, Controller* new_controller);
 	virtual void render(mat4 projection_matrix, mat4 view_matrix, vec3 lightPos);	// Need to override to call each subentities respective elements
 	BikeSubTypes get_subtype();
@@ -45,6 +47,14 @@ public:
 	// check the timers in powerup_timers
 	void check_ghost_powerup(); 
 	void check_super_saiyen_powerup();
+
+	// contact management
+	void add_left_contact();
+	void add_right_contact();
+	void remove_left_contact();
+	void remove_right_contact();
+	int lefts();
+	int rights();
 
 private:
 	Controller* controller;
