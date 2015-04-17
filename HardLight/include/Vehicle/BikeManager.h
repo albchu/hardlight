@@ -38,6 +38,7 @@ public:
 	Bike* get_bike(PxRigidActor* actor);
 	void kill_bike(Bike* bike);
 	void clear_controllers();
+	void release();
 
 private:
 	vector<Bike*> player_bikes;

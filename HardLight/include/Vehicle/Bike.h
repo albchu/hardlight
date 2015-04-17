@@ -64,6 +64,12 @@ public:
 	int centers();
 	int get_turn();
 
+	// manage button presses for player bikes
+	void set_x_toggle(bool x_toggle);
+	bool get_x_toggle();
+	void set_y_toggle(bool y_toggle);
+	bool get_y_toggle();
+
 private:
 	int left_contacts;
 	int right_contacts;
@@ -83,5 +89,7 @@ private:
 	Powerup<Hold>::PowerCallback powerup;
 	int player_score;
 	bool show_scoreboard;
+	bool x_toggle;
+	bool y_toggle;
 };
 #endif

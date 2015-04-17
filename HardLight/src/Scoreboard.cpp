@@ -65,7 +65,7 @@ void Scoreboard::update_scoreboard()
 	}
 }
 
-void Scoreboard::render_scoreboard(Viewports::Viewport viewport, FTGLPixmapFont * font)
+void Scoreboard::render_scoreboard(Viewports::Viewport viewport, FTBitmapFont * font)
 {
 	// render the scoreboard to the viewport
 	unsigned int letter_size = viewport.height/3/num_scoreboard_players;

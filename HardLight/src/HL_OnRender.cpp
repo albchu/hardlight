@@ -5,10 +5,6 @@
 //==============================================================================
 void HardLight::OnRender()
 {
-	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msGraphics < 1000 / 60) return;
-	timer += msCurrent - msGraphics;
-	msGraphics = msCurrent;
 	stringstream ss;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -64,10 +60,17 @@ void HardLight::OnRender()
 			font->FaceSize(viewport.height/8);
 			subMessagePos = FTPoint(viewport.x+(viewport.width/2) - (font->BBox("Press START to exit").Lower().X()+font->BBox("Press START to exit").Upper().X())/2, messagePos.Y() - viewport.height/4/2);
 			font->Render("Press START to exit", -1, subMessagePos);
+
+			Bike* b = bike_manager->get_all_bikes()[i % bike_manager->get_all_bikes().size()];
+			if(b->get_show_scoreboard() == true)
+			{
+				scoreboard.render_scoreboard(viewport, font);
+			}
 		}
 		else if(scene == GAME) 
 		{
-			if (powerUpMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0){
+			if (powerUpMessage[0] == '\0' && bike_manager->get_all_bikes().size() > 0)
+			{
 				Bike* b = bike_manager->get_all_bikes()[i % bike_manager->get_all_bikes().size()];
 				switch (b->power)
 				{
@@ -90,8 +93,8 @@ void HardLight::OnRender()
 				powerUpMessage = "";
 
 				if(b->get_show_scoreboard() == true)
-			//	if(viewport.id == BIKE1 || viewport.id == BIKE4)
-			//	if(true)
+					//	if(viewport.id == BIKE1 || viewport.id == BIKE4)
+						//	if(true)
 				{
 					scoreboard.render_scoreboard(viewport, font);
 				}
@@ -100,7 +103,7 @@ void HardLight::OnRender()
 	}
 	// Game timer
 	font->FaceSize(window_height/8);
-	
+
 	int min = timer/60000;
 	int sec = (timer%60000)/1000; 
 	ss.str("");

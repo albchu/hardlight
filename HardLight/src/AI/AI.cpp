@@ -214,9 +214,14 @@ void AI::update_controller(Bike* bike)
 		}
 	}
 	// Trigger random taunt sound
-	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_Y))
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_Y) == true && bike->get_y_toggle() == false)
 	{
 		sfxMix->ClipFrom("../data/Audio/taunts/");
+		bike->set_y_toggle(true);
+	}
+	else if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_Y) == false && bike->get_y_toggle() == true)
+	{
+		bike->set_y_toggle(false);
 	}
 
 	// Trigger random taunt sound
@@ -225,13 +230,14 @@ void AI::update_controller(Bike* bike)
 	}
 
 	// Show scoreboard
-	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X))
+	if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X) == true && bike->get_x_toggle() == false)
 	{
-		bike->set_show_scoreboard(true);
+		bike->set_show_scoreboard(!(bike->get_show_scoreboard()));
+		bike->set_x_toggle(true);
 	}
-	else
+	else if(SDL_GameControllerGetButton(player->get_controller(), SDL_CONTROLLER_BUTTON_X) == false && bike->get_x_toggle() == true) 
 	{
-		bike->set_show_scoreboard(false);
+		bike->set_x_toggle(false);
 	}
 
 	player->set_motion(&Controller::forward);

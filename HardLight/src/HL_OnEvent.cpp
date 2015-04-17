@@ -164,8 +164,12 @@ void HardLight::reset()
 		bike_manager->kill_bike(bike);
 	}
 	for(Viewports::Viewport port : viewports)
+	{
 		port.message = "";
-	bike_manager->clear_controllers();
+		delete port.camera;
+	}
+	viewports.clear();
+	bike_manager->release();
 	pxAgent->cleanup();
 	pxAgent = new PhysxAgent(config, this);
 	bikesToKill.clear();
