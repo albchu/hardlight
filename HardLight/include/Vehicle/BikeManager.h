@@ -20,6 +20,7 @@ using namespace std;
 struct BikeAssignment
 {
 	const char* bikeTexture;
+	const char* bikeTransTexture;
 	const char* tailTexture;
 };
 

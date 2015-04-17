@@ -38,6 +38,14 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 //==============================================================================
 void HardLight::OnLoop()
 {
+	Uint32 msCurrent = SDL_GetTicks();
+	if (msCurrent - msPhysics < 1000 / 60) 
+		return;
+	Uint32 elapsed = msCurrent - msPhysics;
+	if (elapsed > msMax) 
+		elapsed = msMax;
+	float timestep = elapsed / 1000.0f;
+
 	float closest_sound = FLT_MAX;
 
 	// Delete all bikes queued up to be destroyed
@@ -77,22 +85,10 @@ void HardLight::OnLoop()
 	// Process all powerups that were hit. Note: Cannot be done in OnTrigger because physx complains
 	for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
 	{
-		//messageTime = SDL_GetTicks();
-		//if(get<1>(pair)->getName() == "HOLD") {
-		//	powerUpMessage = "Power up ready";
-		//}
-		//else if(get<1>(pair)->getName() == "INSTANT") {
-		//	powerUpMessage = "Tail extended";
-		//}
 		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
 	}
 	bikePowerupPairs.clear();
 
-	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msPhysics < 1000 / 60) return;
-	Uint32 elapsed = msCurrent - msPhysics;
-	if (elapsed > msMax) elapsed = msMax;
-	float timestep = elapsed / 1000.0f;
 
 	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
 	for(Bike* bike : bike_manager->get_all_bikes())

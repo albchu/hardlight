@@ -24,28 +24,36 @@ BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* in
 	BikeAssignment bikeAssign7;
 	BikeAssignment bikeAssign8;
 
-	bikeAssign1.bikeTexture = "../data/Textures/BikeTextureRed.tga";
+	bikeAssign1.bikeTexture = "../data/Textures/BikeTextureBlue.tga";
+	bikeAssign1.bikeTransTexture = "../data/Textures/BikeTextureBlueTrans.tga";
 	bikeAssign1.tailTexture = "../data/Textures/LightTrailRed.tga";
 
 	bikeAssign2.bikeTexture = "../data/Textures/BikeTextureYellow.tga";
+	bikeAssign2.bikeTransTexture = "../data/Textures/BikeTextureYellowTrans.tga";
 	bikeAssign2.tailTexture = "../data/Textures/LightTrailYellow.tga";
 	
 	bikeAssign3.bikeTexture = "../data/Textures/BikeTextureLightBlue.tga";
+	bikeAssign3.bikeTransTexture = "../data/Textures/BikeTextureLightBlueTrans.tga";
 	bikeAssign3.tailTexture = "../data/Textures/LightTrailLightBlue.tga";
 
 	bikeAssign4.bikeTexture = "../data/Textures/BikeTextureBlue.tga";
+	bikeAssign4.bikeTransTexture = "../data/Textures/BikeTextureBlueTrans.tga";
 	bikeAssign4.tailTexture = "../data/Textures/LightTrailBlue.tga";
 
 	bikeAssign5.bikeTexture = "../data/Textures/BikeTextureLightGreen.tga";
+	bikeAssign5.bikeTransTexture = "../data/Textures/BikeTextureLightGreenTrans.tga";
 	bikeAssign5.tailTexture = "../data/Textures/LightTrailGreen.tga";
 
 	bikeAssign6.bikeTexture = "../data/Textures/BikeTextureOrange.tga";
+	bikeAssign6.bikeTransTexture = "../data/Textures/BikeTextureOrangeTrans.tga";
 	bikeAssign6.tailTexture = "../data/Textures/LightTrailOrange.tga";
 	
 	bikeAssign7.bikeTexture = "../data/Textures/BikeTexturePink.tga";
+	bikeAssign7.bikeTransTexture = "../data/Textures/BikeTexturePinkTrans.tga";
 	bikeAssign7.tailTexture = "../data/Textures/LightTrailPink.tga";
 	
 	bikeAssign8.bikeTexture = "../data/Textures/BikeTexturePurple.tga";
+	bikeAssign8.bikeTransTexture = "../data/Textures/BikeTexturePurpleTrans.tga";
 	bikeAssign8.tailTexture = "../data/Textures/LightTrailPurple.tga";
 
 	bikeAssignments.push_back(bikeAssign1);
@@ -72,6 +80,7 @@ void BikeManager::add_player_bike(Chassis* chassis, SDL_GameController* sdl_cont
 	selectedIndex = (selectedIndex + 1) % bikeAssignments.size();
 	BikeAssignment bikeAssignment = bikeAssignments[selectedIndex];
 	chassis->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTexture));
+	chassis->set_trans_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTransTexture));
 	new_bike->get_tail()->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.tailTexture));
 	player_bikes.push_back(new_bike);
 }
@@ -87,6 +96,7 @@ void BikeManager::add_bot_bike(Chassis* chassis)
 	selectedIndex = (selectedIndex + 1) % bikeAssignments.size();
 	BikeAssignment bikeAssignment = bikeAssignments[selectedIndex];
 	chassis->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTexture));
+	chassis->set_trans_texture(TextureMap::Instance()->getTexture(bikeAssignment.bikeTransTexture));
 	new_bike->get_tail()->set_texture(TextureMap::Instance()->getTexture(bikeAssignment.tailTexture));
 	bot_bikes.push_back(new_bike);
 }

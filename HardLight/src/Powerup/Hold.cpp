@@ -37,6 +37,7 @@ void Hold::ghost(Chassis* chassis, TailWall* tailwall, INIReader* config, Poweru
 
 	// Activate ghost ability
 	chassis->set_invincible(true);
+	chassis->set_texture(chassis->get_trans_texture());		// Change texture of chassis
 }
 
 void Hold::super_saiyen(Chassis* chassis, TailWall* tailwall, INIReader* config, PowerupTimers* powerup_timers)

@@ -14,7 +14,6 @@ TailWall::TailWall(Chassis* new_bike, INIReader* new_config)
 	last_position = getTailPosition();
 	width = (float)config->GetReal("tail", "width", 1);
 	height = (float)config->GetReal("tail", "height", 1);
-	//texture = TextureMap::Instance()->getTexture("../data/Textures/LightTrailNew3.tga");
 
 	// Create and compile our GLSL program from the shaders
 	program_id = LoadShaders("basic_vs.glsl", "basic_fs.glsl");
