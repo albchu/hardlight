@@ -82,6 +82,8 @@ void HardLight::OnLoop()
 				particleEntity->setParticleSystem(particleSystem);
 				particleEntity->setParticleData(particleData);
 				world.add_entity(particleEntity);
+
+				sfxMix.ClipFrom("../data/Audio/onDeath/");
 			}
 		}
 		if (closest_sound < FLT_MAX)
@@ -200,9 +202,13 @@ void HardLight::OnLoop()
 			for(unsigned int i = 0; i < viewports.size(); i++) {
 				if(aBike->get_id() == viewports[i].id) {
 					viewports[i].message = "You Win!";
+					sfxMix.ClipFrom("../data/Audio/onWin/");
+
 				}
 				else {
 					viewports[i].message = "You Lost!";
+					sfxMix.ClipFrom("../data/Audio/onLose/");
+
 				}
 			}
 			scene = GAME_OVER;
@@ -211,6 +217,8 @@ void HardLight::OnLoop()
 		{
 			for(unsigned int i = 0; i < viewports.size(); i++) {
 				viewports[i].message = "You Lost!";
+				sfxMix.ClipFrom("../data/Audio/onLose/");
+
 			}
 			scene = GAME_OVER;
 		}

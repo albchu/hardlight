@@ -41,6 +41,8 @@ public:
 	void toggle_flag();
 	const char* get_text();
 	void set_text(const char* new_text);
+	void set_selectable(bool new_selectable);
+	bool is_selectable();
 
 protected:
 	const char * id;	// different from text incase text changes, this wont be lost
@@ -54,6 +56,7 @@ protected:
 	int padding_w_scalar;
 	int padding_h_scalar;
 	bool is_selected;
+	bool selectable;
 
 	// Option Data. These fields can vary in which ones are filled at any time
 	OptionType type;

@@ -62,7 +62,11 @@ void MenuManager::up()
 	if(curr_selected < 0)
 		curr_selected = curr_selected + curr_menu->get_option_ids().size();
 	curr_selected = (curr_selected) % curr_menu->get_option_ids().size();
+
+	MenuOption* option = curr_menu->get_options()[curr_menu->get_selected_index()];
+
 	curr_menu->set_selected(curr_selected);
+
 }
 
 void MenuManager::select()

@@ -2,8 +2,10 @@
 #include "HardLight.h"
 //==============================================================================
 
-const int deadZone = 8000;
+const int deadZone = 30000;
 const float minAccel = 0.85f;
+bool xMoved = false;
+bool yMoved = false;
 
 void HardLight::OnEvent(SDL_Event* Event)
 {
@@ -103,25 +105,54 @@ void HardLight::OnEvent(SDL_Event* Event)
 			break;
 		}
 		break; // end SDL_CONTROLLERBUTTONDOWN
-		/*
-		case SDL_CONTROLLERAXISMOTION:
-		int LeftX = SDL_GameControllerGetAxis(Event->, SDL_CONTROLLER_AXIS_RIGHTX);
-		int LeftY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_RIGHTY);
-		if(RightX < -deadZone){
-		left =(RightX)/(-32768.0f);
-		}else if(RightX > deadZone){
-		left = (RightX)/(-32768.0f);
-		}else {
-		left = right = 0.0f;
-		}		
-		if(RightY > deadZone){
-		forward = (RightY)/(-32768.0f);
-		}else if(RightY < -deadZone){
-		forward = (RightY)/(-32768.0f);
-		}else{
-		forward = back = 0.0f;
+
+	case SDL_CONTROLLERAXISMOTION:
+		if(menu_active)
+		{
+			int LeftX = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTX);
+			int LeftY = SDL_GameControllerGetAxis(controllers[0], SDL_CONTROLLER_AXIS_LEFTY);
+			if(LeftX < -deadZone)
+			{
+				if (!xMoved)
+				{
+					menuManager->left();
+					xMoved=true;
+				}
+			}
+			else if(LeftX > deadZone)
+			{
+				if (!xMoved)
+				{
+					menuManager->right();
+					xMoved=true;
+				}
+			}
+			else
+			{
+				xMoved=false;
+			}		
+			if(LeftY > deadZone)
+			{
+				if (!yMoved)
+				{
+					menuManager->down();
+					yMoved=true;
+				}
+			}
+			else if(LeftY < -deadZone)
+			{
+				if (!yMoved)
+				{
+					menuManager->up();
+					yMoved=true;
+				}
+			}
+			else
+			{
+				yMoved = false;
+			}
 		}
-		break;*/
+		break; // end SDL_CONTROLLERAXISMOTION
 	} // end type
 }
 
