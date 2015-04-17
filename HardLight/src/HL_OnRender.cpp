@@ -6,7 +6,7 @@
 void HardLight::OnRender()
 {
 	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msGraphics < 1000 / 60) return;
+	//if (msCurrent - msGraphics < 1000 / 60) return;
 	timer += msCurrent - msGraphics;
 	msGraphics = msCurrent;
 	stringstream ss;
@@ -17,7 +17,6 @@ void HardLight::OnRender()
 	{
 		Viewports::Viewport viewport = viewports[i];
 
-		
 		font->FaceSize(80);
 		font->CharMap(ft_encoding_unicode);
 		if( bike_manager->get_player_bikes().size() > i && controllers.size() > i)
@@ -30,6 +29,7 @@ void HardLight::OnRender()
 		{
 			viewport.camera->update(0.f, 0.f);
 		}
+
 		glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
 		for(unsigned int k = 0; k < world.getEntities().size(); k++)
 		{

@@ -88,6 +88,8 @@ void Camera::update(float translationZ, float rotationRads)
 	camera_position += PhysxAgent::toVec3(target.p);
 
 	view_matrix = lookAt(camera_position, PhysxAgent::toVec3(target.p + up*look_above), PhysxAgent::toVec3(up));
+	cout << "Camera Position: " << glm::to_string(camera_position) << endl;
+
 }
 
 mat4 Camera::get_view_matrix()

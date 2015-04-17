@@ -18,6 +18,9 @@ Bike::Bike(Chassis* init_chassis, BikeSubTypes init_subtype, INIReader* new_conf
 	powerup_timers = new PowerupTimers();
 	powerup_timers->powerup_duration =(float)config->GetReal("powerup", "duration", 3.0);
 	power = -1;
+
+	// Initialize glow
+	chassisGlow = 
 }
 
 Chassis* Bike::get_chassis()

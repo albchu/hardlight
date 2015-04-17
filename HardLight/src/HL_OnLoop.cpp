@@ -39,58 +39,68 @@ PxVehiclePadSmoothingData gPadSmoothingData=
 void HardLight::OnLoop()
 {
 	Uint32 msCurrent = SDL_GetTicks();
-	if (msCurrent - msPhysics < 1000 / 60) 
-		return;
+	//if (msCurrent - msPhysics < 1000 / 60)
+	//{
+	//	cout << "On loop returned" << endl;
+	//	return;
+	//}
 	Uint32 elapsed = msCurrent - msPhysics;
 	if (elapsed > msMax) 
 		elapsed = msMax;
 	float timestep = elapsed / 1000.0f;
-
+	if(timestep < 0.001)
+		timestep = 0.001;
+	cout << "TimeStep: " << timestep << endl;
 	float closest_sound = FLT_MAX;
 
 	// Delete all bikes queued up to be destroyed
-	for (Bike* bikeX : bikesToKill)
+	if(deathCalc->ready())
 	{
-		if (!bikeX->get_chassis()->is_invincible())
+		for (Bike* bikeX : bikesToKill)
 		{
-			if(bikeX->get_subtype() == PLAYER_BIKE)
+			if (!bikeX->get_chassis()->is_invincible())
 			{
-				((Player_Controller*)bikeX->get_controller())->rumble(1.0, 220);
+				if(bikeX->get_subtype() == PLAYER_BIKE)
+				{
+					((Player_Controller*)bikeX->get_controller())->rumble(1.0, 220);
+				}
+
+				for (Bike* bikeY : bike_manager->get_player_bikes())
+					closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
+				bike_manager->kill_bike(bikeX);
+
+				PxVec3 collisionPosition = PxVec3(bikeX->get_chassis()->get_actor()->getGlobalPose().p);
+				// initialize creation data: random velocities and directions
+				particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, particleSpeed, &particleData, collisionPosition);
+				// initialize particle system
+				particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
+
+				// add to scene
+				if(particleSystem)
+					pxAgent->get_scene()->addActor(*particleSystem);
+
+				ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), bikeX->get_tail()->get_texture(), SDL_GetTicks());
+				particleEntity->setParticleSystem(particleSystem);
+				particleEntity->setParticleData(particleData);
+				world.add_entity(particleEntity);
 			}
-
-			for (Bike* bikeY : bike_manager->get_player_bikes())
-				closest_sound = glm::min(closest_sound, bikeY->get_chassis()->get_distance(bikeX->get_chassis()));
-			bike_manager->kill_bike(bikeX);
-
-			PxVec3 collisionPosition = PxVec3(bikeX->get_chassis()->get_actor()->getGlobalPose().p);
-			// initialize creation data: random velocities and directions
-			particleCreationData = ParticleFactory::createRandomParticleData(maxParticles, particleSpeed, &particleData, collisionPosition);
-			// initialize particle system
-			particleSystem = ParticleFactory::createParticles(maxParticles, pxAgent->get_physics(), particleCreationData);
-
-			// add to scene
-			if(particleSystem)
-				pxAgent->get_scene()->addActor(*particleSystem);
-
-			ParticleSystem* particleEntity = new ParticleSystem(pxAgent->get_physics()->createRigidStatic(PxTransform(PxVec3(0.0f, 5.0f, 0.0f))), ParticleFactory::createMeshData(particleSystem), bikeX->get_tail()->get_texture(), SDL_GetTicks());
-			particleEntity->setParticleSystem(particleSystem);
-			particleEntity->setParticleData(particleData);
-			world.add_entity(particleEntity);
 		}
+		if (closest_sound < FLT_MAX)
+			sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);
+		bikesToKill.clear();
 	}
-	if (closest_sound < FLT_MAX)
-		sfxMix.PlaySoundEffect("sfxExplosion", closest_sound, 0);
-	bikesToKill.clear();
 
 	// Process all powerups that were hit. Note: Cannot be done in OnTrigger because physx complains
-	for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
+	if(powerupCalc->ready())
 	{
-		powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
+		for(tuple<Bike*,PxRigidActor*> pair : bikePowerupPairs)
+		{
+			powerup_manager->apply_powerup(get<0>(pair), get<1>(pair));
+		}
+		bikePowerupPairs.clear();
 	}
-	bikePowerupPairs.clear();
 
-
-	// Prepare all bikes in the world to move. Albert note: Try moving this to on_init
+	// Prepare all bikes in the world to move. 
 	for(Bike* bike : bike_manager->get_all_bikes())
 	{
 		if(bike->is_renderable())
@@ -144,8 +154,11 @@ void HardLight::OnLoop()
 		bike->get_tail()->update(pxAgent);
 	}
 
-	// Rotate powerups
-	powerup_manager->rotate_all();
+	if(powerupCalc->ready())
+	{
+		// Rotate powerups
+		powerup_manager->rotate_all();
+	}
 
 	// Update all timed powerups
 	for(Bike* bike : bike_manager->get_all_bikes())
@@ -156,7 +169,7 @@ void HardLight::OnLoop()
 
 
 	// Check win/loss condition
-	if(scene == GAME && !config->GetBoolean("game", "debugMode", false))
+	if(winCalc->ready() && scene == GAME && !config->GetBoolean("game", "debugMode", false))
 	{
 		if(bike_manager->get_all_bikes().size() - bike_manager->get_dead_bikes().size() == 1)
 		{

@@ -159,6 +159,12 @@ bool HardLight::OnInit()
 	game_launched = false;
 	scene_built = false;
 
+	// Variables to track when to calculate different stages of onLoop
+	deathCalc = new LoopTimer(5);
+	//aiCalc = new LoopTimer(5);
+	powerupCalc = new LoopTimer(5);
+	winCalc = new LoopTimer(50);
+
 	return true;
 }
 

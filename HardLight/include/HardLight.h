@@ -54,6 +54,7 @@
 #include "ParticleSystem.h"
 #include "Rendering/LTexture.h"
 #include "Menu/MenuManager.h"
+#include "LoopTimer.h"
 
 
 using namespace physx;
@@ -169,6 +170,13 @@ private:
 	int numInstantPowerups;
 	int numHoldPowerups;
 	Uint32 timer;
+
+	// Variables to track when to calculate different stages of onLoop
+	LoopTimer* deathCalc;
+	//LoopTimer* aiCalc;
+	LoopTimer* powerupCalc;
+	LoopTimer* winCalc;
+
 public:
 	HardLight();
 	~HardLight();

@@ -115,6 +115,7 @@
     <ClCompile Include="src\HL_OnRender.cpp" />
     <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\KeyMappings.cpp" />
+    <ClCompile Include="src\LoopTimer.cpp" />
     <ClCompile Include="src\Menu\Menu.cpp" />
     <ClCompile Include="src\Menu\MenuManager.cpp" />
     <ClCompile Include="src\Menu\MenuOption.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="include\HardLight.h" />
     <ClInclude Include="include\Image.h" />
     <ClInclude Include="include\KeyMappings.h" />
+    <ClInclude Include="include\LoopTimer.h" />
     <ClInclude Include="include\MapTypes.h" />
     <ClInclude Include="include\Menu\Menu.h" />
     <ClInclude Include="include\Menu\MenuManager.h" />
