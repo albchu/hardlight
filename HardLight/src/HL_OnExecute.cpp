@@ -19,6 +19,10 @@ int HardLight::OnExecute()
 			OnEvent(&Event);
 		}
 
+		Uint32 msCurrent = SDL_GetTicks();
+		if(scene == GAME && !menu_active) timer += msCurrent - msGraphics;
+		msGraphics = msCurrent;
+
 		if(menu_active)
 		{
 			scene = PAUSE;
