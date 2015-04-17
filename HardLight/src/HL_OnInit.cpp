@@ -5,6 +5,7 @@
 
 bool HardLight::OnInit()
 {
+	cams = glm::max(config->GetInteger("game", "numCameras", 1), (long)numPlayers);
 	numPlayers = config->GetInteger("game", "numPlayers", 1);	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
 	numBots = config->GetInteger("game", "numBots", 0);	
 	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);

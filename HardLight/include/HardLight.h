@@ -159,6 +159,7 @@ private:
 	Menu* pauseMenu;
 	MenuOption* loadingMessage;
 	MenuOption* fullscreenOption;
+	MenuOption* classicOption;
 	bool isFullscreen;
 	bool scene_built;
 	int resolutionIndex;
@@ -166,7 +167,7 @@ private:
 	bool halt_trigger;		// Used if the player wants to go back to main menu
 	bool restart_trigger;
 	bool continue_trigger;	// If the game is paused, this will resume it
-
+	int cams;
 	int numPlayersMenu;		// Tracks the number of players in menu selection. Needs to be separate due to constant iteration in buildscene issue
 	int numPlayers;
 	int numBots;

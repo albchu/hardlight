@@ -42,6 +42,9 @@ public:
     // and valid false values are "false", "no", "off", "0" (not case sensitive).
     bool GetBoolean(std::string section, std::string name, bool default_value);
 
+	// Albert added this. Sets the default value for a particular key
+	void Set(std::string section, std::string name, std::string default_value);
+	void SetInteger(std::string section, std::string name, int default_value);
 private:
     int _error;
     std::map<std::string, std::string> _values;
