@@ -101,7 +101,6 @@ void MenuManager::set_current_menu(Menu * menu, bool dontCreateBackButton)
 	if(menu->get_prev_menu() != NULL)
 		setupOption(menu, backText, backText, curr_menu, dontCreateBackButton);		// Set up the back button reference to the previous menu
 	curr_menu = menu;
-	curr_menu->set_selected(0);		// Set the selected index to the top of the menu
 }
 
 // Returns whether the specified option exists or not in the current menu

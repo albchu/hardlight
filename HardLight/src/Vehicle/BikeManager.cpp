@@ -23,9 +23,10 @@ BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* in
 	BikeAssignment bikeAssign6;
 	BikeAssignment bikeAssign7;
 	BikeAssignment bikeAssign8;
+	BikeAssignment bikeAssign9;
 
-	bikeAssign1.bikeTexture = "../data/Textures/BikeTextureBlue.tga";
-	bikeAssign1.bikeTransTexture = "../data/Textures/BikeTextureBlueTrans.tga";
+	bikeAssign1.bikeTexture = "../data/Textures/BikeTextureRed.tga";
+	bikeAssign1.bikeTransTexture = "../data/Textures/BikeTextureRedTrans.tga";
 	bikeAssign1.tailTexture = "../data/Textures/LightTrailRed.tga";
 
 	bikeAssign2.bikeTexture = "../data/Textures/BikeTextureYellow.tga";
@@ -55,6 +56,10 @@ BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* in
 	bikeAssign8.bikeTexture = "../data/Textures/BikeTexturePurple.tga";
 	bikeAssign8.bikeTransTexture = "../data/Textures/BikeTexturePurpleTrans.tga";
 	bikeAssign8.tailTexture = "../data/Textures/LightTrailPurple.tga";
+		
+	bikeAssign9.bikeTexture = "../data/Textures/BikeTextureGreen.tga";
+	bikeAssign9.bikeTransTexture = "../data/Textures/BikeTextureGreenTrans.tga";
+	bikeAssign9.tailTexture = "../data/Textures/LightTrailGreen.tga";
 
 	bikeAssignments.push_back(bikeAssign1);
 	bikeAssignments.push_back(bikeAssign2);
@@ -64,6 +69,7 @@ BikeManager::BikeManager(World* new_world, INIReader* new_config, PhysxAgent* in
 	bikeAssignments.push_back(bikeAssign6);
 	bikeAssignments.push_back(bikeAssign7);
 	bikeAssignments.push_back(bikeAssign8);
+	bikeAssignments.push_back(bikeAssign9);
 
 	selectedIndex = getRandInt(0, bikeAssignments.size());	// Randomize starting texture assignment location for some variability
 

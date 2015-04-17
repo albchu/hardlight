@@ -38,6 +38,7 @@ bool HardLight::menu_init()
 	menuManager->setupOption(newGame, "powerups", "Configure Powerups", powerups);
 	menuManager->setupOption(newGame, "launch", "Launch Game", game_launched);
 	menuManager->setupOption(newGame, "devoptions", "Developer Options", developer);
+	newGame->set_selected(3);	// Set the default choice to be launch game
 
 	// Powerup menu
 	menuManager->setupRangeOption(powerups, "Number of instant effect powerups on field", zeroToTen, numInstantPowerups);
@@ -46,6 +47,17 @@ bool HardLight::menu_init()
 	// Dev options setup
 	bool godmode = false;
 	MenuOption* godModeOption = menuManager->setupOption(developer, "devoptions", "Godmode Off", godmode);
+	
+	// Create settings menu
+	vector<const char*> resolutions;
+	resolutions.push_back("1280 x 800");
+	resolutions.push_back("1024 x 768");
+	resolutions.push_back("800 x 600");
+	resolutionIndex = 0;
+	settings_update = false;
+	menuManager->setupRangeOption(settings,"Resolution", resolutions, resolutionIndex);
+	fullscreenOption = menuManager->setupOption(settings,"fullscreen", "Toggle Fullscreen", isFullscreen);
+	menuManager->setupOption(settings, "apply", "Apply Changes", settings_update);
 
 	// Main menu setup
 	menuManager->setupOption(mainMenu, "newgame", "New Game", newGame);
@@ -68,16 +80,6 @@ bool HardLight::menu_init()
 	menuManager->setupOption(pauseMenu, "mainMenu", "Exit to Main Menu", halt_trigger);
 	menuManager->setupOption(pauseMenu, "exitgame", "Exit Game", running);
 
-	// Create settings menu
-	vector<const char*> resolutions;
-	resolutions.push_back("1280 x 800");
-	resolutions.push_back("1024 x 768");
-	resolutions.push_back("800 x 600");
-	resolutionIndex = 0;
-	settings_update = false;
-	menuManager->setupRangeOption(settings,"Resolution", resolutions, resolutionIndex);
-	fullscreenOption = menuManager->setupOption(settings,"fullscreen", "Toggle Fullscreen", isFullscreen);
-	menuManager->setupOption(settings, "apply", "Apply Changes", settings_update);
 
 	return true;
 }

@@ -4,7 +4,7 @@
 Menu::Menu(SDL_Renderer* new_renderer, const char * new_title)
 {
 	prev_menu = NULL;
-	selected_index = -1;
+	selected_index = 0;
 	title = new_title;
 	renderer = new_renderer;
 	titleTexture = new SDL_Texture_Wrapper(renderer);

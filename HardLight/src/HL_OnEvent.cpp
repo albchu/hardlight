@@ -80,7 +80,7 @@ void HardLight::OnEvent(SDL_Event* Event)
 			break;
 		//case SDL_CONTROLLER_BUTTON_BACK:
 		//	reset();
-			break;
+		//	break;
 		case SDL_CONTROLLER_BUTTON_A:
 			if(menu_active)
 				menuManager->select();
