@@ -116,10 +116,6 @@ void HardLight::OnRender()
 	}
 	FTPoint mid(window_width/2 - (font->BBox(ss.str().c_str()).Lower().X()+font->BBox(ss.str().c_str()).Upper().X())/2, window_height - window_height/10, 190);
 	font->Render(ss.str().c_str(), -1, mid, spacing);
-
-	cout << "Lower: (" << font->BBox(ss.str().c_str()).Lower().X() << ", " << font->BBox(ss.str().c_str()).Lower().X() << ", "<<+ font->BBox(ss.str().c_str()).Lower().X() << ")" << endl;
-	cout << "Upper: (" << font->BBox(ss.str().c_str()).Upper().X() << ", " << font->BBox(ss.str().c_str()).Upper().X() << ", "<<+ font->BBox(ss.str().c_str()).Upper().X() << ")" << endl;
-
 	SDL_GL_SwapWindow(window);
 }
 

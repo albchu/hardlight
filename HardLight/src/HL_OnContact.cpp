@@ -56,14 +56,19 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 {
 	for(PxU32 i=0; i < count; i++)
 	{
+		// ignore pairs when shapes have been deleted
+		if (pairs[i].flags & PxTriggerPairFlag::eDELETED_SHAPE_TRIGGER)
+			continue;
+
 		const PxTriggerPair& tp = pairs[i];
 
 		if(tp.status & PxPairFlag::eNOTIFY_TOUCH_FOUND)
 		{
-			Bike* bike = bike_manager->get_bike(tp.otherActor);
+			Bike* bike;
 			switch (tp.triggerShape->getSimulationFilterData().word0)
 			{
 			case EntityTypes::PICKUP:
+				bike = bike_manager->get_bike(tp.otherActor);
 				bikePowerupPairs.push_back(tuple<Bike*,PxRigidActor*>(bike, tp.triggerActor));
 				if(bike->get_subtype() == PLAYER_BIKE)
 				{
@@ -71,11 +76,39 @@ void HardLight::onTrigger(PxTriggerPair* pairs, PxU32 count)
 				}
 				break;
 			case EntityTypes::TAIL:
-				Bike* bike = bike_manager->get_bike(tp.otherActor);
+				bike = bike_manager->get_bike(tp.otherActor);
 				if(find(bikesToKill.begin(), bikesToKill.end(), bike) == bikesToKill.end())
 				{	// Only push bike onto bikes to kill vector if it does not already exist
 					bikesToKill.push_back(bike);
 				}
+				break;
+			case EntityTypes::AILEFT:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->add_left_contact();
+				//cout << "left found" << endl;
+				break;
+			case EntityTypes::AIRIGHT:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->add_right_contact();
+				//cout << "right found" << endl;
+				break;
+			}
+		}
+		else if(tp.status & PxPairFlag::eNOTIFY_TOUCH_LOST)
+		{
+			Bike* bike;
+			switch (tp.triggerShape->getSimulationFilterData().word0)
+			{
+			case EntityTypes::AILEFT:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->remove_left_contact();
+				//cout << "left lost" << endl;
+				break;
+			case EntityTypes::AIRIGHT:
+				bike = (Bike*)tp.triggerShape->userData;
+				bike->remove_right_contact();
+				//cout << "right lost" << endl;
+				break;
 			}
 		}
 	}

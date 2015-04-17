@@ -18,10 +18,10 @@ PxU32 PhysxAgent::collides_with(EntityTypes type)
 	switch (type)
 	{
 	case WALL:
-		return BIKE;
+		return BIKE | AILEFT | AIRIGHT;
 		break;
 	case BIKE:
-		return WALL | BIKE | PICKUP | TAIL | GROUND;
+		return WALL | BIKE | PICKUP | TAIL | GROUND | AILEFT | AIRIGHT;
 		break;
 	case GROUND:
 		return BIKE;
@@ -30,7 +30,11 @@ PxU32 PhysxAgent::collides_with(EntityTypes type)
 		return BIKE;
 		break;
 	case TAIL:
-		return BIKE;
+		return BIKE | AILEFT | AIRIGHT;
+		break;
+	case AILEFT:
+	case AIRIGHT:
+		return BIKE | WALL | TAIL;
 		break;
 	default:
 		return 0;
@@ -274,4 +278,48 @@ PxRigidActor* PhysxAgent::create_static_convex_mesh(MeshData* mesh_data, PxTrans
 	shape->setSimulationFilterData(simFilterData);
 	shape->setLocalPose(PxTransform(PxIdentity));
 	return actor;
+}
+
+void PhysxAgent::create_ai_vision(vec3 scaleFactors, vec3 transform, PxRigidActor* actor, void* bike)
+{
+	if (ai_material == NULL)
+	{
+		ai_material = gPhysics->createMaterial(2.0f, 2.0f, 0.6f);
+	}
+
+	//left
+	PxFilterData simFilterDataLeft;
+	EntityTypes type = EntityTypes::AILEFT;
+	simFilterDataLeft.word0 = type;
+	simFilterDataLeft.word1 = collides_with(type);
+	PxFilterData queryFilterData;
+	queryFilterData.word3 = driveable(type);
+	
+	//doesn't work PxTransform left_transform(-scaleFactors.x/2.f - abs(transform.x), transform.y, transform.z + scaleFactors.z/2.f);
+	PxTransform left_transform(scaleFactors.x/2.f + abs(transform.x), transform.y, transform.z + scaleFactors.z/2.f);
+
+	PxShape* left_box = actor->createShape(PxBoxGeometry(scaleFactors.x/2.f, scaleFactors.y/2.f, scaleFactors.z/2.f), *ai_material);
+	left_box->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	left_box->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+	left_box->setQueryFilterData(queryFilterData);
+	left_box->setSimulationFilterData(simFilterDataLeft);
+	left_box->setLocalPose(left_transform);
+	left_box->userData = bike;
+	
+	// right
+	PxFilterData simFilterDataRight;
+	type = EntityTypes::AIRIGHT;
+	simFilterDataRight.word0 = type;
+	simFilterDataRight.word1 = collides_with(type);
+
+	//PxTransform right_transform(scaleFactors.x/2.f + abs(transform.x), transform.y, transform.z + scaleFactors.z/2.f);
+	PxTransform right_transform(-scaleFactors.x/2.f - abs(transform.x), transform.y, transform.z + scaleFactors.z/2.f);
+
+	PxShape* right_box = actor->createShape(PxBoxGeometry(scaleFactors.x/2.f, scaleFactors.y/2.f, scaleFactors.z/2.f), *ai_material);
+	right_box->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+	right_box->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+	right_box->setQueryFilterData(queryFilterData);
+	right_box->setSimulationFilterData(simFilterDataRight);
+	right_box->setLocalPose(right_transform);
+	right_box->userData = bike;
 }

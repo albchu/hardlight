@@ -5,7 +5,7 @@
 
 bool HardLight::OnInit()
 {
-	numPlayers = config->GetInteger("game", "numPlayers", 1) - 1;	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
+	numPlayers = config->GetInteger("game", "numPlayers", 1);	// Subtract 1 because of menu input and the fact that base starts at 1. Trust Albert on this
 	numBots = config->GetInteger("game", "numBots", 0);	
 	numInstantPowerups = config->GetInteger("powerup", "maxInstants", 1);
 	numHoldPowerups = config->GetInteger("powerup", "maxHolds", 1);
@@ -138,7 +138,7 @@ bool HardLight::OnInit()
 	keyMappings = KeyMappings::generate_keyMappings();
 
 	// Init AI system to govern bots
-	overMind = new AI(bike_manager, &sfxMix);
+	overMind = new AI(bike_manager, &sfxMix, config);
 
 	sfxMix.PlayMusic("musicOverworld");
 
@@ -158,6 +158,11 @@ bool HardLight::OnInit()
 	menu_active = true;
 	game_launched = false;
 	scene_built = false;
+
+	// Variables to track when to calculate different stages of onLoop
+	deathCalc = new LoopTimer(5);
+	powerupCalc = new LoopTimer(5);
+	winCalc = new LoopTimer(50);
 
 	return true;
 }

@@ -1,103 +1,115 @@
 #include "AI/AI.h"
 
 
-AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix)
+AI::AI(BikeManager* init_manager, SoundMixer* init_sfxMix, INIReader* config)
 {
 	bike_manager = init_manager;
 	sfxMix = init_sfxMix;
-	//	keyMappings = init_keyMappings;
+	avoidance_angle = radians((float)config->GetReal("ai", "avoidance_angle", 90.0));
+	aiCalc = new LoopTimer(50, 50);
 }
 
 //void AI::notify(SDL_Keycode key)
 //{
 //	keyPresses.push_back(key);
 //}
-
+/*
 // Sets the callbacks for controlling the vehicles
 void AI::update_bikes()
 {
-	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
-	{
-		Bike* bikeX = bike_manager->get_all_bikes()[i];
-		Controller* controllableX = bikeX->get_controller();
-		if(controllableX->get_chassis()->is_renderable() && bikeX->get_subtype() == BOT_BIKE)
-		{
-
-			vec3 directionX = controllableX->get_chassis()->get_direction_vector();
-			vec3 positionX = controllableX->get_chassis()->get_location();
-			float shortest_distance = NULL;
-			vec3 target_location = directionX;	// If no better direction is found, the bike will continue going straight forward
-			for(unsigned int j = 0; j < bike_manager->get_all_bikes().size(); j++)	// Try and find a better target location to go to
-			{
-				Bike* bikeY = bike_manager->get_all_bikes()[j];
-				Controller* controllableY = bikeY->get_controller();
-				// Allow all vehicles to see each other
-				if(controllableY->get_chassis()->is_renderable() && i != j)	// Only perform calculation if both bike_manager arnt deleted and arnt the same bike
-				{
-					vec3 directionY = controllableX->get_chassis()->get_direction_vector();
-					vec3 positionY = controllableX->get_chassis()->get_location();
-
-					//Find direction vector from bikeX to bikeY
-					vec3 xy_direction = positionY - positionX;
-
-					//Determine whether this point is in the view of bikeX
-					float angle = glm::angle(xy_direction, directionX);
-
-					// Only determine distance between the bike_manager if bikeX can see bikeY
-					if(angle < Common::FORTY_FIVE_DEGREES_RADS)
-					{
-						float XY_distance = glm::distance(positionY, positionX); // Find distance between the two bike_manager
-						if(shortest_distance == NULL || XY_distance < shortest_distance)
-						{
-							shortest_distance = XY_distance;
-							target_location = positionY;
-						}
-					}
-				}
-			}
-			float dot1 = directionX.x*target_location.x + directionX.z*target_location.z;
-			float det1 = directionX.x*target_location.z - directionX.z*target_location.x;
-			float angle = -atan2(det1, dot1);
-
-			// Go to target location
-			controllableX->set_motion(&Controller::forward);
-			controllableX->set_steering(&Controller::steer);
-			//cout << "steer degrees: " << position << endl;
-			controllableX->set_direction(angle/PxPi);
-		}
-	}
-}
-
-void AI::update_bikes(vec3 pickup)
+for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
 {
-	for(unsigned int i = 0; i < bike_manager->get_all_bikes().size(); i++)
+Bike* bikeX = bike_manager->get_all_bikes()[i];
+Controller* controllableX = bikeX->get_controller();
+if(controllableX->get_chassis()->is_renderable() && bikeX->get_subtype() == BOT_BIKE)
+{
+
+vec3 directionX = controllableX->get_chassis()->get_direction_vector();
+vec3 positionX = controllableX->get_chassis()->get_location();
+float shortest_distance = NULL;
+vec3 target_location = directionX;	// If no better direction is found, the bike will continue going straight forward
+for(unsigned int j = 0; j < bike_manager->get_all_bikes().size(); j++)	// Try and find a better target location to go to
+{
+Bike* bikeY = bike_manager->get_all_bikes()[j];
+Controller* controllableY = bikeY->get_controller();
+// Allow all vehicles to see each other
+if(controllableY->get_chassis()->is_renderable() && i != j)	// Only perform calculation if both bike_manager arnt deleted and arnt the same bike
+{
+vec3 directionY = controllableX->get_chassis()->get_direction_vector();
+vec3 positionY = controllableX->get_chassis()->get_location();
+
+//Find direction vector from bikeX to bikeY
+vec3 xy_direction = positionY - positionX;
+
+//Determine whether this point is in the view of bikeX
+float angle = glm::angle(xy_direction, directionX);
+
+// Only determine distance between the bike_manager if bikeX can see bikeY
+if(angle < Common::FORTY_FIVE_DEGREES_RADS)
+{
+float XY_distance = glm::distance(positionY, positionX); // Find distance between the two bike_manager
+if(shortest_distance == NULL || XY_distance < shortest_distance)
+{
+shortest_distance = XY_distance;
+target_location = positionY;
+}
+}
+}
+}
+float dot1 = directionX.x*target_location.x + directionX.z*target_location.z;
+float det1 = directionX.x*target_location.z - directionX.z*target_location.x;
+float angle = -atan2(det1, dot1);
+
+// Go to target location
+controllableX->set_motion(&Controller::forward);
+controllableX->set_steering(&Controller::steer);
+//cout << "steer degrees: " << position << endl;
+controllableX->set_direction(angle/PxPi);
+}
+}
+}
+*/
+void AI::update_bikes(PowerupManager* powerup_manager)
+{
+	for(Bike* player : bike_manager->get_player_bikes())
 	{
-		Bike* bikeX = bike_manager->get_all_bikes()[i];
-		Controller* controllableX = bikeX->get_controller();
-		if(controllableX->get_chassis()->is_renderable())
+		update_player(player);
+	}
+
+	if(aiCalc->ready())
+	{
+		for(Bike* bike : bike_manager->get_bot_bikes())
 		{
-			if(bikeX->get_subtype() == BOT_BIKE)
+			Controller* controller = bike->get_controller();
+			Chassis* chassis = controller->get_chassis();
+			if (!chassis->is_renderable())
+				continue;
+			if (bike->lefts() > bike->rights())
 			{
-				vec3 current_direction = normalize(controllableX->get_chassis()->get_direction_vector());
-				vec3 current_postion = controllableX->get_chassis()->get_location();
+				//cout << "left" << endl;
+				controller->set_direction(avoidance_angle);
+			}
+			else if (bike->lefts() < bike->rights())
+			{
+				//cout << "right" << endl;
+				controller->set_direction(-avoidance_angle);
+			}
+			else
+			{
+				vec3 pickup = powerup_manager->get_all_instant_entities()[0]->get_location();
+				vec3 current_direction = normalize(chassis->get_direction_vector());
+				vec3 current_postion = chassis->get_location();
 				vec3 desired_direction = normalize(pickup - current_postion);
 				float dot1 = current_direction.x*desired_direction.x + current_direction.z*desired_direction.z;
 				float det1 = current_direction.x*desired_direction.z - current_direction.z*desired_direction.x;
 				float angle = -atan2(det1, dot1);
 				// Go to target location
-				controllableX->set_motion(&Controller::forward);
-				controllableX->set_steering(&Controller::steer);
-				controllableX->set_direction(angle/PxPi);
-				controllableX->set_acceleration(controllableX->get_max_acceleration());
+				controller->set_direction(angle/PxPi/2.f);
 			}
-			else if(bikeX->get_subtype() == PLAYER_BIKE)
-			{
-				update_player(bikeX);
-			}
+			controller->set_motion(&Controller::forward);
+			controller->set_steering(&Controller::steer);
+			controller->set_acceleration(controller->get_max_acceleration());
 		}
-		//else {
-		//	bike_manager->kill_bike(controllableX->get_chassis());
-		//}
 	}
 }
 

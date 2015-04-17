@@ -47,6 +47,7 @@ public:
 	PxRigidStatic* create_ground_sphere(float scale_factor);
 	PxRigidStatic* create_ground_plane();
 	PxRigidStatic* create_wall_plane(PxPlane plane);
+	void create_ai_vision(vec3 scaleFactors, vec3 transform, PxRigidActor* actor, void* bike);
 
 	static PxQuat PxLookAt(vec3 direction, vec3 up);
 	static PxQuat PxLookAt(PxVec3 direction, PxVec3 up);
@@ -70,5 +71,6 @@ private:
 	PxMaterial* ground_material;
 	PxConvexMesh* wall_mesh;
 	PxMaterial* wall_material;
+	PxMaterial* ai_material;
 };
 #endif
